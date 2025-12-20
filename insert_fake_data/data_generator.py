@@ -139,6 +139,15 @@ class StockDataGenerator:
         print(f"BƯỚC 2: INSERT PRICE HISTORY ({days} ngày)")
         print("="*80)
         
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM price_history')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong price_history")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
+        
         batch_size = 5000  # larger batch to speed up bulk insert
         price_data = []
         total_inserted = 0
@@ -205,6 +214,15 @@ class StockDataGenerator:
         print("\n" + "="*80)
         print(f"BƯỚC 3: INSERT ORDER BOOK ({days} ngày × {snapshots_per_day} snapshots/ngày)")
         print("="*80)
+        
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM order_book')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong order_book")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
         
         batch_size = 2000
         orderbook_data = []
@@ -293,6 +311,15 @@ class StockDataGenerator:
         print(f"💱 BƯỚC 4: INSERT TRADE TICK ({days} ngày)")
         print("="*80)
         
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM trade_tick')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong trade_tick")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
+        
         batch_size = 2000
         trade_tick_data = []
         total_inserted = 0
@@ -372,6 +399,15 @@ class StockDataGenerator:
         print(f"BƯỚC 5: INSERT PRICE IN DAY ({days} ngày)")
         print("="*80)
         
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM price_in_day')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong price_in_day")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
+        
         batch_size = 2000
         price_inday_data = []
         total_inserted = 0
@@ -449,6 +485,16 @@ class StockDataGenerator:
         print(f"BƯỚC 6: INSERT MARKET INDEX & HISTORY ({days} ngày)")
         print("="*80)
         
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM market_index_history')
+            cursor.execute('DELETE FROM market_index')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong market_index và market_index_history")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
+        
         try:
             # Insert market indices
             cursor.executemany(
@@ -513,6 +559,15 @@ class StockDataGenerator:
         print(f"BƯỚC 7: INSERT NEWS ({num_news} records)")
         print("="*80)
         
+        # Xóa dữ liệu cũ
+        try:
+            cursor.execute('DELETE FROM news')
+            connection.commit()
+            print("Đã xóa dữ liệu cũ trong news")
+        except Exception as e:
+            print(f"Lỗi xóa dữ liệu cũ: {e}")
+            connection.rollback()
+        
         news_titles = [
             "Kết quả kinh doanh quý {} vượt kỳ vọng",
             "Công bố kế hoạch mở rộng sản xuất",
@@ -556,56 +611,7 @@ class StockDataGenerator:
         finally:
             cursor.close()
     
-    def insert_financial_statements(self, connection):
-        """Insert báo cáo tài chính"""
-        
-        print("\n" + "="*80)
-        print("BƯỚC 8: INSERT FINANCIAL STATEMENTS")
-        print("="*80)
-        
-        cursor = connection.cursor()
-        start_date = datetime.now() - timedelta(days=730)
-        
-        for table in ['balance_sheet', 'income_statement', 'intraday_flow']:
-            print(f"Đang tạo {table}...", end=" ")
-            data = []
-            
-            for i in range(60):
-                company_id = random.randint(1, 15)
-                timestamp = (start_date + timedelta(days=random.randint(0, 729))).strftime('%Y-%m-%d %H:%M:%S')
-                metric_value = random.uniform(1e8, 1e12)
-                
-                data.append((
-                    i + 1, f"{table}_{i+1}", timestamp,
-                    company_id, metric_value, timestamp
-                ))
-            
-            try:
-                if table == 'balance_sheet':
-                    cursor.executemany('''
-                        INSERT INTO balance_sheet (ind_code, ind_name, time_stamp, company_id, value, update_time)
-                        VALUES (%s,%s,%s,%s,%s,%s)
-                    ''', data)
-                elif table == 'intraday_flow':
-                    cursor.executemany(f'''
-                        INSERT INTO {table} (int_code, int_name, time_stamp, company_id, value, update_time)
-                        VALUES (%s,%s,%s,%s,%s,%s)
-                    ''', data)
-                else:
-                    cursor.executemany('''
-                        INSERT INTO income_statement (ind_code, ind_name, time_stamp, company_id, value, update_time)
-                        VALUES (%s,%s,%s,%s,%s,%s)
-                    ''', data)
-                
-                connection.commit()
-                print("✓")
-                print(f"  Đã insert {len(data)} {table} records")
-            except Exception as e:
-                print(f"\n Lỗi insert {table}: {e}")
-                connection.rollback()
-        
-        cursor.close()
-    
+
     def count_all_records(self, connection):
         """Đếm và hiển thị số lượng records của tất cả bảng"""
         cursor = connection.cursor()
@@ -626,7 +632,7 @@ class StockDataGenerator:
             ("news", "Tin tức"),
             ("balance_sheet", "Bảng cân đối kế toán"),
             ("income_statement", "Báo cáo thu nhập"),
-            ("intraday_flow", "Dòng tiền trong ngày")
+            ("cash_flow", "Dòng tiền trong ngày")
         ]
         
         total_records = 0
@@ -645,6 +651,173 @@ class StockDataGenerator:
         
         cursor.close()
 
+    def insert_financial_statements(self, connection):
+        """Insert báo cáo tài chính"""
+        
+        print("\n" + "="*80)
+        print("📊 BƯỚC 8: INSERT FINANCIAL STATEMENTS")
+        print("="*80)
+        
+        cursor = connection.cursor()
+        start_date = datetime.now() - timedelta(days=730)
+        
+        # ========== BALANCE SHEET ==========
+        print("Đang tạo balance_sheet...", end=" ")
+        
+        try:
+            cursor.execute('DELETE FROM balance_sheet')
+            connection.commit()
+            print(" (đã xóa dữ liệu cũ)")
+        except Exception as e:
+            print(f" Cảnh báo: {e}")
+        
+        balance_data = []
+        ind_code_counter = 1  # Tạo ind_code unique
+        
+        # Tạo data: MỖI company chỉ có 1 bộ ind_code
+        for company_id in range(1, 16):  # 15 công ty
+            for quarter in range(8):  # 8 quý
+                quarter_date = start_date + timedelta(days=quarter * 90)
+                timestamp = quarter_date.strftime('%Y-%m-%d')
+                
+                # MỖI record có ind_code UNIQUE TOÀN CỤC
+                ind_code = ind_code_counter
+                ind_name = ind_code_counter
+                ind_code_counter += 1
+                
+                base_value = random.uniform(5e9, 5e11)
+                growth_factor = 1 + (quarter * 0.05)
+                value = base_value * growth_factor * random.uniform(0.9, 1.1)
+                
+                balance_data.append((
+                    ind_code,                                     # ind_code UNIQUE
+                    ind_name,                                     # ind_name
+                    timestamp,                                    # time_stamp
+                    company_id,                                   # company_id
+                    round(value, 2),                             # value
+                    datetime.now().strftime('%Y-%m-%d %H:%M:%S') # update_time
+                ))
+        
+        try:
+            cursor.executemany('''
+                INSERT INTO balance_sheet 
+                (ind_code, ind_name, time_stamp, company_id, value, update_time)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', balance_data)
+            connection.commit()
+            print("✓")
+            print(f"  Đã insert {len(balance_data):,} balance_sheet records")
+        except Exception as e:
+            print(f"\n❌ Lỗi: {e}")
+            connection.rollback()
+        
+        # ========== CASH FLOW ==========
+        print("Đang tạo cash_flow...", end=" ")
+        
+        try:
+            cursor.execute('DELETE FROM cash_flow')
+            connection.commit()
+            print(" (đã xóa dữ liệu cũ)")
+        except Exception as e:
+            print(f" Cảnh báo: {e}")
+        
+        flow_data = []
+        int_code_counter = 1  # Tạo int_code unique
+        
+        for day_offset in range(30):
+            trade_date = datetime.now() - timedelta(days=day_offset)
+            
+            if trade_date.weekday() >= 5:
+                continue
+            
+            timestamp = trade_date.strftime('%Y-%m-%d %H:%M:%S')
+            
+            for company_id in range(1, 16):
+                # MỖI record có int_code UNIQUE TOÀN CỤC
+                int_code = int_code_counter
+                int_name = int_code_counter
+                int_code_counter += 1
+                
+                value = random.uniform(1e8, 1e10) * random.choice([1, -1])
+                
+                flow_data.append((
+                    int_code,                                     # int_code UNIQUE
+                    int_name,                                     # int_name
+                    timestamp,                                    # time_stamp
+                    company_id,                                   # company_id
+                    round(value, 2),                             # value
+                    datetime.now().strftime('%Y-%m-%d %H:%M:%S') # update_time
+                ))
+        
+        try:
+            cursor.executemany('''
+                INSERT INTO cash_flow 
+                (int_code, int_name, time_stamp, company_id, value, update_time)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', flow_data)
+            connection.commit()
+            print("✓")
+            print(f"  Đã insert {len(flow_data):,} cash_flow records")
+        except Exception as e:
+            print(f"\n❌ Lỗi: {e}")
+            connection.rollback()
+        
+        # ========== INCOME STATEMENT ==========
+        print("Đang tạo income_statement...", end=" ")
+        
+        try:
+            cursor.execute('DELETE FROM income_statement')
+            connection.commit()
+            print(" (đã xóa dữ liệu cũ)")
+        except Exception as e:
+            print(f" Cảnh báo: {e}")
+        
+        income_data = []
+        ind_code_counter = 1  # Tạo ind_code unique
+        
+        for company_id in range(1, 16):
+            for quarter in range(8):
+                quarter_date = start_date + timedelta(days=quarter * 90)
+                timestamp = quarter_date.strftime('%Y-%m-%d')
+                
+                # MỖI record có ind_code UNIQUE TOÀN CỤC
+                ind_code = ind_code_counter
+                ind_name = str(ind_code % 100) if ind_code < 100 else str(ind_code % 100)
+                if len(ind_name) > 2:
+                    ind_name = ind_name[:2]
+                ind_code_counter += 1
+                
+                base_value = random.uniform(1e9, 5e10)
+                growth_factor = 1 + (quarter * 0.08)
+                value = base_value * growth_factor * random.uniform(0.85, 1.15)
+                
+                # Chi phí âm
+                if ind_code % 10 in [2, 4, 5, 8]:
+                    value = -abs(value)
+                
+                income_data.append((
+                    ind_code,                                     # ind_code UNIQUE
+                    ind_name,                                     # ind_name (varchar 2)
+                    timestamp,                                    # time_stamp
+                    company_id,                                   # company_id
+                    round(value, 2),                             # value
+                    datetime.now().strftime('%Y-%m-%d %H:%M:%S') # update_time
+                ))
+        
+        try:
+            cursor.executemany('''
+                INSERT INTO income_statement 
+                (ind_code, ind_name, time_stamp, company_id, value, update_time)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            ''', income_data)
+            connection.commit()
+            print("✓")
+            print(f"  Đã insert {len(income_data):,} income_statement records")
+        except Exception as e:
+            print(f"\n❌ Lỗi: {e}")
+            connection.rollback()
+        
+        cursor.close()
 
 def main():
     """
