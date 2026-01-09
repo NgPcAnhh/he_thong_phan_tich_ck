@@ -1,0 +1,28 @@
+[2026-01-01T09:09:33.551+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-01T09:09:33.622+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=112 [queued]>
+[2026-01-01T09:09:33.671+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=112 [queued]>
+[2026-01-01T09:09:33.672+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2026-01-01T09:09:33.701+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2025-12-30 00:00:00+00:00
+[2026-01-01T09:09:33.714+0000] {warnings.py:112} WARNING - This process (pid=12691) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-01T09:09:33.716+0000] {standard_task_runner.py:64} INFO - Started process 12749 to run task
+[2026-01-01T09:09:33.720+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'thongtin_cty_bctc', 'ingest_bctc', 'scheduled__2025-12-30T00:00:00+00:00', '--job-id', '4761', '--raw', '--subdir', 'DAGS_FOLDER/tt_cty_bctc.py', '--cfg-path', '/tmp/tmpbvvf8s3v', '--map-index', '112']
+[2026-01-01T09:09:33.721+0000] {standard_task_runner.py:91} INFO - Job 4761: Subtask ingest_bctc
+[2026-01-01T09:09:33.817+0000] {task_command.py:426} INFO - Running <TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=112 [running]> on host b455963a0603
+[2026-01-01T09:09:34.423+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='thongtin_cty_bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2025-12-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-30T00:00:00+00:00'
+[2026-01-01T09:09:34.427+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-01T09:09:34.452+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 3 mã: ['TET', 'TEL', 'TEG']
+[2026-01-01T09:09:34.453+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: TET
+[2026-01-01T09:10:01.949+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: TEL
+[2026-01-01T09:10:07.275+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f2684287ad0 state=finished raised KeyError>]
+[2026-01-01T09:10:12.012+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f266eee3da0 state=finished raised KeyError>]
+[2026-01-01T09:10:16.842+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f266eee03e0 state=finished raised KeyError>]
+[2026-01-01T09:10:17.844+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: TEG
+[2026-01-01T09:10:20.912+0000] {logging_mixin.py:188} INFO -  ✓ Hoàn thành batch. Tổng số dòng: 7250
+[2026-01-01T09:10:20.985+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-01T09:10:20.987+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-01T09:10:22.051+0000] {datalake_df2csv.py:53} INFO - ✅ Đã upload 7250 dòng -> s3://thongtin-congty-va-bctc/bctc/2025-12-30/batch_112.csv
+[2026-01-01T09:10:22.054+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-01T09:10:22.069+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=thongtin_cty_bctc, task_id=ingest_bctc, run_id=scheduled__2025-12-30T00:00:00+00:00, map_index=112, execution_date=20251230T000000, start_date=20260101T090933, end_date=20260101T091022
+[2026-01-01T09:10:24.570+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-01T09:10:24.590+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

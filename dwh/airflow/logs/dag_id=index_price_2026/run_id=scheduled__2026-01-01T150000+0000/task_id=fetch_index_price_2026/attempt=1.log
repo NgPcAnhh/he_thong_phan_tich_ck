@@ -1,0 +1,39 @@
+[2026-01-05T13:14:01.472+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-05T13:14:01.489+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: index_price_2026.fetch_index_price_2026 scheduled__2026-01-01T15:00:00+00:00 [queued]>
+[2026-01-05T13:14:01.499+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: index_price_2026.fetch_index_price_2026 scheduled__2026-01-01T15:00:00+00:00 [queued]>
+[2026-01-05T13:14:01.500+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-05T13:14:01.513+0000] {taskinstance.py:2330} INFO - Executing <Task(DfToCsvOperator): fetch_index_price_2026> on 2026-01-01 15:00:00+00:00
+[2026-01-05T13:14:01.519+0000] {warnings.py:112} WARNING - This process (pid=262) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-05T13:14:01.521+0000] {standard_task_runner.py:64} INFO - Started process 272 to run task
+[2026-01-05T13:14:01.522+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'index_price_2026', 'fetch_index_price_2026', 'scheduled__2026-01-01T15:00:00+00:00', '--job-id', '5165', '--raw', '--subdir', 'DAGS_FOLDER/index_price_2026.py', '--cfg-path', '/tmp/tmpeirfz5cp']
+[2026-01-05T13:14:01.524+0000] {standard_task_runner.py:91} INFO - Job 5165: Subtask fetch_index_price_2026
+[2026-01-05T13:14:01.567+0000] {task_command.py:426} INFO - Running <TaskInstance: index_price_2026.fetch_index_price_2026 scheduled__2026-01-01T15:00:00+00:00 [running]> on host 352be4efd2d1
+[2026-01-05T13:14:01.639+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='index_price_2026' AIRFLOW_CTX_TASK_ID='fetch_index_price_2026' AIRFLOW_CTX_EXECUTION_DATE='2026-01-01T15:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-01T15:00:00+00:00'
+[2026-01-05T13:14:01.640+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-05T13:14:08.850+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-05T13:14:08.852+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 38, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 73, in _load_dataframe
+    df = obj(**self.op_kwargs) if isinstance(obj, Callable) else obj
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/index_price_2026.py", line 49, in get_index_price_2026
+    raise RuntimeError(f"No index prices collected between {start_str} and {end_str}.")
+RuntimeError: No index prices collected between 2026-01-01 and 2026-01-01.
+[2026-01-05T13:14:08.867+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=index_price_2026, task_id=fetch_index_price_2026, run_id=scheduled__2026-01-01T15:00:00+00:00, execution_date=20260101T150000, start_date=20260105T131401, end_date=20260105T131408
+[2026-01-05T13:14:08.880+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 5165 for task fetch_index_price_2026 (No index prices collected between 2026-01-01 and 2026-01-01.; 272)
+[2026-01-05T13:14:08.925+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-05T13:14:08.938+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-05T13:14:08.940+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

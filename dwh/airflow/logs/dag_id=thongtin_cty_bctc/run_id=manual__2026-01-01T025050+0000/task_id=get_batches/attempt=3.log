@@ -1,0 +1,49 @@
+[2026-01-01T02:57:03.821+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-01T02:57:03.847+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: thongtin_cty_bctc.get_batches manual__2026-01-01T02:50:50+00:00 [queued]>
+[2026-01-01T02:57:03.861+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: thongtin_cty_bctc.get_batches manual__2026-01-01T02:50:50+00:00 [queued]>
+[2026-01-01T02:57:03.862+0000] {taskinstance.py:2306} INFO - Starting attempt 3 of 4
+[2026-01-01T02:57:03.886+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): get_batches> on 2026-01-01 02:50:50+00:00
+[2026-01-01T02:57:03.906+0000] {warnings.py:112} WARNING - This process (pid=19991) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-01T02:57:03.909+0000] {standard_task_runner.py:64} INFO - Started process 20107 to run task
+[2026-01-01T02:57:03.911+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'thongtin_cty_bctc', 'get_batches', 'manual__2026-01-01T02:50:50+00:00', '--job-id', '2335', '--raw', '--subdir', 'DAGS_FOLDER/tt_cty_bctc.py', '--cfg-path', '/tmp/tmpwoc0r40w']
+[2026-01-01T02:57:03.914+0000] {standard_task_runner.py:91} INFO - Job 2335: Subtask get_batches
+[2026-01-01T02:57:04.025+0000] {task_command.py:426} INFO - Running <TaskInstance: thongtin_cty_bctc.get_batches manual__2026-01-01T02:50:50+00:00 [running]> on host 43b0a0f7606b
+[2026-01-01T02:57:04.176+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='thongtin_cty_bctc' AIRFLOW_CTX_TASK_ID='get_batches' AIRFLOW_CTX_EXECUTION_DATE='2026-01-01T02:50:50+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-01T02:50:50+00:00'
+[2026-01-01T02:57:04.178+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-01T02:57:08.572+0000] {logging_mixin.py:188} INFO - Lỗi lấy danh sách mã: RetryError[<Future at 0x7f8847c3b740 state=finished raised ConnectionError>]. Dùng cache nếu có.
+[2026-01-01T02:57:08.579+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-01T02:57:08.607+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/tt_cty_bctc.py", line 29, in get_batches
+    return [{"symbols": batch} for batch in get_ticker_batches(batch_size=3)]
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/tt_cty_va_bctc/list_macp.py", line 27, in get_ticker_batches
+    raise AirflowException("Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt")
+airflow.exceptions.AirflowException: Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt
+[2026-01-01T02:57:08.635+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=thongtin_cty_bctc, task_id=get_batches, run_id=manual__2026-01-01T02:50:50+00:00, execution_date=20260101T025050, start_date=20260101T025703, end_date=20260101T025708
+[2026-01-01T02:57:10.699+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 2335 for task get_batches (Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt; 20107)
+[2026-01-01T02:57:10.754+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-01T02:57:10.859+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-01T02:57:10.862+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

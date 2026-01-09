@@ -1,0 +1,42 @@
+[2026-01-05T13:11:51.171+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-05T13:11:51.186+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: index_ohlcv_collection.fetch_index_ohlcv scheduled__2026-01-01T15:00:00+00:00 [queued]>
+[2026-01-05T13:11:51.194+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: index_ohlcv_collection.fetch_index_ohlcv scheduled__2026-01-01T15:00:00+00:00 [queued]>
+[2026-01-05T13:11:51.195+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-05T13:11:51.206+0000] {taskinstance.py:2330} INFO - Executing <Task(DfToCsvOperator): fetch_index_ohlcv> on 2026-01-01 15:00:00+00:00
+[2026-01-05T13:11:51.214+0000] {warnings.py:112} WARNING - This process (pid=219) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-05T13:11:51.216+0000] {standard_task_runner.py:64} INFO - Started process 229 to run task
+[2026-01-05T13:11:51.217+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'index_ohlcv_collection', 'fetch_index_ohlcv', 'scheduled__2026-01-01T15:00:00+00:00', '--job-id', '5164', '--raw', '--subdir', 'DAGS_FOLDER/index_ohlcv_collection.py', '--cfg-path', '/tmp/tmp1eviw8_u']
+[2026-01-05T13:11:51.219+0000] {standard_task_runner.py:91} INFO - Job 5164: Subtask fetch_index_ohlcv
+[2026-01-05T13:11:51.268+0000] {task_command.py:426} INFO - Running <TaskInstance: index_ohlcv_collection.fetch_index_ohlcv scheduled__2026-01-01T15:00:00+00:00 [running]> on host 352be4efd2d1
+[2026-01-05T13:11:51.357+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='index_ohlcv_collection' AIRFLOW_CTX_TASK_ID='fetch_index_ohlcv' AIRFLOW_CTX_EXECUTION_DATE='2026-01-01T15:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-01T15:00:00+00:00'
+[2026-01-05T13:11:51.359+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-05T13:11:56.302+0000] {logging_mixin.py:188} INFO - UPCOM: Invalid symbol. Your symbol format is not recognized! | retry 1/3 in 1.0s
+[2026-01-05T13:11:57.304+0000] {logging_mixin.py:188} INFO - UPCOM: Invalid symbol. Your symbol format is not recognized! | retry 2/3 in 2.0s
+[2026-01-05T13:11:59.303+0000] {logging_mixin.py:188} INFO - UPCOM: Invalid symbol. Your symbol format is not recognized! | retry 3/3 in 3.0s
+[2026-01-05T13:12:03.305+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-05T13:12:03.307+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 38, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 73, in _load_dataframe
+    df = obj(**self.op_kwargs) if isinstance(obj, Callable) else obj
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/index_ohlcv.py", line 63, in get_index_ohlcv
+    raise RuntimeError(f"No index OHLCV collected on {date_str}; market likely closed or API unavailable.")
+RuntimeError: No index OHLCV collected on 2026-01-01; market likely closed or API unavailable.
+[2026-01-05T13:12:03.359+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=index_ohlcv_collection, task_id=fetch_index_ohlcv, run_id=scheduled__2026-01-01T15:00:00+00:00, execution_date=20260101T150000, start_date=20260105T131151, end_date=20260105T131203
+[2026-01-05T13:12:03.374+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 5164 for task fetch_index_ohlcv (No index OHLCV collected on 2026-01-01; market likely closed or API unavailable.; 229)
+[2026-01-05T13:12:03.390+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-05T13:12:03.403+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-05T13:12:03.406+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

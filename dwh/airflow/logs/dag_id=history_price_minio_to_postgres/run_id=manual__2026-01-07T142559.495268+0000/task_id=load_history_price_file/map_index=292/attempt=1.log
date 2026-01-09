@@ -1,0 +1,43 @@
+[2026-01-07T14:28:34.622+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-07T14:28:34.656+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: history_price_minio_to_postgres.load_history_price_file manual__2026-01-07T14:25:59.495268+00:00 map_index=292 [queued]>
+[2026-01-07T14:28:34.672+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: history_price_minio_to_postgres.load_history_price_file manual__2026-01-07T14:25:59.495268+00:00 map_index=292 [queued]>
+[2026-01-07T14:28:34.673+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-07T14:28:34.697+0000] {taskinstance.py:2330} INFO - Executing <Mapped(MinioCSVToPostgresOperator): load_history_price_file> on 2026-01-07 14:25:59.495268+00:00
+[2026-01-07T14:28:34.711+0000] {warnings.py:112} WARNING - This process (pid=3358) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-07T14:28:34.713+0000] {standard_task_runner.py:64} INFO - Started process 3482 to run task
+[2026-01-07T14:28:34.718+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'history_price_minio_to_postgres', 'load_history_price_file', 'manual__2026-01-07T14:25:59.495268+00:00', '--job-id', '6211', '--raw', '--subdir', 'DAGS_FOLDER/dwh_history_price.py', '--cfg-path', '/tmp/tmp7djb52uk', '--map-index', '292']
+[2026-01-07T14:28:34.720+0000] {standard_task_runner.py:91} INFO - Job 6211: Subtask load_history_price_file
+[2026-01-07T14:28:35.169+0000] {task_command.py:426} INFO - Running <TaskInstance: history_price_minio_to_postgres.load_history_price_file manual__2026-01-07T14:25:59.495268+00:00 map_index=292 [running]> on host 80ef3a3c60a3
+[2026-01-07T14:28:35.352+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='history_price_minio_to_postgres' AIRFLOW_CTX_TASK_ID='load_history_price_file' AIRFLOW_CTX_EXECUTION_DATE='2026-01-07T14:25:59.495268+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-07T14:25:59.495268+00:00'
+[2026-01-07T14:28:35.353+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-07T14:28:35.367+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-07T14:28:35.384+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/minio_csv_to_postgres.py", line 56, in execute
+    self._ensure_tables(pg_hook)
+  File "/opt/airflow/plugins/function/minio_csv_to_postgres.py", line 106, in _ensure_tables
+    with pg_hook.get_conn() as conn, conn.cursor() as cur:
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/postgres/hooks/postgres.py", line 145, in get_conn
+    conn = deepcopy(self.connection or self.get_connection(conn_id))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/hooks/base.py", line 83, in get_connection
+    conn = Connection.get_connection_from_secrets(conn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/connection.py", line 519, in get_connection_from_secrets
+    raise AirflowNotFoundException(f"The conn_id `{conn_id}` isn't defined")
+airflow.exceptions.AirflowNotFoundException: The conn_id `dwh_postgres` isn't defined
+[2026-01-07T14:28:35.395+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=history_price_minio_to_postgres, task_id=load_history_price_file, run_id=manual__2026-01-07T14:25:59.495268+00:00, map_index=292, execution_date=20260107T142559, start_date=20260107T142834, end_date=20260107T142835
+[2026-01-07T14:28:35.425+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 6211 for task load_history_price_file (The conn_id `dwh_postgres` isn't defined; 3482)
+[2026-01-07T14:28:35.491+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-07T14:28:35.512+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
