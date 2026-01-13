@@ -1,0 +1,40 @@
+[2026-01-11T13:35:35.542+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-11T13:35:35.556+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: gold_etl.ingest_gold_price scheduled__2026-01-10T00:00:00+00:00 [queued]>
+[2026-01-11T13:35:35.562+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: gold_etl.ingest_gold_price scheduled__2026-01-10T00:00:00+00:00 [queued]>
+[2026-01-11T13:35:35.562+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-11T13:35:35.574+0000] {taskinstance.py:2330} INFO - Executing <Task(DfToCsvOperator): ingest_gold_price> on 2026-01-10 00:00:00+00:00
+[2026-01-11T13:35:35.579+0000] {warnings.py:112} WARNING - This process (pid=4788) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-11T13:35:35.580+0000] {standard_task_runner.py:64} INFO - Started process 4822 to run task
+[2026-01-11T13:35:35.582+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'gold_etl', 'ingest_gold_price', 'scheduled__2026-01-10T00:00:00+00:00', '--job-id', '10660', '--raw', '--subdir', 'DAGS_FOLDER/gold_etl.py', '--cfg-path', '/tmp/tmp5bhf54uq']
+[2026-01-11T13:35:35.583+0000] {standard_task_runner.py:91} INFO - Job 10660: Subtask ingest_gold_price
+[2026-01-11T13:35:35.625+0000] {task_command.py:426} INFO - Running <TaskInstance: gold_etl.ingest_gold_price scheduled__2026-01-10T00:00:00+00:00 [running]> on host 09a10a568fe6
+[2026-01-11T13:35:35.703+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='gold_etl' AIRFLOW_CTX_TASK_ID='ingest_gold_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-10T00:00:00+00:00'
+[2026-01-11T13:35:35.704+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-11T13:35:35.710+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-11T13:35:35.711+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 38, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 67, in _load_dataframe
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/plugins/logic/gold_data.py", line 7, in <module>
+    import yfinance as yf
+ModuleNotFoundError: No module named 'yfinance'
+[2026-01-11T13:35:35.722+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=gold_etl, task_id=ingest_gold_price, run_id=scheduled__2026-01-10T00:00:00+00:00, execution_date=20260110T000000, start_date=20260111T133535, end_date=20260111T133535
+[2026-01-11T13:35:35.735+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 10660 for task ingest_gold_price (No module named 'yfinance'; 4822)
+[2026-01-11T13:35:35.754+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-11T13:35:35.769+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-11T13:35:35.771+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

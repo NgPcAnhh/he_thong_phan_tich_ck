@@ -1,5 +1,6 @@
 import concurrent.futures
 import re
+import threading
 import pandas as pd
 import time
 from datetime import datetime
@@ -9,8 +10,34 @@ from vnstock import Vnstock
 CURRENT_DATE = datetime.now().strftime("%Y-%m-%d")
 
 # Cấu hình tránh rate limit
-SLEEP_TIME = 1.5  # thời gian nghỉ giữa các request để tránh rate limit
-MAX_WORKERS = 1  # chạy tuần tự (1 luồng) để tránh hoàn toàn rate limit
+SLEEP_TIME = 0.5  # thời gian nghỉ giữa các request để tránh rate limit
+MAX_WORKERS = 1 # giới hạn luồng tối đa để không bị chặn
+
+
+class AdaptiveRateLimiter:
+    """Điều chỉnh nhịp gọi API dựa trên phản hồi để tránh rate limit."""
+
+    def __init__(self, initial_sleep: float = SLEEP_TIME, min_sleep: float = 0.25, max_sleep: float = 5.0):
+        self.sleep_time = initial_sleep
+        self.min_sleep = min_sleep
+        self.max_sleep = max_sleep
+        self._lock = threading.Lock()
+
+    def current_delay(self) -> float:
+        with self._lock:
+            return self.sleep_time
+
+    def on_success(self) -> None:
+        with self._lock:
+            self.sleep_time = max(self.sleep_time * 0.9, self.min_sleep)
+
+    def on_rate_limit(self, wait_seconds: float) -> None:
+        with self._lock:
+            self.sleep_time = min(max(wait_seconds, self.sleep_time * 1.5), self.max_sleep)
+
+    def on_error(self) -> None:
+        with self._lock:
+            self.sleep_time = min(self.sleep_time * 1.25, self.max_sleep)
 
 print("Đang sử dụng thư viện: vnstock version 3.x")
 print(f"Sẽ lấy tin tức cho ngày: {CURRENT_DATE}")
@@ -104,7 +131,7 @@ def _deduplicate_news(all_news: Iterable[dict]) -> List[dict]:
 def fetch_news_test(target_date: str | None = None, max_workers: int | None = None) -> List[dict]:
     target_date = pd.to_datetime(target_date or datetime.now().date()).date()
     # Ép luôn về 1 luồng để tránh rate limit VCI
-    max_workers = 1
+    max_workers = MAX_WORKERS
     print(f"\n=== QUÉT TIN TỨC NGÀY {target_date} (1 luồng) ===")
 
     test_tickers = [
@@ -1869,6 +1896,82 @@ def fetch_news_test(target_date: str | None = None, max_workers: int | None = No
     print("\n=== HOÀN TẤT ===")
     print(f"Thời gian chạy: {duration:.2f} giây | Bài báo duy nhất: {len(unique_news)}")
     return unique_news
+
+
+def fetch_news_df(target_date: str | None = None, max_workers: int | None = None) -> pd.DataFrame:
+    """Lấy tin theo ngày và trả về DataFrame đã chuẩn hóa để ghi CSV."""
+    records = fetch_news_test(target_date=target_date, max_workers=max_workers) or []
+    if not records:
+        return pd.DataFrame()
+
+    df = pd.DataFrame(records)
+    if df.empty:
+        return df
+
+    required_cols = [
+        "author",
+        "friendly_sub_title",
+        "news_source_link",
+        "created_at",
+        "public_date",
+        "updated_at",
+        "lang_code",
+        "news_short_content",
+        "news_full_content",
+        "price_change_pct",
+        "fetched_at",
+        "related_ticker",
+        "news_id",
+        "id",
+    ]
+    for col in required_cols:
+        if col not in df.columns:
+            df[col] = None
+
+    if df["news_id"].isna().all():
+        df["news_id"] = df["id"]
+    else:
+        df["news_id"] = df["news_id"].fillna(df["id"])
+
+    df.dropna(subset=["news_id", "related_ticker"], inplace=True)
+    if df.empty:
+        return pd.DataFrame()
+
+    df["news_id"] = df["news_id"].astype(str).str.strip()
+    df["related_ticker"] = df["related_ticker"].astype(str).str.upper().str.strip()
+    df = df[df["related_ticker"] != ""]
+
+    datetime_cols = ["created_at", "updated_at", "fetched_at"]
+    for col in datetime_cols:
+        df[col] = pd.to_datetime(df[col], errors="coerce", utc=True)
+    df["public_date"] = pd.to_datetime(df["public_date"], errors="coerce").dt.date
+    df["price_change_pct"] = pd.to_numeric(df["price_change_pct"], errors="coerce")
+
+    df.drop_duplicates(subset=["news_id", "related_ticker"], keep="last", inplace=True)
+    if df.empty:
+        return pd.DataFrame()
+
+    target_dt = pd.to_datetime(target_date or datetime.now().date()).date()
+    df["ds"] = target_dt
+
+    return df[
+        [
+            "news_id",
+            "related_ticker",
+            "author",
+            "friendly_sub_title",
+            "news_source_link",
+            "created_at",
+            "public_date",
+            "updated_at",
+            "lang_code",
+            "news_short_content",
+            "news_full_content",
+            "price_change_pct",
+            "fetched_at",
+            "ds",
+        ]
+    ]
 
 
 if __name__ == "__main__":

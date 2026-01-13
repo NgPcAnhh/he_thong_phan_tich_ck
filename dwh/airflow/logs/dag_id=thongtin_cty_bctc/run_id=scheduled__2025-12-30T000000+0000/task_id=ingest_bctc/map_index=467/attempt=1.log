@@ -1,0 +1,31 @@
+[2026-01-10T15:18:14.523+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-10T15:18:14.876+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=467 [queued]>
+[2026-01-10T15:18:15.009+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=467 [queued]>
+[2026-01-10T15:18:15.010+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-10T15:18:17.510+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2025-12-30 00:00:00+00:00
+[2026-01-10T15:18:17.525+0000] {warnings.py:112} WARNING - This process (pid=10773) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-10T15:18:17.527+0000] {standard_task_runner.py:64} INFO - Started process 10852 to run task
+[2026-01-10T15:18:17.530+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'thongtin_cty_bctc', 'ingest_bctc', 'scheduled__2025-12-30T00:00:00+00:00', '--job-id', '9501', '--raw', '--subdir', 'DAGS_FOLDER/tt_cty_bctc.py', '--cfg-path', '/tmp/tmpa043vyii', '--map-index', '467']
+[2026-01-10T15:18:17.532+0000] {standard_task_runner.py:91} INFO - Job 9501: Subtask ingest_bctc
+[2026-01-10T15:18:17.617+0000] {task_command.py:426} INFO - Running <TaskInstance: thongtin_cty_bctc.ingest_bctc scheduled__2025-12-30T00:00:00+00:00 map_index=467 [running]> on host c44bcb92a951
+[2026-01-10T15:18:17.759+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='thongtin_cty_bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2025-12-30T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-30T00:00:00+00:00'
+[2026-01-10T15:18:17.761+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-10T15:18:17.770+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 3 mã: ['DCH', 'DCG', 'DCF']
+[2026-01-10T15:18:17.771+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCH
+[2026-01-10T15:18:23.162+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f17d4e19f10 state=finished raised KeyError>]
+[2026-01-10T15:18:27.862+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f17d51fce00 state=finished raised KeyError>]
+[2026-01-10T15:18:32.922+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f17d51ffb30 state=finished raised KeyError>]
+[2026-01-10T15:18:33.922+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCG
+[2026-01-10T15:18:39.202+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f17d539be00 state=finished raised KeyError>]
+[2026-01-10T15:18:43.964+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f17d50cffe0 state=finished raised KeyError>]
+[2026-01-10T15:18:48.741+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f17d50cf110 state=finished raised KeyError>]
+[2026-01-10T15:18:49.742+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCF
+[2026-01-10T15:18:53.521+0000] {logging_mixin.py:188} INFO -  ✓ Hoàn thành batch. Tổng số dòng: 1458
+[2026-01-10T15:18:53.547+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-10T15:18:53.548+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-10T15:18:54.114+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 1458 dòng -> s3://thongtin-congty-va-bctc/bctc/2025-12-30/batch_467.csv
+[2026-01-10T15:18:54.117+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-10T15:18:54.133+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=thongtin_cty_bctc, task_id=ingest_bctc, run_id=scheduled__2025-12-30T00:00:00+00:00, map_index=467, execution_date=20251230T000000, start_date=20260110T151814, end_date=20260110T151854
+[2026-01-10T15:18:54.185+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-10T15:18:54.195+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

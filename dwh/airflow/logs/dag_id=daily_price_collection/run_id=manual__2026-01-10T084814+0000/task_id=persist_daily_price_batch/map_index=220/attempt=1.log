@@ -1,0 +1,47 @@
+[2026-01-10T08:50:36.489+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-10T08:50:36.561+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price_collection.persist_daily_price_batch manual__2026-01-10T08:48:14+00:00 map_index=220 [queued]>
+[2026-01-10T08:50:36.588+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price_collection.persist_daily_price_batch manual__2026-01-10T08:48:14+00:00 map_index=220 [queued]>
+[2026-01-10T08:50:36.589+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-10T08:50:36.659+0000] {taskinstance.py:2330} INFO - Executing <Mapped(_PythonDecoratedOperator): persist_daily_price_batch> on 2026-01-10 08:48:14+00:00
+[2026-01-10T08:50:36.677+0000] {warnings.py:112} WARNING - This process (pid=9041) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-10T08:50:36.680+0000] {standard_task_runner.py:64} INFO - Started process 9193 to run task
+[2026-01-10T08:50:36.713+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price_collection', 'persist_daily_price_batch', 'manual__2026-01-10T08:48:14+00:00', '--job-id', '8729', '--raw', '--subdir', 'DAGS_FOLDER/daily_price_collection.py', '--cfg-path', '/tmp/tmpm4qt_yhs', '--map-index', '220']
+[2026-01-10T08:50:36.718+0000] {standard_task_runner.py:91} INFO - Job 8729: Subtask persist_daily_price_batch
+[2026-01-10T08:50:37.583+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price_collection.persist_daily_price_batch manual__2026-01-10T08:48:14+00:00 map_index=220 [running]> on host dcd8e920d7f4
+[2026-01-10T08:50:37.831+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 2479, in _run_raw_task
+    self._execute_task_with_callbacks(context, test_mode, session=session)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 2633, in _execute_task_with_callbacks
+    task_orig = self.render_templates(context=context, jinja_env=jinja_env)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3094, in render_templates
+    original_task.render_template_fields(context, jinja_env)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/mappedoperator.py", line 830, in render_template_fields
+    unmapped_task = self.unmap(mapped_kwargs)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/mappedoperator.py", line 747, in unmap
+    op = self.operator_class(**kwargs, _airflow_from_mapped=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 485, in apply_defaults
+    result = func(self, **kwargs, default_args=default_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/python.py", line 52, in __init__
+    super().__init__(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 485, in apply_defaults
+    result = func(self, **kwargs, default_args=default_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 253, in __init__
+    signature.bind(*op_args, **op_kwargs)
+  File "/usr/local/lib/python3.12/inspect.py", line 3267, in bind
+    return self._bind(args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/inspect.py", line 3180, in _bind
+    raise TypeError(msg) from None
+TypeError: missing a required argument: 'symbols'
+[2026-01-10T08:50:37.882+0000] {taskinstance.py:2953} ERROR - Unable to unmap task to determine if we need to send an alert email
+[2026-01-10T08:50:37.896+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=daily_price_collection, task_id=persist_daily_price_batch, run_id=manual__2026-01-10T08:48:14+00:00, map_index=220, execution_date=20260110T084814, start_date=20260110T085036, end_date=20260110T085037
+[2026-01-10T08:50:37.940+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 8729 for task persist_daily_price_batch (missing a required argument: 'symbols'; 9193)
+[2026-01-10T08:50:38.043+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-10T08:50:38.065+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

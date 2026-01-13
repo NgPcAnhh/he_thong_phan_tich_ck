@@ -1,0 +1,45 @@
+[2026-01-12T13:47:49.884+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-12T13:47:49.989+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-08T16:00:00+00:00 map_index=4 [queued]>
+[2026-01-12T13:47:50.012+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-08T16:00:00+00:00 map_index=4 [queued]>
+[2026-01-12T13:47:50.013+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-12T13:47:50.055+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-01-08 16:00:00+00:00
+[2026-01-12T13:47:50.076+0000] {warnings.py:112} WARNING - This process (pid=10881) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-12T13:47:50.081+0000] {standard_task_runner.py:64} INFO - Started process 11036 to run task
+[2026-01-12T13:47:50.084+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price_minio', 'ingest_daily_price', 'scheduled__2026-01-08T16:00:00+00:00', '--job-id', '11616', '--raw', '--subdir', 'DAGS_FOLDER/daily_price_minio.py', '--cfg-path', '/tmp/tmpm5rmcn4f', '--map-index', '4']
+[2026-01-12T13:47:50.091+0000] {standard_task_runner.py:91} INFO - Job 11616: Subtask ingest_daily_price
+[2026-01-12T13:47:50.304+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-08T16:00:00+00:00 map_index=4 [running]> on host 5a20a797a43c
+[2026-01-12T13:47:50.566+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price_minio' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-08T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-08T16:00:00+00:00'
+[2026-01-12T13:47:50.568+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-12T13:47:54.373+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-12T13:47:54.377+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-12T13:48:23.536+0000] {s3.py:298} INFO - Bucket "thongtinn-congty-va-bctc" does not exist
+[2026-01-12T13:48:23.878+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-12T13:48:23.880+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 49, in execute
+    hook.create_bucket(bucket_name=self.bucket_name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 89, in wrapper
+    return func(*bound_args.args, **bound_args.kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 339, in create_bucket
+    self.get_conn().create_bucket(Bucket=bucket_name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 565, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1021, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.BucketAlreadyOwnedByYou: An error occurred (BucketAlreadyOwnedByYou) when calling the CreateBucket operation: Your previous request to create the named bucket succeeded and you already own it.
+[2026-01-12T13:48:23.926+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=daily_price_minio, task_id=ingest_daily_price, run_id=scheduled__2026-01-08T16:00:00+00:00, map_index=4, execution_date=20260108T160000, start_date=20260112T134749, end_date=20260112T134823
+[2026-01-12T13:48:24.008+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 11616 for task ingest_daily_price (An error occurred (BucketAlreadyOwnedByYou) when calling the CreateBucket operation: Your previous request to create the named bucket succeeded and you already own it.; 11036)
+[2026-01-12T13:48:24.042+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-12T13:48:24.107+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

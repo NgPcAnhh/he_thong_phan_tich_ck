@@ -1,0 +1,206 @@
+[2026-01-11T04:29:39.345+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-11T04:29:39.399+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=70 [queued]>
+[2026-01-11T04:29:39.434+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=70 [queued]>
+[2026-01-11T04:29:39.435+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-11T04:29:39.466+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-01-11 04:06:44+00:00
+[2026-01-11T04:29:39.488+0000] {warnings.py:112} WARNING - This process (pid=5309) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-11T04:29:39.491+0000] {standard_task_runner.py:64} INFO - Started process 5356 to run task
+[2026-01-11T04:29:39.494+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-01-11T04:06:44+00:00', '--job-id', '10360', '--raw', '--subdir', 'DAGS_FOLDER/tt_cty_bctc.py', '--cfg-path', '/tmp/tmptj2o79li', '--map-index', '70']
+[2026-01-11T04:29:39.497+0000] {standard_task_runner.py:91} INFO - Job 10360: Subtask ingest_bctc
+[2026-01-11T04:29:39.615+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=70 [running]> on host 3f2af93df813
+[2026-01-11T04:29:40.635+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-01-11T04:06:44+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-11T04:06:44+00:00'
+[2026-01-11T04:29:40.636+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-11T04:29:40.649+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 20 mã: ['DCL', 'DCH', 'DCG', 'DCF', 'DC4', 'DC2', 'DC1', 'DBW', 'DBT', 'DBM', 'DBH', 'DBD', 'DBC', 'DAT', 'DAS', 'DAR', 'DAN', 'DAH', 'DAG', 'DAE']
+[2026-01-11T04:29:40.650+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCL
+[2026-01-11T04:30:44.919+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCH
+[2026-01-11T04:30:55.592+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f49d4cf18e0 state=finished raised KeyError>]
+[2026-01-11T04:31:16.233+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 213, in heartbeat
+    heartbeat_callback(session)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/local_task_job_runner.py", line 261, in heartbeat_callback
+    self.task_instance.refresh_from_db()
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 79, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1821, in refresh_from_db
+    _refresh_from_db(task_instance=self, session=session, lock_for_update=lock_for_update)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 510, in _refresh_from_db
+    ti = TaskInstance.get_task_instance(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1807, in get_task_instance
+    return query.one_or_none()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2850, in one_or_none
+    return self._iter().one_or_none()
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-01-11T04:31:16.284+0000] {job.py:221} ERROR - Job heartbeat failed with error. Scheduler may go into unhealthy state
+[2026-01-11T04:31:51.896+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-01-11T04:32:15.991+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f49d4cf2450 state=finished raised KeyError>]
+[2026-01-11T04:32:22.871+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f49d4b8c260 state=finished raised KeyError>]
+[2026-01-11T04:32:26.373+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCG
+[2026-01-11T04:32:27.110+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã DCG: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:32:27.111+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DCF
+[2026-01-11T04:32:45.838+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DC4
+[2026-01-11T04:33:00.733+0000] {log.py:232} WARNING - 2026-01-11 04:33:00 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4d25bb0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:33:00.577+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4d25bb0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:33:35.345+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DC2
+[2026-01-11T04:33:46.270+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DC1
+[2026-01-11T04:33:50.704+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã DC1: 'year'
+[2026-01-11T04:33:50.705+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBW
+[2026-01-11T04:34:01.053+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBT
+[2026-01-11T04:34:10.408+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f49d4ba5850 state=finished raised ConnectionError>]
+[2026-01-11T04:34:13.909+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBM
+[2026-01-11T04:34:21.966+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBH
+[2026-01-11T04:34:22.061+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã DBH: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:34:22.062+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBD
+[2026-01-11T04:34:22.291+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã DBD: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:34:22.292+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DBC
+[2026-01-11T04:34:31.001+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAT
+[2026-01-11T04:34:44.179+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAS
+[2026-01-11T04:34:49.067+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f49d4d26c00 state=finished raised KeyError>]
+[2026-01-11T04:34:55.137+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f49d4d26960 state=finished raised ConnectionError>]
+[2026-01-11T04:35:01.035+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f49d4ba59a0 state=finished raised KeyError>]
+[2026-01-11T04:35:04.537+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAR
+[2026-01-11T04:35:10.096+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f49d4ba7bf0 state=finished raised ConnectionError>]
+[2026-01-11T04:35:16.807+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f49d4ba5940 state=finished raised ConnectionError>]
+[2026-01-11T04:35:22.727+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f49d4d27e60 state=finished raised KeyError>]
+[2026-01-11T04:35:26.225+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAN
+[2026-01-11T04:35:36.588+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAH
+[2026-01-11T04:35:36.885+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã DAH: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:35:36.886+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAG
+[2026-01-11T04:35:46.427+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DAE
+[2026-01-11T04:35:57.077+0000] {logging_mixin.py:188} INFO -  ✓ Hoàn thành batch. Tổng số dòng: 3287
+[2026-01-11T04:35:57.144+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-11T04:35:57.145+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-11T04:35:57.747+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 3287 dòng -> s3://thongtin-congty-va-bctc/bctc/date=2026-01-11/year=2024/batch_70.csv
+[2026-01-11T04:35:57.749+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-11T04:35:57.765+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-01-11T04:06:44+00:00, map_index=70, execution_date=20260111T040644, start_date=20260111T042939, end_date=20260111T043557
+[2026-01-11T04:35:57.853+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-11T04:35:57.988+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-11T04:35:57.993+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,233 @@
+[2026-01-11T04:30:42.248+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-11T04:30:42.278+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=73 [queued]>
+[2026-01-11T04:30:42.291+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=73 [queued]>
+[2026-01-11T04:30:42.292+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-11T04:30:42.305+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-01-11 04:06:44+00:00
+[2026-01-11T04:30:42.315+0000] {warnings.py:112} WARNING - This process (pid=5414) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-11T04:30:42.317+0000] {standard_task_runner.py:64} INFO - Started process 5451 to run task
+[2026-01-11T04:30:42.319+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-01-11T04:06:44+00:00', '--job-id', '10363', '--raw', '--subdir', 'DAGS_FOLDER/tt_cty_bctc.py', '--cfg-path', '/tmp/tmpypz3pznx', '--map-index', '73']
+[2026-01-11T04:30:42.320+0000] {standard_task_runner.py:91} INFO - Job 10363: Subtask ingest_bctc
+[2026-01-11T04:30:42.368+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-01-11T04:06:44+00:00 map_index=73 [running]> on host 3f2af93df813
+[2026-01-11T04:30:42.729+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-01-11T04:06:44+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-11T04:06:44+00:00'
+[2026-01-11T04:30:42.731+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-11T04:30:42.737+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 20 mã: ['CPA', 'COM', 'CNT', 'CNN', 'CNG', 'CNC', 'CNA', 'CMX', 'CMW', 'CMV', 'CMT', 'CMS', 'CMP', 'CMN', 'CMM', 'CMK', 'CMI', 'CMG', 'CMF', 'CMD']
+[2026-01-11T04:30:42.738+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CPA
+[2026-01-11T04:30:53.654+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: COM
+[2026-01-11T04:31:34.123+0000] {log.py:232} WARNING - 2026-01-11 04:31:34 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+[2026-01-11T04:31:34.116+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+[2026-01-11T04:31:34.220+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã COM: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Read timed out. (read timeout=30)
+[2026-01-11T04:31:34.227+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CNT
+[2026-01-11T04:31:38.879+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 192, in heartbeat
+    self._merge_from(Job._fetch_from_db(self, session))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 89, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 443, in __iter__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 376, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 418, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 185, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 98, in wrapped_function
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 316, in _fetch_from_db
+    session.merge(job)
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-01-11T04:31:38.966+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-01-11T04:31:44.314+0000] {log.py:232} WARNING - 2026-01-11 04:31:44 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b7d0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:44.297+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b7d0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:44.465+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CNT: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b7d0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:44.468+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CNN
+[2026-01-11T04:31:54.547+0000] {log.py:232} WARNING - 2026-01-11 04:31:54 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8ae10>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:54.509+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8ae10>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:54.641+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CNN: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8ae10>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:31:54.641+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CNG
+[2026-01-11T04:32:04.758+0000] {log.py:232} WARNING - 2026-01-11 04:32:04 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b89a90>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:04.707+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b89a90>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:04.845+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CNG: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b89a90>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:04.848+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CNC
+[2026-01-11T04:32:14.845+0000] {log.py:232} WARNING - 2026-01-11 04:32:14 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b440>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:14.845+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b440>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:14.846+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CNC: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4b8b440>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:32:14.847+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CNA
+[2026-01-11T04:32:14.942+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CNA: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:32:14.944+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMX
+[2026-01-11T04:32:15.227+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-01-11T04:32:15.733+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CMX: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:32:15.734+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMW
+[2026-01-11T04:32:34.507+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMV
+[2026-01-11T04:32:34.614+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CMV: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:32:34.615+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMT
+[2026-01-11T04:32:35.378+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CMT: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:32:35.379+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMS
+[2026-01-11T04:32:49.557+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f49d4cbb830 state=finished raised ConnectionError>]
+[2026-01-11T04:33:03.848+0000] {log.py:232} WARNING - 2026-01-11 04:33:03 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4a1bb30>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:33:03.762+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f49d4a1bb30>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-11T04:33:29.198+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMP
+[2026-01-11T04:33:40.444+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMN
+[2026-01-11T04:33:40.822+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CMN: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:33:40.823+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMM
+[2026-01-11T04:33:53.597+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMK
+[2026-01-11T04:33:58.438+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f49d4b04170 state=finished raised KeyError>]
+[2026-01-11T04:34:04.356+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f49d4b06360 state=finished raised ConnectionError>]
+[2026-01-11T04:34:10.385+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f49d4b06210 state=finished raised KeyError>]
+[2026-01-11T04:34:13.886+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMI
+[2026-01-11T04:34:24.256+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMG
+[2026-01-11T04:34:32.693+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMF
+[2026-01-11T04:34:33.033+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CMF: Failed to fetch data: 429 - Too Many Requests
+[2026-01-11T04:34:33.034+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMD
+[2026-01-11T04:34:41.628+0000] {logging_mixin.py:188} INFO -  ✓ Hoàn thành batch. Tổng số dòng: 2368
+[2026-01-11T04:34:41.666+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-11T04:34:41.667+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-11T04:34:42.128+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 2368 dòng -> s3://thongtin-congty-va-bctc/bctc/date=2026-01-11/year=2024/batch_73.csv
+[2026-01-11T04:34:42.130+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-11T04:34:42.142+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-01-11T04:06:44+00:00, map_index=73, execution_date=20260111T040644, start_date=20260111T043042, end_date=20260111T043442
+[2026-01-11T04:34:42.186+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-11T04:34:42.225+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-11T04:34:42.227+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

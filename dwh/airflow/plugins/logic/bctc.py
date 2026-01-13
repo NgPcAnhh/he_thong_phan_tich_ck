@@ -11,7 +11,7 @@ def slugify(text: str) -> str:
     return text.upper() or "UNKNOWN"
 
 """Gọi hàm từ thư viện vnstock an toàn."""
-def _retry_call(callable_fn: Callable[[], pd.DataFrame], method: str, retries: int = 3, base_delay: float = 1.5) -> pd.DataFrame:
+def _retry_call(callable_fn: Callable[[], pd.DataFrame], method: str, retries: int = 3, base_delay: float = 2.5) -> pd.DataFrame:
     for attempt in range(retries):
         try:
             return callable_fn()
@@ -39,10 +39,7 @@ def fetch_report(finance: Finance, method: str) -> pd.DataFrame:
         return _retry_call(lambda: fetcher(), method)
 
 
-"""
-Chuẩn hóa DataFrame về định dạng Long-form để lưu DB.
-Tham số current_symbol được dùng để điền vào cột ticker nếu dữ liệu gốc bị thiếu.
-"""
+
 def transform_to_db_format(df: pd.DataFrame, report_name: str, statement_type: str, current_symbol: str) -> pd.DataFrame:
     if df is None or df.empty:
         return pd.DataFrame()
@@ -68,20 +65,19 @@ def transform_to_db_format(df: pd.DataFrame, report_name: str, statement_type: s
     # Đổi tên cột chuẩn
     long_df.rename(columns={
         col_ticker: "ticker",
-        col_year: "report_year",
-        col_quarter: "report_quarter",
+        col_year: "year",
+        col_quarter: "quarter",
     }, inplace=True)
 
-    # Ép kiểu dữ liệu
-    long_df["report_year"] = pd.to_numeric(long_df.get("report_year"), errors="coerce").astype("Int64")
-    long_df["report_quarter"] = pd.to_numeric(long_df.get("report_quarter"), errors="coerce").astype("Int64")
+    long_df["year"] = pd.to_numeric(long_df.get("year"), errors="coerce").astype("Int64")
+    long_df["quarter"] = pd.to_numeric(long_df.get("quarter"), errors="coerce").astype("Int64")
+    long_df["value"] = pd.to_numeric(long_df.get("value"), errors="coerce")
 
-    # Bổ sung các cột meta
-    long_df["company_id"] = "" # Có thể map sau nếu cần
+    # Bổ sung các cột meta đúng với schema lưu trữ
     long_df["report_name"] = report_name
-    long_df["unit"] = "triệu"
-    long_df["statement_type"] = statement_type
+    long_df["report_code"] = statement_type
     long_df["ind_code"] = long_df["ind_name"].apply(slugify)
+    long_df["import_time"] = pd.Timestamp.utcnow()
     
     # Đảm bảo cột ticker luôn đúng với mã đang request (quan trọng cho Batch)
     if "ticker" not in long_df.columns or long_df["ticker"].isnull().all():
@@ -91,17 +87,22 @@ def transform_to_db_format(df: pd.DataFrame, report_name: str, statement_type: s
 
     # Chọn và sắp xếp cột cuối cùng
     final_cols = [
-        "company_id", "ticker", "report_name", "report_year", 
-        "report_quarter", "ind_code", "ind_name", "unit", 
-        "statement_type", "value"
+        "ticker",
+        "quarter",
+        "year",
+        "ind_name",
+        "ind_code",
+        "value",
+        "import_time",
+        "report_name",
+        "report_code",
     ]
-    
-    # Chỉ lấy các cột tồn tại (phòng trường hợp lỗi logic đổi tên)
+
     return long_df[[c for c in final_cols if c in long_df.columns]]
 
 
 # --- Main Logic Function for Airflow ---
-def get_financial_reports(symbols: list) -> pd.DataFrame:
+def get_financial_reports(symbols: list, current_year: int | str | None = None) -> pd.DataFrame:
     print(f"Bắt đầu xử lý batch {len(symbols)} mã: {symbols}")
     # Format: (tên_hàm_vnstock, tên_báo_cáo_db, loại_báo_cáo_viết_tắt)
     plan = [
@@ -109,6 +110,11 @@ def get_financial_reports(symbols: list) -> pd.DataFrame:
         ("balance_sheet", "balance_sheet", "BL"),
         ("cash_flow", "cash_flow", "CF"),
     ]
+
+    try:
+        year_filter = int(current_year) if current_year is not None else None
+    except Exception:
+        year_filter = None
 
     all_normalized_frames = []
 
@@ -128,16 +134,22 @@ def get_financial_reports(symbols: list) -> pd.DataFrame:
                 # 2. Transform
                 if raw_df is not None and not raw_df.empty:
                     normalized = transform_to_db_format(raw_df, report_name, stype, current_symbol=symbol)
+
+                    if year_filter is not None:
+                        normalized = normalized[normalized["year"] == year_filter]
                     
                     if not normalized.empty:
                         all_normalized_frames.append(normalized)
+
+                # Throttle giữa các lời gọi phương pháp để tránh rate-limit
+                time.sleep(1.5)
         
         except Exception as e:
             print(f" Lỗi xử lý mã {symbol}: {e}")
             continue # Bỏ qua mã lỗi, tiếp tục mã tiếp theo
 
-        # Giảm tốc để tránh rate limit dồn dập
-        time.sleep(1)
+        # Giảm tốc giữa các mã để tránh rate limit dồn dập
+        time.sleep(2)
 
     # 3. Kết hợp dữ liệu
     if not all_normalized_frames:

@@ -1,8 +1,10 @@
 from contextlib import closing
 from datetime import datetime, timedelta
+from io import StringIO
 
 import pandas as pd
 from airflow.decorators import dag, task
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from psycopg2.extras import execute_values
 
@@ -13,8 +15,11 @@ DEFAULT_ARGS = {
 }
 
 POSTGRES_CONN_ID = "dwh_postgres"
-TARGET_SCHEMA = "public"
-TARGET_TABLE = "index_price_daily"
+TARGET_SCHEMA = "hethong_phantich_chungkhoan"
+TARGET_TABLE = "market_index"
+MINIO_CONN_ID = "minio_finance"
+MINIO_BUCKET = "thongtin-congty-va-bctc"
+MINIO_OBJECT_TEMPLATE = "index_price/{{ ds }}/index_price_{{ ts_nodash }}.csv"
 
 
 @dag(
@@ -32,6 +37,7 @@ def index_price_2026():
         from logic.index_price_2026 import get_index_price_2026
 
         ds_str = context["ds"]
+        ts_nodash = context.get("ts_nodash")
         print(f"[INDEX_PRICE] Bắt đầu lấy giá index cho ngày {ds_str}")
         
         df = get_index_price_2026(end_date=ds_str, sleep_time=1.0)
@@ -50,18 +56,32 @@ def index_price_2026():
             return "no_index_price"
 
         df["ticker"] = df["ticker"].astype(str).str.upper().str.strip()
-        ds_date = pd.to_datetime(ds_str).date()
+
+        # Lưu ra MinIO theo partition ngày
+        try:
+            object_key = MINIO_OBJECT_TEMPLATE.replace("{{ ds }}", ds_str).replace("{{ ts_nodash }}", ts_nodash)
+            csv_buf = StringIO()
+            df.to_csv(csv_buf, index=False)
+            s3 = S3Hook(aws_conn_id=MINIO_CONN_ID)
+            s3.load_string(
+                string_data=csv_buf.getvalue(),
+                key=object_key,
+                bucket_name=MINIO_BUCKET,
+                replace=True,
+            )
+            print(f"[INDEX_PRICE] ✓ Đã ghi CSV lên MinIO: s3://{MINIO_BUCKET}/{object_key}")
+        except Exception as e:
+            print(f"[INDEX_PRICE] ⚠️ Lỗi ghi CSV lên MinIO: {e}")
 
         rows = [
             (
                 row["ticker"],
-                row["trading_date"],
+                row["trading_date"].isoformat(),
                 row.get("open"),
                 row.get("high"),
                 row.get("low"),
                 row.get("close"),
                 row.get("volume"),
-                ds_date,
             )
             for row in df.to_dict("records")
         ]
@@ -84,14 +104,13 @@ def index_price_2026():
                         f"""
                         CREATE TABLE IF NOT EXISTS {TARGET_SCHEMA}.{TARGET_TABLE} (
                             ticker TEXT NOT NULL,
-                            trading_date DATE NOT NULL,
+                            trading_date TEXT NOT NULL,
                             open NUMERIC,
                             high NUMERIC,
                             low NUMERIC,
                             close NUMERIC,
                             volume NUMERIC,
-                            fetched_for DATE NOT NULL,
-                            loaded_at TIMESTAMPTZ DEFAULT NOW(),
+                            import_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
                             PRIMARY KEY (ticker, trading_date)
                         );
                         """
@@ -100,7 +119,7 @@ def index_price_2026():
                     print(f"[INDEX_PRICE] Đang insert dữ liệu vào database...")
                     insert_sql = f"""
                         INSERT INTO {TARGET_SCHEMA}.{TARGET_TABLE}
-                        (ticker, trading_date, open, high, low, close, volume, fetched_for)
+                        (ticker, trading_date, open, high, low, close, volume)
                         VALUES %s
                         ON CONFLICT (ticker, trading_date) DO UPDATE SET
                             open = EXCLUDED.open,
@@ -108,8 +127,7 @@ def index_price_2026():
                             low = EXCLUDED.low,
                             close = EXCLUDED.close,
                             volume = EXCLUDED.volume,
-                            fetched_for = EXCLUDED.fetched_for,
-                            loaded_at = NOW();
+                            import_time = NOW();
                     """
                     execute_values(cur, insert_sql, rows)
 

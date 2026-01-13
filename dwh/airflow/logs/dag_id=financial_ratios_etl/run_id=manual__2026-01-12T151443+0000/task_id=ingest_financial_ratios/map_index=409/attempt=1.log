@@ -1,0 +1,29 @@
+[2026-01-12T15:21:36.249+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-12T15:21:36.350+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=409 [queued]>
+[2026-01-12T15:21:36.417+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=409 [queued]>
+[2026-01-12T15:21:36.427+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-12T15:21:36.486+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-12 15:14:43+00:00
+[2026-01-12T15:21:36.506+0000] {warnings.py:112} WARNING - This process (pid=5422) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-12T15:21:36.509+0000] {standard_task_runner.py:64} INFO - Started process 5529 to run task
+[2026-01-12T15:21:36.514+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'manual__2026-01-12T15:14:43+00:00', '--job-id', '14114', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmpnlh6e1we', '--map-index', '409']
+[2026-01-12T15:21:36.519+0000] {standard_task_runner.py:91} INFO - Job 14114: Subtask ingest_financial_ratios
+[2026-01-12T15:21:36.664+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=409 [running]> on host 5a20a797a43c
+[2026-01-12T15:21:36.962+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-12T15:14:43+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-12T15:14:43+00:00'
+[2026-01-12T15:21:36.976+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-12T15:21:37.021+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['NAU', 'NAS']
+[2026-01-12T15:21:37.023+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-12T15:21:37.023+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: NAU
+[2026-01-12T15:21:41.988+0000] {logging_mixin.py:188} INFO - ❌ Lỗi NAU: RetryError[<Future at 0x7f68d6017710 state=finished raised KeyError>]
+[2026-01-12T15:21:41.989+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] NAU: No data from API
+[2026-01-12T15:21:43.990+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: NAS
+[2026-01-12T15:21:44.679+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] NAS: 4 rows
+[2026-01-12T15:21:46.681+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 4
+[2026-01-12T15:21:46.700+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-12T15:21:46.701+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-12T15:21:47.232+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 4 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-01-12/batch_409.csv
+[2026-01-12T15:21:47.233+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-12T15:21:47.244+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=manual__2026-01-12T15:14:43+00:00, map_index=409, execution_date=20260112T151443, start_date=20260112T152136, end_date=20260112T152147
+[2026-01-12T15:21:47.284+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-12T15:21:47.302+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-12T15:21:47.305+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

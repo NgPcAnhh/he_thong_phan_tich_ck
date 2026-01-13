@@ -50,4 +50,5 @@ def get_index_price_2026(end_date: str | None = None, sleep_time: float = 1.0) -
     out = pd.concat(frames, ignore_index=True)
     out.sort_values(["ticker", "trading_date"], inplace=True)
     out.drop_duplicates(subset=["ticker", "trading_date"], keep="last", inplace=True)
+    
     return out

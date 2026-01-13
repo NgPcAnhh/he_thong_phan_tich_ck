@@ -18,7 +18,7 @@ def _default_args():
 
 
 @dag(
-    dag_id="news_site_to_minio",
+    dag_id="daily_news_paper",
     default_args=_default_args(),
     start_date=datetime(2024, 1, 1),
     schedule_interval="0 18 * * *",  # chạy mỗi ngày 18:00

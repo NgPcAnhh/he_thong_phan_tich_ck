@@ -1,13 +1,11 @@
 from datetime import datetime, timedelta
-import io
+import logging
 
-import pandas as pd
 from airflow.decorators import dag, task
 from airflow.models.baseoperator import chain
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 from function.datalake_df2csv import DfToCsvOperator
-from function.s3_compact_parquet import S3CompactToParquetOperator
 
 # Config chung
 default_args = {
@@ -20,21 +18,42 @@ MINIO_BUCKET = "thongtin-congty-va-bctc"
 MINIO_CONN_ID = "minio_finance"
 
 @dag(
-    dag_id='thongtin_cty_bctc',
+    dag_id='bctc',
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
-    schedule_interval='@daily',
+    schedule_interval='@weekly',
     catchup=False,
+    params={"year": datetime.utcnow().year},
     tags=['vnstock', 'finance']
 )
 def stock_dag():
+
+    @task
+    def log_batches_info(batches: list[dict]):
+        logger = logging.getLogger("airflow.task")
+        logger.info("BCTC run bắt đầu với %d batch", len(batches))
+        for idx, batch in enumerate(batches):
+            logger.info("Batch %d chứa %d mã: %s", idx, len(batch.get("symbols", [])), batch.get("symbols", []))
+        return batches
+
+    @task
+    def attach_current_year(batches: list[dict], current_year: str):
+        logger = logging.getLogger("airflow.task")
+        logger.info("Áp dụng current_year=%s cho mọi batch", current_year)
+        enriched = []
+        for batch in batches:
+            merged = {**batch, "current_year": current_year}
+            enriched.append(merged)
+        return enriched
 
     # 1. Task lấy danh sách mã (chia thành các batch, mỗi batch 20 mã)
     @task
     def get_batches():
         from logic.list_macp import get_ticker_batches
-        return [{"symbols": batch} for batch in get_ticker_batches(batch_size=3)]
+        return [{"symbols": batch} for batch in get_ticker_batches(batch_size=20)]
     batches = get_batches()
+    batches_logged = log_batches_info(batches)
+    batches_with_year = attach_current_year(batches_logged, current_year="{{ dag_run.conf.get('year', params.year) }}")
 
     # 2. Dynamic Task: Map qua danh sách batches để lấy BCTC
     ingest_bctc = DfToCsvOperator.partial(
@@ -43,58 +62,34 @@ def stock_dag():
         df_name="get_financial_reports", 
         bucket_name=MINIO_BUCKET,
         object_path="bctc/{{ ds }}/batch_{{ ti.map_index }}.csv",
-        conn_id=MINIO_CONN_ID
-    ).expand(op_kwargs=batches)
-
-    # 3. Dynamic Task: Lấy thông tin cơ bản (Overview)
-    ingest_overview = DfToCsvOperator.partial(
-        task_id="ingest_overview",
-        logic_file="thongtincongty",
-        df_name="get_overview_batch",
-        bucket_name=MINIO_BUCKET,
-        object_path="overview/{{ ds }}/batch_{{ ti.map_index }}.csv",
-        conn_id=MINIO_CONN_ID
-    ).expand(op_kwargs=batches)
-
-    # 4. Dynamic Task: Lấy thông tin ban lãnh đạo/cổ đông
-    ingest_people = DfToCsvOperator.partial(
-        task_id="ingest_people",
-        logic_file="thongtincongty",
-        df_name="get_people_batch",
-        bucket_name=MINIO_BUCKET,
-        object_path="people/{{ ds }}/batch_{{ ti.map_index }}.csv",
-        conn_id=MINIO_CONN_ID
-    ).expand(op_kwargs=batches)
-
-    compact_bctc = S3CompactToParquetOperator(
-        task_id="compact_bctc",
-        bucket_name=MINIO_BUCKET,
-        prefix="bctc",
         conn_id=MINIO_CONN_ID,
-        min_history=10,
-    )
+    ).expand(op_kwargs=batches_with_year)
 
-    compact_overview = S3CompactToParquetOperator(
-        task_id="compact_overview",
-        bucket_name=MINIO_BUCKET,
-        prefix="overview",
-        conn_id=MINIO_CONN_ID,
-        min_history=10,
-    )
+    @task
+    def verify_upload(batches: list[dict], partition_year: str, ds: str):
+        logger = logging.getLogger("airflow.task")
+        hook = S3Hook(aws_conn_id=MINIO_CONN_ID)
 
-    compact_people = S3CompactToParquetOperator(
-        task_id="compact_people",
-        bucket_name=MINIO_BUCKET,
-        prefix="people",
-        conn_id=MINIO_CONN_ID,
-        min_history=10,
+        missing = []
+        for idx, _ in enumerate(batches):
+            key = f"bctc/date={ds}/year={partition_year}/batch_{idx}.csv"
+            exists = hook.check_for_key(key=key, bucket_name=MINIO_BUCKET)
+            logger.info("Kiểm tra upload batch %d -> %s: %s", idx, key, "OK" if exists else "MISSING")
+            if not exists:
+                missing.append(key)
+
+        if missing:
+            logger.warning("Các file chưa thấy trên MinIO: %s", missing)
+        else:
+            logger.info("Tất cả %d file batch đã có trên MinIO bucket %s", len(batches), MINIO_BUCKET)
+
+    verify_task = verify_upload(
+        batches_with_year,
+        partition_year="{{ dag_run.conf.get('year', params.year) }}",
+        ds="{{ ds }}",
     )
 
     # Luồng chạy
-    chain(
-        batches,
-        [ingest_bctc, ingest_overview, ingest_people],
-        [compact_bctc, compact_overview, compact_people],
-    )
+    chain(batches, batches_logged, batches_with_year, ingest_bctc, verify_task)
 
 stock_dag()

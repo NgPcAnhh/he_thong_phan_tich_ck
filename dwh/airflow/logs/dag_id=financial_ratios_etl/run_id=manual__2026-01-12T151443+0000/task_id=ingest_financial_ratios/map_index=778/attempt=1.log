@@ -1,0 +1,29 @@
+[2026-01-12T15:26:52.941+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-12T15:26:53.032+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=778 [queued]>
+[2026-01-12T15:26:53.102+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=778 [queued]>
+[2026-01-12T15:26:53.103+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-12T15:26:53.122+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-12 15:14:43+00:00
+[2026-01-12T15:26:53.136+0000] {warnings.py:112} WARNING - This process (pid=10231) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-12T15:26:53.139+0000] {standard_task_runner.py:64} INFO - Started process 10314 to run task
+[2026-01-12T15:26:53.141+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'manual__2026-01-12T15:14:43+00:00', '--job-id', '14483', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmp5449brtd', '--map-index', '778']
+[2026-01-12T15:26:53.145+0000] {standard_task_runner.py:91} INFO - Job 14483: Subtask ingest_financial_ratios
+[2026-01-12T15:26:53.194+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-12T15:14:43+00:00 map_index=778 [running]> on host 5a20a797a43c
+[2026-01-12T15:26:53.319+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-12T15:14:43+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-12T15:14:43+00:00'
+[2026-01-12T15:26:53.320+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-12T15:26:53.331+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['BVN', 'BVL']
+[2026-01-12T15:26:53.331+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-12T15:26:53.332+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: BVN
+[2026-01-12T15:26:58.150+0000] {logging_mixin.py:188} INFO - ❌ Lỗi BVN: RetryError[<Future at 0x7f68d606f3e0 state=finished raised KeyError>]
+[2026-01-12T15:26:58.151+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] BVN: No data from API
+[2026-01-12T15:27:00.152+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: BVL
+[2026-01-12T15:27:00.959+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] BVL: 19 rows
+[2026-01-12T15:27:02.960+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 19
+[2026-01-12T15:27:02.979+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-12T15:27:02.980+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-12T15:27:03.631+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 19 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-01-12/batch_778.csv
+[2026-01-12T15:27:03.632+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-12T15:27:03.646+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=manual__2026-01-12T15:14:43+00:00, map_index=778, execution_date=20260112T151443, start_date=20260112T152653, end_date=20260112T152703
+[2026-01-12T15:27:03.731+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-12T15:27:03.759+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-12T15:27:03.762+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

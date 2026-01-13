@@ -1,0 +1,39 @@
+[2026-01-12T14:58:56.447+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-12T14:58:56.550+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=15 [queued]>
+[2026-01-12T14:58:56.614+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=15 [queued]>
+[2026-01-12T14:58:56.615+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-01-12T14:58:56.682+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-04 02:00:00+00:00
+[2026-01-12T14:58:56.704+0000] {warnings.py:112} WARNING - This process (pid=11564) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-12T14:58:56.707+0000] {standard_task_runner.py:64} INFO - Started process 11724 to run task
+[2026-01-12T14:58:56.726+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'scheduled__2026-01-04T02:00:00+00:00', '--job-id', '13233', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmpazhx4son', '--map-index', '15']
+[2026-01-12T14:58:56.751+0000] {standard_task_runner.py:91} INFO - Job 13233: Subtask ingest_financial_ratios
+[2026-01-12T14:58:56.901+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=15 [running]> on host 5a20a797a43c
+[2026-01-12T14:58:57.162+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T02:00:00+00:00'
+[2026-01-12T14:58:57.168+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-12T14:58:57.216+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-12T14:58:57.217+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 38, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 67, in _load_dataframe
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/plugins/logic/financial_ratios.py", line 9, in <module>
+    from vnstock import finance
+ImportError: cannot import name 'finance' from 'vnstock' (/home/airflow/.local/lib/python3.12/site-packages/vnstock/__init__.py). Did you mean: 'Finance'?
+[2026-01-12T14:58:57.254+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=scheduled__2026-01-04T02:00:00+00:00, map_index=15, execution_date=20260104T020000, start_date=20260112T145856, end_date=20260112T145857
+[2026-01-12T14:58:57.286+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 13233 for task ingest_financial_ratios (cannot import name 'finance' from 'vnstock' (/home/airflow/.local/lib/python3.12/site-packages/vnstock/__init__.py); 11724)
+[2026-01-12T14:58:57.358+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-12T14:58:57.376+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
