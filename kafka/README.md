@@ -52,6 +52,31 @@ Hệ thống streaming dữ liệu chứng khoán real-time sử dụng Apache K
 └─────────────────┘
 ```
 
+## 📁 Cấu trúc thư mục
+
+```
+kafka/
+├── src/                          # Source code
+│   ├── producers/                # Kafka producers
+│   │   ├── kafka_producer.py     # Real WebSocket producer
+│   │   └── kafka_producer_fake.py # Fake data producer  
+│   ├── consumers/                # Kafka consumers
+│   │   └── kafka_consumer_db.py  # Consumer → PostgreSQL
+│   └── common/                   # Shared utilities
+│       └── config.py             # Configuration
+├── db/                           # Database
+│   ├── migrations/               # SQL migrations
+│   │   └── init_realtime_quotes.sql
+│   └── scripts/                  # DB utility scripts
+│       ├── setup_db.py
+│       └── check_db.py
+├── tests/                        # Tests (future)
+├── .env                          # Environment variables
+├── docker-compose.yml            # Docker config
+├── requirements.txt              # Dependencies
+└── README.md                     # This file
+```
+
 ## 📦 Cài đặt
 
 ### 1. Cài đặt Docker Desktop
@@ -165,8 +190,11 @@ docker-compose exec kafka kafka-topics --list \
 Producer sẽ kết nối WebSocket và gửi dữ liệu vào Kafka:
 
 ```bash
-# Chạy producer
-python kafka_producer.py
+# Chạy real producer (từ thư mục kafka)
+python -m src.producers.kafka_producer
+
+# HOẶC chạy fake producer để test
+python -m src.producers.kafka_producer_fake
 ```
 
 Bạn sẽ thấy log:
@@ -211,8 +239,8 @@ docker-compose exec kafka kafka-console-consumer \
 Consumer sẽ đọc dữ liệu từ Kafka và ghi vào PostgreSQL:
 
 ```bash
-# Chạy consumer
-python kafka_consumer_db.py
+# Chạy consumer (từ thư mục kafka)
+python -m src.consumers.kafka_consumer_db
 ```
 
 Bạn sẽ thấy log:

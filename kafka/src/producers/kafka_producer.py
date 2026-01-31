@@ -12,7 +12,7 @@ from vnstock import Listing
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
-import config
+from src.common import config
 
 # Kafka Producers (thread-safe)
 quote_producer: KafkaProducer | None = None

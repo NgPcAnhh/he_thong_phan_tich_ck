@@ -5,7 +5,8 @@ Schema: hethong_phantich_chungkhoan
 """
 import asyncio
 import asyncpg
-import config
+
+from src.common import config
 
 async def main():
     print("🔧 Connecting to PostgreSQL...")

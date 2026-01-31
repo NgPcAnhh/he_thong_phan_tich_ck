@@ -1,8 +1,3 @@
-"""
-Fake Kafka Producer for Real-time Stock Data (DEMO MODE)
-Generates simulated stock quote data for testing Kafka → DB pipeline
-WITHOUT requiring real WebSocket connection
-"""
 import asyncio
 import json
 import random
@@ -13,7 +8,7 @@ from vnstock import Listing
 from kafka import KafkaProducer
 from kafka.errors import KafkaError
 
-import config
+from src.common import config
 
 # Kafka Producer
 quote_producer: KafkaProducer | None = None

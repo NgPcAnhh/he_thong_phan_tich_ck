@@ -11,7 +11,7 @@ from kafka import KafkaConsumer
 from kafka.errors import KafkaError
 import asyncpg
 
-import config
+from src.common import config
 
 # Database connection pool
 DB_POOL: asyncpg.Pool | None = None

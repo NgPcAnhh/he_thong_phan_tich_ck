@@ -1,0 +1,3 @@
+"""
+Database scripts package
+"""

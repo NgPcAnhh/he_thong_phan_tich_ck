@@ -3,10 +3,12 @@ Kafka Configuration Module
 Centralized configuration for Kafka producer and consumer
 """
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load .env from project root (2 levels up from this file)
+env_path = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(env_path)
 
 # Kafka Broker Configuration
 KAFKA_BOOTSTRAP_SERVERS = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
