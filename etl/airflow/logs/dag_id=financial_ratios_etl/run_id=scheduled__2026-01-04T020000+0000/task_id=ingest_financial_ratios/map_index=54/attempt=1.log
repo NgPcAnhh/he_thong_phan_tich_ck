@@ -1,0 +1,65 @@
+[2026-01-12T14:54:07.535+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-12T14:54:07.600+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [queued]>
+[2026-01-12T14:54:07.625+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [queued]>
+[2026-01-12T14:54:07.627+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-12T14:54:07.715+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-04 02:00:00+00:00
+[2026-01-12T14:54:07.766+0000] {warnings.py:112} WARNING - This process (pid=6109) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-12T14:54:07.770+0000] {standard_task_runner.py:64} INFO - Started process 6266 to run task
+[2026-01-12T14:54:07.784+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'scheduled__2026-01-04T02:00:00+00:00', '--job-id', '12744', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmp6bjy_urq', '--map-index', '54']
+[2026-01-12T14:54:07.796+0000] {standard_task_runner.py:91} INFO - Job 12744: Subtask ingest_financial_ratios
+[2026-01-12T14:54:07.940+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [running]> on host 5a20a797a43c
+[2026-01-12T14:54:08.186+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T02:00:00+00:00'
+[2026-01-12T14:54:08.188+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-12T14:54:08.201+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-12T14:54:08.202+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 38, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 67, in _load_dataframe
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/opt/airflow/plugins/logic/financial_ratios.py", line 9, in <module>
+    from vnstock import finance
+ImportError: cannot import name 'finance' from 'vnstock' (/home/airflow/.local/lib/python3.12/site-packages/vnstock/__init__.py). Did you mean: 'Finance'?
+[2026-01-12T14:54:08.224+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=scheduled__2026-01-04T02:00:00+00:00, map_index=54, execution_date=20260104T020000, start_date=20260112T145407, end_date=20260112T145408
+[2026-01-12T14:54:08.254+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 12744 for task ingest_financial_ratios (cannot import name 'finance' from 'vnstock' (/home/airflow/.local/lib/python3.12/site-packages/vnstock/__init__.py); 6266)
+[2026-01-12T14:54:08.286+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-12T14:54:08.300+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2026-01-17T08:56:42.790+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-17T08:56:42.840+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [queued]>
+[2026-01-17T08:56:42.868+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [queued]>
+[2026-01-17T08:56:42.869+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-17T08:56:42.907+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-04 02:00:00+00:00
+[2026-01-17T08:56:42.922+0000] {warnings.py:112} WARNING - This process (pid=6942) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-17T08:56:42.925+0000] {standard_task_runner.py:64} INFO - Started process 7000 to run task
+[2026-01-17T08:56:42.927+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'scheduled__2026-01-04T02:00:00+00:00', '--job-id', '369', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmp55onxlg9', '--map-index', '54']
+[2026-01-17T08:56:42.932+0000] {standard_task_runner.py:91} INFO - Job 369: Subtask ingest_financial_ratios
+[2026-01-17T08:56:43.009+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=54 [running]> on host d8c064bd46bc
+[2026-01-17T08:56:43.190+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T02:00:00+00:00'
+[2026-01-17T08:56:43.192+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-17T08:56:43.203+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['VLB', 'VLA']
+[2026-01-17T08:56:43.204+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-17T08:56:43.204+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: VLB
+[2026-01-17T08:56:43.576+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã VLB: Failed to fetch data: 429 - Too Many Requests
+[2026-01-17T08:56:43.577+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: VLA
+[2026-01-17T08:56:43.833+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã VLA: Failed to fetch data: 429 - Too Many Requests
+[2026-01-17T08:56:43.835+0000] {logging_mixin.py:188} INFO -  ⚠ [RATIO] Batch này không thu được dữ liệu nào.
+[2026-01-17T08:56:43.841+0000] {datalake_df2csv.py:40} INFO - DataFrame rỗng, bỏ qua upload CSV.
+[2026-01-17T08:56:43.842+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-17T08:56:43.855+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=scheduled__2026-01-04T02:00:00+00:00, map_index=54, execution_date=20260104T020000, start_date=20260117T085642, end_date=20260117T085643
+[2026-01-17T08:56:43.903+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-17T08:56:43.927+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-17T08:56:43.929+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

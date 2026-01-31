@@ -1,0 +1,30 @@
+[2026-01-24T09:03:13.035+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-24T09:03:13.264+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-24T08:33:50+00:00 map_index=820 [queued]>
+[2026-01-24T09:03:13.508+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-24T08:33:50+00:00 map_index=820 [queued]>
+[2026-01-24T09:03:13.514+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-24T09:03:13.623+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-24 08:33:50+00:00
+[2026-01-24T09:03:13.667+0000] {warnings.py:112} WARNING - This process (pid=18041) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-24T09:03:13.675+0000] {standard_task_runner.py:64} INFO - Started process 18192 to run task
+[2026-01-24T09:03:13.694+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'manual__2026-01-24T08:33:50+00:00', '--job-id', '7123', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmpyi16_wc2', '--map-index', '820']
+[2026-01-24T09:03:13.724+0000] {standard_task_runner.py:91} INFO - Job 7123: Subtask ingest_financial_ratios
+[2026-01-24T09:03:13.983+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-24T08:33:50+00:00 map_index=820 [running]> on host 05b4b3a77fa2
+[2026-01-24T09:03:14.372+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-24T08:33:50+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-24T08:33:50+00:00'
+[2026-01-24T09:03:14.377+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-24T09:03:14.514+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['BDG', 'BDB']
+[2026-01-24T09:03:14.520+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-24T09:03:14.520+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: BDG
+[2026-01-24T09:03:24.802+0000] {log.py:232} WARNING - 2026-01-24 09:03:24 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fdaecb519a0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-24T09:03:24.801+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fdaecb519a0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-24T09:03:24.804+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã BDG: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fdaecb519a0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-24T09:03:24.805+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: BDB
+[2026-01-24T09:03:27.024+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] BDB: 50 rows
+[2026-01-24T09:03:29.026+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 50
+[2026-01-24T09:03:29.052+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T09:03:29.054+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T09:03:29.812+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 50 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-01-24/batch_820.csv
+[2026-01-24T09:03:29.814+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-24T09:03:29.832+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=manual__2026-01-24T08:33:50+00:00, map_index=820, execution_date=20260124T083350, start_date=20260124T090313, end_date=20260124T090329
+[2026-01-24T09:03:30.067+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-24T09:03:30.230+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-24T09:03:30.277+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

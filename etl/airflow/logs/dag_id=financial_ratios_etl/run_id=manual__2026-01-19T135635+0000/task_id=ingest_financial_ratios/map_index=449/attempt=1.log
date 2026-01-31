@@ -1,0 +1,29 @@
+[2026-01-22T14:33:46.494+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-22T14:33:46.566+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=449 [queued]>
+[2026-01-22T14:33:46.620+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=449 [queued]>
+[2026-01-22T14:33:46.621+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-22T14:33:46.645+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-19 13:56:35+00:00
+[2026-01-22T14:33:46.663+0000] {warnings.py:112} WARNING - This process (pid=10306) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-22T14:33:46.665+0000] {standard_task_runner.py:64} INFO - Started process 10365 to run task
+[2026-01-22T14:33:46.670+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'manual__2026-01-19T13:56:35+00:00', '--job-id', '4640', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmpn_977plh', '--map-index', '449']
+[2026-01-22T14:33:46.676+0000] {standard_task_runner.py:91} INFO - Job 4640: Subtask ingest_financial_ratios
+[2026-01-22T14:33:46.754+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=449 [running]> on host 4da96d4d1b09
+[2026-01-22T14:33:46.946+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-19T13:56:35+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-19T13:56:35+00:00'
+[2026-01-22T14:33:46.947+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-22T14:33:46.962+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['M10', 'LYF']
+[2026-01-22T14:33:46.963+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-22T14:33:46.963+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: M10
+[2026-01-22T14:33:47.824+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] M10: 35 rows
+[2026-01-22T14:33:49.826+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: LYF
+[2026-01-22T14:33:54.780+0000] {logging_mixin.py:188} INFO - ❌ Lỗi LYF: RetryError[<Future at 0x7fe1d1625af0 state=finished raised KeyError>]
+[2026-01-22T14:33:54.785+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] LYF: No data from API
+[2026-01-22T14:33:56.790+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 35
+[2026-01-22T14:33:56.828+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-22T14:33:56.829+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-22T14:33:57.698+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 35 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-01-19/batch_449.csv
+[2026-01-22T14:33:57.699+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-22T14:33:57.714+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=manual__2026-01-19T13:56:35+00:00, map_index=449, execution_date=20260119T135635, start_date=20260122T143346, end_date=20260122T143357
+[2026-01-22T14:33:57.778+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-22T14:33:57.803+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-22T14:33:57.808+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

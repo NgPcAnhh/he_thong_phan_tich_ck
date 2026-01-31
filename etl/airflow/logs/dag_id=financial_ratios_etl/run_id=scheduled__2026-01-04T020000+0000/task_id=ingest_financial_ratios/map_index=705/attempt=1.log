@@ -1,0 +1,26 @@
+[2026-01-17T09:10:29.952+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-17T09:10:30.062+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=705 [queued]>
+[2026-01-17T09:10:30.159+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=705 [queued]>
+[2026-01-17T09:10:30.160+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-17T09:10:30.209+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-04 02:00:00+00:00
+[2026-01-17T09:10:30.240+0000] {warnings.py:112} WARNING - This process (pid=18991) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-17T09:10:30.245+0000] {standard_task_runner.py:64} INFO - Started process 19090 to run task
+[2026-01-17T09:10:30.256+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'scheduled__2026-01-04T02:00:00+00:00', '--job-id', '1345', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmp2l14w7pf', '--map-index', '705']
+[2026-01-17T09:10:30.266+0000] {standard_task_runner.py:91} INFO - Job 1345: Subtask ingest_financial_ratios
+[2026-01-17T09:10:30.352+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios scheduled__2026-01-04T02:00:00+00:00 map_index=705 [running]> on host d8c064bd46bc
+[2026-01-17T09:10:30.526+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-04T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-04T02:00:00+00:00'
+[2026-01-17T09:10:30.532+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-17T09:10:30.545+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['DBM', 'DBH']
+[2026-01-17T09:10:30.546+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-17T09:10:30.547+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: DBM
+[2026-01-17T09:10:31.231+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã DBM: Failed to fetch data: 429 - Too Many Requests
+[2026-01-17T09:10:31.233+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: DBH
+[2026-01-17T09:10:31.471+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã DBH: Failed to fetch data: 429 - Too Many Requests
+[2026-01-17T09:10:31.472+0000] {logging_mixin.py:188} INFO -  ⚠ [RATIO] Batch này không thu được dữ liệu nào.
+[2026-01-17T09:10:31.476+0000] {datalake_df2csv.py:40} INFO - DataFrame rỗng, bỏ qua upload CSV.
+[2026-01-17T09:10:31.477+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-17T09:10:31.494+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=scheduled__2026-01-04T02:00:00+00:00, map_index=705, execution_date=20260104T020000, start_date=20260117T091030, end_date=20260117T091031
+[2026-01-17T09:10:31.554+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-17T09:10:31.589+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-17T09:10:31.603+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

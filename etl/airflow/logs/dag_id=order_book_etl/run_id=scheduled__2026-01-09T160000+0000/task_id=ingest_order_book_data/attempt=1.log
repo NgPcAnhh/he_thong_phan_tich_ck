@@ -1,0 +1,55 @@
+[2026-01-13T13:58:54.615+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-13T13:58:54.631+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: order_book_etl.ingest_order_book_data scheduled__2026-01-09T16:00:00+00:00 [queued]>
+[2026-01-13T13:58:54.638+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: order_book_etl.ingest_order_book_data scheduled__2026-01-09T16:00:00+00:00 [queued]>
+[2026-01-13T13:58:54.638+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-13T13:58:54.651+0000] {taskinstance.py:2330} INFO - Executing <Task(DfToParquetOperator): ingest_order_book_data> on 2026-01-09 16:00:00+00:00
+[2026-01-13T13:58:54.658+0000] {warnings.py:112} WARNING - This process (pid=5309) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-13T13:58:54.660+0000] {standard_task_runner.py:64} INFO - Started process 5319 to run task
+[2026-01-13T13:58:54.661+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'order_book_etl', 'ingest_order_book_data', 'scheduled__2026-01-09T16:00:00+00:00', '--job-id', '15124', '--raw', '--subdir', 'DAGS_FOLDER/order_book_etl.py', '--cfg-path', '/tmp/tmptf4kuwsv']
+[2026-01-13T13:58:54.665+0000] {standard_task_runner.py:91} INFO - Job 15124: Subtask ingest_order_book_data
+[2026-01-13T13:58:54.710+0000] {task_command.py:426} INFO - Running <TaskInstance: order_book_etl.ingest_order_book_data scheduled__2026-01-09T16:00:00+00:00 [running]> on host 03cf7cc79cc9
+[2026-01-13T13:58:54.792+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='order_book_etl' AIRFLOW_CTX_TASK_ID='ingest_order_book_data' AIRFLOW_CTX_EXECUTION_DATE='2026-01-09T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-09T16:00:00+00:00'
+[2026-01-13T13:58:54.794+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-13T13:58:55.202+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Processing 35 batches with 50 symbols each
+[2026-01-13T13:58:55.202+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Processing batch 1/35
+[2026-01-13T13:58:55.203+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Fetching data for 50 symbols
+[2026-01-13T13:58:55.439+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Successfully fetched 50 records
+[2026-01-13T13:58:56.940+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Processing batch 2/35
+[2026-01-13T13:58:56.941+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Fetching data for 50 symbols
+[2026-01-13T13:58:57.164+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Successfully fetched 50 records
+[2026-01-13T13:58:58.665+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Processing batch 3/35
+[2026-01-13T13:58:58.666+0000] {logging_mixin.py:188} INFO - [ORDER_BOOK] Fetching data for 50 symbols
+[2026-01-13T13:58:58.937+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-13T13:58:58.938+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2parquet.py", line 45, in execute
+    df = self._load_dataframe()
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2parquet.py", line 105, in _load_dataframe
+    df = obj(**self.op_kwargs) if isinstance(obj, Callable) else obj
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/order_book_data.py", line 131, in get_all_order_book_data
+    batch_df = get_order_book_batch(batch)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/order_book_data.py", line 98, in get_order_book_batch
+    norm_df = _normalize_order_book_df(raw_df)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/order_book_data.py", line 65, in _normalize_order_book_df
+    df.columns = ['_'.join(col).strip('_') for col in df.columns.values]
+                  ^^^^^^^^^^^^^
+TypeError: sequence item 1: expected str instance, float found
+[2026-01-13T13:58:58.952+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=order_book_etl, task_id=ingest_order_book_data, run_id=scheduled__2026-01-09T16:00:00+00:00, execution_date=20260109T160000, start_date=20260113T135854, end_date=20260113T135858
+[2026-01-13T13:58:58.970+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 15124 for task ingest_order_book_data (sequence item 1: expected str instance, float found; 5319)
+[2026-01-13T13:58:59.014+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-13T13:58:59.026+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-13T13:58:59.028+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

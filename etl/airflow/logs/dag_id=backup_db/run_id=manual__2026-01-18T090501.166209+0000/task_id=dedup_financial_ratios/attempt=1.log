@@ -1,0 +1,40 @@
+[2026-01-18T09:12:13.759+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-18T09:12:13.775+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: backup_db.dedup_financial_ratios manual__2026-01-18T09:05:01.166209+00:00 [queued]>
+[2026-01-18T09:12:13.783+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: backup_db.dedup_financial_ratios manual__2026-01-18T09:05:01.166209+00:00 [queued]>
+[2026-01-18T09:12:13.784+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-18T09:12:13.796+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): dedup_financial_ratios> on 2026-01-18 09:05:01.166209+00:00
+[2026-01-18T09:12:13.806+0000] {warnings.py:112} WARNING - This process (pid=2028) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-18T09:12:13.808+0000] {standard_task_runner.py:64} INFO - Started process 2038 to run task
+[2026-01-18T09:12:13.810+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'backup_db', 'dedup_financial_ratios', 'manual__2026-01-18T09:05:01.166209+00:00', '--job-id', '2820', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync_dedup.py', '--cfg-path', '/tmp/tmpubyhu6vg']
+[2026-01-18T09:12:13.813+0000] {standard_task_runner.py:91} INFO - Job 2820: Subtask dedup_financial_ratios
+[2026-01-18T09:12:13.860+0000] {task_command.py:426} INFO - Running <TaskInstance: backup_db.dedup_financial_ratios manual__2026-01-18T09:05:01.166209+00:00 [running]> on host 277a4b6fac12
+[2026-01-18T09:12:13.934+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='backup_db' AIRFLOW_CTX_TASK_ID='dedup_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-18T09:05:01.166209+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-18T09:05:01.166209+00:00'
+[2026-01-18T09:12:13.936+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-18T09:12:13.959+0000] {minio_to_db_sync_dedup.py:539} ERROR - ❌ Error deduplicating hethong_phantich_chungkhoan.financial_ratios: (psycopg2.errors.UndefinedTable) relation "hethong_phantich_chungkhoan.financial_ratios" does not exist
+LINE 2:         DELETE FROM hethong_phantich_chungkhoan.financial_ra...
+                            ^
+
+[SQL: 
+        DELETE FROM hethong_phantich_chungkhoan.financial_ratios a
+        USING hethong_phantich_chungkhoan.financial_ratios b
+        WHERE a.ctid < b.ctid
+        AND a.* IS NOT DISTINCT FROM b.*;
+        ]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2026-01-18T09:12:13.960+0000] {python.py:237} INFO - Done. Returned value was: ❌ Financial Ratio dedup failed: (psycopg2.errors.UndefinedTable) relation "hethong_phantich_chungkhoan.financial_ratios" does not exist
+LINE 2:         DELETE FROM hethong_phantich_chungkhoan.financial_ra...
+                            ^
+
+[SQL: 
+        DELETE FROM hethong_phantich_chungkhoan.financial_ratios a
+        USING hethong_phantich_chungkhoan.financial_ratios b
+        WHERE a.ctid < b.ctid
+        AND a.* IS NOT DISTINCT FROM b.*;
+        ]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2026-01-18T09:12:13.960+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-18T09:12:13.984+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=backup_db, task_id=dedup_financial_ratios, run_id=manual__2026-01-18T09:05:01.166209+00:00, execution_date=20260118T090501, start_date=20260118T091213, end_date=20260118T091213
+[2026-01-18T09:12:14.023+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-18T09:12:14.045+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-18T09:12:14.047+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

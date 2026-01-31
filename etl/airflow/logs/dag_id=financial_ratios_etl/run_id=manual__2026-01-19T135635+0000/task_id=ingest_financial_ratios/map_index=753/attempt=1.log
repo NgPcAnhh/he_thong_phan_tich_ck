@@ -1,0 +1,28 @@
+[2026-01-22T14:42:41.612+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-22T14:42:41.752+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=753 [queued]>
+[2026-01-22T14:42:41.849+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=753 [queued]>
+[2026-01-22T14:42:41.849+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-22T14:42:41.878+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-01-19 13:56:35+00:00
+[2026-01-22T14:42:41.895+0000] {warnings.py:112} WARNING - This process (pid=17328) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-22T14:42:41.897+0000] {standard_task_runner.py:64} INFO - Started process 17412 to run task
+[2026-01-22T14:42:41.900+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_etl', 'ingest_financial_ratios', 'manual__2026-01-19T13:56:35+00:00', '--job-id', '5169', '--raw', '--subdir', 'DAGS_FOLDER/financial_ratios_etl.py', '--cfg-path', '/tmp/tmp5r80vtlz', '--map-index', '753']
+[2026-01-22T14:42:41.904+0000] {standard_task_runner.py:91} INFO - Job 5169: Subtask ingest_financial_ratios
+[2026-01-22T14:42:41.980+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_etl.ingest_financial_ratios manual__2026-01-19T13:56:35+00:00 map_index=753 [running]> on host 4da96d4d1b09
+[2026-01-22T14:42:42.229+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_etl' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-01-19T13:56:35+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-19T13:56:35+00:00'
+[2026-01-22T14:42:42.232+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-22T14:42:42.249+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['CGV', 'CGL']
+[2026-01-22T14:42:42.250+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-01-22T14:42:42.250+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: CGV
+[2026-01-22T14:42:47.057+0000] {logging_mixin.py:188} INFO - ❌ Lỗi CGV: RetryError[<Future at 0x7fe1d18dc1d0 state=finished raised KeyError>]
+[2026-01-22T14:42:47.059+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] CGV: No data from API
+[2026-01-22T14:42:49.061+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: CGL
+[2026-01-22T14:42:53.881+0000] {logging_mixin.py:188} INFO - ❌ Lỗi CGL: RetryError[<Future at 0x7fe1d15f3cb0 state=finished raised KeyError>]
+[2026-01-22T14:42:53.883+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] CGL: No data from API
+[2026-01-22T14:42:55.883+0000] {logging_mixin.py:188} INFO -  ⚠ [RATIO] Batch này không thu được dữ liệu nào.
+[2026-01-22T14:42:55.885+0000] {datalake_df2csv.py:40} INFO - DataFrame rỗng, bỏ qua upload CSV.
+[2026-01-22T14:42:55.886+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-22T14:42:55.899+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_etl, task_id=ingest_financial_ratios, run_id=manual__2026-01-19T13:56:35+00:00, map_index=753, execution_date=20260119T135635, start_date=20260122T144241, end_date=20260122T144255
+[2026-01-22T14:42:55.959+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-22T14:42:55.979+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-22T14:42:55.982+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

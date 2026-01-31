@@ -1,0 +1,69 @@
+[2026-01-18T09:48:17.757+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-18T09:48:17.772+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync_dedup.insert_news_site manual__2026-01-18T03:12:39.341693+00:00 [queued]>
+[2026-01-18T09:48:17.780+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync_dedup.insert_news_site manual__2026-01-18T03:12:39.341693+00:00 [queued]>
+[2026-01-18T09:48:17.781+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-18T09:48:17.794+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): insert_news_site> on 2026-01-18 03:12:39.341693+00:00
+[2026-01-18T09:48:17.801+0000] {warnings.py:112} WARNING - This process (pid=292) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-18T09:48:17.803+0000] {standard_task_runner.py:64} INFO - Started process 331 to run task
+[2026-01-18T09:48:17.805+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync_dedup', 'insert_news_site', 'manual__2026-01-18T03:12:39.341693+00:00', '--job-id', '2860', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync_dedup.py', '--cfg-path', '/tmp/tmpawy8pzuw']
+[2026-01-18T09:48:17.809+0000] {standard_task_runner.py:91} INFO - Job 2860: Subtask insert_news_site
+[2026-01-18T09:48:17.857+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync_dedup.insert_news_site manual__2026-01-18T03:12:39.341693+00:00 [running]> on host 0b80df7f6065
+[2026-01-18T09:48:17.938+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync_dedup' AIRFLOW_CTX_TASK_ID='insert_news_site' AIRFLOW_CTX_EXECUTION_DATE='2026-01-18T03:12:39.341693+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-18T03:12:39.341693+00:00'
+[2026-01-18T09:48:17.940+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-18T09:48:17.950+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-18T09:48:17.951+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-18T09:48:18.448+0000] {logging_mixin.py:188} INFO - ✓ Found 2 CSV files in thongtin-congty-va-bctc/news/site/2026-01-10/
+[2026-01-18T09:48:18.453+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-18T09:48:18.454+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-18T09:48:18.563+0000] {logging_mixin.py:188} INFO - ✓ Read 100 rows from news/site/2026-01-10/news_site_20260110T161216.csv
+[2026-01-18T09:48:18.570+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-18T09:48:18.571+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-18T09:48:18.676+0000] {logging_mixin.py:188} INFO - ✓ Read 100 rows from news/site/2026-01-10/news_site_20260110T162728.csv
+[2026-01-18T09:48:18.678+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 2 files into 200 total rows
+[2026-01-18T09:48:18.730+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-18T09:48:18.731+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync_dedup.py", line 171, in insert_news_site
+    return _insert_partitions(partitions, "news")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync_dedup.py", line 153, in _insert_partitions
+    inserted = insert_dataframe_in_batches(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/backup_sync.py", line 110, in insert_dataframe_in_batches
+    execute_values(cur, insert_sql, rows, page_size=1000)
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UndefinedColumn: column "target_date" of relation "news" does not exist
+LINE 3:                 (target_date, source, url, title, sapo, cont...
+                         ^
+
+[2026-01-18T09:48:18.742+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=minio_to_db_sync_dedup, task_id=insert_news_site, run_id=manual__2026-01-18T03:12:39.341693+00:00, execution_date=20260118T031239, start_date=20260118T094817, end_date=20260118T094818
+[2026-01-18T09:48:18.754+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 2860 for task insert_news_site (column "target_date" of relation "news" does not exist
+LINE 3:                 (target_date, source, url, title, sapo, cont...
+                         ^
+; 331)
+[2026-01-18T09:48:18.780+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-18T09:48:18.800+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-18T09:48:18.802+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

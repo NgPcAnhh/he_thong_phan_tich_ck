@@ -1,0 +1,54 @@
+[2026-01-27T15:25:35.585+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-27T15:25:35.599+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: market_minio.persist_index_price manual__2026-01-27T15:25:32.203722+00:00 [queued]>
+[2026-01-27T15:25:35.607+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: market_minio.persist_index_price manual__2026-01-27T15:25:32.203722+00:00 [queued]>
+[2026-01-27T15:25:35.607+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-27T15:25:35.620+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): persist_index_price> on 2026-01-27 15:25:32.203722+00:00
+[2026-01-27T15:25:35.627+0000] {warnings.py:112} WARNING - This process (pid=20200) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-27T15:25:35.628+0000] {standard_task_runner.py:64} INFO - Started process 20210 to run task
+[2026-01-27T15:25:35.631+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'market_minio', 'persist_index_price', 'manual__2026-01-27T15:25:32.203722+00:00', '--job-id', '9257', '--raw', '--subdir', 'DAGS_FOLDER/dl_market_index_price.py', '--cfg-path', '/tmp/tmpl61xwulo']
+[2026-01-27T15:25:35.635+0000] {standard_task_runner.py:91} INFO - Job 9257: Subtask persist_index_price
+[2026-01-27T15:25:35.678+0000] {task_command.py:426} INFO - Running <TaskInstance: market_minio.persist_index_price manual__2026-01-27T15:25:32.203722+00:00 [running]> on host c05a814b0743
+[2026-01-27T15:25:35.756+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='market_minio' AIRFLOW_CTX_TASK_ID='persist_index_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-27T15:25:32.203722+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-27T15:25:32.203722+00:00'
+[2026-01-27T15:25:35.758+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-27T15:25:35.762+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Bắt đầu lấy giá index cho ngày 2026-01-27
+[2026-01-27T15:25:40.090+0000] {logging_mixin.py:188} INFO - VNINDEX: RetryError[<Future at 0x7f1d13418da0 state=finished raised ConnectionError>]
+[2026-01-27T15:25:45.382+0000] {logging_mixin.py:188} INFO - HNXINDEX: RetryError[<Future at 0x7f1d13264200 state=finished raised ConnectionError>]
+[2026-01-27T15:25:50.685+0000] {logging_mixin.py:188} INFO - UPCOMINDEX: RetryError[<Future at 0x7f1d13351040 state=finished raised ConnectionError>]
+[2026-01-27T15:25:55.991+0000] {logging_mixin.py:188} INFO - VN30: RetryError[<Future at 0x7f1d133f4500 state=finished raised ConnectionError>]
+[2026-01-27T15:26:01.285+0000] {logging_mixin.py:188} INFO - HNX30: RetryError[<Future at 0x7f1d133515b0 state=finished raised ConnectionError>]
+[2026-01-27T15:26:02.287+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-27T15:26:02.288+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dl_market_index_price.py", line 38, in persist_index_price
+    df = get_index_price_2026(end_date=ds_str, sleep_time=1.0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/index_price_2026.py", line 48, in get_index_price_2026
+    raise RuntimeError(f"No index prices collected between {start_str} and {end_str}.")
+RuntimeError: No index prices collected between 2026-01-01 and 2026-01-27.
+[2026-01-27T15:26:02.304+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=market_minio, task_id=persist_index_price, run_id=manual__2026-01-27T15:25:32.203722+00:00, execution_date=20260127T152532, start_date=20260127T152535, end_date=20260127T152602
+[2026-01-27T15:26:02.319+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 9257 for task persist_index_price (No index prices collected between 2026-01-01 and 2026-01-27.; 20210)
+[2026-01-27T15:26:02.335+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-27T15:26:02.349+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-27T15:26:02.351+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,169 @@
+[2026-01-24T03:36:28.961+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-24T03:36:29.011+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_bctc scheduled__2026-01-23T03:00:00+00:00 [queued]>
+[2026-01-24T03:36:29.053+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_bctc scheduled__2026-01-23T03:00:00+00:00 [queued]>
+[2026-01-24T03:36:29.054+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-24T03:36:29.083+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_bctc> on 2026-01-23 03:00:00+00:00
+[2026-01-24T03:36:29.102+0000] {warnings.py:112} WARNING - This process (pid=80) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-24T03:36:29.111+0000] {standard_task_runner.py:64} INFO - Started process 264 to run task
+[2026-01-24T03:36:29.122+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_bctc', 'scheduled__2026-01-23T03:00:00+00:00', '--job-id', '5295', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmpgx152lg1']
+[2026-01-24T03:36:29.135+0000] {standard_task_runner.py:91} INFO - Job 5295: Subtask sync_bctc
+[2026-01-24T03:36:29.269+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_bctc scheduled__2026-01-23T03:00:00+00:00 [running]> on host 09addc28f735
+[2026-01-24T03:36:29.517+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-01-23T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-23T03:00:00+00:00'
+[2026-01-24T03:36:29.520+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-24T03:36:29.533+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-01-24T03:36:29.533+0000] {logging_mixin.py:188} INFO - 📊 SYNC BCTC TO DATABASE (WITH INDICATOR MAPPING)
+[2026-01-24T03:36:29.536+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-01-24T03:36:29.541+0000] {logging_mixin.py:188} INFO - 
+[1/5] Finding latest partition...
+[2026-01-24T03:36:29.565+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:36:29.571+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:25.423+0000] {logging_mixin.py:188} INFO - ✓ Latest partition found: bctc/2026-01-14/
+[2026-01-24T03:38:25.425+0000] {logging_mixin.py:188} INFO - 
+[2/5] Reading CSV files...
+[2026-01-24T03:38:25.437+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:25.438+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:28.085+0000] {logging_mixin.py:188} INFO - ✓ Found 41 CSV files in thongtin-congty-va-bctc/bctc/2026-01-14/
+[2026-01-24T03:38:28.093+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:28.094+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:28.281+0000] {logging_mixin.py:188} INFO - ✓ Read 1632 rows from bctc/2026-01-14/batch_0.csv
+[2026-01-24T03:38:28.288+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:28.289+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:28.427+0000] {logging_mixin.py:188} INFO - ✓ Read 402 rows from bctc/2026-01-14/batch_1.csv
+[2026-01-24T03:38:28.436+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:28.437+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:28.633+0000] {logging_mixin.py:188} INFO - ✓ Read 882 rows from bctc/2026-01-14/batch_10.csv
+[2026-01-24T03:38:28.642+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:28.642+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:29.305+0000] {logging_mixin.py:188} INFO - ✓ Read 1248 rows from bctc/2026-01-14/batch_11.csv
+[2026-01-24T03:38:29.313+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:29.314+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:29.493+0000] {logging_mixin.py:188} INFO - ✓ Read 2172 rows from bctc/2026-01-14/batch_12.csv
+[2026-01-24T03:38:29.504+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:29.506+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:29.676+0000] {logging_mixin.py:188} INFO - ✓ Read 1747 rows from bctc/2026-01-14/batch_13.csv
+[2026-01-24T03:38:29.684+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:29.685+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:29.825+0000] {logging_mixin.py:188} INFO - ✓ Read 1845 rows from bctc/2026-01-14/batch_14.csv
+[2026-01-24T03:38:29.833+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:29.834+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:29.985+0000] {logging_mixin.py:188} INFO - ✓ Read 1584 rows from bctc/2026-01-14/batch_15.csv
+[2026-01-24T03:38:29.993+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:29.994+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.122+0000] {logging_mixin.py:188} INFO - ✓ Read 654 rows from bctc/2026-01-14/batch_16.csv
+[2026-01-24T03:38:30.131+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.132+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.251+0000] {logging_mixin.py:188} INFO - ✓ Read 408 rows from bctc/2026-01-14/batch_17.csv
+[2026-01-24T03:38:30.258+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.259+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.391+0000] {logging_mixin.py:188} INFO - ✓ Read 267 rows from bctc/2026-01-14/batch_18.csv
+[2026-01-24T03:38:30.400+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.401+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.517+0000] {logging_mixin.py:188} INFO - ✓ Read 624 rows from bctc/2026-01-14/batch_19.csv
+[2026-01-24T03:38:30.524+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.524+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.641+0000] {logging_mixin.py:188} INFO - ✓ Read 2082 rows from bctc/2026-01-14/batch_2.csv
+[2026-01-24T03:38:30.647+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.648+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.753+0000] {logging_mixin.py:188} INFO - ✓ Read 579 rows from bctc/2026-01-14/batch_20.csv
+[2026-01-24T03:38:30.762+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.763+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:30.894+0000] {logging_mixin.py:188} INFO - ✓ Read 621 rows from bctc/2026-01-14/batch_21.csv
+[2026-01-24T03:38:30.902+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:30.903+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:31.092+0000] {logging_mixin.py:188} INFO - ✓ Read 228 rows from bctc/2026-01-14/batch_22.csv
+[2026-01-24T03:38:31.105+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:31.106+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:31.831+0000] {logging_mixin.py:188} INFO - ✓ Read 183 rows from bctc/2026-01-14/batch_23.csv
+[2026-01-24T03:38:31.840+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:31.840+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:31.980+0000] {logging_mixin.py:188} INFO - ✓ Read 108 rows from bctc/2026-01-14/batch_24.csv
+[2026-01-24T03:38:31.988+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:31.989+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.114+0000] {logging_mixin.py:188} INFO - ✓ Read 195 rows from bctc/2026-01-14/batch_25.csv
+[2026-01-24T03:38:32.122+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.123+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.229+0000] {logging_mixin.py:188} INFO - ✓ Read 156 rows from bctc/2026-01-14/batch_26.csv
+[2026-01-24T03:38:32.237+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.238+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.363+0000] {logging_mixin.py:188} INFO - ✓ Read 135 rows from bctc/2026-01-14/batch_27.csv
+[2026-01-24T03:38:32.371+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.371+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.495+0000] {logging_mixin.py:188} INFO - ✓ Read 456 rows from bctc/2026-01-14/batch_28.csv
+[2026-01-24T03:38:32.502+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.503+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.637+0000] {logging_mixin.py:188} INFO - ✓ Read 105 rows from bctc/2026-01-14/batch_29.csv
+[2026-01-24T03:38:32.644+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.645+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.765+0000] {logging_mixin.py:188} INFO - ✓ Read 1251 rows from bctc/2026-01-14/batch_3.csv
+[2026-01-24T03:38:32.775+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.775+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:32.903+0000] {logging_mixin.py:188} INFO - ✓ Read 483 rows from bctc/2026-01-14/batch_30.csv
+[2026-01-24T03:38:32.912+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:32.913+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:33.021+0000] {logging_mixin.py:188} INFO - ✓ Read 657 rows from bctc/2026-01-14/batch_31.csv
+[2026-01-24T03:38:33.029+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:33.030+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:33.156+0000] {logging_mixin.py:188} INFO - ✓ Read 78 rows from bctc/2026-01-14/batch_33.csv
+[2026-01-24T03:38:33.163+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:33.164+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:33.282+0000] {logging_mixin.py:188} INFO - ✓ Read 294 rows from bctc/2026-01-14/batch_34.csv
+[2026-01-24T03:38:33.291+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:33.292+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:33.411+0000] {logging_mixin.py:188} INFO - ✓ Read 204 rows from bctc/2026-01-14/batch_35.csv
+[2026-01-24T03:38:33.421+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:33.421+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:33.980+0000] {logging_mixin.py:188} INFO - ✓ Read 102 rows from bctc/2026-01-14/batch_36.csv
+[2026-01-24T03:38:33.987+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:33.987+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.087+0000] {logging_mixin.py:188} INFO - ✓ Read 285 rows from bctc/2026-01-14/batch_37.csv
+[2026-01-24T03:38:34.095+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.096+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.213+0000] {logging_mixin.py:188} INFO - ✓ Read 138 rows from bctc/2026-01-14/batch_38.csv
+[2026-01-24T03:38:34.220+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.221+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.370+0000] {logging_mixin.py:188} INFO - ✓ Read 2097 rows from bctc/2026-01-14/batch_4.csv
+[2026-01-24T03:38:34.377+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.377+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.472+0000] {logging_mixin.py:188} INFO - ✓ Read 105 rows from bctc/2026-01-14/batch_41.csv
+[2026-01-24T03:38:34.479+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.480+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.576+0000] {logging_mixin.py:188} INFO - ✓ Read 246 rows from bctc/2026-01-14/batch_42.csv
+[2026-01-24T03:38:34.582+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.583+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.700+0000] {logging_mixin.py:188} INFO - ✓ Read 66 rows from bctc/2026-01-14/batch_43.csv
+[2026-01-24T03:38:34.706+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.706+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:34.821+0000] {logging_mixin.py:188} INFO - ✓ Read 1365 rows from bctc/2026-01-14/batch_5.csv
+[2026-01-24T03:38:34.830+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:34.831+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:35.002+0000] {logging_mixin.py:188} INFO - ✓ Read 1554 rows from bctc/2026-01-14/batch_6.csv
+[2026-01-24T03:38:35.010+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:35.011+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:35.139+0000] {logging_mixin.py:188} INFO - ✓ Read 1971 rows from bctc/2026-01-14/batch_7.csv
+[2026-01-24T03:38:35.146+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:35.147+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:35.272+0000] {logging_mixin.py:188} INFO - ✓ Read 1533 rows from bctc/2026-01-14/batch_8.csv
+[2026-01-24T03:38:35.280+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-24T03:38:35.281+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-24T03:38:35.415+0000] {logging_mixin.py:188} INFO - ✓ Read 2274 rows from bctc/2026-01-14/batch_9.csv
+[2026-01-24T03:38:35.422+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 41 files into 33016 total rows
+[2026-01-24T03:38:35.424+0000] {logging_mixin.py:188} INFO - Loaded 33016 rows
+[2026-01-24T03:38:35.425+0000] {logging_mixin.py:188} INFO - 
+[3/5] Cleaning and transforming data...
+[2026-01-24T03:38:35.524+0000] {logging_mixin.py:188} INFO - After cleaning: 33016 rows
+[2026-01-24T03:38:35.525+0000] {logging_mixin.py:188} INFO - 
+[4/5] Applying indicator name normalization...
+[2026-01-24T03:38:35.768+0000] {logging_mixin.py:188} INFO - ✓ Normalized 33016/33016 indicators using mapping
+[2026-01-24T03:38:35.793+0000] {logging_mixin.py:188} INFO - 
+[5/5] Inserting into database...
+[2026-01-24T03:38:35.806+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-01-24T03:38:40.290+0000] {logging_mixin.py:188} INFO - Prepared 32959 unique keys for deletion
+[2026-01-24T03:38:43.123+0000] {logging_mixin.py:188} INFO - Deleted 33001 existing rows
+[2026-01-24T03:38:44.201+0000] {logging_mixin.py:188} INFO - ✅ Inserted 33016 rows
+[2026-01-24T03:38:44.219+0000] {python.py:237} INFO - Done. Returned value was: ✅ Success: 33016 rows
+[2026-01-24T03:38:44.220+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-24T03:38:44.247+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=minio_to_db_sync, task_id=sync_bctc, run_id=scheduled__2026-01-23T03:00:00+00:00, execution_date=20260123T030000, start_date=20260124T033629, end_date=20260124T033844
+[2026-01-24T03:38:44.336+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-24T03:38:44.429+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-24T03:38:44.434+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

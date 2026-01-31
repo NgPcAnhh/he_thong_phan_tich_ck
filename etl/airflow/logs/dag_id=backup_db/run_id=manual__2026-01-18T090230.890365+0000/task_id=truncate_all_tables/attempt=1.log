@@ -1,0 +1,51 @@
+[2026-01-18T09:02:35.753+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-18T09:02:35.767+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: backup_db.truncate_all_tables manual__2026-01-18T09:02:30.890365+00:00 [queued]>
+[2026-01-18T09:02:35.774+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: backup_db.truncate_all_tables manual__2026-01-18T09:02:30.890365+00:00 [queued]>
+[2026-01-18T09:02:35.775+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-18T09:02:35.788+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): truncate_all_tables> on 2026-01-18 09:02:30.890365+00:00
+[2026-01-18T09:02:35.795+0000] {warnings.py:112} WARNING - This process (pid=1655) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-18T09:02:35.797+0000] {standard_task_runner.py:64} INFO - Started process 1665 to run task
+[2026-01-18T09:02:35.798+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'backup_db', 'truncate_all_tables', 'manual__2026-01-18T09:02:30.890365+00:00', '--job-id', '2797', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync_dedup.py', '--cfg-path', '/tmp/tmpvugwys7f']
+[2026-01-18T09:02:35.801+0000] {standard_task_runner.py:91} INFO - Job 2797: Subtask truncate_all_tables
+[2026-01-18T09:02:35.839+0000] {task_command.py:426} INFO - Running <TaskInstance: backup_db.truncate_all_tables manual__2026-01-18T09:02:30.890365+00:00 [running]> on host 277a4b6fac12
+[2026-01-18T09:02:35.909+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='backup_db' AIRFLOW_CTX_TASK_ID='truncate_all_tables' AIRFLOW_CTX_EXECUTION_DATE='2026-01-18T09:02:30.890365+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-18T09:02:30.890365+00:00'
+[2026-01-18T09:02:35.910+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-18T09:02:35.910+0000] {minio_to_db_sync_dedup.py:60} INFO - ======================================================================
+[2026-01-18T09:02:35.911+0000] {minio_to_db_sync_dedup.py:61} INFO - 🗑️ TRUNCATING ALL TABLES IN SCHEMA: hethong_phantich_chungkhoan
+[2026-01-18T09:02:35.911+0000] {minio_to_db_sync_dedup.py:62} INFO - ======================================================================
+[2026-01-18T09:02:35.941+0000] {minio_to_db_sync_dedup.py:116} ERROR - ❌ Error truncating tables: 'Connection' object has no attribute 'commit'
+[2026-01-18T09:02:35.942+0000] {minio_to_db_sync_dedup.py:117} INFO - ======================================================================
+[2026-01-18T09:02:35.942+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-18T09:02:35.943+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync_dedup.py", line 94, in task_truncate_all_tables
+    conn.commit()
+    ^^^^^^^^^^^
+AttributeError: 'Connection' object has no attribute 'commit'
+[2026-01-18T09:02:35.954+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=backup_db, task_id=truncate_all_tables, run_id=manual__2026-01-18T09:02:30.890365+00:00, execution_date=20260118T090230, start_date=20260118T090235, end_date=20260118T090235
+[2026-01-18T09:02:35.965+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 2797 for task truncate_all_tables ('Connection' object has no attribute 'commit'; 1665)
+[2026-01-18T09:02:36.011+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-18T09:02:36.043+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-18T09:02:36.045+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

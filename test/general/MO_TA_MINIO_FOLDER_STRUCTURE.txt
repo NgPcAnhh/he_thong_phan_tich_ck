@@ -1,0 +1,581 @@
+=================================================================================
+MÔ TẢ CẤU TRÚC FOLDER MINIO TRONG HỆ THỐNG PHÂN TÍCH CHỨNG KHOÁN
+=================================================================================
+Bucket: thongtin-congty-va-bctc
+Ngày tạo tài liệu: 2026-01-18
+
+
+=================================================================================
+TỔNG QUAN CẤU TRÚC FOLDER
+=================================================================================
+
+MinIO được sử dụng như một Data Lake để lưu trữ dữ liệu thô (raw data) trước khi
+đồng bộ vào PostgreSQL database. Dữ liệu được tổ chức theo các folder chính sau:
+
+1. bctc/                    - Báo cáo tài chính
+2. overview/                - Thông tin tổng quan công ty
+3. people/                  - Thông tin cổ đông, lãnh đạo công ty
+4. financial_ratios/        - Các chỉ số tài chính
+5. history_price/           - Dữ liệu giá lịch sử
+6. daily_price/             - Dữ liệu giá hàng ngày
+7. index_price/             - Giá chỉ số thị trường
+8. macro_economy/           - Dữ liệu kinh tế vĩ mô
+   ├── xau/                 - Giá vàng
+   ├── oil/                 - Giá dầu
+   └── dowjone/             - Chỉ số Dow Jones
+9. global_index/            - Các chỉ số toàn cầu
+   ├── usd_vnd/             - Tỷ giá USD/VND
+   ├── dxy_index/           - Chỉ số Dollar Index
+   ├── usd_cny/             - Tỷ giá USD/CNY
+   ├── eur_usd/             - Tỷ giá EUR/USD
+   └── us_bond_10y/         - Lãi suất trái phiếu Mỹ kỳ hạn 10 năm
+10. news/                   - Tin tức
+    ├── daily/              - Tin tức hàng ngày từ API
+    └── site/               - Tin tức từ crawl website
+
+
+=================================================================================
+CHI TIẾT CẤU TRÚC PARTITION VÀ CÁC TRƯỜNG DỮ LIỆU
+=================================================================================
+
+-------------------------------------------------------------------------------
+1. BCTC (BÁO CÁO TÀI CHÍNH)
+-------------------------------------------------------------------------------
+Folder: bctc/
+Partition: bctc/{ds}/batch_{map_index}.csv
+           (ds = ngày chạy DAG theo format YYYY-MM-DD)
+
+DAG: bctc (tt_cty_bctc.py)
+Schedule: @weekly (hàng tuần)
+
+Mô tả: 
+- Dữ liệu báo cáo tài chính của các công ty niêm yết
+- Lấy từ API vnstock
+- Dữ liệu bao gồm các chỉ tiêu tài chính theo kỳ (quý/năm)
+
+Các trường dữ liệu (CSV columns):
+ticker	quarter	year	ind_name	ind_code	value	import_time	report_name	report_code
+
+
+Ví dụ partition:
+- bctc/2026-01-15/batch_0.csv
+- bctc/2026-01-15/batch_1.csv
+
+
+-------------------------------------------------------------------------------
+2. OVERVIEW (THÔNG TIN TỔNG QUAN CÔNG TY)
+-------------------------------------------------------------------------------
+Folder: overview/
+Partition: overview/date={ds}/batch_{map_index}.csv
+
+DAG: company_overview_to_minio (company_overview_to_minio.py)
+Schedule: @weekly (hàng tuần)
+
+Mô tả:
+- Thông tin tổng quan về công ty niêm yết
+
+Các trường dữ liệu (CSV columns):
+symbol	company_profile	icb_name2	icb_name3	icb_name4	exchange	type_info	organ_short_name	organ_name
+
+
+Ví dụ partition:
+- overview/date=2026-01-15/batch_0.csv
+- overview/date=2026-01-15/batch_1.csv
+
+
+-------------------------------------------------------------------------------
+3. PEOPLE (THÔNG TIN CỔ ĐÔNG, LÃNH ĐẠO)
+-------------------------------------------------------------------------------
+Folder: people/
+Partition: people/date={ds}/batch_{map_index}.csv
+
+DAG: company_people_to_minio (company_people_to_minio.py)
+Schedule: @weekly (hàng tuần)
+
+Mô tả:
+- Thông tin về cổ đông lớn và ban lãnh đạo công ty
+- Thông tin sở hữu cổ phần
+
+Các trường dữ liệu (CSV columns):
+symbol	name	position	percent	type
+
+
+Ví dụ partition:
+- people/date=2026-01-15/batch_0.csv
+- people/date=2026-01-15/batch_1.csv
+
+
+-------------------------------------------------------------------------------
+4.  FINANCIAL_RATIOS (CHỈ SỐ TÀI CHÍNH)
+-------------------------------------------------------------------------------
+Folder: financial_ratios/
+Partition: financial_ratios/{ds}/batch_{map_index}.csv
+
+DAG: financial_ratios_etl (financial_ratios_etl.py)
+Schedule: 0 2 * * 0 (02:00 Chủ Nhật hàng tuần)
+
+Mô tả:
+- Các chỉ số tài chính quan trọng
+- P/E, EPS, ROA, ROE, P/B, v.v.
+
+Các trường dữ liệu (CSV columns):
+	CP	Năm	Kỳ	TSCĐ / Vốn CSH	Vốn CSH/Vốn điều lệ	Biên EBIT (%)	Biên lợi nhuận gộp (%)	Biên lợi nhuận ròng (%)	EBIT (Tỷ đồng)	Đòn bẩy tài chính			(Vay NH+DH)/VCSH	Nợ/VCSH	Vòng quay tài sản	Vòng quay TSCĐ	Số ngày thu tiền bình quân	Số ngày tồn kho bình quân	Số ngày thanh toán bình quân	Chu kỳ tiền	Vòng quay hàng tồn kho	ROE (%)	ROIC (%)	ROA (%)	EBITDA (Tỷ đồng)	Chỉ số thanh toán hiện thời	Chỉ số thanh toán tiền mặt	Chỉ số thanh toán nhanh	Khả năng chi trả lãi vay	Vốn hóa (Tỷ đồng)	Số CP lưu hành (Triệu CP)	P/E	P/B	P/S	P/Cash Flow	EPS (VND)	BVPS (VND)	EV/EBITDA
+tham khảo dag: minio_to_db_sync.py cách xử lý import db như thế nào
+
+Ví dụ partition:
+- financial_ratios/2026-01-15/batch_0.csv
+- financial_ratios/2026-01-15/batch_1.csv
+
+
+-------------------------------------------------------------------------------
+5. HISTORY_PRICE (GIÁ LỊCH SỬ)
+-------------------------------------------------------------------------------
+Folder: history_price/
+Partition: history_price/{ds}/batch_{map_index}.csv
+
+DAG: history_price (history_price.py)
+Schedule: @daily (hàng ngày)
+Params: start_date=2026-01-01, end_date=None (đến hôm nay)
+
+Mô tả:
+- Dữ liệu giá lịch sử của cổ phiếu
+- Dùng cho backfill dữ liệu từ quá khứ
+- Lấy dữ liệu từ start_date đến end_date
+
+Các trường dữ liệu (CSV columns):
+ticker	trading_date	open	high	low	close	volume
+
+
+Ví dụ partition:
+- history_price/2026-01-15/batch_0.csv
+- history_price/2026-01-15/batch_1.csv
+
+
+-------------------------------------------------------------------------------
+6. DAILY_PRICE (GIÁ HÀNG NGÀY)
+-------------------------------------------------------------------------------
+Folder: daily_price/
+Partition: daily_price/{ds}/batch_{map_index}.csv
+
+DAG: daily_price_minio (daily_price_minio.py)
+Schedule: 0 16 * * 1-5 (16:00 từ thứ 2-6, sau giờ đóng cửa thị trường)
+
+Mô tả:
+- Dữ liệu giá chứng khoán của ngày hiện tại
+- Chỉ lấy dữ liệu ngày chạy DAG
+- Sử dụng cùng logic với history_price
+
+Các trường dữ liệu (CSV columns):
+(Giống với history_price)
+ticker	trading_date	open	high	low	close	volume
+
+
+Ví dụ partition:
+- daily_price/2026-01-15/batch_0.csv
+- daily_price/2026-01-15/batch_1.csv
+
+Lưu ý: Khi đồng bộ vào DB, cả history_price và daily_price đều được 
+ghi vào cùng bảng history_price trong PostgreSQL.
+
+
+-------------------------------------------------------------------------------
+7. INDEX_PRICE (GIÁ CHỈ SỐ THỊ TRƯỜNG)
+-------------------------------------------------------------------------------
+Folder: index_price/
+Partition: index_price/{ds}/index_price_{ts_nodash}.csv
+
+DAG: index_price_2026 (index_price_2026.py)
+Schedule: 0 15 * * 1-5 (15:00 từ thứ 2-6)
+
+Mô tả:
+- Giá các chỉ số thị trường chứng khoán Việt Nam
+- VN-Index, VN30, HNX-Index, UPCOM-Index, v.v.
+
+Các trường dữ liệu (CSV columns):
+ticker	trading_date	open	high	low	close	volume
+
+
+Ví dụ partition:
+- index_price/2026-01-15/index_price_20260115T150000.csv
+- index_price/2026-01-16/index_price_20260116T150000.csv
+
+
+-------------------------------------------------------------------------------
+8. MACRO_ECONOMY (KINH TẾ VĨ MÔ)
+-------------------------------------------------------------------------------
+Folder: macro_economy/
+Partition: macro_economy/{asset_type}/{ds}/data.csv
+           (asset_type = xau, oil, dowjone)
+
+DAG: gold_oil_dowjone_etl (gold_oil_dowjone_etl.py)
+Schedule: @daily (hàng ngày)
+
+Mô tả:
+- Dữ liệu các chỉ số kinh tế vĩ mô quan trọng
+- Lấy từ yfinance API
+- Gồm 3 loại tài sản chính
+
+8.1. XAU (VÀNG)
+Folder: macro_economy/xau/
+Partition: macro_economy/xau/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	asset_type
+
+8.2. OIL (DẦU)
+Folder: macro_economy/oil/
+Partition: macro_economy/oil/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	asset_type
+
+
+8.3. DOWJONE (CHỈ SỐ DOW JONES)
+Folder: macro_economy/dowjone/
+Partition: macro_economy/dowjone/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	asset_type
+
+
+Ví dụ partition:
+- macro_economy/xau/2026-01-15/data.csv
+- macro_economy/oil/2026-01-15/data.csv
+- macro_economy/dowjone/2026-01-15/data.csv
+
+
+-------------------------------------------------------------------------------
+9. GLOBAL_INDEX (CHỈ SỐ TOÀN CẦU)
+-------------------------------------------------------------------------------
+Folder: global_index/
+Partition: global_index/{index_type}/{ds}/data.csv
+           (index_type = usd_vnd, dxy_index, usd_cny, eur_usd, us_bond_10y)
+
+DAG: global_index_etl (global_index_etl.py)
+Schedule: @daily (hàng ngày)
+
+Mô tả:
+- Các chỉ số toàn cầu: ngoại hối, trái phiếu
+- Lấy từ yfinance API
+
+9.1. USD_VND (TỶ GIÁ USD/VND)
+Folder: global_index/usd_vnd/
+Partition: global_index/usd_vnd/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	indicator_type
+
+
+9.2. DXY_INDEX (CHỈ SỐ DOLLAR INDEX)
+Folder: global_index/dxy_index/
+Partition: global_index/dxy_index/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	indicator_type
+
+
+9.3. USD_CNY (TỶ GIÁ USD/CNY)
+Folder: global_index/usd_cny/
+Partition: global_index/usd_cny/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	indicator_type
+
+
+9.4. EUR_USD (TỶ GIÁ EUR/USD)
+Folder: global_index/eur_usd/
+Partition: global_index/eur_usd/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	indicator_type
+
+
+9.5. US_BOND_10Y (LÃI SUẤT TRÁI PHIẾU MỸ KỲ HẠN 10 NĂM)
+Folder: global_index/us_bond_10y/
+Partition: global_index/us_bond_10y/{ds}/data.csv
+
+Các trường dữ liệu:
+date	open	high	low	close	volume	indicator_type
+
+
+Ví dụ partition:
+- global_index/usd_vnd/2026-01-15/data.csv
+- global_index/dxy_index/2026-01-15/data.csv
+- global_index/usd_cny/2026-01-15/data.csv
+- global_index/eur_usd/2026-01-15/data.csv
+- global_index/us_bond_10y/2026-01-15/data.csv
+
+Lưu ý: Khi đồng bộ vào DB, cả macro_economy và global_index đều được 
+ghi vào cùng bảng macro_economy trong PostgreSQL.
+
+
+-------------------------------------------------------------------------------
+10. NEWS (TIN TỨC)
+-------------------------------------------------------------------------------
+Folder: news/
+Partition: news/{subfolder}/{ds}/news_{subfolder}_{ts_nodash}.csv
+           (subfolder = daily, site)
+
+Mô tả:
+- Dữ liệu tin tức liên quan đến thị trường chứng khoán
+- Có 2 nguồn: API (daily) và crawl website (site)
+
+10.1. NEWS/DAILY (TIN TỨC TỪ API)
+Folder: news/daily/
+Partition: news/daily/{ds}/news_daily_{ts_nodash}.csv
+
+DAG: daily_news_collection (daily_news_collection.py)
+Schedule: @daily (hàng ngày)
+
+Các trường dữ liệu:
+news_id	related_ticker	author	friendly_sub_title	news_source_link	created_at	public_date	updated_at	lang_code	news_short_content	news_full_content	price_change_pct	fetched_at	ds
+
+
+10.2. NEWS/SITE (TIN TỨC TỪ CRAWL WEBSITE)
+Folder: news/site/
+Partition: news/site/{ds}/news_site_{ts_nodash}.csv
+
+DAG: daily_news_paper (news_site_to_minio.py)
+Schedule: 0 18 * * * (18:00 hàng ngày)
+
+Các trường dữ liệu:
+target_date	source	url	title	sapo	content	publish_time	fetched_at
+
+
+Ví dụ partition:
+- news/daily/2026-01-15/news_daily_20260115T000000.csv
+- news/site/2026-01-15/news_site_20260115T180000.csv
+
+
+=================================================================================
+QUY ƯỚC PARTITION
+=================================================================================
+
+1. FORMAT NGÀY THÁNG
+   - {ds}: Execution date theo format YYYY-MM-DD (ví dụ: 2026-01-15)
+   - {ts_nodash}: Timestamp không có dấu gạch ngang (ví dụ: 20260115T150000)
+   - date={ds}: Hive-style partition cho một số folder
+
+2. FORMAT BATCH
+   - batch_{map_index}.csv: Cho các DAG có dynamic task mapping
+   - map_index bắt đầu từ 0
+   - Mỗi batch xử lý một nhóm ticker để tránh rate limit
+
+3. CẤU TRÚC PHÂN CẤP
+   - Level 1: Loại dữ liệu (bctc, overview, history_price, v.v.)
+   - Level 2: Sub-type (nếu có) - ví dụ: macro_economy/xau, news/daily
+   - Level 3: Partition theo ngày {ds}
+   - Level 4: File CSV (batch hoặc data.csv)
+
+=================================================================================
+cấu trúc db:
+create table financial_ratio
+(
+    id                           serial,
+    cp                           varchar(255),
+    nam                          integer,
+    ky                           integer,
+    tsc_von_csh                  double precision,
+    von_csh_von_ieu_le           double precision,
+    bien_ebit                    double precision,
+    bien_loi_nhuan_gop           double precision,
+    bien_loi_nhuan_rong          double precision,
+    ebit_ty_ong                  double precision,
+    on_bay_tai_chinh             double precision,
+    nan_1                        varchar(255),
+    nan_2                        varchar(255),
+    vay_nh_dh_vcsh               double precision,
+    no_vcsh                      double precision,
+    vong_quay_tai_san            double precision,
+    vong_quay_tsc                double precision,
+    so_ngay_thu_tien_binh_quan   double precision,
+    so_ngay_ton_kho_binh_quan    double precision,
+    so_ngay_thanh_toan_binh_quan double precision,
+    chu_ky_tien                  double precision,
+    vong_quay_hang_ton_kho       double precision,
+    roe                          double precision,
+    roic                         double precision,
+    roa                          double precision,
+    ebitda_ty_ong                double precision,
+    chi_so_thanh_toan_hien_thoi  double precision,
+    chi_so_thanh_toan_tien_mat   double precision,
+    chi_so_thanh_toan_nhanh      double precision,
+    kha_nang_chi_tra_lai_vay     double precision,
+    von_hoa_ty_ong               double precision,
+    so_cp_luu_hanh_trieu_cp      double precision,
+    p_e                          double precision,
+    p_b                          double precision,
+    p_s                          double precision,
+    p_cash_flow                  double precision,
+    eps_vnd                      double precision,
+    bvps_vnd                     double precision,
+    ev_ebitda                    double precision,
+    ty_suat_co_tuc               double precision
+);
+
+alter table financial_ratio
+    owner to admin;
+
+create table history_price
+(
+    ticker       varchar(10) not null,
+    trading_date text        not null,
+    open         numeric(15, 2),
+    high         numeric(15, 2),
+    low          numeric(15, 2),
+    close        numeric(15, 2),
+    volume       bigint,
+    import_time  timestamp default CURRENT_TIMESTAMP
+);
+
+alter table history_price
+    owner to admin;
+
+create table market_index
+(
+    ticker       varchar(10),
+    trading_date text,
+    open         numeric(15, 2),
+    high         numeric(15, 2),
+    low          numeric(15, 2),
+    close        numeric(15, 2),
+    volume       bigint,
+    import_time  timestamp default CURRENT_TIMESTAMP
+);
+
+alter table market_index
+    owner to admin;
+
+create table owner
+(
+    ticker      varchar(10),
+    name        varchar(255),
+    position    varchar(255),
+    percent     text,
+    type        varchar(50),
+    import_time timestamp default CURRENT_TIMESTAMP
+);
+
+alter table owner
+    owner to admin;
+
+create table company_overview
+(
+    ticker           varchar(10) not null,
+    overview         text,
+    icb_name1        text,
+    icb_name2        text,
+    icb_name3        text,
+    import_time      timestamp default CURRENT_TIMESTAMP,
+    exchange         text,
+    type_info        text,
+    organ_short_name text,
+    organ_name       text,
+    product_group    text
+);
+
+alter table company_overview
+    owner to admin;
+
+create table news
+(
+    news_id          varchar(50) not null,
+    ticker           varchar(10),
+    title            text        not null,
+    sub_title        text,
+    short_content    text,
+    full_content     text,
+    image_url        text,
+    source_link      text,
+    source_name      varchar(255),
+    lang_code        varchar(5) default 'vi'::character varying,
+    public_date      timestamp,
+    created_at       timestamp,
+    fetched_at       timestamp  default CURRENT_TIMESTAMP,
+    close_price      numeric(15, 2),
+    ref_price        numeric(15, 2),
+    floor_price      numeric(15, 2),
+    ceiling_price    numeric(15, 2),
+    price_change_pct numeric(10, 4),
+    import_time      timestamp  default CURRENT_TIMESTAMP
+);
+
+alter table news
+    owner to admin;
+
+create table bctc
+(
+    ticker      varchar(10),
+    quarter     varchar(10),
+    year        integer,
+    ind_name    text,
+    ind_code    varchar(50),
+    value       numeric(25, 4),
+    import_time timestamp default CURRENT_TIMESTAMP,
+    report_name varchar(255),
+    report_code varchar(100)
+);
+
+alter table bctc
+    owner to admin;
+
+create table indicator_mapping_4bctc
+(
+    raw_ind_name text,
+    std_ind_name text
+);
+
+alter table indicator_mapping_4bctc
+    owner to admin;
+
+create table macro_economy
+(
+    date       date,
+    open       real,
+    high       real,
+    low        real,
+    close      real,
+    volume     bigint,
+    asset_type varchar(20)
+);
+
+alter table macro_economy
+    owner to admin;
+
+create table realtime_quotes
+(
+    symbol           varchar(20) not null,
+    ts               timestamp   not null,
+    last_price       numeric(18, 4),
+    avg_price        numeric(18, 4),
+    last_volume      bigint,
+    total_volume     bigint,
+    total_value      numeric(20, 2),
+    foreign_buy_qty  bigint,
+    foreign_sell_qty bigint,
+    foreign_buy_val  numeric(20, 2),
+    foreign_sell_val numeric(20, 2),
+    bid1_price       numeric(18, 4),
+    bid1_qty         bigint,
+    bid2_price       numeric(18, 4),
+    bid2_qty         bigint,
+    bid3_price       numeric(18, 4),
+    bid3_qty         bigint,
+    ask1_price       numeric(18, 4),
+    ask1_qty         bigint,
+    ask2_price       numeric(18, 4),
+    ask2_qty         bigint,
+    ask3_price       numeric(18, 4),
+    ask3_qty         bigint,
+    ref_price        numeric(18, 4),
+    ceil_price       numeric(18, 4),
+    floor_price      numeric(18, 4),
+    change_percent   numeric(10, 4),
+    change_value     numeric(18, 4),
+    high_price       numeric(18, 4),
+    low_price        numeric(18, 4)
+);
+
+alter table realtime_quotes
+    owner to admin;
+

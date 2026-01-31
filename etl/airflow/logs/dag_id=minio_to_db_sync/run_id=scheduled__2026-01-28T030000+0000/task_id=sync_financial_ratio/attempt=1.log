@@ -1,0 +1,1293 @@
+[2026-01-29T13:56:30.823+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-29T13:56:30.850+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_financial_ratio scheduled__2026-01-28T03:00:00+00:00 [queued]>
+[2026-01-29T13:56:30.866+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_financial_ratio scheduled__2026-01-28T03:00:00+00:00 [queued]>
+[2026-01-29T13:56:30.866+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-29T13:56:30.899+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_financial_ratio> on 2026-01-28 03:00:00+00:00
+[2026-01-29T13:56:30.925+0000] {warnings.py:112} WARNING - This process (pid=77) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-29T13:56:30.927+0000] {standard_task_runner.py:64} INFO - Started process 232 to run task
+[2026-01-29T13:56:30.949+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_financial_ratio', 'scheduled__2026-01-28T03:00:00+00:00', '--job-id', '9701', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmptcnhiu3m']
+[2026-01-29T13:56:30.962+0000] {standard_task_runner.py:91} INFO - Job 9701: Subtask sync_financial_ratio
+[2026-01-29T13:56:31.127+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_financial_ratio scheduled__2026-01-28T03:00:00+00:00 [running]> on host 8b20476457f0
+[2026-01-29T13:56:31.335+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_financial_ratio' AIRFLOW_CTX_EXECUTION_DATE='2026-01-28T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-28T03:00:00+00:00'
+[2026-01-29T13:56:31.339+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-29T13:56:31.358+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-01-29T13:56:31.359+0000] {logging_mixin.py:188} INFO - 📊 SYNC FINANCIAL RATIO TO DATABASE (UPSERT MODE)
+[2026-01-29T13:56:31.360+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-01-29T13:56:31.360+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-01-29T13:56:31.392+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-29T13:56:31.397+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-29T13:58:05.888+0000] {logging_mixin.py:188} INFO - ✓ Latest partition found: financial_ratios/2026-01-24/
+[2026-01-29T13:58:05.890+0000] {logging_mixin.py:188} INFO - Latest partition: financial_ratios/2026-01-24/
+[2026-01-29T13:58:05.890+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading and processing CSV files...
+[2026-01-29T13:58:05.898+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-29T13:58:05.899+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-29T13:58:06.665+0000] {logging_mixin.py:188} INFO - Found 312 CSV files
+[2026-01-29T13:58:06.804+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_471.csv
+[2026-01-29T13:58:06.807+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_471.csv: ['cp']
+[2026-01-29T13:58:06.808+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:06.824+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_471.csv: 57 rows, 39 columns
+[2026-01-29T13:58:06.842+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_499.csv
+[2026-01-29T13:58:06.843+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_499.csv: ['cp']
+[2026-01-29T13:58:06.844+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 35 unique columns
+[2026-01-29T13:58:06.863+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_499.csv: 39 rows, 35 columns
+[2026-01-29T13:58:06.882+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_500.csv
+[2026-01-29T13:58:06.883+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_500.csv: ['cp']
+[2026-01-29T13:58:06.884+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:06.897+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_500.csv: 52 rows, 37 columns
+[2026-01-29T13:58:06.913+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_502.csv
+[2026-01-29T13:58:06.914+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_502.csv: ['cp']
+[2026-01-29T13:58:06.914+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:06.929+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_502.csv: 51 rows, 38 columns
+[2026-01-29T13:58:06.946+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_512.csv
+[2026-01-29T13:58:06.947+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_512.csv: ['cp']
+[2026-01-29T13:58:06.948+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:06.961+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_512.csv: 45 rows, 38 columns
+[2026-01-29T13:58:06.981+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_522.csv
+[2026-01-29T13:58:06.983+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_522.csv: ['cp']
+[2026-01-29T13:58:06.983+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:06.995+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_522.csv: 28 rows, 39 columns
+[2026-01-29T13:58:07.011+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_523.csv
+[2026-01-29T13:58:07.012+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_523.csv: ['cp']
+[2026-01-29T13:58:07.013+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.024+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_523.csv: 52 rows, 39 columns
+[2026-01-29T13:58:07.041+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_524.csv
+[2026-01-29T13:58:07.042+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_524.csv: ['cp']
+[2026-01-29T13:58:07.043+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.358+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_524.csv: 39 rows, 39 columns
+[2026-01-29T13:58:07.376+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_526.csv
+[2026-01-29T13:58:07.377+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_526.csv: ['cp']
+[2026-01-29T13:58:07.378+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.391+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_526.csv: 93 rows, 38 columns
+[2026-01-29T13:58:07.409+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_529.csv
+[2026-01-29T13:58:07.410+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_529.csv: ['cp']
+[2026-01-29T13:58:07.411+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.422+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_529.csv: 31 rows, 38 columns
+[2026-01-29T13:58:07.439+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_533.csv
+[2026-01-29T13:58:07.440+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_533.csv: ['cp']
+[2026-01-29T13:58:07.441+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.454+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_533.csv: 89 rows, 39 columns
+[2026-01-29T13:58:07.470+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_534.csv
+[2026-01-29T13:58:07.471+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_534.csv: ['cp']
+[2026-01-29T13:58:07.472+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.483+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_534.csv: 20 rows, 38 columns
+[2026-01-29T13:58:07.498+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_535.csv
+[2026-01-29T13:58:07.499+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_535.csv: ['cp']
+[2026-01-29T13:58:07.500+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.512+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_535.csv: 72 rows, 38 columns
+[2026-01-29T13:58:07.528+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_536.csv
+[2026-01-29T13:58:07.530+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_536.csv: ['cp']
+[2026-01-29T13:58:07.530+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.542+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_536.csv: 12 rows, 38 columns
+[2026-01-29T13:58:07.559+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_539.csv
+[2026-01-29T13:58:07.560+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_539.csv: ['cp']
+[2026-01-29T13:58:07.561+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.573+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_539.csv: 51 rows, 38 columns
+[2026-01-29T13:58:07.590+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_540.csv
+[2026-01-29T13:58:07.591+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_540.csv: ['cp']
+[2026-01-29T13:58:07.592+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.604+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_540.csv: 36 rows, 39 columns
+[2026-01-29T13:58:07.620+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_546.csv
+[2026-01-29T13:58:07.621+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_546.csv: ['cp']
+[2026-01-29T13:58:07.622+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.634+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_546.csv: 52 rows, 38 columns
+[2026-01-29T13:58:07.651+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_549.csv
+[2026-01-29T13:58:07.653+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_549.csv: ['cp']
+[2026-01-29T13:58:07.653+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.665+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_549.csv: 43 rows, 38 columns
+[2026-01-29T13:58:07.680+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_550.csv
+[2026-01-29T13:58:07.682+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_550.csv: ['cp']
+[2026-01-29T13:58:07.682+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.694+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_550.csv: 44 rows, 39 columns
+[2026-01-29T13:58:07.712+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_551.csv
+[2026-01-29T13:58:07.713+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_551.csv: ['cp']
+[2026-01-29T13:58:07.714+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.726+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_551.csv: 48 rows, 39 columns
+[2026-01-29T13:58:07.743+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_552.csv
+[2026-01-29T13:58:07.744+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_552.csv: ['cp']
+[2026-01-29T13:58:07.745+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.756+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_552.csv: 19 rows, 38 columns
+[2026-01-29T13:58:07.774+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_554.csv
+[2026-01-29T13:58:07.776+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_554.csv: ['cp']
+[2026-01-29T13:58:07.776+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.789+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_554.csv: 52 rows, 39 columns
+[2026-01-29T13:58:07.804+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_555.csv
+[2026-01-29T13:58:07.805+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_555.csv: ['cp']
+[2026-01-29T13:58:07.806+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.816+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_555.csv: 2 rows, 38 columns
+[2026-01-29T13:58:07.831+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_558.csv
+[2026-01-29T13:58:07.832+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_558.csv: ['cp']
+[2026-01-29T13:58:07.832+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 15 unique columns
+[2026-01-29T13:58:07.837+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_558.csv: 1 rows, 15 columns
+[2026-01-29T13:58:07.854+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_559.csv
+[2026-01-29T13:58:07.855+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_559.csv: ['cp']
+[2026-01-29T13:58:07.856+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.868+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_559.csv: 52 rows, 38 columns
+[2026-01-29T13:58:07.884+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_560.csv
+[2026-01-29T13:58:07.885+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_560.csv: ['cp']
+[2026-01-29T13:58:07.886+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.898+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_560.csv: 67 rows, 38 columns
+[2026-01-29T13:58:07.914+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_562.csv
+[2026-01-29T13:58:07.916+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_562.csv: ['cp']
+[2026-01-29T13:58:07.916+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.931+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_562.csv: 100 rows, 39 columns
+[2026-01-29T13:58:07.947+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_564.csv
+[2026-01-29T13:58:07.948+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_564.csv: ['cp']
+[2026-01-29T13:58:07.949+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:07.963+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_564.csv: 87 rows, 39 columns
+[2026-01-29T13:58:07.978+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_569.csv
+[2026-01-29T13:58:07.980+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_569.csv: ['cp']
+[2026-01-29T13:58:07.980+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:07.992+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_569.csv: 28 rows, 38 columns
+[2026-01-29T13:58:08.009+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_570.csv
+[2026-01-29T13:58:08.010+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_570.csv: ['cp']
+[2026-01-29T13:58:08.011+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.024+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_570.csv: 52 rows, 39 columns
+[2026-01-29T13:58:08.040+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_573.csv
+[2026-01-29T13:58:08.042+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_573.csv: ['cp']
+[2026-01-29T13:58:08.042+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.062+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_573.csv: 52 rows, 39 columns
+[2026-01-29T13:58:08.081+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_575.csv
+[2026-01-29T13:58:08.082+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_575.csv: ['cp']
+[2026-01-29T13:58:08.083+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.096+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_575.csv: 45 rows, 39 columns
+[2026-01-29T13:58:08.115+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_576.csv
+[2026-01-29T13:58:08.116+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_576.csv: ['cp']
+[2026-01-29T13:58:08.117+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.129+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_576.csv: 35 rows, 39 columns
+[2026-01-29T13:58:08.145+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_577.csv
+[2026-01-29T13:58:08.146+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_577.csv: ['cp']
+[2026-01-29T13:58:08.147+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 12 unique columns
+[2026-01-29T13:58:08.151+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_577.csv: 2 rows, 12 columns
+[2026-01-29T13:58:08.165+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_578.csv
+[2026-01-29T13:58:08.167+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_578.csv: ['cp']
+[2026-01-29T13:58:08.167+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.180+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_578.csv: 13 rows, 39 columns
+[2026-01-29T13:58:08.196+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_580.csv
+[2026-01-29T13:58:08.197+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_580.csv: ['cp']
+[2026-01-29T13:58:08.198+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.210+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_580.csv: 51 rows, 39 columns
+[2026-01-29T13:58:08.228+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_581.csv
+[2026-01-29T13:58:08.229+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_581.csv: ['cp']
+[2026-01-29T13:58:08.229+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.240+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_581.csv: 19 rows, 39 columns
+[2026-01-29T13:58:08.257+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_582.csv
+[2026-01-29T13:58:08.258+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_582.csv: ['cp']
+[2026-01-29T13:58:08.259+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.271+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_582.csv: 53 rows, 39 columns
+[2026-01-29T13:58:08.290+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_583.csv
+[2026-01-29T13:58:08.291+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_583.csv: ['cp']
+[2026-01-29T13:58:08.292+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 36 unique columns
+[2026-01-29T13:58:08.304+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_583.csv: 54 rows, 36 columns
+[2026-01-29T13:58:08.320+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_584.csv
+[2026-01-29T13:58:08.321+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_584.csv: ['cp']
+[2026-01-29T13:58:08.322+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:08.334+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_584.csv: 92 rows, 38 columns
+[2026-01-29T13:58:08.350+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_585.csv
+[2026-01-29T13:58:08.351+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_585.csv: ['cp']
+[2026-01-29T13:58:08.352+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.364+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_585.csv: 34 rows, 39 columns
+[2026-01-29T13:58:08.381+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_586.csv
+[2026-01-29T13:58:08.382+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_586.csv: ['cp']
+[2026-01-29T13:58:08.383+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 35 unique columns
+[2026-01-29T13:58:08.394+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_586.csv: 51 rows, 35 columns
+[2026-01-29T13:58:08.410+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_587.csv
+[2026-01-29T13:58:08.412+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_587.csv: ['cp']
+[2026-01-29T13:58:08.412+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:08.423+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_587.csv: 39 rows, 38 columns
+[2026-01-29T13:58:08.441+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_588.csv
+[2026-01-29T13:58:08.442+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_588.csv: ['cp']
+[2026-01-29T13:58:08.443+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.465+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_588.csv: 104 rows, 39 columns
+[2026-01-29T13:58:08.490+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_590.csv
+[2026-01-29T13:58:08.493+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_590.csv: ['cp']
+[2026-01-29T13:58:08.494+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.510+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_590.csv: 103 rows, 39 columns
+[2026-01-29T13:58:08.527+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_591.csv
+[2026-01-29T13:58:08.528+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_591.csv: ['cp']
+[2026-01-29T13:58:08.529+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:08.542+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_591.csv: 103 rows, 38 columns
+[2026-01-29T13:58:08.558+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_592.csv
+[2026-01-29T13:58:08.559+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_592.csv: ['cp']
+[2026-01-29T13:58:08.560+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.571+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_592.csv: 28 rows, 39 columns
+[2026-01-29T13:58:08.587+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_593.csv
+[2026-01-29T13:58:08.589+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_593.csv: ['cp']
+[2026-01-29T13:58:08.590+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.603+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_593.csv: 93 rows, 39 columns
+[2026-01-29T13:58:08.621+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_594.csv
+[2026-01-29T13:58:08.622+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_594.csv: ['cp']
+[2026-01-29T13:58:08.623+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.636+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_594.csv: 86 rows, 39 columns
+[2026-01-29T13:58:08.654+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_595.csv
+[2026-01-29T13:58:08.655+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_595.csv: ['cp']
+[2026-01-29T13:58:08.656+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.670+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_595.csv: 104 rows, 39 columns
+[2026-01-29T13:58:08.685+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_596.csv
+[2026-01-29T13:58:08.687+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_596.csv: ['cp']
+[2026-01-29T13:58:08.687+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:08.700+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_596.csv: 1 rows, 37 columns
+[2026-01-29T13:58:08.719+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_597.csv
+[2026-01-29T13:58:08.720+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_597.csv: ['cp']
+[2026-01-29T13:58:08.721+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.734+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_597.csv: 43 rows, 39 columns
+[2026-01-29T13:58:08.749+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_598.csv
+[2026-01-29T13:58:08.750+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_598.csv: ['cp']
+[2026-01-29T13:58:08.751+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.764+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_598.csv: 66 rows, 39 columns
+[2026-01-29T13:58:08.780+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_600.csv
+[2026-01-29T13:58:08.781+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_600.csv: ['cp']
+[2026-01-29T13:58:08.782+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.795+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_600.csv: 52 rows, 39 columns
+[2026-01-29T13:58:08.812+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_601.csv
+[2026-01-29T13:58:08.813+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_601.csv: ['cp']
+[2026-01-29T13:58:08.814+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.829+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_601.csv: 93 rows, 39 columns
+[2026-01-29T13:58:08.844+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_602.csv
+[2026-01-29T13:58:08.845+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_602.csv: ['cp']
+[2026-01-29T13:58:08.845+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:08.857+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_602.csv: 15 rows, 38 columns
+[2026-01-29T13:58:08.873+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_603.csv
+[2026-01-29T13:58:08.874+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_603.csv: ['cp']
+[2026-01-29T13:58:08.875+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.890+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_603.csv: 52 rows, 39 columns
+[2026-01-29T13:58:08.906+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_604.csv
+[2026-01-29T13:58:08.908+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_604.csv: ['cp']
+[2026-01-29T13:58:08.908+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.921+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_604.csv: 71 rows, 39 columns
+[2026-01-29T13:58:08.938+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_605.csv
+[2026-01-29T13:58:08.939+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_605.csv: ['cp']
+[2026-01-29T13:58:08.940+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.953+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_605.csv: 73 rows, 39 columns
+[2026-01-29T13:58:08.970+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_606.csv
+[2026-01-29T13:58:08.972+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_606.csv: ['cp']
+[2026-01-29T13:58:08.972+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:08.986+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_606.csv: 84 rows, 39 columns
+[2026-01-29T13:58:09.003+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_607.csv
+[2026-01-29T13:58:09.004+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_607.csv: ['cp']
+[2026-01-29T13:58:09.005+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.017+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_607.csv: 52 rows, 38 columns
+[2026-01-29T13:58:09.034+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_608.csv
+[2026-01-29T13:58:09.036+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_608.csv: ['cp']
+[2026-01-29T13:58:09.036+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.050+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_608.csv: 75 rows, 39 columns
+[2026-01-29T13:58:09.067+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_609.csv
+[2026-01-29T13:58:09.068+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_609.csv: ['cp']
+[2026-01-29T13:58:09.069+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.082+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_609.csv: 51 rows, 39 columns
+[2026-01-29T13:58:09.100+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_610.csv
+[2026-01-29T13:58:09.102+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_610.csv: ['cp']
+[2026-01-29T13:58:09.102+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.116+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_610.csv: 68 rows, 39 columns
+[2026-01-29T13:58:09.134+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_611.csv
+[2026-01-29T13:58:09.135+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_611.csv: ['cp']
+[2026-01-29T13:58:09.136+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.148+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_611.csv: 43 rows, 38 columns
+[2026-01-29T13:58:09.165+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_612.csv
+[2026-01-29T13:58:09.167+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_612.csv: ['cp']
+[2026-01-29T13:58:09.167+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.184+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_612.csv: 24 rows, 39 columns
+[2026-01-29T13:58:09.202+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_613.csv
+[2026-01-29T13:58:09.203+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_613.csv: ['cp']
+[2026-01-29T13:58:09.204+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.218+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_613.csv: 82 rows, 39 columns
+[2026-01-29T13:58:09.234+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_614.csv
+[2026-01-29T13:58:09.235+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_614.csv: ['cp']
+[2026-01-29T13:58:09.235+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.246+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_614.csv: 28 rows, 38 columns
+[2026-01-29T13:58:09.262+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_615.csv
+[2026-01-29T13:58:09.264+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_615.csv: ['cp']
+[2026-01-29T13:58:09.265+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.278+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_615.csv: 51 rows, 39 columns
+[2026-01-29T13:58:09.295+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_616.csv
+[2026-01-29T13:58:09.297+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_616.csv: ['cp']
+[2026-01-29T13:58:09.298+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.310+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_616.csv: 61 rows, 39 columns
+[2026-01-29T13:58:09.326+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_617.csv
+[2026-01-29T13:58:09.327+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_617.csv: ['cp']
+[2026-01-29T13:58:09.328+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.341+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_617.csv: 68 rows, 39 columns
+[2026-01-29T13:58:09.358+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_618.csv
+[2026-01-29T13:58:09.359+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_618.csv: ['cp']
+[2026-01-29T13:58:09.360+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.372+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_618.csv: 38 rows, 39 columns
+[2026-01-29T13:58:09.389+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_619.csv
+[2026-01-29T13:58:09.391+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_619.csv: ['cp']
+[2026-01-29T13:58:09.391+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.402+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_619.csv: 4 rows, 38 columns
+[2026-01-29T13:58:09.418+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_620.csv
+[2026-01-29T13:58:09.419+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_620.csv: ['cp']
+[2026-01-29T13:58:09.419+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.431+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_620.csv: 34 rows, 38 columns
+[2026-01-29T13:58:09.446+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_621.csv
+[2026-01-29T13:58:09.447+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_621.csv: ['cp']
+[2026-01-29T13:58:09.448+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.461+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_621.csv: 53 rows, 39 columns
+[2026-01-29T13:58:09.479+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_622.csv
+[2026-01-29T13:58:09.480+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_622.csv: ['cp']
+[2026-01-29T13:58:09.481+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.495+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_622.csv: 103 rows, 39 columns
+[2026-01-29T13:58:09.512+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_623.csv
+[2026-01-29T13:58:09.513+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_623.csv: ['cp']
+[2026-01-29T13:58:09.514+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.528+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_623.csv: 91 rows, 39 columns
+[2026-01-29T13:58:09.545+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_624.csv
+[2026-01-29T13:58:09.547+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_624.csv: ['cp']
+[2026-01-29T13:58:09.548+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.561+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_624.csv: 83 rows, 38 columns
+[2026-01-29T13:58:09.578+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_625.csv
+[2026-01-29T13:58:09.580+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_625.csv: ['cp']
+[2026-01-29T13:58:09.580+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.593+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_625.csv: 74 rows, 39 columns
+[2026-01-29T13:58:09.609+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_626.csv
+[2026-01-29T13:58:09.611+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_626.csv: ['cp']
+[2026-01-29T13:58:09.611+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.622+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_626.csv: 17 rows, 39 columns
+[2026-01-29T13:58:09.639+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_627.csv
+[2026-01-29T13:58:09.640+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_627.csv: ['cp']
+[2026-01-29T13:58:09.641+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.654+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_627.csv: 53 rows, 38 columns
+[2026-01-29T13:58:09.671+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_628.csv
+[2026-01-29T13:58:09.673+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_628.csv: ['cp']
+[2026-01-29T13:58:09.673+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.687+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_628.csv: 88 rows, 39 columns
+[2026-01-29T13:58:09.705+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_629.csv
+[2026-01-29T13:58:09.707+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_629.csv: ['cp']
+[2026-01-29T13:58:09.708+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.722+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_629.csv: 102 rows, 39 columns
+[2026-01-29T13:58:09.740+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_631.csv
+[2026-01-29T13:58:09.741+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_631.csv: ['cp']
+[2026-01-29T13:58:09.742+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 22 unique columns
+[2026-01-29T13:58:09.748+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_631.csv: 1 rows, 22 columns
+[2026-01-29T13:58:09.765+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_632.csv
+[2026-01-29T13:58:09.767+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_632.csv: ['cp']
+[2026-01-29T13:58:09.768+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.781+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_632.csv: 88 rows, 38 columns
+[2026-01-29T13:58:09.799+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_633.csv
+[2026-01-29T13:58:09.800+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_633.csv: ['cp']
+[2026-01-29T13:58:09.801+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:09.814+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_633.csv: 99 rows, 38 columns
+[2026-01-29T13:58:09.831+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_634.csv
+[2026-01-29T13:58:09.832+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_634.csv: ['cp']
+[2026-01-29T13:58:09.832+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 12 unique columns
+[2026-01-29T13:58:09.836+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_634.csv: 1 rows, 12 columns
+[2026-01-29T13:58:09.852+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_635.csv
+[2026-01-29T13:58:09.854+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_635.csv: ['cp']
+[2026-01-29T13:58:09.855+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 36 unique columns
+[2026-01-29T13:58:09.866+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_635.csv: 19 rows, 36 columns
+[2026-01-29T13:58:09.884+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_636.csv
+[2026-01-29T13:58:09.885+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_636.csv: ['cp']
+[2026-01-29T13:58:09.886+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.898+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_636.csv: 41 rows, 39 columns
+[2026-01-29T13:58:09.916+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_637.csv
+[2026-01-29T13:58:09.918+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_637.csv: ['cp']
+[2026-01-29T13:58:09.918+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.932+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_637.csv: 94 rows, 39 columns
+[2026-01-29T13:58:09.951+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_638.csv
+[2026-01-29T13:58:09.953+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_638.csv: ['cp']
+[2026-01-29T13:58:09.954+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:09.968+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_638.csv: 97 rows, 39 columns
+[2026-01-29T13:58:09.984+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_639.csv
+[2026-01-29T13:58:09.985+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_639.csv: ['cp']
+[2026-01-29T13:58:09.985+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 21 unique columns
+[2026-01-29T13:58:09.993+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_639.csv: 51 rows, 21 columns
+[2026-01-29T13:58:10.008+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_640.csv
+[2026-01-29T13:58:10.009+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_640.csv: ['cp']
+[2026-01-29T13:58:10.010+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.021+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_640.csv: 19 rows, 38 columns
+[2026-01-29T13:58:10.037+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_641.csv
+[2026-01-29T13:58:10.038+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_641.csv: ['cp']
+[2026-01-29T13:58:10.039+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.057+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_641.csv: 103 rows, 39 columns
+[2026-01-29T13:58:10.078+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_642.csv
+[2026-01-29T13:58:10.080+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_642.csv: ['cp']
+[2026-01-29T13:58:10.080+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.092+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_642.csv: 7 rows, 39 columns
+[2026-01-29T13:58:10.109+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_643.csv
+[2026-01-29T13:58:10.110+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_643.csv: ['cp']
+[2026-01-29T13:58:10.111+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.129+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_643.csv: 73 rows, 38 columns
+[2026-01-29T13:58:10.147+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_644.csv
+[2026-01-29T13:58:10.148+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_644.csv: ['cp']
+[2026-01-29T13:58:10.149+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.162+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_644.csv: 71 rows, 38 columns
+[2026-01-29T13:58:10.179+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_645.csv
+[2026-01-29T13:58:10.180+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_645.csv: ['cp']
+[2026-01-29T13:58:10.180+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.193+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_645.csv: 53 rows, 39 columns
+[2026-01-29T13:58:10.211+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_646.csv
+[2026-01-29T13:58:10.212+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_646.csv: ['cp']
+[2026-01-29T13:58:10.213+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.225+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_646.csv: 51 rows, 38 columns
+[2026-01-29T13:58:10.241+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_647.csv
+[2026-01-29T13:58:10.243+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_647.csv: ['cp']
+[2026-01-29T13:58:10.243+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.256+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_647.csv: 54 rows, 38 columns
+[2026-01-29T13:58:10.271+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_649.csv
+[2026-01-29T13:58:10.273+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_649.csv: ['cp']
+[2026-01-29T13:58:10.273+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.287+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_649.csv: 87 rows, 39 columns
+[2026-01-29T13:58:10.305+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_650.csv
+[2026-01-29T13:58:10.306+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_650.csv: ['cp']
+[2026-01-29T13:58:10.307+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.319+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_650.csv: 35 rows, 38 columns
+[2026-01-29T13:58:10.333+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_651.csv
+[2026-01-29T13:58:10.334+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_651.csv: ['cp']
+[2026-01-29T13:58:10.335+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 12 unique columns
+[2026-01-29T13:58:10.339+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_651.csv: 3 rows, 12 columns
+[2026-01-29T13:58:10.355+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_652.csv
+[2026-01-29T13:58:10.357+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_652.csv: ['cp']
+[2026-01-29T13:58:10.357+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.370+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_652.csv: 52 rows, 39 columns
+[2026-01-29T13:58:10.386+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_653.csv
+[2026-01-29T13:58:10.387+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_653.csv: ['cp']
+[2026-01-29T13:58:10.388+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.402+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_653.csv: 90 rows, 38 columns
+[2026-01-29T13:58:10.419+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_654.csv
+[2026-01-29T13:58:10.420+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_654.csv: ['cp']
+[2026-01-29T13:58:10.421+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.433+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_654.csv: 60 rows, 38 columns
+[2026-01-29T13:58:10.449+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_655.csv
+[2026-01-29T13:58:10.450+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_655.csv: ['cp']
+[2026-01-29T13:58:10.451+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.463+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_655.csv: 14 rows, 39 columns
+[2026-01-29T13:58:10.479+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_656.csv
+[2026-01-29T13:58:10.480+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_656.csv: ['cp']
+[2026-01-29T13:58:10.481+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.493+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_656.csv: 46 rows, 39 columns
+[2026-01-29T13:58:10.511+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_657.csv
+[2026-01-29T13:58:10.513+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_657.csv: ['cp']
+[2026-01-29T13:58:10.514+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.526+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_657.csv: 52 rows, 39 columns
+[2026-01-29T13:58:10.543+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_658.csv
+[2026-01-29T13:58:10.544+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_658.csv: ['cp']
+[2026-01-29T13:58:10.545+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.558+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_658.csv: 52 rows, 38 columns
+[2026-01-29T13:58:10.574+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_659.csv
+[2026-01-29T13:58:10.575+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_659.csv: ['cp']
+[2026-01-29T13:58:10.576+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.588+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_659.csv: 53 rows, 38 columns
+[2026-01-29T13:58:10.604+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_660.csv
+[2026-01-29T13:58:10.606+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_660.csv: ['cp']
+[2026-01-29T13:58:10.607+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.620+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_660.csv: 87 rows, 39 columns
+[2026-01-29T13:58:10.638+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_661.csv
+[2026-01-29T13:58:10.639+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_661.csv: ['cp']
+[2026-01-29T13:58:10.640+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.652+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_661.csv: 30 rows, 38 columns
+[2026-01-29T13:58:10.667+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_662.csv
+[2026-01-29T13:58:10.669+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_662.csv: ['cp']
+[2026-01-29T13:58:10.669+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.682+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_662.csv: 69 rows, 39 columns
+[2026-01-29T13:58:10.698+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_663.csv
+[2026-01-29T13:58:10.700+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_663.csv: ['cp']
+[2026-01-29T13:58:10.700+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.714+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_663.csv: 86 rows, 38 columns
+[2026-01-29T13:58:10.730+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_664.csv
+[2026-01-29T13:58:10.731+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_664.csv: ['cp']
+[2026-01-29T13:58:10.732+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.745+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_664.csv: 91 rows, 39 columns
+[2026-01-29T13:58:10.761+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_665.csv
+[2026-01-29T13:58:10.762+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_665.csv: ['cp']
+[2026-01-29T13:58:10.763+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.776+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_665.csv: 77 rows, 38 columns
+[2026-01-29T13:58:10.794+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_666.csv
+[2026-01-29T13:58:10.796+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_666.csv: ['cp']
+[2026-01-29T13:58:10.797+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.811+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_666.csv: 103 rows, 39 columns
+[2026-01-29T13:58:10.828+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_667.csv
+[2026-01-29T13:58:10.829+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_667.csv: ['cp']
+[2026-01-29T13:58:10.830+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.843+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_667.csv: 67 rows, 39 columns
+[2026-01-29T13:58:10.859+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_668.csv
+[2026-01-29T13:58:10.860+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_668.csv: ['cp']
+[2026-01-29T13:58:10.861+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.873+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_668.csv: 51 rows, 39 columns
+[2026-01-29T13:58:10.891+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_669.csv
+[2026-01-29T13:58:10.893+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_669.csv: ['cp']
+[2026-01-29T13:58:10.893+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.905+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_669.csv: 33 rows, 39 columns
+[2026-01-29T13:58:10.922+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_670.csv
+[2026-01-29T13:58:10.923+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_670.csv: ['cp']
+[2026-01-29T13:58:10.924+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:10.936+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_670.csv: 51 rows, 38 columns
+[2026-01-29T13:58:10.952+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_671.csv
+[2026-01-29T13:58:10.954+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_671.csv: ['cp']
+[2026-01-29T13:58:10.954+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.967+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_671.csv: 78 rows, 39 columns
+[2026-01-29T13:58:10.984+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_672.csv
+[2026-01-29T13:58:10.985+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_672.csv: ['cp']
+[2026-01-29T13:58:10.986+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:10.998+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_672.csv: 35 rows, 39 columns
+[2026-01-29T13:58:11.014+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_673.csv
+[2026-01-29T13:58:11.015+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_673.csv: ['cp']
+[2026-01-29T13:58:11.016+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.028+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_673.csv: 43 rows, 39 columns
+[2026-01-29T13:58:11.045+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_674.csv
+[2026-01-29T13:58:11.046+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_674.csv: ['cp']
+[2026-01-29T13:58:11.047+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.059+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_674.csv: 51 rows, 38 columns
+[2026-01-29T13:58:11.075+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_675.csv
+[2026-01-29T13:58:11.076+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_675.csv: ['cp']
+[2026-01-29T13:58:11.077+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.089+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_675.csv: 76 rows, 39 columns
+[2026-01-29T13:58:11.106+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_676.csv
+[2026-01-29T13:58:11.107+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_676.csv: ['cp']
+[2026-01-29T13:58:11.108+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.120+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_676.csv: 35 rows, 39 columns
+[2026-01-29T13:58:11.135+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_677.csv
+[2026-01-29T13:58:11.137+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_677.csv: ['cp']
+[2026-01-29T13:58:11.138+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.150+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_677.csv: 8 rows, 39 columns
+[2026-01-29T13:58:11.166+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_678.csv
+[2026-01-29T13:58:11.167+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_678.csv: ['cp']
+[2026-01-29T13:58:11.168+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.181+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_678.csv: 52 rows, 39 columns
+[2026-01-29T13:58:11.196+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_679.csv
+[2026-01-29T13:58:11.197+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_679.csv: ['cp']
+[2026-01-29T13:58:11.198+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.211+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_679.csv: 34 rows, 39 columns
+[2026-01-29T13:58:11.226+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_680.csv
+[2026-01-29T13:58:11.227+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_680.csv: ['cp']
+[2026-01-29T13:58:11.228+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.241+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_680.csv: 69 rows, 39 columns
+[2026-01-29T13:58:11.256+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_681.csv
+[2026-01-29T13:58:11.258+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_681.csv: ['cp']
+[2026-01-29T13:58:11.259+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.271+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_681.csv: 48 rows, 39 columns
+[2026-01-29T13:58:11.289+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_682.csv
+[2026-01-29T13:58:11.290+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_682.csv: ['cp']
+[2026-01-29T13:58:11.291+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.303+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_682.csv: 52 rows, 38 columns
+[2026-01-29T13:58:11.321+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_683.csv
+[2026-01-29T13:58:11.323+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_683.csv: ['cp']
+[2026-01-29T13:58:11.324+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.337+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_683.csv: 76 rows, 38 columns
+[2026-01-29T13:58:11.354+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_684.csv
+[2026-01-29T13:58:11.356+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_684.csv: ['cp']
+[2026-01-29T13:58:11.357+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.369+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_684.csv: 51 rows, 38 columns
+[2026-01-29T13:58:11.385+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_685.csv
+[2026-01-29T13:58:11.387+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_685.csv: ['cp']
+[2026-01-29T13:58:11.387+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.399+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_685.csv: 5 rows, 38 columns
+[2026-01-29T13:58:11.416+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_686.csv
+[2026-01-29T13:58:11.417+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_686.csv: ['cp']
+[2026-01-29T13:58:11.418+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.430+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_686.csv: 53 rows, 38 columns
+[2026-01-29T13:58:11.447+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_687.csv
+[2026-01-29T13:58:11.449+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_687.csv: ['cp']
+[2026-01-29T13:58:11.449+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.463+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_687.csv: 103 rows, 39 columns
+[2026-01-29T13:58:11.480+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_688.csv
+[2026-01-29T13:58:11.482+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_688.csv: ['cp']
+[2026-01-29T13:58:11.482+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.495+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_688.csv: 51 rows, 39 columns
+[2026-01-29T13:58:11.512+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_689.csv
+[2026-01-29T13:58:11.514+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_689.csv: ['cp']
+[2026-01-29T13:58:11.515+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.527+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_689.csv: 52 rows, 39 columns
+[2026-01-29T13:58:11.544+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_690.csv
+[2026-01-29T13:58:11.545+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_690.csv: ['cp']
+[2026-01-29T13:58:11.546+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.561+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_690.csv: 104 rows, 39 columns
+[2026-01-29T13:58:11.578+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_691.csv
+[2026-01-29T13:58:11.580+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_691.csv: ['cp']
+[2026-01-29T13:58:11.580+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.594+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_691.csv: 64 rows, 39 columns
+[2026-01-29T13:58:11.611+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_692.csv
+[2026-01-29T13:58:11.612+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_692.csv: ['cp']
+[2026-01-29T13:58:11.613+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.631+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_692.csv: 85 rows, 39 columns
+[2026-01-29T13:58:11.650+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_693.csv
+[2026-01-29T13:58:11.651+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_693.csv: ['cp']
+[2026-01-29T13:58:11.651+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.664+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_693.csv: 62 rows, 39 columns
+[2026-01-29T13:58:11.681+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_694.csv
+[2026-01-29T13:58:11.682+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_694.csv: ['cp']
+[2026-01-29T13:58:11.683+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.696+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_694.csv: 68 rows, 39 columns
+[2026-01-29T13:58:11.712+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_695.csv
+[2026-01-29T13:58:11.714+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_695.csv: ['cp']
+[2026-01-29T13:58:11.714+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.726+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_695.csv: 44 rows, 39 columns
+[2026-01-29T13:58:11.744+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_696.csv
+[2026-01-29T13:58:11.745+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_696.csv: ['cp']
+[2026-01-29T13:58:11.746+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.759+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_696.csv: 74 rows, 39 columns
+[2026-01-29T13:58:11.775+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_697.csv
+[2026-01-29T13:58:11.776+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_697.csv: ['cp']
+[2026-01-29T13:58:11.777+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.789+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_697.csv: 32 rows, 38 columns
+[2026-01-29T13:58:11.805+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_698.csv
+[2026-01-29T13:58:11.806+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_698.csv: ['cp']
+[2026-01-29T13:58:11.807+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.818+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_698.csv: 58 rows, 39 columns
+[2026-01-29T13:58:11.834+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_699.csv
+[2026-01-29T13:58:11.835+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_699.csv: ['cp']
+[2026-01-29T13:58:11.836+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.851+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_699.csv: 86 rows, 38 columns
+[2026-01-29T13:58:11.867+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_700.csv
+[2026-01-29T13:58:11.868+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_700.csv: ['cp']
+[2026-01-29T13:58:11.869+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.882+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_700.csv: 44 rows, 39 columns
+[2026-01-29T13:58:11.897+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_701.csv
+[2026-01-29T13:58:11.898+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_701.csv: ['cp']
+[2026-01-29T13:58:11.899+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.910+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_701.csv: 51 rows, 38 columns
+[2026-01-29T13:58:11.926+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_702.csv
+[2026-01-29T13:58:11.927+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_702.csv: ['cp']
+[2026-01-29T13:58:11.928+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:11.941+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_702.csv: 18 rows, 38 columns
+[2026-01-29T13:58:11.957+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_703.csv
+[2026-01-29T13:58:11.958+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_703.csv: ['cp']
+[2026-01-29T13:58:11.959+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:11.973+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_703.csv: 104 rows, 39 columns
+[2026-01-29T13:58:11.989+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_704.csv
+[2026-01-29T13:58:11.990+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_704.csv: ['cp']
+[2026-01-29T13:58:11.990+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.002+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_704.csv: 25 rows, 38 columns
+[2026-01-29T13:58:12.019+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_705.csv
+[2026-01-29T13:58:12.021+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_705.csv: ['cp']
+[2026-01-29T13:58:12.021+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.034+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_705.csv: 60 rows, 39 columns
+[2026-01-29T13:58:12.049+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_706.csv
+[2026-01-29T13:58:12.050+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_706.csv: ['cp']
+[2026-01-29T13:58:12.051+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.063+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_706.csv: 43 rows, 39 columns
+[2026-01-29T13:58:12.077+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_707.csv
+[2026-01-29T13:58:12.079+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_707.csv: ['cp']
+[2026-01-29T13:58:12.079+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.092+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_707.csv: 94 rows, 39 columns
+[2026-01-29T13:58:12.108+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_709.csv
+[2026-01-29T13:58:12.109+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_709.csv: ['cp']
+[2026-01-29T13:58:12.110+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.123+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_709.csv: 72 rows, 39 columns
+[2026-01-29T13:58:12.143+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_710.csv
+[2026-01-29T13:58:12.144+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_710.csv: ['cp']
+[2026-01-29T13:58:12.145+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.160+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_710.csv: 100 rows, 39 columns
+[2026-01-29T13:58:12.176+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_711.csv
+[2026-01-29T13:58:12.177+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_711.csv: ['cp']
+[2026-01-29T13:58:12.178+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.192+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_711.csv: 65 rows, 39 columns
+[2026-01-29T13:58:12.209+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_712.csv
+[2026-01-29T13:58:12.210+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_712.csv: ['cp']
+[2026-01-29T13:58:12.211+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.223+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_712.csv: 52 rows, 39 columns
+[2026-01-29T13:58:12.240+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_713.csv
+[2026-01-29T13:58:12.242+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_713.csv: ['cp']
+[2026-01-29T13:58:12.242+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.256+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_713.csv: 74 rows, 39 columns
+[2026-01-29T13:58:12.273+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_714.csv
+[2026-01-29T13:58:12.274+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_714.csv: ['cp']
+[2026-01-29T13:58:12.275+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.288+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_714.csv: 102 rows, 39 columns
+[2026-01-29T13:58:12.304+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_715.csv
+[2026-01-29T13:58:12.306+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_715.csv: ['cp']
+[2026-01-29T13:58:12.306+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.319+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_715.csv: 52 rows, 39 columns
+[2026-01-29T13:58:12.336+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_716.csv
+[2026-01-29T13:58:12.337+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_716.csv: ['cp']
+[2026-01-29T13:58:12.338+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.353+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_716.csv: 90 rows, 39 columns
+[2026-01-29T13:58:12.368+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_717.csv
+[2026-01-29T13:58:12.369+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_717.csv: ['cp']
+[2026-01-29T13:58:12.370+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.384+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_717.csv: 97 rows, 39 columns
+[2026-01-29T13:58:12.400+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_718.csv
+[2026-01-29T13:58:12.402+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_718.csv: ['cp']
+[2026-01-29T13:58:12.402+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.416+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_718.csv: 91 rows, 39 columns
+[2026-01-29T13:58:12.433+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_719.csv
+[2026-01-29T13:58:12.434+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_719.csv: ['cp']
+[2026-01-29T13:58:12.435+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.448+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_719.csv: 65 rows, 39 columns
+[2026-01-29T13:58:12.464+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_720.csv
+[2026-01-29T13:58:12.466+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_720.csv: ['cp']
+[2026-01-29T13:58:12.466+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.479+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_720.csv: 90 rows, 39 columns
+[2026-01-29T13:58:12.496+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_721.csv
+[2026-01-29T13:58:12.498+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_721.csv: ['cp']
+[2026-01-29T13:58:12.498+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.512+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_721.csv: 99 rows, 39 columns
+[2026-01-29T13:58:12.529+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_722.csv
+[2026-01-29T13:58:12.530+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_722.csv: ['cp']
+[2026-01-29T13:58:12.531+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.545+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_722.csv: 73 rows, 39 columns
+[2026-01-29T13:58:12.561+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_723.csv
+[2026-01-29T13:58:12.563+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_723.csv: ['cp']
+[2026-01-29T13:58:12.563+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.576+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_723.csv: 46 rows, 39 columns
+[2026-01-29T13:58:12.594+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_724.csv
+[2026-01-29T13:58:12.595+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_724.csv: ['cp']
+[2026-01-29T13:58:12.596+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.608+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_724.csv: 45 rows, 39 columns
+[2026-01-29T13:58:12.625+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_725.csv
+[2026-01-29T13:58:12.627+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_725.csv: ['cp']
+[2026-01-29T13:58:12.627+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.641+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_725.csv: 79 rows, 39 columns
+[2026-01-29T13:58:12.657+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_726.csv
+[2026-01-29T13:58:12.659+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_726.csv: ['cp']
+[2026-01-29T13:58:12.659+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.673+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_726.csv: 103 rows, 38 columns
+[2026-01-29T13:58:12.691+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_727.csv
+[2026-01-29T13:58:12.693+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_727.csv: ['cp']
+[2026-01-29T13:58:12.693+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.706+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_727.csv: 48 rows, 38 columns
+[2026-01-29T13:58:12.723+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_728.csv
+[2026-01-29T13:58:12.725+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_728.csv: ['cp']
+[2026-01-29T13:58:12.725+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.739+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_728.csv: 71 rows, 38 columns
+[2026-01-29T13:58:12.755+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_729.csv
+[2026-01-29T13:58:12.757+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_729.csv: ['cp']
+[2026-01-29T13:58:12.758+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.770+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_729.csv: 83 rows, 38 columns
+[2026-01-29T13:58:12.786+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_730.csv
+[2026-01-29T13:58:12.787+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_730.csv: ['cp']
+[2026-01-29T13:58:12.788+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.801+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_730.csv: 54 rows, 39 columns
+[2026-01-29T13:58:12.819+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_731.csv
+[2026-01-29T13:58:12.821+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_731.csv: ['cp']
+[2026-01-29T13:58:12.822+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.835+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_731.csv: 77 rows, 39 columns
+[2026-01-29T13:58:12.850+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_732.csv
+[2026-01-29T13:58:12.852+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_732.csv: ['cp']
+[2026-01-29T13:58:12.852+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.864+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_732.csv: 23 rows, 38 columns
+[2026-01-29T13:58:12.881+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_733.csv
+[2026-01-29T13:58:12.883+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_733.csv: ['cp']
+[2026-01-29T13:58:12.883+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.895+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_733.csv: 52 rows, 39 columns
+[2026-01-29T13:58:12.912+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_734.csv
+[2026-01-29T13:58:12.913+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_734.csv: ['cp']
+[2026-01-29T13:58:12.914+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:12.927+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_734.csv: 51 rows, 38 columns
+[2026-01-29T13:58:12.945+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_735.csv
+[2026-01-29T13:58:12.946+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_735.csv: ['cp']
+[2026-01-29T13:58:12.947+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.961+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_735.csv: 88 rows, 39 columns
+[2026-01-29T13:58:12.979+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_736.csv
+[2026-01-29T13:58:12.981+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_736.csv: ['cp']
+[2026-01-29T13:58:12.982+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:12.995+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_736.csv: 75 rows, 39 columns
+[2026-01-29T13:58:13.014+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_737.csv
+[2026-01-29T13:58:13.016+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_737.csv: ['cp']
+[2026-01-29T13:58:13.017+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.029+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_737.csv: 45 rows, 39 columns
+[2026-01-29T13:58:13.046+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_738.csv
+[2026-01-29T13:58:13.047+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_738.csv: ['cp']
+[2026-01-29T13:58:13.048+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.059+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_738.csv: 13 rows, 38 columns
+[2026-01-29T13:58:13.075+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_739.csv
+[2026-01-29T13:58:13.076+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_739.csv: ['cp']
+[2026-01-29T13:58:13.077+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.091+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_739.csv: 101 rows, 39 columns
+[2026-01-29T13:58:13.107+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_740.csv
+[2026-01-29T13:58:13.108+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_740.csv: ['cp']
+[2026-01-29T13:58:13.109+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.122+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_740.csv: 75 rows, 39 columns
+[2026-01-29T13:58:13.138+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_741.csv
+[2026-01-29T13:58:13.140+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_741.csv: ['cp']
+[2026-01-29T13:58:13.141+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.154+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_741.csv: 90 rows, 39 columns
+[2026-01-29T13:58:13.171+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_742.csv
+[2026-01-29T13:58:13.173+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_742.csv: ['cp']
+[2026-01-29T13:58:13.175+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.189+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_742.csv: 93 rows, 39 columns
+[2026-01-29T13:58:13.206+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_743.csv
+[2026-01-29T13:58:13.208+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_743.csv: ['cp']
+[2026-01-29T13:58:13.208+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.222+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_743.csv: 91 rows, 39 columns
+[2026-01-29T13:58:13.239+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_744.csv
+[2026-01-29T13:58:13.241+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_744.csv: ['cp']
+[2026-01-29T13:58:13.242+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.254+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_744.csv: 81 rows, 39 columns
+[2026-01-29T13:58:13.271+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_745.csv
+[2026-01-29T13:58:13.272+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_745.csv: ['cp']
+[2026-01-29T13:58:13.273+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.286+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_745.csv: 91 rows, 38 columns
+[2026-01-29T13:58:13.303+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_746.csv
+[2026-01-29T13:58:13.304+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_746.csv: ['cp']
+[2026-01-29T13:58:13.305+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.318+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_746.csv: 43 rows, 39 columns
+[2026-01-29T13:58:13.334+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_747.csv
+[2026-01-29T13:58:13.335+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_747.csv: ['cp']
+[2026-01-29T13:58:13.336+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.348+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_747.csv: 53 rows, 38 columns
+[2026-01-29T13:58:13.364+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_748.csv
+[2026-01-29T13:58:13.365+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_748.csv: ['cp']
+[2026-01-29T13:58:13.366+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.378+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_748.csv: 51 rows, 39 columns
+[2026-01-29T13:58:13.395+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_749.csv
+[2026-01-29T13:58:13.397+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_749.csv: ['cp']
+[2026-01-29T13:58:13.398+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.411+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_749.csv: 65 rows, 39 columns
+[2026-01-29T13:58:13.430+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_750.csv
+[2026-01-29T13:58:13.431+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_750.csv: ['cp']
+[2026-01-29T13:58:13.432+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.444+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_750.csv: 34 rows, 39 columns
+[2026-01-29T13:58:13.460+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_751.csv
+[2026-01-29T13:58:13.462+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_751.csv: ['cp']
+[2026-01-29T13:58:13.463+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.477+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_751.csv: 91 rows, 39 columns
+[2026-01-29T13:58:13.495+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_754.csv
+[2026-01-29T13:58:13.496+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_754.csv: ['cp']
+[2026-01-29T13:58:13.497+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.510+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_754.csv: 22 rows, 38 columns
+[2026-01-29T13:58:13.527+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_755.csv
+[2026-01-29T13:58:13.529+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_755.csv: ['cp']
+[2026-01-29T13:58:13.529+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.543+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_755.csv: 80 rows, 39 columns
+[2026-01-29T13:58:13.559+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_756.csv
+[2026-01-29T13:58:13.560+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_756.csv: ['cp']
+[2026-01-29T13:58:13.561+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.572+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_756.csv: 15 rows, 39 columns
+[2026-01-29T13:58:13.588+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_757.csv
+[2026-01-29T13:58:13.590+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_757.csv: ['cp']
+[2026-01-29T13:58:13.591+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.603+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_757.csv: 21 rows, 38 columns
+[2026-01-29T13:58:13.618+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_758.csv
+[2026-01-29T13:58:13.620+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_758.csv: ['cp']
+[2026-01-29T13:58:13.620+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.632+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_758.csv: 31 rows, 39 columns
+[2026-01-29T13:58:13.648+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_759.csv
+[2026-01-29T13:58:13.649+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_759.csv: ['cp']
+[2026-01-29T13:58:13.650+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.663+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_759.csv: 87 rows, 39 columns
+[2026-01-29T13:58:13.679+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_760.csv
+[2026-01-29T13:58:13.681+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_760.csv: ['cp']
+[2026-01-29T13:58:13.682+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 23 unique columns
+[2026-01-29T13:58:13.689+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_760.csv: 10 rows, 23 columns
+[2026-01-29T13:58:13.705+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_761.csv
+[2026-01-29T13:58:13.706+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_761.csv: ['cp']
+[2026-01-29T13:58:13.707+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.720+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_761.csv: 53 rows, 39 columns
+[2026-01-29T13:58:13.736+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_762.csv
+[2026-01-29T13:58:13.737+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_762.csv: ['cp']
+[2026-01-29T13:58:13.737+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.749+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_762.csv: 37 rows, 38 columns
+[2026-01-29T13:58:13.764+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_763.csv
+[2026-01-29T13:58:13.766+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_763.csv: ['cp']
+[2026-01-29T13:58:13.766+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.779+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_763.csv: 56 rows, 39 columns
+[2026-01-29T13:58:13.797+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_764.csv
+[2026-01-29T13:58:13.798+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_764.csv: ['cp']
+[2026-01-29T13:58:13.799+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.813+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_764.csv: 76 rows, 39 columns
+[2026-01-29T13:58:13.829+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_765.csv
+[2026-01-29T13:58:13.830+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_765.csv: ['cp']
+[2026-01-29T13:58:13.831+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.843+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_765.csv: 63 rows, 39 columns
+[2026-01-29T13:58:13.860+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_766.csv
+[2026-01-29T13:58:13.861+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_766.csv: ['cp']
+[2026-01-29T13:58:13.862+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:13.873+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_766.csv: 47 rows, 38 columns
+[2026-01-29T13:58:13.891+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_767.csv
+[2026-01-29T13:58:13.892+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_767.csv: ['cp']
+[2026-01-29T13:58:13.893+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.906+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_767.csv: 35 rows, 39 columns
+[2026-01-29T13:58:13.922+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_768.csv
+[2026-01-29T13:58:13.924+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_768.csv: ['cp']
+[2026-01-29T13:58:13.924+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.938+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_768.csv: 79 rows, 39 columns
+[2026-01-29T13:58:13.954+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_769.csv
+[2026-01-29T13:58:13.955+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_769.csv: ['cp']
+[2026-01-29T13:58:13.956+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:13.968+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_769.csv: 6 rows, 39 columns
+[2026-01-29T13:58:13.984+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_770.csv
+[2026-01-29T13:58:13.986+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_770.csv: ['cp']
+[2026-01-29T13:58:13.987+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.000+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_770.csv: 104 rows, 39 columns
+[2026-01-29T13:58:14.018+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_771.csv
+[2026-01-29T13:58:14.019+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_771.csv: ['cp']
+[2026-01-29T13:58:14.020+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.033+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_771.csv: 80 rows, 38 columns
+[2026-01-29T13:58:14.050+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_772.csv
+[2026-01-29T13:58:14.051+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_772.csv: ['cp']
+[2026-01-29T13:58:14.052+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.064+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_772.csv: 62 rows, 38 columns
+[2026-01-29T13:58:14.081+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_773.csv
+[2026-01-29T13:58:14.082+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_773.csv: ['cp']
+[2026-01-29T13:58:14.083+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.097+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_773.csv: 70 rows, 39 columns
+[2026-01-29T13:58:14.115+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_774.csv
+[2026-01-29T13:58:14.116+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_774.csv: ['cp']
+[2026-01-29T13:58:14.117+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.131+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_774.csv: 102 rows, 39 columns
+[2026-01-29T13:58:14.148+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_775.csv
+[2026-01-29T13:58:14.150+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_775.csv: ['cp']
+[2026-01-29T13:58:14.150+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.163+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_775.csv: 51 rows, 39 columns
+[2026-01-29T13:58:14.180+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_777.csv
+[2026-01-29T13:58:14.182+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_777.csv: ['cp']
+[2026-01-29T13:58:14.183+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.196+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_777.csv: 89 rows, 39 columns
+[2026-01-29T13:58:14.212+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_778.csv
+[2026-01-29T13:58:14.213+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_778.csv: ['cp']
+[2026-01-29T13:58:14.214+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.225+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_778.csv: 36 rows, 39 columns
+[2026-01-29T13:58:14.241+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_779.csv
+[2026-01-29T13:58:14.243+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_779.csv: ['cp']
+[2026-01-29T13:58:14.243+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.255+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_779.csv: 52 rows, 39 columns
+[2026-01-29T13:58:14.272+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_780.csv
+[2026-01-29T13:58:14.273+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_780.csv: ['cp']
+[2026-01-29T13:58:14.274+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.287+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_780.csv: 70 rows, 39 columns
+[2026-01-29T13:58:14.303+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_781.csv
+[2026-01-29T13:58:14.305+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_781.csv: ['cp']
+[2026-01-29T13:58:14.306+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.318+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_781.csv: 53 rows, 38 columns
+[2026-01-29T13:58:14.334+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_782.csv
+[2026-01-29T13:58:14.335+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_782.csv: ['cp']
+[2026-01-29T13:58:14.336+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.348+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_782.csv: 34 rows, 39 columns
+[2026-01-29T13:58:14.365+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_783.csv
+[2026-01-29T13:58:14.366+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_783.csv: ['cp']
+[2026-01-29T13:58:14.366+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.378+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_783.csv: 36 rows, 39 columns
+[2026-01-29T13:58:14.396+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_784.csv
+[2026-01-29T13:58:14.397+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_784.csv: ['cp']
+[2026-01-29T13:58:14.398+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.412+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_784.csv: 103 rows, 39 columns
+[2026-01-29T13:58:14.429+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_785.csv
+[2026-01-29T13:58:14.431+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_785.csv: ['cp']
+[2026-01-29T13:58:14.431+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.448+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_785.csv: 52 rows, 39 columns
+[2026-01-29T13:58:14.465+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_786.csv
+[2026-01-29T13:58:14.466+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_786.csv: ['cp']
+[2026-01-29T13:58:14.467+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.480+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_786.csv: 44 rows, 39 columns
+[2026-01-29T13:58:14.495+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_787.csv
+[2026-01-29T13:58:14.497+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_787.csv: ['cp']
+[2026-01-29T13:58:14.497+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.508+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_787.csv: 16 rows, 39 columns
+[2026-01-29T13:58:14.524+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_788.csv
+[2026-01-29T13:58:14.526+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_788.csv: ['cp']
+[2026-01-29T13:58:14.526+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.537+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_788.csv: 25 rows, 38 columns
+[2026-01-29T13:58:14.555+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_789.csv
+[2026-01-29T13:58:14.556+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_789.csv: ['cp']
+[2026-01-29T13:58:14.557+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.570+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_789.csv: 83 rows, 39 columns
+[2026-01-29T13:58:14.586+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_790.csv
+[2026-01-29T13:58:14.587+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_790.csv: ['cp']
+[2026-01-29T13:58:14.588+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.601+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_790.csv: 88 rows, 39 columns
+[2026-01-29T13:58:14.618+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_791.csv
+[2026-01-29T13:58:14.619+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_791.csv: ['cp']
+[2026-01-29T13:58:14.620+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.634+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_791.csv: 91 rows, 39 columns
+[2026-01-29T13:58:14.652+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_792.csv
+[2026-01-29T13:58:14.653+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_792.csv: ['cp']
+[2026-01-29T13:58:14.654+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.668+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_792.csv: 69 rows, 39 columns
+[2026-01-29T13:58:14.687+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_793.csv
+[2026-01-29T13:58:14.689+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_793.csv: ['cp']
+[2026-01-29T13:58:14.690+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.703+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_793.csv: 51 rows, 38 columns
+[2026-01-29T13:58:14.722+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_794.csv
+[2026-01-29T13:58:14.724+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_794.csv: ['cp']
+[2026-01-29T13:58:14.725+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.737+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_794.csv: 48 rows, 38 columns
+[2026-01-29T13:58:14.754+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_795.csv
+[2026-01-29T13:58:14.755+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_795.csv: ['cp']
+[2026-01-29T13:58:14.756+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.770+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_795.csv: 89 rows, 39 columns
+[2026-01-29T13:58:14.786+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_796.csv
+[2026-01-29T13:58:14.787+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_796.csv: ['cp']
+[2026-01-29T13:58:14.788+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.799+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_796.csv: 25 rows, 38 columns
+[2026-01-29T13:58:14.815+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_797.csv
+[2026-01-29T13:58:14.817+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_797.csv: ['cp']
+[2026-01-29T13:58:14.818+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.830+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_797.csv: 52 rows, 39 columns
+[2026-01-29T13:58:14.848+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_798.csv
+[2026-01-29T13:58:14.849+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_798.csv: ['cp']
+[2026-01-29T13:58:14.850+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.863+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_798.csv: 61 rows, 39 columns
+[2026-01-29T13:58:14.880+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_799.csv
+[2026-01-29T13:58:14.881+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_799.csv: ['cp']
+[2026-01-29T13:58:14.882+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:14.894+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_799.csv: 56 rows, 38 columns
+[2026-01-29T13:58:14.912+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_800.csv
+[2026-01-29T13:58:14.914+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_800.csv: ['cp']
+[2026-01-29T13:58:14.915+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.930+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_800.csv: 107 rows, 39 columns
+[2026-01-29T13:58:14.946+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_801.csv
+[2026-01-29T13:58:14.947+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_801.csv: ['cp']
+[2026-01-29T13:58:14.948+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 13 unique columns
+[2026-01-29T13:58:14.952+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_801.csv: 1 rows, 13 columns
+[2026-01-29T13:58:14.969+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_802.csv
+[2026-01-29T13:58:14.970+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_802.csv: ['cp']
+[2026-01-29T13:58:14.971+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:14.990+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_802.csv: 66 rows, 39 columns
+[2026-01-29T13:58:15.007+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_803.csv
+[2026-01-29T13:58:15.008+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_803.csv: ['cp']
+[2026-01-29T13:58:15.009+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.020+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_803.csv: 12 rows, 39 columns
+[2026-01-29T13:58:15.037+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_804.csv
+[2026-01-29T13:58:15.038+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_804.csv: ['cp']
+[2026-01-29T13:58:15.039+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.054+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_804.csv: 52 rows, 39 columns
+[2026-01-29T13:58:15.070+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_805.csv
+[2026-01-29T13:58:15.072+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_805.csv: ['cp']
+[2026-01-29T13:58:15.072+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:15.086+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_805.csv: 6 rows, 37 columns
+[2026-01-29T13:58:15.104+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_807.csv
+[2026-01-29T13:58:15.105+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_807.csv: ['cp']
+[2026-01-29T13:58:15.106+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.119+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_807.csv: 86 rows, 38 columns
+[2026-01-29T13:58:15.135+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_808.csv
+[2026-01-29T13:58:15.136+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_808.csv: ['cp']
+[2026-01-29T13:58:15.137+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.148+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_808.csv: 22 rows, 38 columns
+[2026-01-29T13:58:15.166+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_809.csv
+[2026-01-29T13:58:15.167+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_809.csv: ['cp']
+[2026-01-29T13:58:15.168+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.180+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_809.csv: 51 rows, 38 columns
+[2026-01-29T13:58:15.197+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_810.csv
+[2026-01-29T13:58:15.198+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_810.csv: ['cp']
+[2026-01-29T13:58:15.199+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.212+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_810.csv: 44 rows, 38 columns
+[2026-01-29T13:58:15.228+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_811.csv
+[2026-01-29T13:58:15.230+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_811.csv: ['cp']
+[2026-01-29T13:58:15.231+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:15.244+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_811.csv: 102 rows, 37 columns
+[2026-01-29T13:58:15.261+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_812.csv
+[2026-01-29T13:58:15.262+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_812.csv: ['cp']
+[2026-01-29T13:58:15.263+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.275+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_812.csv: 24 rows, 39 columns
+[2026-01-29T13:58:15.292+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_813.csv
+[2026-01-29T13:58:15.293+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_813.csv: ['cp']
+[2026-01-29T13:58:15.294+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.306+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_813.csv: 39 rows, 38 columns
+[2026-01-29T13:58:15.320+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_814.csv
+[2026-01-29T13:58:15.322+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_814.csv: ['cp']
+[2026-01-29T13:58:15.322+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 31 unique columns
+[2026-01-29T13:58:15.331+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_814.csv: 11 rows, 31 columns
+[2026-01-29T13:58:15.347+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_815.csv
+[2026-01-29T13:58:15.349+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_815.csv: ['cp']
+[2026-01-29T13:58:15.349+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.364+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_815.csv: 13 rows, 38 columns
+[2026-01-29T13:58:15.381+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_816.csv
+[2026-01-29T13:58:15.383+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_816.csv: ['cp']
+[2026-01-29T13:58:15.384+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.398+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_816.csv: 72 rows, 39 columns
+[2026-01-29T13:58:15.415+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_817.csv
+[2026-01-29T13:58:15.417+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_817.csv: ['cp']
+[2026-01-29T13:58:15.417+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.430+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_817.csv: 51 rows, 39 columns
+[2026-01-29T13:58:15.448+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_818.csv
+[2026-01-29T13:58:15.449+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_818.csv: ['cp']
+[2026-01-29T13:58:15.450+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.464+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_818.csv: 53 rows, 39 columns
+[2026-01-29T13:58:15.481+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_819.csv
+[2026-01-29T13:58:15.482+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_819.csv: ['cp']
+[2026-01-29T13:58:15.483+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.496+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_819.csv: 78 rows, 39 columns
+[2026-01-29T13:58:15.512+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_820.csv
+[2026-01-29T13:58:15.513+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_820.csv: ['cp']
+[2026-01-29T13:58:15.514+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.526+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_820.csv: 50 rows, 39 columns
+[2026-01-29T13:58:15.541+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_821.csv
+[2026-01-29T13:58:15.542+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_821.csv: ['cp']
+[2026-01-29T13:58:15.543+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.553+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_821.csv: 7 rows, 38 columns
+[2026-01-29T13:58:15.570+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_823.csv
+[2026-01-29T13:58:15.571+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_823.csv: ['cp']
+[2026-01-29T13:58:15.572+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.585+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_823.csv: 39 rows, 38 columns
+[2026-01-29T13:58:15.601+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_824.csv
+[2026-01-29T13:58:15.602+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_824.csv: ['cp']
+[2026-01-29T13:58:15.603+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.615+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_824.csv: 30 rows, 39 columns
+[2026-01-29T13:58:15.633+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_825.csv
+[2026-01-29T13:58:15.634+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_825.csv: ['cp']
+[2026-01-29T13:58:15.635+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.648+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_825.csv: 52 rows, 38 columns
+[2026-01-29T13:58:15.668+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_826.csv
+[2026-01-29T13:58:15.671+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_826.csv: ['cp']
+[2026-01-29T13:58:15.672+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.685+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_826.csv: 19 rows, 38 columns
+[2026-01-29T13:58:15.704+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_827.csv
+[2026-01-29T13:58:15.706+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_827.csv: ['cp']
+[2026-01-29T13:58:15.707+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.723+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_827.csv: 57 rows, 39 columns
+[2026-01-29T13:58:15.742+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_828.csv
+[2026-01-29T13:58:15.743+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_828.csv: ['cp']
+[2026-01-29T13:58:15.744+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.756+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_828.csv: 51 rows, 39 columns
+[2026-01-29T13:58:15.774+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_829.csv
+[2026-01-29T13:58:15.776+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_829.csv: ['cp']
+[2026-01-29T13:58:15.776+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.787+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_829.csv: 42 rows, 38 columns
+[2026-01-29T13:58:15.803+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_830.csv
+[2026-01-29T13:58:15.805+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_830.csv: ['cp']
+[2026-01-29T13:58:15.805+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.823+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_830.csv: 57 rows, 38 columns
+[2026-01-29T13:58:15.838+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_831.csv
+[2026-01-29T13:58:15.839+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_831.csv: ['cp']
+[2026-01-29T13:58:15.840+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.852+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_831.csv: 30 rows, 38 columns
+[2026-01-29T13:58:15.870+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_832.csv
+[2026-01-29T13:58:15.871+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_832.csv: ['cp']
+[2026-01-29T13:58:15.872+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.884+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_832.csv: 64 rows, 39 columns
+[2026-01-29T13:58:15.901+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_833.csv
+[2026-01-29T13:58:15.902+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_833.csv: ['cp']
+[2026-01-29T13:58:15.903+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.915+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_833.csv: 55 rows, 39 columns
+[2026-01-29T13:58:15.934+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_834.csv
+[2026-01-29T13:58:15.935+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_834.csv: ['cp']
+[2026-01-29T13:58:15.936+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:15.949+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_834.csv: 72 rows, 38 columns
+[2026-01-29T13:58:15.967+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_835.csv
+[2026-01-29T13:58:15.968+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_835.csv: ['cp']
+[2026-01-29T13:58:15.969+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:15.983+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_835.csv: 51 rows, 39 columns
+[2026-01-29T13:58:16.000+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_836.csv
+[2026-01-29T13:58:16.001+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_836.csv: ['cp']
+[2026-01-29T13:58:16.002+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.015+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_836.csv: 102 rows, 39 columns
+[2026-01-29T13:58:16.031+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_837.csv
+[2026-01-29T13:58:16.032+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_837.csv: ['cp']
+[2026-01-29T13:58:16.033+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.053+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_837.csv: 51 rows, 39 columns
+[2026-01-29T13:58:16.069+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_838.csv
+[2026-01-29T13:58:16.071+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_838.csv: ['cp']
+[2026-01-29T13:58:16.072+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.086+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_838.csv: 104 rows, 39 columns
+[2026-01-29T13:58:16.106+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_839.csv
+[2026-01-29T13:58:16.107+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_839.csv: ['cp']
+[2026-01-29T13:58:16.108+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 36 unique columns
+[2026-01-29T13:58:16.121+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_839.csv: 52 rows, 36 columns
+[2026-01-29T13:58:16.139+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_840.csv
+[2026-01-29T13:58:16.140+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_840.csv: ['cp']
+[2026-01-29T13:58:16.141+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.154+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_840.csv: 39 rows, 39 columns
+[2026-01-29T13:58:16.172+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_841.csv
+[2026-01-29T13:58:16.174+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_841.csv: ['cp']
+[2026-01-29T13:58:16.175+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.190+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_841.csv: 74 rows, 38 columns
+[2026-01-29T13:58:16.208+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_842.csv
+[2026-01-29T13:58:16.210+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_842.csv: ['cp']
+[2026-01-29T13:58:16.211+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.225+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_842.csv: 85 rows, 39 columns
+[2026-01-29T13:58:16.244+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_843.csv
+[2026-01-29T13:58:16.246+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_843.csv: ['cp']
+[2026-01-29T13:58:16.246+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.264+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_843.csv: 106 rows, 39 columns
+[2026-01-29T13:58:16.280+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_844.csv
+[2026-01-29T13:58:16.282+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_844.csv: ['cp']
+[2026-01-29T13:58:16.283+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.297+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_844.csv: 58 rows, 39 columns
+[2026-01-29T13:58:16.314+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_845.csv
+[2026-01-29T13:58:16.315+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_845.csv: ['cp']
+[2026-01-29T13:58:16.316+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.328+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_845.csv: 53 rows, 38 columns
+[2026-01-29T13:58:16.347+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_846.csv
+[2026-01-29T13:58:16.348+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_846.csv: ['cp']
+[2026-01-29T13:58:16.349+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.363+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_846.csv: 88 rows, 38 columns
+[2026-01-29T13:58:16.381+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_847.csv
+[2026-01-29T13:58:16.384+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_847.csv: ['cp']
+[2026-01-29T13:58:16.385+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.399+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_847.csv: 74 rows, 39 columns
+[2026-01-29T13:58:16.417+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_848.csv
+[2026-01-29T13:58:16.419+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_848.csv: ['cp']
+[2026-01-29T13:58:16.420+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.433+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_848.csv: 70 rows, 38 columns
+[2026-01-29T13:58:16.453+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_849.csv
+[2026-01-29T13:58:16.454+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_849.csv: ['cp']
+[2026-01-29T13:58:16.455+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.470+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_849.csv: 71 rows, 38 columns
+[2026-01-29T13:58:16.489+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_850.csv
+[2026-01-29T13:58:16.490+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_850.csv: ['cp']
+[2026-01-29T13:58:16.491+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.505+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_850.csv: 52 rows, 38 columns
+[2026-01-29T13:58:16.526+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_851.csv
+[2026-01-29T13:58:16.527+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_851.csv: ['cp']
+[2026-01-29T13:58:16.528+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.545+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_851.csv: 85 rows, 39 columns
+[2026-01-29T13:58:16.564+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_852.csv
+[2026-01-29T13:58:16.566+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_852.csv: ['cp']
+[2026-01-29T13:58:16.566+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.581+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_852.csv: 78 rows, 39 columns
+[2026-01-29T13:58:16.598+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_853.csv
+[2026-01-29T13:58:16.600+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_853.csv: ['cp']
+[2026-01-29T13:58:16.601+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.612+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_853.csv: 15 rows, 39 columns
+[2026-01-29T13:58:16.632+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_854.csv
+[2026-01-29T13:58:16.634+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_854.csv: ['cp']
+[2026-01-29T13:58:16.635+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.651+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_854.csv: 89 rows, 39 columns
+[2026-01-29T13:58:16.674+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_855.csv
+[2026-01-29T13:58:16.676+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_855.csv: ['cp']
+[2026-01-29T13:58:16.677+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.691+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_855.csv: 58 rows, 39 columns
+[2026-01-29T13:58:16.711+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_856.csv
+[2026-01-29T13:58:16.713+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_856.csv: ['cp']
+[2026-01-29T13:58:16.714+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.729+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_856.csv: 90 rows, 39 columns
+[2026-01-29T13:58:16.747+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_857.csv
+[2026-01-29T13:58:16.758+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_857.csv: ['cp']
+[2026-01-29T13:58:16.759+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.770+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_857.csv: 40 rows, 38 columns
+[2026-01-29T13:58:16.787+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_858.csv
+[2026-01-29T13:58:16.788+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_858.csv: ['cp']
+[2026-01-29T13:58:16.789+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.801+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_858.csv: 81 rows, 39 columns
+[2026-01-29T13:58:16.820+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_859.csv
+[2026-01-29T13:58:16.821+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_859.csv: ['cp']
+[2026-01-29T13:58:16.822+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.835+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_859.csv: 52 rows, 38 columns
+[2026-01-29T13:58:16.853+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_860.csv
+[2026-01-29T13:58:16.855+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_860.csv: ['cp']
+[2026-01-29T13:58:16.856+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:16.869+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_860.csv: 98 rows, 37 columns
+[2026-01-29T13:58:16.888+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_861.csv
+[2026-01-29T13:58:16.890+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_861.csv: ['cp']
+[2026-01-29T13:58:16.890+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:16.905+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_861.csv: 78 rows, 39 columns
+[2026-01-29T13:58:16.922+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_862.csv
+[2026-01-29T13:58:16.924+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_862.csv: ['cp']
+[2026-01-29T13:58:16.925+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 37 unique columns
+[2026-01-29T13:58:16.938+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_862.csv: 74 rows, 37 columns
+[2026-01-29T13:58:16.954+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_863.csv
+[2026-01-29T13:58:16.955+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_863.csv: ['cp']
+[2026-01-29T13:58:16.956+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:16.968+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_863.csv: 89 rows, 38 columns
+[2026-01-29T13:58:16.988+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_864.csv
+[2026-01-29T13:58:16.990+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_864.csv: ['cp']
+[2026-01-29T13:58:16.991+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 38 unique columns
+[2026-01-29T13:58:17.004+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_864.csv: 64 rows, 38 columns
+[2026-01-29T13:58:17.023+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_865.csv
+[2026-01-29T13:58:17.024+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_865.csv: ['cp']
+[2026-01-29T13:58:17.025+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:17.039+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_865.csv: 88 rows, 39 columns
+[2026-01-29T13:58:17.055+0000] {logging_mixin.py:188} INFO - ✓ Processed multi-header CSV: financial_ratios/2026-01-24/batch_866.csv
+[2026-01-29T13:58:17.056+0000] {logging_mixin.py:188} INFO - ⚠️ Warning: Duplicate columns detected in financial_ratios/2026-01-24/batch_866.csv: ['cp']
+[2026-01-29T13:58:17.057+0000] {logging_mixin.py:188} INFO -   ✓ Removed duplicates, keeping 39 unique columns
+[2026-01-29T13:58:17.072+0000] {logging_mixin.py:188} INFO -   ✓ financial_ratios/2026-01-24/batch_866.csv: 60 rows, 39 columns
+[2026-01-29T13:58:17.444+0000] {logging_mixin.py:188} INFO - 
+Total: 18095 rows
+[2026-01-29T13:58:17.445+0000] {logging_mixin.py:188} INFO - 
+[3/4] Final data cleaning...
+[2026-01-29T13:58:17.469+0000] {logging_mixin.py:188} INFO - After cleaning: 18095 rows
+[2026-01-29T13:58:17.470+0000] {logging_mixin.py:188} INFO - Columns: ['cp', 'nam', 'ky', 'vay_nh_dh_vcsh', 'no_vcsh', 'tsc_von_csh', 'von_csh_von_ieu_le', 'vong_quay_tai_san', 'vong_quay_tsc', 'so_ngay_thu_tien_binh_quan']...
+[2026-01-29T13:58:17.470+0000] {logging_mixin.py:188} INFO - 
+[4/4] Upserting data to database...
+[2026-01-29T13:58:17.476+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-01-29T13:58:17.493+0000] {logging_mixin.py:188} INFO - Matched 6/39 columns
+[2026-01-29T13:58:18.914+0000] {logging_mixin.py:188} INFO - ✓ Inserted 18095 rows
+[2026-01-29T13:58:18.928+0000] {logging_mixin.py:188} INFO - ✅ Upserted 18095 rows successfully
+[2026-01-29T13:58:18.951+0000] {python.py:237} INFO - Done. Returned value was: ✅ Success: Upserted 18095 rows
+[2026-01-29T13:58:18.952+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-29T13:58:18.973+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=minio_to_db_sync, task_id=sync_financial_ratio, run_id=scheduled__2026-01-28T03:00:00+00:00, execution_date=20260128T030000, start_date=20260129T135630, end_date=20260129T135818
+[2026-01-29T13:58:19.018+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-29T13:58:19.039+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-29T13:58:19.043+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

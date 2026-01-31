@@ -1,0 +1,29 @@
+[2026-01-19T14:16:40.891+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-19T14:16:40.922+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_people_to_minio.ingest_people manual__2026-01-19T13:56:20+00:00 map_index=57 [queued]>
+[2026-01-19T14:16:40.938+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_people_to_minio.ingest_people manual__2026-01-19T13:56:20+00:00 map_index=57 [queued]>
+[2026-01-19T14:16:40.938+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-19T14:16:40.956+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_people> on 2026-01-19 13:56:20+00:00
+[2026-01-19T14:16:40.970+0000] {warnings.py:112} WARNING - This process (pid=8041) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-19T14:16:40.972+0000] {standard_task_runner.py:64} INFO - Started process 8067 to run task
+[2026-01-19T14:16:40.976+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_people_to_minio', 'ingest_people', 'manual__2026-01-19T13:56:20+00:00', '--job-id', '3358', '--raw', '--subdir', 'DAGS_FOLDER/company_people_to_minio.py', '--cfg-path', '/tmp/tmpdas45atm', '--map-index', '57']
+[2026-01-19T14:16:40.981+0000] {standard_task_runner.py:91} INFO - Job 3358: Subtask ingest_people
+[2026-01-19T14:16:41.045+0000] {task_command.py:426} INFO - Running <TaskInstance: company_people_to_minio.ingest_people manual__2026-01-19T13:56:20+00:00 map_index=57 [running]> on host 8cee9c20419f
+[2026-01-19T14:16:41.174+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_people_to_minio' AIRFLOW_CTX_TASK_ID='ingest_people' AIRFLOW_CTX_EXECUTION_DATE='2026-01-19T13:56:20+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-19T13:56:20+00:00'
+[2026-01-19T14:16:41.176+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-19T14:16:45.437+0000] {logging_mixin.py:188} INFO - shareholders HGR: RetryError[<Future at 0x7fc886e70350 state=finished raised KeyError>]
+[2026-01-19T14:16:49.443+0000] {logging_mixin.py:188} INFO - officers HGR: RetryError[<Future at 0x7fc886d41e50 state=finished raised KeyError>]
+[2026-01-19T14:16:56.233+0000] {logging_mixin.py:188} INFO - shareholders HGC: RetryError[<Future at 0x7fc886d43e30 state=finished raised KeyError>]
+[2026-01-19T14:17:01.060+0000] {logging_mixin.py:188} INFO - officers HGC: RetryError[<Future at 0x7fc886e70350 state=finished raised KeyError>]
+[2026-01-19T14:17:11.831+0000] {logging_mixin.py:188} INFO - shareholders HGA: RetryError[<Future at 0x7fc886d43470 state=finished raised KeyError>]
+[2026-01-19T14:17:15.839+0000] {logging_mixin.py:188} INFO - officers HGA: RetryError[<Future at 0x7fc886d43770 state=finished raised KeyError>]
+[2026-01-19T14:17:58.373+0000] {log.py:232} WARNING - 2026-01-19 14:17:58 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fc886da6b70>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-19T14:17:58.371+0000] {client.py:414} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fc886da6b70>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-01-19T14:18:07.742+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-19T14:18:07.743+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-19T14:18:08.858+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 351 dòng -> s3://thongtin-congty-va-bctc/people/date=2026-01-19/batch_57.csv
+[2026-01-19T14:18:08.859+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-19T14:18:08.871+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_people_to_minio, task_id=ingest_people, run_id=manual__2026-01-19T13:56:20+00:00, map_index=57, execution_date=20260119T135620, start_date=20260119T141640, end_date=20260119T141808
+[2026-01-19T14:18:08.930+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-19T14:18:09.002+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-19T14:18:09.005+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

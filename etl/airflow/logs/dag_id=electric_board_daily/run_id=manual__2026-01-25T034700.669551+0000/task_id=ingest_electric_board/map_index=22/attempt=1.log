@@ -1,0 +1,24 @@
+[2026-01-25T03:47:38.861+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-25T03:47:38.966+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: electric_board_daily.ingest_electric_board manual__2026-01-25T03:47:00.669551+00:00 map_index=22 [queued]>
+[2026-01-25T03:47:39.027+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: electric_board_daily.ingest_electric_board manual__2026-01-25T03:47:00.669551+00:00 map_index=22 [queued]>
+[2026-01-25T03:47:39.029+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-01-25T03:47:39.057+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_electric_board> on 2026-01-25 03:47:00.669551+00:00
+[2026-01-25T03:47:39.082+0000] {warnings.py:112} WARNING - This process (pid=3269) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-25T03:47:39.085+0000] {standard_task_runner.py:64} INFO - Started process 3441 to run task
+[2026-01-25T03:47:39.098+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'electric_board_daily', 'ingest_electric_board', 'manual__2026-01-25T03:47:00.669551+00:00', '--job-id', '7674', '--raw', '--subdir', 'DAGS_FOLDER/dl_electric_board.py', '--cfg-path', '/tmp/tmpzthk3w86', '--map-index', '22']
+[2026-01-25T03:47:39.108+0000] {standard_task_runner.py:91} INFO - Job 7674: Subtask ingest_electric_board
+[2026-01-25T03:47:39.200+0000] {task_command.py:426} INFO - Running <TaskInstance: electric_board_daily.ingest_electric_board manual__2026-01-25T03:47:00.669551+00:00 map_index=22 [running]> on host 1b559837feab
+[2026-01-25T03:47:39.511+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='electric_board_daily' AIRFLOW_CTX_TASK_ID='ingest_electric_board' AIRFLOW_CTX_EXECUTION_DATE='2026-01-25T03:47:00.669551+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-25T03:47:00.669551+00:00'
+[2026-01-25T03:47:39.516+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-25T03:47:39.533+0000] {logging_mixin.py:188} INFO - [ELECTRIC_BOARD] Fetching price board for 50 symbols: ['HNE', 'HND', 'HNB', 'HNA', 'HMS']...
+[2026-01-25T03:47:39.813+0000] {logging_mixin.py:188} INFO - [ELECTRIC_BOARD] Filtered to 31 rows with trading_status_code = 20
+[2026-01-25T03:47:39.816+0000] {logging_mixin.py:188} INFO - [ELECTRIC_BOARD] ✅ Fetched 31 rows, 22 columns
+[2026-01-25T03:47:39.862+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-25T03:47:39.863+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-25T03:47:42.229+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 31 dòng -> s3://thongtin-congty-va-bctc/electric_board_per_day/2026-01-25/batch_22.csv
+[2026-01-25T03:47:42.230+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-25T03:47:42.247+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=electric_board_daily, task_id=ingest_electric_board, run_id=manual__2026-01-25T03:47:00.669551+00:00, map_index=22, execution_date=20260125T034700, start_date=20260125T034738, end_date=20260125T034742
+[2026-01-25T03:47:42.316+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-25T03:47:42.355+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-25T03:47:42.361+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

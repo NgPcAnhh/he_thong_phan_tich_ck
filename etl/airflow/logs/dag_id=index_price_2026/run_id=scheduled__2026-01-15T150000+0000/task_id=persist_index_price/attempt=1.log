@@ -1,0 +1,31 @@
+[2026-01-17T08:36:56.191+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-17T08:36:56.217+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: index_price_2026.persist_index_price scheduled__2026-01-15T15:00:00+00:00 [queued]>
+[2026-01-17T08:36:56.234+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: index_price_2026.persist_index_price scheduled__2026-01-15T15:00:00+00:00 [queued]>
+[2026-01-17T08:36:56.235+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-01-17T08:36:56.265+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): persist_index_price> on 2026-01-15 15:00:00+00:00
+[2026-01-17T08:36:56.285+0000] {warnings.py:112} WARNING - This process (pid=226) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-17T08:36:56.294+0000] {standard_task_runner.py:64} INFO - Started process 360 to run task
+[2026-01-17T08:36:56.305+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'index_price_2026', 'persist_index_price', 'scheduled__2026-01-15T15:00:00+00:00', '--job-id', '27', '--raw', '--subdir', 'DAGS_FOLDER/index_price_2026.py', '--cfg-path', '/tmp/tmpylblv4vt']
+[2026-01-17T08:36:56.316+0000] {standard_task_runner.py:91} INFO - Job 27: Subtask persist_index_price
+[2026-01-17T08:36:56.468+0000] {task_command.py:426} INFO - Running <TaskInstance: index_price_2026.persist_index_price scheduled__2026-01-15T15:00:00+00:00 [running]> on host d8c064bd46bc
+[2026-01-17T08:36:56.909+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='index_price_2026' AIRFLOW_CTX_TASK_ID='persist_index_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-15T15:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-15T15:00:00+00:00'
+[2026-01-17T08:36:56.912+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-17T08:36:56.924+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Bắt đầu lấy giá index cho ngày 2026-01-15
+[2026-01-17T08:37:03.420+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ✓ Lấy được 45 records từ API
+[2026-01-17T08:37:03.472+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-17T08:37:03.474+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-17T08:37:05.755+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ✓ Đã ghi CSV lên MinIO: s3://thongtin-congty-va-bctc/index_price/2026-01-15/index_price_20260115T150000.csv
+[2026-01-17T08:37:05.758+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Chuẩn bị insert 45 rows vào hethong_phantich_chungkhoan.market_index
+[2026-01-17T08:37:05.759+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Danh sách index: ['HNX30', 'HNXINDEX', 'UPCOMINDEX', 'VN30', 'VNINDEX']
+[2026-01-17T08:37:05.762+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2026-01-17T08:37:05.764+0000] {base.py:84} INFO - Using connection ID 'dwh_postgres' for task execution.
+[2026-01-17T08:37:05.819+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Đang tạo schema và table nếu chưa tồn tại...
+[2026-01-17T08:37:05.862+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Đang insert dữ liệu vào database...
+[2026-01-17T08:37:05.873+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ✅ Insert thành công 45 rows
+[2026-01-17T08:37:05.875+0000] {python.py:237} INFO - Done. Returned value was: loaded:45
+[2026-01-17T08:37:05.876+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-17T08:37:05.918+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=index_price_2026, task_id=persist_index_price, run_id=scheduled__2026-01-15T15:00:00+00:00, execution_date=20260115T150000, start_date=20260117T083656, end_date=20260117T083705
+[2026-01-17T08:37:06.165+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-01-17T08:37:06.193+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-17T08:37:06.196+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

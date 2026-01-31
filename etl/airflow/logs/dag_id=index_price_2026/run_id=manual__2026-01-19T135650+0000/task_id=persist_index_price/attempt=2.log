@@ -1,0 +1,61 @@
+[2026-01-19T14:20:54.796+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-01-19T14:20:54.817+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: index_price_2026.persist_index_price manual__2026-01-19T13:56:50+00:00 [queued]>
+[2026-01-19T14:20:54.827+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: index_price_2026.persist_index_price manual__2026-01-19T13:56:50+00:00 [queued]>
+[2026-01-19T14:20:54.828+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-01-19T14:20:54.845+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): persist_index_price> on 2026-01-19 13:56:50+00:00
+[2026-01-19T14:20:54.858+0000] {warnings.py:112} WARNING - This process (pid=9063) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-01-19T14:20:54.860+0000] {standard_task_runner.py:64} INFO - Started process 9138 to run task
+[2026-01-19T14:20:54.862+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'index_price_2026', 'persist_index_price', 'manual__2026-01-19T13:56:50+00:00', '--job-id', '3435', '--raw', '--subdir', 'DAGS_FOLDER/index_price_2026.py', '--cfg-path', '/tmp/tmp4fkmkyw0']
+[2026-01-19T14:20:54.866+0000] {standard_task_runner.py:91} INFO - Job 3435: Subtask persist_index_price
+[2026-01-19T14:20:54.922+0000] {task_command.py:426} INFO - Running <TaskInstance: index_price_2026.persist_index_price manual__2026-01-19T13:56:50+00:00 [running]> on host 8cee9c20419f
+[2026-01-19T14:20:55.030+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='index_price_2026' AIRFLOW_CTX_TASK_ID='persist_index_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-19T13:56:50+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-01-19T13:56:50+00:00'
+[2026-01-19T14:20:55.032+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-01-19T14:20:55.039+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Bắt đầu lấy giá index cho ngày 2026-01-19
+[2026-01-19T14:21:13.081+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ✓ Lấy được 55 records từ API
+[2026-01-19T14:21:13.117+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-01-19T14:21:13.118+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-01-19T14:21:21.994+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ✓ Đã ghi CSV lên MinIO: s3://thongtin-congty-va-bctc/index_price/2026-01-19/index_price_20260119T135650.csv
+[2026-01-19T14:21:22.006+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Chuẩn bị insert 55 rows vào hethong_phantich_chungkhoan.market_index
+[2026-01-19T14:21:22.016+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Danh sách index: ['HNX30', 'HNXINDEX', 'UPCOMINDEX', 'VN30', 'VNINDEX']
+[2026-01-19T14:21:22.019+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2026-01-19T14:21:22.020+0000] {base.py:84} INFO - Using connection ID 'dwh_postgres' for task execution.
+[2026-01-19T14:21:22.096+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Đang tạo schema và table nếu chưa tồn tại...
+[2026-01-19T14:21:22.104+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] Đang insert dữ liệu vào database...
+[2026-01-19T14:21:22.123+0000] {logging_mixin.py:188} INFO - [INDEX_PRICE] ❌ Lỗi khi insert vào database: there is no unique or exclusion constraint matching the ON CONFLICT specification
+[2026-01-19T14:21:22.124+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-01-19T14:21:22.126+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/index_price_2026.py", line 132, in persist_index_price
+    execute_values(cur, insert_sql, rows)
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidColumnReference: there is no unique or exclusion constraint matching the ON CONFLICT specification
+
+[2026-01-19T14:21:22.150+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=index_price_2026, task_id=persist_index_price, run_id=manual__2026-01-19T13:56:50+00:00, execution_date=20260119T135650, start_date=20260119T142054, end_date=20260119T142122
+[2026-01-19T14:21:22.173+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 3435 for task persist_index_price (there is no unique or exclusion constraint matching the ON CONFLICT specification
+; 9138)
+[2026-01-19T14:21:22.212+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-01-19T14:21:22.234+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-01-19T14:21:22.237+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
