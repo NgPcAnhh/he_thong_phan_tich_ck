@@ -145,32 +145,22 @@ def sync_macro_economy_to_db(
                 for _, row in df.iterrows()
             ]
             
-            # Note: macro_economy table doesn't have a primary key
-            # We'll delete existing records first, then insert
-            delete_sql = f"""
-                DELETE FROM {schema}.{table}
-                WHERE (date, asset_type) IN (
-                    SELECT DISTINCT unnest(%s::date[]), unnest(%s::varchar[])
-                );
-            """
             
-            insert_sql = f"""
-                INSERT INTO {schema}.{table}
-                (date, open, high, low, close, volume, asset_type)
-                VALUES %s;
-            """
-            
-            dates = [row[0] for row in rows]
-            asset_types = [row[6] for row in rows]
-            
+            # UPSERT pattern using ON CONFLICT
             with conn.cursor() as cur:
-                # Delete existing
-                cur.execute(delete_sql, (dates, asset_types))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} existing rows")
-                
-                # Insert new
-                execute_values(cur, insert_sql, rows)
+                upsert_sql = f"""
+                    INSERT INTO {schema}.{table}
+                    (date, open, high, low, close, volume, asset_type)
+                    VALUES %s
+                    ON CONFLICT (date, asset_type)
+                    DO UPDATE SET
+                        open = EXCLUDED.open,
+                        high = EXCLUDED.high,
+                        low = EXCLUDED.low,
+                        close = EXCLUDED.close,
+                        volume = EXCLUDED.volume;
+                """
+                execute_values(cur, upsert_sql, rows)
             
             conn.commit()
             print(f"✅ Inserted {len(rows)} rows")

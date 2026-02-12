@@ -1,7 +1,3 @@
-"""
-Sync daily_price data from MinIO to PostgreSQL database.
-Strategy: APPEND (with duplicate check on ticker, trading_date)
-"""
 from contextlib import closing
 import pandas as pd
 from psycopg2.extras import execute_values
@@ -24,20 +20,6 @@ def sync_daily_price_to_db(
     folder_prefix: str = "daily_price/",
     table: str = "history_price"
 ) -> str:
-    """
-    Sync daily price data from MinIO to PostgreSQL.
-    
-    Args:
-        minio_conn_id: MinIO connection ID
-        bucket: MinIO bucket name
-        folder_prefix: Folder prefix in MinIO
-        db_url: PostgreSQL connection URL
-        schema: Database schema name
-        table: Database table name
-    
-    Returns:
-        Status message
-    """
     print("=" * 70)
     print("📊 SYNC DAILY PRICE TO DATABASE")
     print("=" * 70)
@@ -118,31 +100,22 @@ def sync_daily_price_to_db(
                 for _, row in df.iterrows()
             ]
             
-            # DELETE+INSERT pattern (table doesn't have unique constraint)
-            # Convert dates to string to match TEXT column in database
-            tickers = [str(row[0]) for row in rows]
-            dates = [str(row[1]) for row in rows]  # Convert to TEXT
-            
+            # UPSERT pattern using ON CONFLICT
             with conn.cursor() as cur:
-                # Delete existing records (all as TEXT to match database schema)
-                delete_sql = f"""
-                    DELETE FROM {schema}.{table}
-                    WHERE (ticker, trading_date) IN (
-                        SELECT DISTINCT ticker, trading_date 
-                        FROM unnest(%s::text[], %s::text[]) AS t(ticker, trading_date)
-                    );
-                """
-                cur.execute(delete_sql, (tickers, dates))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} existing rows")
-                
-                # Insert new data
-                insert_sql = f"""
+                # Insert with ON CONFLICT DO UPDATE
+                upsert_sql = f"""
                     INSERT INTO {schema}.{table}
                     (ticker, trading_date, open, high, low, close, volume)
-                    VALUES %s;
+                    VALUES %s
+                    ON CONFLICT (ticker, trading_date)
+                    DO UPDATE SET
+                        open = EXCLUDED.open,
+                        high = EXCLUDED.high,
+                        low = EXCLUDED.low,
+                        close = EXCLUDED.close,
+                        volume = EXCLUDED.volume;
                 """
-                execute_values(cur, insert_sql, rows)
+                execute_values(cur, upsert_sql, rows)
             
             conn.commit()
             print(f"✅ Inserted/Updated {len(rows)} rows")

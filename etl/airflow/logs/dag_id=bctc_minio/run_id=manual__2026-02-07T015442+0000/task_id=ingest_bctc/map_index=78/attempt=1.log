@@ -1,0 +1,113 @@
+[2026-02-07T02:16:37.865+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-07T02:16:37.888+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc_minio.ingest_bctc manual__2026-02-07T01:54:42+00:00 map_index=78 [queued]>
+[2026-02-07T02:16:37.900+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc_minio.ingest_bctc manual__2026-02-07T01:54:42+00:00 map_index=78 [queued]>
+[2026-02-07T02:16:37.901+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-07T02:16:37.915+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-02-07 01:54:42+00:00
+[2026-02-07T02:16:37.926+0000] {warnings.py:112} WARNING - This process (pid=17367) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-07T02:16:37.928+0000] {standard_task_runner.py:64} INFO - Started process 17377 to run task
+[2026-02-07T02:16:37.930+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc_minio', 'ingest_bctc', 'manual__2026-02-07T01:54:42+00:00', '--job-id', '19638', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmpsuln_woz', '--map-index', '78']
+[2026-02-07T02:16:37.933+0000] {standard_task_runner.py:91} INFO - Job 19638: Subtask ingest_bctc
+[2026-02-07T02:16:37.981+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc_minio.ingest_bctc manual__2026-02-07T01:54:42+00:00 map_index=78 [running]> on host 92ec87cbc427
+[2026-02-07T02:16:38.083+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc_minio' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-02-07T01:54:42+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-07T01:54:42+00:00'
+[2026-02-07T02:16:38.084+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-07T02:16:38.084+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-07T02:16:38.085+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-02-07T02:16:38.085+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-07T02:16:38.086+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-07T02:16:38.086+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-02-07T02:16:38.086+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-02-07T02:16:38.086+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-07T02:16:38.087+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2026-02-07/batch_78.csv
+[2026-02-07T02:16:38.087+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-07T02:16:38.087+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['BWA', 'BVS', 'BVN', 'BVL', 'BVH', 'BVG', 'BVB', 'BUD', 'BTW', 'BTV', 'BTU', 'BTT', 'BTS', 'BTP', 'BTN', 'BTH', 'BTG', 'BTD', 'BTB', 'BT6'], 'current_year': '2023'}
+[2026-02-07T02:16:38.088+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-07T02:16:38.088+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-07T02:16:38.090+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-07T02:16:38.091+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-02-07T02:16:38.091+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-07T02:16:38.092+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-02-07T02:16:38.095+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-07T02:16:38.096+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-02-07T02:16:38.096+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-07T02:16:38.096+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['BWA', 'BVS', 'BVN', 'BVL', 'BVH', 'BVG', 'BVB', 'BUD', 'BTW', 'BTV', 'BTU', 'BTT', 'BTS', 'BTP', 'BTN', 'BTH', 'BTG', 'BTD', 'BTB', 'BT6'], 'current_year': '2023'}
+[2026-02-07T02:16:38.097+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 20 mã: ['BWA', 'BVS', 'BVN', 'BVL', 'BVH', 'BVG', 'BVB', 'BUD', 'BTW', 'BTV', 'BTU', 'BTT', 'BTS', 'BTP', 'BTN', 'BTH', 'BTG', 'BTD', 'BTB', 'BT6']
+[2026-02-07T02:16:38.097+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BWA
+[2026-02-07T02:16:38.343+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BWA: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:16:38.348+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVS
+[2026-02-07T02:16:38.602+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BVS: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:16:38.607+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVN
+[2026-02-07T02:16:38.737+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BVN: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:16:38.738+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVL
+[2026-02-07T02:16:39.028+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BVL: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:16:39.029+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVH
+[2026-02-07T02:17:14.846+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVG
+[2026-02-07T02:17:14.945+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BVG: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:17:14.946+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BVB
+[2026-02-07T02:17:15.167+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BVB: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:17:15.168+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BUD
+[2026-02-07T02:17:19.995+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f9dd361b9e0 state=finished raised KeyError>]
+[2026-02-07T02:17:25.849+0000] {logging_mixin.py:188} INFO - ❌ Lỗi balance_sheet: RetryError[<Future at 0x7f9dd361b9b0 state=finished raised ConnectionError>]
+[2026-02-07T02:17:31.905+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f9dd361b740 state=finished raised KeyError>]
+[2026-02-07T02:17:35.409+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTW
+[2026-02-07T02:17:35.515+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTW: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:17:35.516+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTV
+[2026-02-07T02:17:48.196+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTU
+[2026-02-07T02:17:48.426+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTU: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:17:48.428+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTT
+[2026-02-07T02:17:53.656+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f9dd3664e30 state=finished raised ConnectionError>]
+[2026-02-07T02:18:04.977+0000] {logging_mixin.py:188} INFO - ❌ Lỗi cash_flow: RetryError[<Future at 0x7f9dd3784890 state=finished raised ConnectionError>]
+[2026-02-07T02:18:08.478+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTS
+[2026-02-07T02:18:18.686+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTP
+[2026-02-07T02:18:18.794+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTP: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:18:18.795+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTN
+[2026-02-07T02:18:18.901+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTN: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:18:18.902+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTH
+[2026-02-07T02:18:18.998+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTH: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:18:18.999+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTG
+[2026-02-07T02:18:19.270+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTG: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:18:19.271+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTD
+[2026-02-07T02:18:19.379+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã BTD: Failed to fetch data: 429 - Too Many Requests
+[2026-02-07T02:18:19.380+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BTB
+[2026-02-07T02:18:28.176+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BT6
+[2026-02-07T02:18:40.996+0000] {logging_mixin.py:188} INFO -  ✓ Hoàn thành batch. Tổng số dòng: 1200
+[2026-02-07T02:18:40.997+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-07T02:18:40.998+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-07T02:18:40.999+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 1200
+[2026-02-07T02:18:41.000+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-07T02:18:41.000+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['ticker', 'quarter', 'year', 'ind_name', 'ind_code', 'value', 'import_time', 'report_name', 'report_code']
+[2026-02-07T02:18:41.001+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'ticker': 'object', 'quarter': 'Int64', 'year': 'Int64', 'ind_name': 'object', 'ind_code': 'object', 'value': 'float64', 'import_time': 'datetime64[us, UTC]', 'report_name': 'object', 'report_code': 'object'}
+[2026-02-07T02:18:41.006+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.45 MB
+[2026-02-07T02:18:41.009+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-02-07T02:18:41.010+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-07T02:18:41.011+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'ticker': 'BVH', 'quarter': 4, 'year': 2023, 'ind_name': 'Doanh thu (đồng)', 'ind_code': 'DOANH_THU_NG', 'value': 11114691927996.0, 'import_time': Timestamp('2026-02-07 02:16:44.137024+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-07T02:18:41.012+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'ticker': 'BVH', 'quarter': 3, 'year': 2023, 'ind_name': 'Doanh thu (đồng)', 'ind_code': 'DOANH_THU_NG', 'value': 10391709658069.0, 'import_time': Timestamp('2026-02-07 02:16:44.137024+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-07T02:18:41.013+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'ticker': 'BVH', 'quarter': 2, 'year': 2023, 'ind_name': 'Doanh thu (đồng)', 'ind_code': 'DOANH_THU_NG', 'value': 10538407611787.0, 'import_time': Timestamp('2026-02-07 02:16:44.137024+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-07T02:18:41.014+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'ticker': 'BVH', 'quarter': 1, 'year': 2023, 'ind_name': 'Doanh thu (đồng)', 'ind_code': 'DOANH_THU_NG', 'value': 10498304763879.0, 'import_time': Timestamp('2026-02-07 02:16:44.137024+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-07T02:18:41.014+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'ticker': 'BVH', 'quarter': 4, 'year': 2023, 'ind_name': 'Tăng trưởng doanh thu (%)', 'ind_code': 'T_NG_TR_NG_DOANH_THU', 'value': -0.012964088253000258, 'import_time': Timestamp('2026-02-07 02:16:44.137024+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-07T02:18:41.015+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-07T02:18:41.015+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-07T02:18:41.036+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-07T02:18:41.037+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.16 MB
+[2026-02-07T02:18:41.037+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.02 giây
+[2026-02-07T02:18:41.038+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-07T02:18:41.038+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-07T02:18:41.052+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T02:18:41.054+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T02:18:41.610+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-07T02:18:41.671+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-07T02:18:41.671+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/bctc/2026-02-07/batch_78.csv
+[2026-02-07T02:18:41.672+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 1200
+[2026-02-07T02:18:41.673+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.63 giây
+[2026-02-07T02:18:41.673+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-07T02:18:41.674+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-07T02:18:41.674+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 123.59 giây
+[2026-02-07T02:18:41.674+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 10 dòng/giây
+[2026-02-07T02:18:41.675+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-07T02:18:41.675+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_bctc
+[2026-02-07T02:18:41.675+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-07T02:18:41.676+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-07T02:18:41.687+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc_minio, task_id=ingest_bctc, run_id=manual__2026-02-07T01:54:42+00:00, map_index=78, execution_date=20260207T015442, start_date=20260207T021637, end_date=20260207T021841
+[2026-02-07T02:18:41.726+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-07T02:18:41.762+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-07T02:18:41.764+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -124,34 +124,22 @@ def sync_index_price_to_db(
                 for _, row in df.iterrows()
             ]
             
-            # Note: market_index table doesn't have a primary key, so we just insert
-            # We can add a simple duplicate check
-            insert_sql = f"""
-                INSERT INTO {schema}.{table}
-                (ticker, trading_date, open, high, low, close, volume)
-                VALUES %s;
-            """
             
-            # First, delete existing records for these ticker-date combinations to avoid duplicates
-            delete_sql = f"""
-                DELETE FROM {schema}.{table}
-                WHERE (ticker, trading_date) IN (
-                    SELECT DISTINCT ticker, trading_date 
-                    FROM unnest(%s::text[], %s::text[]) AS t(ticker, trading_date)
-                );
-            """
-            
-            tickers = [row[0] for row in rows]
-            dates = [row[1] for row in rows]
-            
+            # UPSERT pattern using ON CONFLICT
             with conn.cursor() as cur:
-                # Delete existing
-                cur.execute(delete_sql, (tickers, dates))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} existing rows")
-                
-                # Insert new
-                execute_values(cur, insert_sql, rows)
+                upsert_sql = f"""
+                    INSERT INTO {schema}.{table}
+                    (ticker, trading_date, open, high, low, close, volume)
+                    VALUES %s
+                    ON CONFLICT (ticker, trading_date)
+                    DO UPDATE SET
+                        open = EXCLUDED.open,
+                        high = EXCLUDED.high,
+                        low = EXCLUDED.low,
+                        close = EXCLUDED.close,
+                        volume = EXCLUDED.volume;
+                """
+                execute_values(cur, upsert_sql, rows)
             
             conn.commit()
             print(f"✅ Inserted {len(rows)} rows")

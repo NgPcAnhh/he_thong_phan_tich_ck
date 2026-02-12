@@ -1,0 +1,28 @@
+[2026-02-01T15:29:44.169+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-01T15:29:44.209+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-01T15:28:53+00:00 map_index=24 [queued]>
+[2026-02-01T15:29:44.230+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-01T15:28:53+00:00 map_index=24 [queued]>
+[2026-02-01T15:29:44.231+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-01T15:29:44.339+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-01 15:28:53+00:00
+[2026-02-01T15:29:44.355+0000] {warnings.py:112} WARNING - This process (pid=1381) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-01T15:29:44.357+0000] {standard_task_runner.py:64} INFO - Started process 1531 to run task
+[2026-02-01T15:29:44.360+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_minio', 'ingest_financial_ratios', 'manual__2026-02-01T15:28:53+00:00', '--job-id', '15072', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmpovg9hfpr', '--map-index', '24']
+[2026-02-01T15:29:44.364+0000] {standard_task_runner.py:91} INFO - Job 15072: Subtask ingest_financial_ratios
+[2026-02-01T15:29:44.429+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-01T15:28:53+00:00 map_index=24 [running]> on host 6bc5491d6654
+[2026-02-01T15:29:44.614+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_minio' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T15:28:53+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-01T15:28:53+00:00'
+[2026-02-01T15:29:44.616+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-01T15:29:44.631+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['VSP', 'VSN']
+[2026-02-01T15:29:44.632+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-01T15:29:44.633+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: VSP
+[2026-02-01T15:29:45.210+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã VSP: Failed to fetch data: 429 - Too Many Requests
+[2026-02-01T15:29:45.212+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: VSN
+[2026-02-01T15:29:47.733+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] VSN: 38 rows
+[2026-02-01T15:29:49.739+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 38
+[2026-02-01T15:29:49.761+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-01T15:29:49.762+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-01T15:29:50.494+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 38 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-02-01/batch_24.csv
+[2026-02-01T15:29:50.495+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-01T15:29:50.507+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_minio, task_id=ingest_financial_ratios, run_id=manual__2026-02-01T15:28:53+00:00, map_index=24, execution_date=20260201T152853, start_date=20260201T152944, end_date=20260201T152950
+[2026-02-01T15:29:50.568+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-01T15:29:50.590+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-01T15:29:50.592+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

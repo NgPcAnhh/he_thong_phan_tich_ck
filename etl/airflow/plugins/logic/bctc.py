@@ -34,8 +34,10 @@ def fetch_report(finance: Finance, method: str) -> pd.DataFrame:
         return pd.DataFrame()
 
     try:
-        return _retry_call(lambda: fetcher(period="quarter"), method)
+        # Thêm lang='vi' và dropna=True để lấy dữ liệu tiếng Việt, bỏ dòng null
+        return _retry_call(lambda: fetcher(period="quarter", lang='vi', dropna=True), method)
     except TypeError:
+        # Fallback nếu hàm không hỗ trợ các tham số này
         return _retry_call(lambda: fetcher(), method)
 
 

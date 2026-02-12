@@ -1,0 +1,30 @@
+[2026-02-03T13:47:27.209+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-03T13:47:27.312+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-30T16:00:00+00:00 map_index=235 [queued]>
+[2026-02-03T13:47:27.399+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-30T16:00:00+00:00 map_index=235 [queued]>
+[2026-02-03T13:47:27.427+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-03T13:47:27.477+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-01-30 16:00:00+00:00
+[2026-02-03T13:47:27.517+0000] {warnings.py:112} WARNING - This process (pid=3921) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-03T13:47:27.540+0000] {standard_task_runner.py:64} INFO - Started process 3970 to run task
+[2026-02-03T13:47:27.538+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price_minio', 'ingest_daily_price', 'scheduled__2026-01-30T16:00:00+00:00', '--job-id', '15416', '--raw', '--subdir', 'DAGS_FOLDER/dl_dailly_price.py', '--cfg-path', '/tmp/tmpnxlaa1bv', '--map-index', '235']
+[2026-02-03T13:47:27.561+0000] {standard_task_runner.py:91} INFO - Job 15416: Subtask ingest_daily_price
+[2026-02-03T13:47:27.712+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-01-30T16:00:00+00:00 map_index=235 [running]> on host 9a961c7ad7bb
+[2026-02-03T13:47:27.905+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price_minio' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-01-30T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-01-30T16:00:00+00:00'
+[2026-02-03T13:47:27.907+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-03T13:47:36.146+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=VCI), retry 1/3 in 2.0s
+[2026-02-03T13:47:42.927+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=VCI), retry 2/3 in 4.0s
+[2026-02-03T13:47:52.381+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=VCI), retry 3/3 in 8.0s
+[2026-02-03T13:48:00.397+0000] {logging_mixin.py:188} INFO - HAW: Exhausted retries for source=VCI, trying next source...
+[2026-02-03T13:48:05.519+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=TCBS), retry 1/3 in 2.0s
+[2026-02-03T13:48:11.985+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=TCBS), retry 2/3 in 4.0s
+[2026-02-03T13:48:21.517+0000] {logging_mixin.py:188} INFO - HAW: RetryError (source=TCBS), retry 3/3 in 8.0s
+[2026-02-03T13:48:29.518+0000] {logging_mixin.py:188} INFO - HAW: Exhausted retries for source=TCBS, trying next source...
+[2026-02-03T13:48:29.518+0000] {logging_mixin.py:188} INFO - HAW: All sources failed after retries
+[2026-02-03T13:48:30.035+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-03T13:48:30.036+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-03T13:48:30.511+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 8 dòng -> s3://thongtin-congty-va-bctc/daily_price/2026-01-30/batch_235.csv
+[2026-02-03T13:48:30.511+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-03T13:48:30.519+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_price_minio, task_id=ingest_daily_price, run_id=scheduled__2026-01-30T16:00:00+00:00, map_index=235, execution_date=20260130T160000, start_date=20260203T134727, end_date=20260203T134830
+[2026-02-03T13:48:30.575+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-03T13:48:30.590+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-03T13:48:30.595+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

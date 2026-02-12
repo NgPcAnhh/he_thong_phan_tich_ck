@@ -216,30 +216,23 @@ def sync_electric_board_to_db(
                 for _, row in df.iterrows()
             ]
             
-            # DELETE+INSERT pattern
-            tickers = [str(row[0]) for row in rows]
-            dates = [str(row[2]) for row in rows]  # trading_date is at index 2
-            
+            # UPSERT pattern using ON CONFLICT
             with conn.cursor() as cur:
-                # Delete existing records
-                delete_sql = f"""
-                    DELETE FROM {schema}.{table}
-                    WHERE (ticker, trading_date) IN (
-                        SELECT DISTINCT ticker, trading_date::date 
-                        FROM unnest(%s::text[], %s::text[]) AS t(ticker, trading_date)
-                    );
-                """
-                cur.execute(delete_sql, (tickers, dates))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} existing rows")
+                # Build dynamic column list for UPDATE (exclude key columns)
+                update_cols = [col for col in available_cols 
+                              if col not in ['ticker', 'exchange', 'trading_date']]
+                update_set = ', '.join([f"{col} = EXCLUDED.{col}" for col in update_cols])
                 
-                # Insert new data
-                insert_sql = f"""
+                # UPSERT with ON CONFLICT
+                upsert_sql = f"""
                     INSERT INTO {schema}.{table}
                     ({', '.join(available_cols)})
-                    VALUES %s;
+                    VALUES %s
+                    ON CONFLICT (ticker, exchange, trading_date)
+                    DO UPDATE SET
+                        {update_set};
                 """
-                execute_values(cur, insert_sql, rows, page_size=1000)
+                execute_values(cur, upsert_sql, rows, page_size=1000)
             
             conn.commit()
             print(f"✅ Inserted/Updated {len(rows)} rows")

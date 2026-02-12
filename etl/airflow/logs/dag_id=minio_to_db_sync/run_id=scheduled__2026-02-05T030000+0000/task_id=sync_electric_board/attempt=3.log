@@ -1,0 +1,179 @@
+[2026-02-07T01:01:02.314+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-07T01:01:02.328+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-05T03:00:00+00:00 [queued]>
+[2026-02-07T01:01:02.338+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-05T03:00:00+00:00 [queued]>
+[2026-02-07T01:01:02.338+0000] {taskinstance.py:2306} INFO - Starting attempt 3 of 3
+[2026-02-07T01:01:02.350+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_electric_board> on 2026-02-05 03:00:00+00:00
+[2026-02-07T01:01:02.361+0000] {warnings.py:112} WARNING - This process (pid=6071) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-07T01:01:02.362+0000] {standard_task_runner.py:64} INFO - Started process 6127 to run task
+[2026-02-07T01:01:02.364+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_electric_board', 'scheduled__2026-02-05T03:00:00+00:00', '--job-id', '19173', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmpmzzhd9of']
+[2026-02-07T01:01:02.367+0000] {standard_task_runner.py:91} INFO - Job 19173: Subtask sync_electric_board
+[2026-02-07T01:01:02.412+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-05T03:00:00+00:00 [running]> on host 92ec87cbc427
+[2026-02-07T01:01:02.493+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_electric_board' AIRFLOW_CTX_EXECUTION_DATE='2026-02-05T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-05T03:00:00+00:00'
+[2026-02-07T01:01:02.494+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-07T01:01:02.499+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-07T01:01:02.500+0000] {logging_mixin.py:188} INFO - 📊 SYNC ELECTRIC BOARD TO DATABASE
+[2026-02-07T01:01:02.501+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-07T01:01:02.501+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-02-07T01:01:02.510+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:02.510+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:06.673+0000] {logging_mixin.py:188} INFO - 📂 Scanning 343 objects in thongtin-congty-va-bctc/electric_board_per_day/
+[2026-02-07T01:01:06.674+0000] {logging_mixin.py:188} INFO - 📅 Found 10 valid date partition(s): ['2026-01-23', '2026-01-25', '2026-01-26', '2026-01-27', '2026-01-29', '2026-01-30', '2026-02-02', '2026-02-03', '2026-02-04', '2026-02-05']
+[2026-02-07T01:01:06.675+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: electric_board_per_day/2026-02-05/
+[2026-02-07T01:01:06.676+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading CSV files...
+[2026-02-07T01:01:06.685+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:06.686+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:07.138+0000] {logging_mixin.py:188} INFO - ✓ Found 34 CSV files in thongtin-congty-va-bctc/electric_board_per_day/2026-02-05/
+[2026-02-07T01:01:07.152+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:07.155+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:07.443+0000] {logging_mixin.py:188} INFO - ✓ Read 40 rows from electric_board_per_day/2026-02-05/batch_0.csv
+[2026-02-07T01:01:07.452+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:07.453+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:07.644+0000] {logging_mixin.py:188} INFO - ✓ Read 37 rows from electric_board_per_day/2026-02-05/batch_1.csv
+[2026-02-07T01:01:07.654+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:07.655+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:07.780+0000] {logging_mixin.py:188} INFO - ✓ Read 30 rows from electric_board_per_day/2026-02-05/batch_10.csv
+[2026-02-07T01:01:07.791+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:07.792+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:07.937+0000] {logging_mixin.py:188} INFO - ✓ Read 29 rows from electric_board_per_day/2026-02-05/batch_11.csv
+[2026-02-07T01:01:07.944+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:07.945+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:08.448+0000] {logging_mixin.py:188} INFO - ✓ Read 30 rows from electric_board_per_day/2026-02-05/batch_12.csv
+[2026-02-07T01:01:08.458+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:08.459+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:08.561+0000] {logging_mixin.py:188} INFO - ✓ Read 37 rows from electric_board_per_day/2026-02-05/batch_13.csv
+[2026-02-07T01:01:08.569+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:08.570+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:08.670+0000] {logging_mixin.py:188} INFO - ✓ Read 35 rows from electric_board_per_day/2026-02-05/batch_14.csv
+[2026-02-07T01:01:08.678+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:08.679+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:08.780+0000] {logging_mixin.py:188} INFO - ✓ Read 33 rows from electric_board_per_day/2026-02-05/batch_15.csv
+[2026-02-07T01:01:08.788+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:08.789+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:08.895+0000] {logging_mixin.py:188} INFO - ✓ Read 40 rows from electric_board_per_day/2026-02-05/batch_16.csv
+[2026-02-07T01:01:08.902+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:08.902+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:09.025+0000] {logging_mixin.py:188} INFO - ✓ Read 35 rows from electric_board_per_day/2026-02-05/batch_17.csv
+[2026-02-07T01:01:09.034+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:09.035+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:09.172+0000] {logging_mixin.py:188} INFO - ✓ Read 26 rows from electric_board_per_day/2026-02-05/batch_18.csv
+[2026-02-07T01:01:09.184+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:09.185+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:09.412+0000] {logging_mixin.py:188} INFO - ✓ Read 31 rows from electric_board_per_day/2026-02-05/batch_19.csv
+[2026-02-07T01:01:09.598+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:09.616+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:40.856+0000] {logging_mixin.py:188} INFO - ✓ Read 31 rows from electric_board_per_day/2026-02-05/batch_2.csv
+[2026-02-07T01:01:50.512+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:50.517+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:51.077+0000] {logging_mixin.py:188} INFO - ✓ Read 34 rows from electric_board_per_day/2026-02-05/batch_20.csv
+[2026-02-07T01:01:51.106+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:51.108+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:51.299+0000] {logging_mixin.py:188} INFO - ✓ Read 30 rows from electric_board_per_day/2026-02-05/batch_21.csv
+[2026-02-07T01:01:51.311+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:51.312+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:51.492+0000] {logging_mixin.py:188} INFO - ✓ Read 29 rows from electric_board_per_day/2026-02-05/batch_22.csv
+[2026-02-07T01:01:51.505+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:51.507+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:51.702+0000] {logging_mixin.py:188} INFO - ✓ Read 34 rows from electric_board_per_day/2026-02-05/batch_23.csv
+[2026-02-07T01:01:51.720+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:51.722+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:53.329+0000] {logging_mixin.py:188} INFO - ✓ Read 35 rows from electric_board_per_day/2026-02-05/batch_24.csv
+[2026-02-07T01:01:53.342+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:53.343+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:53.505+0000] {logging_mixin.py:188} INFO - ✓ Read 31 rows from electric_board_per_day/2026-02-05/batch_25.csv
+[2026-02-07T01:01:53.516+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:53.518+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:53.710+0000] {logging_mixin.py:188} INFO - ✓ Read 33 rows from electric_board_per_day/2026-02-05/batch_26.csv
+[2026-02-07T01:01:53.723+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:53.724+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:53.919+0000] {logging_mixin.py:188} INFO - ✓ Read 33 rows from electric_board_per_day/2026-02-05/batch_27.csv
+[2026-02-07T01:01:53.932+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:53.933+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:54.129+0000] {logging_mixin.py:188} INFO - ✓ Read 35 rows from electric_board_per_day/2026-02-05/batch_28.csv
+[2026-02-07T01:01:54.145+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:54.146+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:54.361+0000] {logging_mixin.py:188} INFO - ✓ Read 39 rows from electric_board_per_day/2026-02-05/batch_29.csv
+[2026-02-07T01:01:54.373+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:54.377+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:54.626+0000] {logging_mixin.py:188} INFO - ✓ Read 32 rows from electric_board_per_day/2026-02-05/batch_3.csv
+[2026-02-07T01:01:54.642+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:54.643+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:54.829+0000] {logging_mixin.py:188} INFO - ✓ Read 29 rows from electric_board_per_day/2026-02-05/batch_30.csv
+[2026-02-07T01:01:54.846+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:54.848+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:55.048+0000] {logging_mixin.py:188} INFO - ✓ Read 38 rows from electric_board_per_day/2026-02-05/batch_31.csv
+[2026-02-07T01:01:55.062+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:55.063+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:55.237+0000] {logging_mixin.py:188} INFO - ✓ Read 34 rows from electric_board_per_day/2026-02-05/batch_32.csv
+[2026-02-07T01:01:55.248+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:55.249+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:55.436+0000] {logging_mixin.py:188} INFO - ✓ Read 32 rows from electric_board_per_day/2026-02-05/batch_33.csv
+[2026-02-07T01:01:55.447+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:55.448+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:55.780+0000] {logging_mixin.py:188} INFO - ✓ Read 31 rows from electric_board_per_day/2026-02-05/batch_34.csv
+[2026-02-07T01:01:55.794+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:55.796+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:56.080+0000] {logging_mixin.py:188} INFO - ✓ Read 34 rows from electric_board_per_day/2026-02-05/batch_4.csv
+[2026-02-07T01:01:56.092+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:56.094+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:56.964+0000] {logging_mixin.py:188} INFO - ✓ Read 31 rows from electric_board_per_day/2026-02-05/batch_6.csv
+[2026-02-07T01:01:56.974+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:56.975+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:57.125+0000] {logging_mixin.py:188} INFO - ✓ Read 32 rows from electric_board_per_day/2026-02-05/batch_7.csv
+[2026-02-07T01:01:57.134+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:57.135+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:57.302+0000] {logging_mixin.py:188} INFO - ✓ Read 29 rows from electric_board_per_day/2026-02-05/batch_8.csv
+[2026-02-07T01:01:57.312+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-07T01:01:57.314+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-07T01:01:57.472+0000] {logging_mixin.py:188} INFO - ✓ Read 38 rows from electric_board_per_day/2026-02-05/batch_9.csv
+[2026-02-07T01:01:57.478+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 34 files into 1127 total rows
+[2026-02-07T01:01:57.479+0000] {logging_mixin.py:188} INFO - Loaded 1127 rows
+[2026-02-07T01:01:57.479+0000] {logging_mixin.py:188} INFO - 
+[3/4] Transforming data...
+[2026-02-07T01:01:57.501+0000] {logging_mixin.py:188} INFO - After cleaning: 1127 rows
+[2026-02-07T01:01:57.502+0000] {logging_mixin.py:188} INFO - 
+[4/4] Inserting into database...
+[2026-02-07T01:01:57.510+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-02-07T01:01:57.513+0000] {logging_mixin.py:188} INFO - ✓ Table hethong_phantich_chungkhoan.electric_board ensured
+[2026-02-07T01:01:57.895+0000] {logging_mixin.py:188} INFO - ❌ Error: there is no unique or exclusion constraint matching the ON CONFLICT specification
+[2026-02-07T01:01:57.896+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-07T01:01:57.896+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync.py", line 147, in task_sync_electric_board
+    return sync_electric_board_to_db(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/sync_electric_board.py", line 235, in sync_electric_board_to_db
+    execute_values(cur, upsert_sql, rows, page_size=1000)
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidColumnReference: there is no unique or exclusion constraint matching the ON CONFLICT specification
+
+[2026-02-07T01:01:57.913+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=minio_to_db_sync, task_id=sync_electric_board, run_id=scheduled__2026-02-05T03:00:00+00:00, execution_date=20260205T030000, start_date=20260207T010102, end_date=20260207T010157
+[2026-02-07T01:01:57.932+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 19173 for task sync_electric_board (there is no unique or exclusion constraint matching the ON CONFLICT specification
+; 6127)
+[2026-02-07T01:01:58.006+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-07T01:01:58.036+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-07T01:01:58.039+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

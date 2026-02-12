@@ -13,7 +13,12 @@ def get_minio_hook(conn_id: str = "minio_finance") -> S3Hook:
 
 
 def get_latest_partition(bucket: str, prefix: str, conn_id: str = "minio_finance") -> Optional[str]:
+    import re
+    
     hook = get_minio_hook(conn_id)
+    
+    # Regex pattern for YYYY-MM-DD format
+    DATE_PATTERN = re.compile(r'^\d{4}-\d{2}-\d{2}$')
     
     try:
         # List all objects with the prefix
@@ -23,43 +28,94 @@ def get_latest_partition(bucket: str, prefix: str, conn_id: str = "minio_finance
             print(f"⚠️ No objects found in {bucket}/{prefix}")
             return None
         
-        # Extract unique date partitions
-        partitions = set()
+        print(f"📂 Scanning {len(keys)} objects in {bucket}/{prefix}")
+        
+        # Extract unique date partitions with validation
+        partitions = {}  # {date_str: sample_key}
+        
         for key in keys:
             # Remove prefix and get first part (date partition)
             relative_path = key.replace(prefix, "").lstrip("/")
-            if "/" in relative_path:
-                partition = relative_path.split("/")[0]
-                # Check if it looks like a date (YYYY-MM-DD or date=YYYY-MM-DD)
-                if "=" in partition:
-                    partition = partition.split("=")[1]
-                partitions.add(partition)
+            
+            if not relative_path or "/" not in relative_path:
+                continue
+            
+            # Get first level folder (partition)
+            first_folder = relative_path.split("/")[0]
+            
+            # Extract date value
+            date_value = None
+            
+            # Case 1: date=YYYY-MM-DD format
+            if first_folder.startswith("date="):
+                date_value = first_folder[5:]  # Remove 'date=' prefix
+            # Case 2: dt=YYYY-MM-DD format (alternative)
+            elif first_folder.startswith("dt="):
+                date_value = first_folder[3:]  # Remove 'dt=' prefix
+            # Case 3: Direct YYYY-MM-DD format
+            else:
+                date_value = first_folder
+            
+            # Validate date format (YYYY-MM-DD)
+            if date_value and DATE_PATTERN.match(date_value):
+                # Store with sample key for path reconstruction
+                if date_value not in partitions:
+                    partitions[date_value] = key
+            else:
+                # Skip non-date folders
+                continue
         
         if not partitions:
-            print(f"⚠️ No date partitions found in {bucket}/{prefix}")
+            print(f"⚠️ No valid date partitions (YYYY-MM-DD) found in {bucket}/{prefix}")
             return None
         
-        # Get the latest partition (assuming YYYY-MM-DD format)
-        latest = max(partitions)
+        # Get the latest partition (max works correctly for YYYY-MM-DD string format)
+        latest_date = max(partitions.keys())
+        sample_key = partitions[latest_date]
         
-        # Reconstruct the full path
-        # Check if original structure uses "date=" prefix
-        sample_key = next(k for k in keys if latest in k)
-        if f"date={latest}" in sample_key:
-            latest_path = f"{prefix}date={latest}/"
+        print(f"📅 Found {len(partitions)} valid date partition(s): {sorted(partitions.keys())}")
+        
+        # Reconstruct the full path based on original format
+        # Check which format was used in the original key
+        if f"date={latest_date}" in sample_key:
+            latest_path = f"{prefix}date={latest_date}/"
+        elif f"dt={latest_date}" in sample_key:
+            latest_path = f"{prefix}dt={latest_date}/"
         else:
-            latest_path = f"{prefix}{latest}/"
+            latest_path = f"{prefix}{latest_date}/"
         
-        print(f"✓ Latest partition found: {latest_path}")
+        print(f"✅ Latest partition selected: {latest_path}")
         return latest_path
         
     except Exception as e:
         print(f"❌ Error finding latest partition: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return None
 
 
 def get_all_partitions(bucket: str, prefix: str, conn_id: str = "minio_finance") -> List[str]:
+    """
+    Find all date partitions in MinIO bucket.
+    
+    Supports partition formats:
+    - YYYY-MM-DD/  (e.g., daily_price/2026-02-04/)
+    - date=YYYY-MM-DD/  (e.g., bctc/date=2026-02-04/)
+    
+    Args:
+        bucket: MinIO bucket name
+        prefix: Folder prefix to search in
+        conn_id: MinIO connection ID
+    
+    Returns:
+        Sorted list of partition paths (oldest to newest)
+    """
+    import re
+    
     hook = get_minio_hook(conn_id)
+    
+    # Regex pattern for YYYY-MM-DD format
+    DATE_PATTERN = re.compile(r'^\d{4}-\d{2}-\d{2}$')
     
     try:
         # List all objects with the prefix
@@ -69,46 +125,63 @@ def get_all_partitions(bucket: str, prefix: str, conn_id: str = "minio_finance")
             print(f"⚠️ No objects found in {bucket}/{prefix}")
             return []
         
-        # Extract unique partitions
-        partition_set = set()
+        print(f"📂 Scanning {len(keys)} objects in {bucket}/{prefix}")
+        
+        # Extract unique date partitions with validation
+        partitions_dict = {}  # {date_str: partition_path}
+        
         for key in keys:
             # Remove prefix and get partition part
             relative_path = key.replace(prefix, "").lstrip("/")
             
-            if not relative_path or not "/" in relative_path:
+            if not relative_path or "/" not in relative_path:
                 continue
             
             # Get first level partition (usually date)
-            parts = relative_path.split("/")
-            first_partition = parts[0]
+            first_folder = relative_path.split("/")[0]
             
-            # Handle date= prefix if exists
-            if "=" in first_partition:
-                partition_value = first_partition.split("=")[1]
+            # Extract date value
+            date_value = None
+            partition_format = None
+            
+            # Case 1: date=YYYY-MM-DD format
+            if first_folder.startswith("date="):
+                date_value = first_folder[5:]
+                partition_format = "date="
+            # Case 2: dt=YYYY-MM-DD format (alternative)
+            elif first_folder.startswith("dt="):
+                date_value = first_folder[3:]
+                partition_format = "dt="
+            # Case 3: Direct YYYY-MM-DD format
             else:
-                partition_value = first_partition
+                date_value = first_folder
+                partition_format = ""
             
-            # Only add if it looks like a date  (YYYY-MM-DD format)
-            if len(partition_value) == 10 and partition_value.count("-") == 2:
-                # Reconstruct partition path matching original structure
-                if f"date={partition_value}" in key:
-                    partition_path = f"{prefix}date={partition_value}/"
-                else:
-                    partition_path = f"{prefix}{partition_value}/"
-                partition_set.add(partition_path)
+            # Validate date format (YYYY-MM-DD)
+            if date_value and DATE_PATTERN.match(date_value):
+                # Reconstruct partition path
+                partition_path = f"{prefix}{partition_format}{date_value}/"
+                
+                # Store unique partition
+                if date_value not in partitions_dict:
+                    partitions_dict[date_value] = partition_path
         
-        if not partition_set:
-            print(f"⚠️ No date partitions found in {bucket}/{prefix}")
+        if not partitions_dict:
+            print(f"⚠️ No valid date partitions (YYYY-MM-DD) found in {bucket}/{prefix}")
             return []
         
-        # Sort partitions (oldest first)
-        all_partitions = sorted(list(partition_set))
-        print(f"✓ Found {len(all_partitions)} partitions in {prefix}")
+        # Sort by date (oldest first)
+        sorted_dates = sorted(partitions_dict.keys())
+        all_partitions = [partitions_dict[date] for date in sorted_dates]
+        
+        print(f"✅ Found {len(all_partitions)} valid partition(s): {sorted_dates[0]} to {sorted_dates[-1]}")
         
         return all_partitions
         
     except Exception as e:
         print(f"❌ Error finding partitions: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return []
 
 

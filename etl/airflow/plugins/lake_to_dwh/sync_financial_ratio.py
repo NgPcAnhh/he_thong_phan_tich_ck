@@ -188,21 +188,7 @@ def sync_financial_ratio_to_db(
     folder_prefix: str = "financial_ratios/",
     table: str = "financial_ratio"
 ) -> str:
-    """
-    Sync financial ratio data from MinIO to PostgreSQL.
-    UPSERT strategy: Delete existing by (ticker, year, quarter) then INSERT.
-    
-    Args:
-        minio_conn_id: MinIO connection ID
-        bucket: MinIO bucket name
-        folder_prefix: Folder prefix in MinIO
-        db_url: PostgreSQL connection URL
-        schema: Database schema name
-        table: Database table name
-    
-    Returns:
-        Status message
-    """
+
     print("=" * 70)
     print("📊 SYNC FINANCIAL RATIO TO DATABASE (UPSERT MODE)")
     print("=" * 70)
@@ -314,7 +300,8 @@ def sync_financial_ratio_to_db(
     if 'cp' in df.columns and 'nam' in df.columns and 'ky' in df.columns:
         df = df.drop_duplicates(subset=['cp', 'nam', 'ky'], keep='last')
     
-    print(f"After cleaning: {len(df)} rows")
+    rows_after_cleaning = len(df)
+    print(f"After cleaning: {rows_after_cleaning} rows")
     print(f"Columns: {list(df.columns)[:10]}...")  # Show first 10
     
     if df.empty:
@@ -356,50 +343,43 @@ def sync_financial_ratio_to_db(
                     for _, row in df.iterrows()
                 ]
                 
-                # Delete existing records by (cp, nam, ky) - using correct column names
+                # UPSERT pattern using ON CONFLICT
                 if 'cp' in df_columns and 'nam' in df_columns and 'ky' in df_columns:
-                    delete_keys = set()
-                    cp_idx = df_columns.index('cp')
-                    nam_idx = df_columns.index('nam')
-                    ky_idx = df_columns.index('ky')
+                    # Build dynamic UPDATE SET clause (exclude key columns)
+                    update_cols = [col for col in df_columns 
+                                  if col not in ['cp', 'nam', 'ky']]
+                    update_set = ', '.join([f"{col} = EXCLUDED.{col}" for col in update_cols])
                     
-                    for row in rows:
-                        if row[cp_idx] and row[nam_idx] is not None and row[ky_idx] is not None:
-                            # Ensure types match database schema: cp=VARCHAR, nam=INTEGER, ky=INTEGER
-                            try:
-                                delete_keys.add((str(row[cp_idx]), int(row[nam_idx]), int(row[ky_idx])))
-                            except (ValueError, TypeError):
-                                continue
-                    
-                    if delete_keys:
-                        cur.execute(f"""
-                            CREATE TEMP TABLE temp_fr_delete_keys (
-                                cp VARCHAR(255), nam INTEGER, ky INTEGER
-                            ) ON COMMIT DROP;
-                        """)
-                        execute_values(cur, "INSERT INTO temp_fr_delete_keys VALUES %s", list(delete_keys))
-                        cur.execute(f"""
-                            DELETE FROM {schema}.{table} t 
-                            USING temp_fr_delete_keys tmp
-                            WHERE t.cp = tmp.cp 
-                              AND t.nam = tmp.nam 
-                              AND t.ky = tmp.ky;
-                        """)
-                        print(f"✓ Deleted {len(delete_keys)} existing key combinations")
-                
-                # Insert new data
-                columns_str = ', '.join(df_columns)
-                insert_sql = f"""
-                    INSERT INTO {schema}.{table} ({columns_str})
-                    VALUES %s;
-                """
-                execute_values(cur, insert_sql, rows, page_size=1000)
-                print(f"✓ Inserted {len(rows)} rows")
+                    # UPSERT
+                    columns_str = ', '.join(df_columns)
+                    upsert_sql = f"""
+                        INSERT INTO {schema}.{table} ({columns_str})
+                        VALUES %s
+                        ON CONFLICT (cp, nam, ky)
+                        DO UPDATE SET
+                            {update_set};
+                    """
+                    execute_values(cur, upsert_sql, rows, page_size=1000)
+                    print(f"✓ Upserted {len(rows)} rows")
+                else:
+                    # Fallback to simple insert if keys are missing
+                    columns_str = ', '.join(df_columns)
+                    insert_sql = f"""
+                        INSERT INTO {schema}.{table} ({columns_str})
+                        VALUES %s;
+                    """
+                    execute_values(cur, insert_sql, rows, page_size=1000)
+                    print(f"✓ Inserted {len(rows)} rows")
             
             conn.commit()
-            print(f"✅ Upserted {len(rows)} rows successfully")
             
-            return f"✅ Success: Upserted {len(rows)} rows"
+            # Summary log
+            print("="*50)
+            print(f"📥 LOADED from MinIO: {rows_after_cleaning} rows")
+            print(f"📤 UPSERTED to DB: {len(rows)} rows")
+            print("="*50)
+            
+            return f"✅ Success: Loaded {rows_after_cleaning} | Upserted {len(rows)} rows"
             
         except Exception as e:
             conn.rollback()

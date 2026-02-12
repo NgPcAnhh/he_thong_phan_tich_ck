@@ -50,7 +50,9 @@ def stock_dag():
     @task
     def get_batches():
         from logic.list_macp import get_ticker_batches
-        return [{"symbols": batch} for batch in get_ticker_batches(batch_size=20)]
+        batches = [{"symbols": batch} for batch in get_ticker_batches(batch_size=20)]
+        print(f"[BCTC] Tổng số batches: {len(batches)}")
+        return batches
     batches = get_batches()
     batches_logged = log_batches_info(batches)
     batches_with_year = attach_current_year(batches_logged, current_year="{{ dag_run.conf.get('year', params.year) }}")
@@ -66,13 +68,13 @@ def stock_dag():
     ).expand(op_kwargs=batches_with_year)
 
     @task
-    def verify_upload(batches: list[dict], partition_year: str, ds: str):
+    def verify_upload(batches: list[dict], ds: str):
         logger = logging.getLogger("airflow.task")
         hook = S3Hook(aws_conn_id=MINIO_CONN_ID)
 
         missing = []
         for idx, _ in enumerate(batches):
-            key = f"bctc/date={ds}/year={partition_year}/batch_{idx}.csv"
+            key = f"bctc/{ds}/batch_{idx}.csv"
             exists = hook.check_for_key(key=key, bucket_name=MINIO_BUCKET)
             logger.info("Kiểm tra upload batch %d -> %s: %s", idx, key, "OK" if exists else "MISSING")
             if not exists:
@@ -85,7 +87,6 @@ def stock_dag():
 
     verify_task = verify_upload(
         batches_with_year,
-        partition_year="{{ dag_run.conf.get('year', params.year) }}",
         ds="{{ ds }}",
     )
 

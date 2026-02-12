@@ -1,0 +1,27 @@
+[2026-02-04T15:35:49.585+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-04T15:35:49.700+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=573 [queued]>
+[2026-02-04T15:35:49.799+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=573 [queued]>
+[2026-02-04T15:35:49.799+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-04T15:35:49.835+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-04 14:54:19+00:00
+[2026-02-04T15:35:49.858+0000] {warnings.py:112} WARNING - This process (pid=10335) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-04T15:35:49.872+0000] {standard_task_runner.py:64} INFO - Started process 10389 to run task
+[2026-02-04T15:35:49.872+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_minio', 'ingest_financial_ratios', 'manual__2026-02-04T14:54:19+00:00', '--job-id', '17825', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmptx8uzifz', '--map-index', '573']
+[2026-02-04T15:35:49.880+0000] {standard_task_runner.py:91} INFO - Job 17825: Subtask ingest_financial_ratios
+[2026-02-04T15:35:49.986+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=573 [running]> on host 918dbd497d34
+[2026-02-04T15:35:50.179+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_minio' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-04T14:54:19+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-04T14:54:19+00:00'
+[2026-02-04T15:35:50.181+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-04T15:35:50.193+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['HFC', 'HFB']
+[2026-02-04T15:35:50.193+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-04T15:35:50.194+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: HFC
+[2026-02-04T15:35:55.033+0000] {logging_mixin.py:188} INFO - ❌ Lỗi HFC: RetryError[<Future at 0x7f63a8c181a0 state=finished raised KeyError>]
+[2026-02-04T15:35:55.058+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] HFC: No data from API
+[2026-02-04T15:35:57.102+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: HFB
+[2026-02-04T15:36:01.905+0000] {logging_mixin.py:188} INFO - ❌ Lỗi HFB: RetryError[<Future at 0x7f63a8b3f0b0 state=finished raised KeyError>]
+[2026-02-04T15:36:01.918+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] HFB: No data from API
+[2026-02-04T15:36:03.921+0000] {logging_mixin.py:188} INFO -  ⚠ [RATIO] Batch này không thu được dữ liệu nào.
+[2026-02-04T15:36:03.924+0000] {datalake_df2csv.py:40} INFO - DataFrame rỗng, bỏ qua upload CSV.
+[2026-02-04T15:36:03.925+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-04T15:36:03.952+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_minio, task_id=ingest_financial_ratios, run_id=manual__2026-02-04T14:54:19+00:00, map_index=573, execution_date=20260204T145419, start_date=20260204T153549, end_date=20260204T153603
+[2026-02-04T15:36:04.038+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-04T15:36:04.051+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

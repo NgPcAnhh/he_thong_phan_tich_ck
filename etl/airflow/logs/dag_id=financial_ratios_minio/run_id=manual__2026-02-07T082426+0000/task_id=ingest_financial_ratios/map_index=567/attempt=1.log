@@ -1,0 +1,427 @@
+[2026-02-07T08:42:00.826+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-07T08:42:01.256+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-07T08:24:26+00:00 map_index=567 [queued]>
+[2026-02-07T08:42:01.403+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-07T08:24:26+00:00 map_index=567 [queued]>
+[2026-02-07T08:42:01.404+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-07T08:42:01.464+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-07 08:24:26+00:00
+[2026-02-07T08:42:01.529+0000] {warnings.py:112} WARNING - This process (pid=6296) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-07T08:42:01.557+0000] {standard_task_runner.py:64} INFO - Started process 6336 to run task
+[2026-02-07T08:42:01.553+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_minio', 'ingest_financial_ratios', 'manual__2026-02-07T08:24:26+00:00', '--job-id', '20308', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmp_vtom6fz', '--map-index', '567']
+[2026-02-07T08:42:01.574+0000] {standard_task_runner.py:91} INFO - Job 20308: Subtask ingest_financial_ratios
+[2026-02-07T08:42:01.731+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-07T08:24:26+00:00 map_index=567 [running]> on host 313eae04fbdd
+[2026-02-07T08:42:02.007+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_minio' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-07T08:24:26+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-07T08:24:26+00:00'
+[2026-02-07T08:42:02.009+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-07T08:42:02.010+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-07T08:42:02.011+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_financial_ratios
+[2026-02-07T08:42:02.011+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-07T08:42:02.012+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-07T08:42:02.012+0000] {datalake_df2csv.py:44} INFO -   - Logic file: financial_ratios
+[2026-02-07T08:42:02.013+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_ratios_batch
+[2026-02-07T08:42:02.014+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-07T08:42:02.015+0000] {datalake_df2csv.py:47} INFO -   - Object path: financial_ratios/2026-02-07/batch_567.csv
+[2026-02-07T08:42:02.015+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-07T08:42:02.016+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['MSN', 'SBG'], 'period': 'quarter'}
+[2026-02-07T08:42:02.018+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-07T08:42:02.024+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-07T08:42:02.034+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-07T08:42:02.037+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/financial_ratios.py
+[2026-02-07T08:42:02.040+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-07T08:42:02.056+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'financial_ratios'...
+[2026-02-07T08:42:02.080+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-07T08:42:02.082+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_ratios_batch'...
+[2026-02-07T08:42:02.083+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-07T08:42:02.087+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['MSN', 'SBG'], 'period': 'quarter'}
+[2026-02-07T08:42:02.090+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['MSN', 'SBG']
+[2026-02-07T08:42:02.091+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-07T08:42:02.092+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: MSN
+[2026-02-07T08:42:04.409+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] MSN: 53 rows
+[2026-02-07T08:42:06.410+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: SBG
+[2026-02-07T08:42:07.619+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] SBG: 12 rows
+[2026-02-07T08:42:12.529+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 65
+[2026-02-07T08:42:12.531+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-07T08:42:12.533+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-07T08:42:12.534+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 65
+[2026-02-07T08:42:12.548+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 40
+[2026-02-07T08:42:12.552+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: [('ticker', ''), ('Meta', 'CP'), ('Meta', 'Năm'), ('Meta', 'Kỳ'), ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'), ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'), ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'), ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'), ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'), ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'), ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'), ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'), ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'), ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'), ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'), ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'), ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'), ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'), ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'), ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'), ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'), ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'), ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'), ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'), ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'), ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'), ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'), ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'), ('Chỉ tiêu định giá', 'P/E'), ('Chỉ tiêu định giá', 'P/B'), ('Chỉ tiêu định giá', 'P/S'), ('Chỉ tiêu định giá', 'P/Cash Flow'), ('Chỉ tiêu định giá', 'EPS (VND)'), ('Chỉ tiêu định giá', 'BVPS (VND)'), ('Chỉ tiêu định giá', 'EV/EBITDA'), ('period_type', ''), ('extracted_at', '')]
+[2026-02-07T08:42:12.596+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {('ticker', ''): 'object', ('Meta', 'CP'): 'object', ('Meta', 'Năm'): 'int64', ('Meta', 'Kỳ'): 'int64', ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 'float64', ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 'int64', ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 'float64', ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 'float64', ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 'float64', ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 'float64', ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): 'float64', ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 'float64', ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 'int64', ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 'int64', ('Chỉ tiêu định giá', 'P/E'): 'float64', ('Chỉ tiêu định giá', 'P/B'): 'float64', ('Chỉ tiêu định giá', 'P/S'): 'float64', ('Chỉ tiêu định giá', 'P/Cash Flow'): 'float64', ('Chỉ tiêu định giá', 'EPS (VND)'): 'float64', ('Chỉ tiêu định giá', 'BVPS (VND)'): 'float64', ('Chỉ tiêu định giá', 'EV/EBITDA'): 'float64', ('period_type', ''): 'object', ('extracted_at', ''): 'datetime64[us, UTC]'}
+[2026-02-07T08:42:12.616+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.03 MB
+[2026-02-07T08:42:12.625+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-07T08:42:12.630+0000] {datalake_df2csv.py:81} INFO -     + ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 12
+[2026-02-07T08:42:12.631+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-07T08:42:12.645+0000] {datalake_df2csv.py:88} INFO -     Row 0: {('ticker', ''): 'MSN', ('Meta', 'CP'): 'MSN', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 4, ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 2.3386544635, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 1.8608484985, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.7871625419788582, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 2.964740765769288, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 0.5902871238, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 2.2505677407, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 5.7623425550916245, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 73.0039449976, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 50.6741287527, ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 129.44041630539164, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 4.9997298093, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.10934746346924663, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.31211785342099063, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.06340747209445137, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.125271969, ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 0.0697033305, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0297113532, ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 11092993000000.0, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 2541872000000, ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 0.0, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 0.900068745, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 0.3956014877, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 0.6203140907, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -2.064087374895958, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 2.8608484984597142, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 113070588737400, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1445915457, ('Chỉ tiêu định giá', 'P/E'): 28.8587409384, ('Chỉ tiêu định giá', 'P/B'): 3.1987690882, ('Chỉ tiêu định giá', 'P/S'): 1.3853068815, ('Chỉ tiêu định giá', 'P/Cash Flow'): 86.5677099745, ('Chỉ tiêu định giá', 'EPS (VND)'): 1019.3950087913058, ('Chỉ tiêu định giá', 'BVPS (VND)'): 24446.9037445251, ('Chỉ tiêu định giá', 'EV/EBITDA'): 15.3259531253, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-07 08:42:04.407776+0000', tz='UTC')}
+[2026-02-07T08:42:12.651+0000] {datalake_df2csv.py:88} INFO -     Row 1: {('ticker', ''): 'MSN', ('Meta', 'CP'): 'MSN', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 3, ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 2.2791825464, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 1.8238842941, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.8265189390808475, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 2.8262663705678457, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 0.6055556433, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 2.2435516544, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 5.435532931733461, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 68.5793357522, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 42.6887198187, ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 116.70358850263347, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 5.3223029357, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.0984399985144463, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.30436377619056215, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.05710947538502726, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.1045994781, ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 0.0738594369, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0248370694, ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 11217524000000.0, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 2083367000000, ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 0.0, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 0.855897191, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 0.3643421433, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 0.582028566, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -1.2384231106228831, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 2.8238842940820352, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 116540785834200, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1445915457, ('Chỉ tiêu định giá', 'P/E'): 36.7009946715, ('Chỉ tiêu định giá', 'P/B'): 3.4580730412, ('Chỉ tiêu định giá', 'P/S'): 1.4374080877, ('Chỉ tiêu định giá', 'P/Cash Flow'): 17.5408540102, ('Chỉ tiêu định giá', 'EPS (VND)'): 835.9098688299035, ('Chỉ tiêu định giá', 'BVPS (VND)'): 23307.7783606542, ('Chỉ tiêu định giá', 'EV/EBITDA'): 15.4651675213, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-07 08:42:04.407776+0000', tz='UTC')}
+[2026-02-07T08:42:12.653+0000] {datalake_df2csv.py:88} INFO -     Row 2: {('ticker', ''): 'MSN', ('Meta', 'CP'): 'MSN', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 2, ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 2.3986199344, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 1.9649057473, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.8557232860658586, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 2.7387622558551077, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 0.5727411532, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 2.1354372593, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 6.233781746763562, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 72.5687051034, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 43.9904056889, ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 122.79289253906357, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 5.0297163148, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.07665772688606257, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.31064070490315665, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.056357308762040585, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.0916581664, ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 0.0703654747, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0198265144, ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 11081155000000.0, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 1403997000000, ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 0.0, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 0.8844767969, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 0.2877097299, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 0.6059277671, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -1.262829121045668, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 2.9649057472530753, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 119288025202500, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1445915457, ('Chỉ tiêu định giá', 'P/E'): 44.3415793764, ('Chỉ tiêu định giá', 'P/B'): 3.6648179159, ('Chỉ tiêu định giá', 'P/S'): 1.4654529827, ('Chỉ tiêu định giá', 'P/Cash Flow'): 15.086498409, ('Chỉ tiêu định giá', 'EPS (VND)'): 713.8674636908595, ('Chỉ tiêu định giá', 'BVPS (VND)'): 22511.3503299384, ('Chỉ tiêu định giá', 'EV/EBITDA'): 16.1215070272, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-07 08:42:04.407776+0000', tz='UTC')}
+[2026-02-07T08:42:12.656+0000] {datalake_df2csv.py:88} INFO -     Row 3: {('ticker', ''): 'MSN', ('Meta', 'CP'): 'MSN', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 1, ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 2.2715086524, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 2.3038849199, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.8389118600752601, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 2.849632689960346, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 0.5524990124, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 2.090345046, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 7.198260401780773, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 74.42365616, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 42.9399055435, ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 124.56182210528075, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 4.9043545941, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.08652648437507442, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.32779776909400016, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.020823920233431117, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.073737535, ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 0.0678984128, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0151915359, ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 11074111000000.0, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 1635051000000, ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 0.0, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 0.9217199543, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 0.2424143803, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 0.7357079445, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -1.174080978183599, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 3.303884919914601, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 108307876760100, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1438351617, ('Chỉ tiêu định giá', 'P/E'): 49.5859161543, ('Chỉ tiêu định giá', 'P/B'): 3.5221983254, ('Chỉ tiêu định giá', 'P/S'): 1.3014745218, ('Chỉ tiêu định giá', 'P/Cash Flow'): 11.9624146965, ('Chỉ tiêu định giá', 'EPS (VND)'): 273.57705539395937, ('Chỉ tiêu định giá', 'BVPS (VND)'): 21378.6939414273, ('Chỉ tiêu định giá', 'EV/EBITDA'): 15.2996976245, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-07 08:42:04.407776+0000', tz='UTC')}
+[2026-02-07T08:42:12.658+0000] {datalake_df2csv.py:88} INFO -     Row 4: {('ticker', ''): 'MSN', ('Meta', 'CP'): 'MSN', ('Meta', 'Năm'): 2024, ('Meta', 'Kỳ'): 4, ('Chỉ tiêu cơ cấu nguồn vốn', '(Vay NH+DH)/VCSH'): 2.5611887207999997, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 2.6214993578, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.9091437113611524, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 2.680210218570927, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay tài sản'): 0.5639775597, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay TSCĐ'): 2.0811184825, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thu tiền bình quân'): 7.926612649399782, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày tồn kho bình quân'): 76.3979157866, ('Chỉ tiêu hiệu quả hoạt động', 'Số ngày thanh toán bình quân'): 42.1765014298, ('Chỉ tiêu hiệu quả hoạt động', 'Chu kỳ tiền'): 126.50102986579978, ('Chỉ tiêu hiệu quả hoạt động', 'Vòng quay hàng tồn kho'): 4.7776172457, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.1124212283303712, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.31110412773482105, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.030440898457465268, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.0703874038, ('Chỉ tiêu khả năng sinh lợi', 'ROIC (%)'): 0.0580742095, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.013554404, ('Chỉ tiêu khả năng sinh lợi', 'EBITDA (Tỷ đồng)'): 10306344000000.0, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 2552134000000, ('Chỉ tiêu khả năng sinh lợi', 'Tỷ suất cổ tức (%)'): 0.0, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán hiện thời'): 0.9124114888, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán tiền mặt'): 0.3171040078, ('Chỉ tiêu thanh khoản', 'Chỉ số thanh toán nhanh'): 0.7286779446, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -1.6719681608988322, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 3.621499357828917, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 84143569594500, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1438351617, ('Chỉ tiêu định giá', 'P/E'): 43.5025801421, ('Chỉ tiêu định giá', 'P/B'): 2.7823384882, ('Chỉ tiêu định giá', 'P/S'): 1.0116118787, ('Chỉ tiêu định giá', 'P/Cash Flow'): 9.1296594702, ('Chỉ tiêu định giá', 'EPS (VND)'): 480.4492808520269, ('Chỉ tiêu định giá', 'BVPS (VND)'): 21025.4791961624, ('Chỉ tiêu định giá', 'EV/EBITDA'): 14.3924304869, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-07 08:42:04.407776+0000', tz='UTC')}
+[2026-02-07T08:42:12.661+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-07T08:42:12.662+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-07T08:42:12.698+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-07T08:42:12.699+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.04 MB
+[2026-02-07T08:42:12.700+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.03 giây
+[2026-02-07T08:42:12.700+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-07T08:42:12.700+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-07T08:42:22.776+0000] {connection.py:513} ERROR - Unable to retrieve connection from secrets backend (MetastoreBackend). Checking subsequent secrets backend.
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/connection.py", line 508, in get_connection_from_secrets
+    conn = secrets_backend.get_connection(conn_id=conn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 79, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/secrets/metastore.py", line 43, in get_connection
+    return MetastoreBackend._fetch_connection(conn_id, session=session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/secrets/metastore.py", line 74, in _fetch_connection
+    conn = session.scalar(select(Connection).where(Connection.conn_id == conn_id).limit(1))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1747, in scalar
+    return self.execute(
+           ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-02-07T08:42:22.853+0000] {base_aws.py:587} WARNING - Unable to find AWS Connection ID 'minio_finance', switching to empty.
+[2026-02-07T08:42:22.860+0000] {base_aws.py:164} INFO - No connection ID provided. Fallback on boto3 credential strategy (region_name=None). See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html
+[2026-02-07T08:42:33.334+0000] {datalake_df2csv.py:134} ERROR - ================================================================================
+[2026-02-07T08:42:33.532+0000] {datalake_df2csv.py:135} ERROR - ❌ LỖI TRONG TASK: ingest_financial_ratios
+[2026-02-07T08:42:33.596+0000] {datalake_df2csv.py:136} ERROR - ================================================================================
+[2026-02-07T08:42:33.611+0000] {datalake_df2csv.py:137} ERROR - ⚠️  Loại lỗi: NoCredentialsError
+[2026-02-07T08:42:33.646+0000] {datalake_df2csv.py:138} ERROR - ⚠️  Chi tiết lỗi: Unable to locate credentials
+[2026-02-07T08:42:33.661+0000] {datalake_df2csv.py:139} ERROR - ⚠️  Thời gian đã chạy trước khi lỗi: 31.32 giây
+[2026-02-07T08:42:33.679+0000] {datalake_df2csv.py:140} ERROR - ================================================================================
+[2026-02-07T08:42:33.684+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-07T08:42:33.686+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 107, in execute
+    if not hook.check_for_bucket(self.bucket_name):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 89, in wrapper
+    return func(*bound_args.args, **bound_args.kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 288, in check_for_bucket
+    self.get_conn().head_bucket(Bucket=bucket_name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 565, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1001, in _make_api_call
+    http, parsed_response = self._make_request(
+                            ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1027, in _make_request
+    return self._endpoint.make_request(operation_model, request_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 119, in make_request
+    return self._send_request(request_dict, operation_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 198, in _send_request
+    request = self.create_request(request_dict, operation_model)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 134, in create_request
+    self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/signers.py", line 105, in handler
+    return self.sign(operation_name, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/signers.py", line 199, in sign
+    auth.add_auth(request)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/auth.py", line 418, in add_auth
+    raise NoCredentialsError()
+botocore.exceptions.NoCredentialsError: Unable to locate credentials
+[2026-02-07T08:42:49.880+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 20308 for task ingest_financial_ratios ((psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8); 6336)
+[2026-02-07T08:42:43.201+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 192, in heartbeat
+    self._merge_from(Job._fetch_from_db(self, session))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 89, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 443, in __iter__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 376, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 418, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 185, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 98, in wrapped_function
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 316, in _fetch_from_db
+    session.merge(job)
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-02-07T08:42:53.868+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-02-07T08:42:53.874+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-07T08:42:58.879+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

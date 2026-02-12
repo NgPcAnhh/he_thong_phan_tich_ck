@@ -1,6 +1,6 @@
 """
 Sync company people/owner data from MinIO to PostgreSQL database.
-Strategy: DELETE old records for ticker, then INSERT new ones
+Strategy: REPLACE (TRUNCATE then INSERT - full refresh)
 Target table: owner
 """
 from contextlib import closing
@@ -90,13 +90,14 @@ def sync_people_to_db(
     available_cols = [col for col in schema_cols if col in df.columns]
     df = df[available_cols].copy()
     
-    print(f"After cleaning: {len(df)} rows")
+    rows_after_cleaning = len(df)
+    print(f"After cleaning: {rows_after_cleaning} rows")
     
     if df.empty:
         return "⚠️ No data after cleaning"
     
-    # Step 4: Insert into database (delete old, insert new)
-    print("\n[4/4] Inserting into database...")
+    # Step 4: Replace data in database (TRUNCATE then INSERT)
+    print("\n[4/4] Replacing data in database (full refresh)...")
     
     with closing(get_postgres_connection(db_url)) as conn:
         conn.autocommit = False
@@ -104,9 +105,6 @@ def sync_people_to_db(
         try:
             # Ensure schema exists
             ensure_schema(conn, schema)
-            
-            # Get unique tickers
-            unique_tickers = df['ticker'].unique().tolist()
             
             # Prepare data for insertion
             rows = []
@@ -119,26 +117,30 @@ def sync_people_to_db(
             # Build dynamic INSERT statement
             columns_str = ', '.join(available_cols)
             
-            insert_sql = f"""
-                INSERT INTO {schema}.{table}
-                ({columns_str})
-                VALUES %s;
-            """
-            
+            # REPLACE strategy: TRUNCATE then INSERT (full refresh)
             with conn.cursor() as cur:
-                # Delete old records for these tickers
-                delete_sql = f"DELETE FROM {schema}.{table} WHERE ticker = ANY(%s);"
-                cur.execute(delete_sql, (unique_tickers,))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} old records for {len(unique_tickers)} tickers")
+                # Truncate table to remove all old data
+                truncate_sql = f"TRUNCATE TABLE {schema}.{table};"
+                cur.execute(truncate_sql)
+                print(f"✓ Truncated table {schema}.{table}")
                 
-                # Insert new records
+                # Insert all new data
+                insert_sql = f"""
+                    INSERT INTO {schema}.{table}
+                    ({columns_str})
+                    VALUES %s;
+                """
                 execute_values(cur, insert_sql, rows)
             
             conn.commit()
-            print(f"✅ Inserted {len(rows)} rows")
             
-            return f"✅ Success: {len(rows)} rows"
+            # Summary log
+            print("="*50)
+            print(f"📥 LOADED from MinIO: {rows_after_cleaning} rows")
+            print(f"📤 REPLACED in DB: {len(rows)} rows (full refresh)")
+            print("="*50)
+            
+            return f"✅ Success: Loaded {rows_after_cleaning} | Replaced {len(rows)} rows"
             
         except Exception as e:
             conn.rollback()

@@ -52,6 +52,11 @@ x-airflow-common:
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
   image: airflow-custom:2.9.3
   build: .
+  # DNS fallback configuration for better reliability
+  dns:
+    - 8.8.8.8      # Google DNS primary
+    - 8.8.4.4      # Google DNS secondary
+    - 1.1.1.1      # Cloudflare DNS
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor

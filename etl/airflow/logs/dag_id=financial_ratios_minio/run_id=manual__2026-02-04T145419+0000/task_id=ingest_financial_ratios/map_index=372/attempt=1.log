@@ -1,0 +1,29 @@
+[2026-02-04T15:28:27.600+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-04T15:28:27.666+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=372 [queued]>
+[2026-02-04T15:28:27.712+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=372 [queued]>
+[2026-02-04T15:28:27.713+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-04T15:28:27.733+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-04 14:54:19+00:00
+[2026-02-04T15:28:27.748+0000] {warnings.py:112} WARNING - This process (pid=6307) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-04T15:28:27.750+0000] {standard_task_runner.py:64} INFO - Started process 6371 to run task
+[2026-02-04T15:28:27.753+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_minio', 'ingest_financial_ratios', 'manual__2026-02-04T14:54:19+00:00', '--job-id', '17535', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmpk_pa2fen', '--map-index', '372']
+[2026-02-04T15:28:27.757+0000] {standard_task_runner.py:91} INFO - Job 17535: Subtask ingest_financial_ratios
+[2026-02-04T15:28:27.826+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_minio.ingest_financial_ratios manual__2026-02-04T14:54:19+00:00 map_index=372 [running]> on host 918dbd497d34
+[2026-02-04T15:28:27.971+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_minio' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-04T14:54:19+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-04T14:54:19+00:00'
+[2026-02-04T15:28:27.972+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-04T15:28:27.985+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['ONW', 'ONE']
+[2026-02-04T15:28:27.986+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-04T15:28:27.987+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: ONW
+[2026-02-04T15:28:32.861+0000] {logging_mixin.py:188} INFO - ❌ Lỗi ONW: RetryError[<Future at 0x7f63a8dc4590 state=finished raised KeyError>]
+[2026-02-04T15:28:32.872+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] ONW: No data from API
+[2026-02-04T15:28:34.875+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: ONE
+[2026-02-04T15:28:35.770+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] ONE: 53 rows
+[2026-02-04T15:28:37.771+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 53
+[2026-02-04T15:28:37.801+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-04T15:28:37.803+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-04T15:28:38.715+0000] {datalake_df2csv.py:52} INFO - ✅ Đã upload 53 dòng -> s3://thongtin-congty-va-bctc/financial_ratios/2026-02-04/batch_372.csv
+[2026-02-04T15:28:38.716+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-04T15:28:38.729+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios_minio, task_id=ingest_financial_ratios, run_id=manual__2026-02-04T14:54:19+00:00, map_index=372, execution_date=20260204T145419, start_date=20260204T152827, end_date=20260204T152838
+[2026-02-04T15:28:38.789+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-04T15:28:38.809+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-04T15:28:38.811+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

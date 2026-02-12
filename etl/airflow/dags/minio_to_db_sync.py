@@ -151,6 +151,47 @@ def minio_to_db_sync():
             schema=SCHEMA
         )
     
+    # ==================== NEW SYNC TASKS FOR NEWS V2 & EVENTS ====================
+    
+    @task(task_id="sync_vnstock_news_v2")
+    def task_sync_vnstock_news_v2():
+        """Sync vnstock news to news_v2 table - Upsert"""
+        from lake_to_dwh.sync_news_v2 import sync_vnstock_news_to_db
+        return sync_vnstock_news_to_db(
+            minio_conn_id=MINIO_CONN_ID,
+            bucket=MINIO_BUCKET,
+            folder_prefix="news/vnstock_news/",
+            db_url=DB_URL,
+            schema=SCHEMA,
+            table="news_v2"
+        )
+    
+    @task(task_id="sync_paper_news_v2")
+    def task_sync_paper_news_v2():
+        """Sync paper news to news_v2 table - Upsert"""
+        from lake_to_dwh.sync_news_v2 import sync_paper_news_to_db
+        return sync_paper_news_to_db(
+            minio_conn_id=MINIO_CONN_ID,
+            bucket=MINIO_BUCKET,
+            folder_prefix="news/paper/",
+            db_url=DB_URL,
+            schema=SCHEMA,
+            table="news_v2"
+        )
+    
+    @task(task_id="sync_events")
+    def task_sync_events():
+        """Sync events data - Replace (DELETE partition + INSERT)"""
+        from lake_to_dwh.sync_events import sync_events_to_db
+        return sync_events_to_db(
+            minio_conn_id=MINIO_CONN_ID,
+            bucket=MINIO_BUCKET,
+            folder_prefix="news/events/",
+            db_url=DB_URL,
+            schema=SCHEMA,
+            table="events"
+        )
+    
     @task(task_id="summary_report")
     def task_summary_report(results: list):
         """Generate summary report of all sync operations"""
@@ -171,7 +212,10 @@ def minio_to_db_sync():
             "News",
             "Company Overview",
             "Company People",
-            "Electric Board"
+            "Electric Board",
+            "VNStock News V2",
+            "Paper News V2",
+            "Events"
         ]
         
         for idx, (task_name, result) in enumerate(zip(task_names, results)):
@@ -199,6 +243,9 @@ def minio_to_db_sync():
     overview_result = task_sync_overview()
     people_result = task_sync_people()
     electric_board_result = task_sync_electric_board()
+    vnstock_news_v2_result = task_sync_vnstock_news_v2()
+    paper_news_v2_result = task_sync_paper_news_v2()
+    events_result = task_sync_events()
     
     # All sync tasks run in parallel (no dependencies)
     # Then generate summary report
@@ -213,6 +260,9 @@ def minio_to_db_sync():
         overview_result,
         people_result,
         electric_board_result,
+        vnstock_news_v2_result,
+        paper_news_v2_result,
+        events_result,
     ]
     
     summary = task_summary_report(all_results)

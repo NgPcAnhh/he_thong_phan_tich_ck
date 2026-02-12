@@ -125,23 +125,32 @@ def sync_overview_to_db(
             # Build dynamic INSERT statement
             columns_str = ', '.join(available_cols)
             
-            # DELETE+INSERT pattern (table doesn't have unique constraint)
-            tickers = [row[0] for row in rows]
-            
+            # UPSERT pattern using ON CONFLICT
             with conn.cursor() as cur:
-                # Delete existing records for these tickers
-                delete_sql = f"DELETE FROM {schema}.{table} WHERE ticker = ANY(%s);"
-                cur.execute(delete_sql, (tickers,))
-                deleted = cur.rowcount
-                print(f"Deleted {deleted} existing rows")
+                # Determine conflict keys based on available columns
+                if 'exchange' in available_cols:
+                    conflict_keys = '(ticker, exchange)'
+                    # Build UPDATE SET clause (exclude key columns)
+                    update_cols = [col for col in available_cols 
+                                  if col not in ['ticker', 'exchange']]
+                else:
+                    conflict_keys = '(ticker)'
+                    # Build UPDATE SET clause (exclude ticker)
+                    update_cols = [col for col in available_cols 
+                                  if col != 'ticker']
                 
-                # Insert new data
-                insert_sql = f"""
+                update_set = ', '.join([f"{col} = EXCLUDED.{col}" for col in update_cols])
+                
+                # UPSERT
+                upsert_sql = f"""
                     INSERT INTO {schema}.{table}
                     ({columns_str})
-                    VALUES %s;
+                    VALUES %s
+                    ON CONFLICT {conflict_keys}
+                    DO UPDATE SET
+                        {update_set};
                 """
-                execute_values(cur, insert_sql, rows)
+                execute_values(cur, upsert_sql, rows)
             
             conn.commit()
             print(f"✅ Upserted {len(rows)} rows")

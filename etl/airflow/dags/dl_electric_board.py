@@ -27,9 +27,6 @@ MINIO_CONN_ID = "minio_finance"
 def electric_board_daily_dag():
     @task
     def get_batches(**context):
-        """
-        Tạo danh sách batch symbols với trading_date = ngày hiện tại.
-        """
         from logic.list_macp import get_ticker_batches
 
         # Lấy ngày hiện tại từ execution date

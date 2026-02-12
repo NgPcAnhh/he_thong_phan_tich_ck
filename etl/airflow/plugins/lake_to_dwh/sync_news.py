@@ -23,21 +23,6 @@ def sync_news_to_db(
     folder_prefix: str = "news/site/",
     table: str = "news"
 ) -> str:
-    """
-    Sync news data from MinIO to PostgreSQL.
-    Handles both CSV and JSON files.
-    
-    Args:
-        minio_conn_id: MinIO connection ID
-        bucket: MinIO bucket name
-        folder_prefix: Folder prefix in MinIO
-        db_url: PostgreSQL connection URL
-        schema: Database schema name
-        table: Database table name
-    
-    Returns:
-        Status message
-    """
     print("=" * 70)
     print("📊 SYNC NEWS TO DATABASE")
     print("=" * 70)

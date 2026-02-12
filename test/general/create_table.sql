@@ -218,3 +218,65 @@ create table realtime_quotes
 alter table realtime_quotes
     owner to admin;
 
+
+-- =============================================
+-- NEWS TABLE (redesigned for vnstock_news + paper)
+-- Sync strategy: UPSERT (ON CONFLICT DO UPDATE)
+-- =============================================
+DROP TABLE IF EXISTS news_v2;
+
+CREATE TABLE news_v2 (
+    news_id          VARCHAR(50) NOT NULL,
+    ticker           VARCHAR(10),
+    news_title       TEXT NOT NULL,
+    news_image_url   TEXT,
+    news_source_link TEXT,
+    news_short_content TEXT,
+    news_full_content TEXT,
+    public_date      TIMESTAMP,
+    source_type      VARCHAR(20) DEFAULT 'vnstock',  -- 'vnstock' or 'paper'
+    fetched_at       TIMESTAMP,
+    import_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_news_v2 PRIMARY KEY (news_id)
+);
+
+ALTER TABLE news_v2 OWNER TO admin;
+
+-- Index for faster queries by ticker and date
+CREATE INDEX idx_news_v2_ticker ON news_v2(ticker);
+CREATE INDEX idx_news_v2_public_date ON news_v2(public_date);
+CREATE INDEX idx_news_v2_source_type ON news_v2(source_type);
+
+COMMENT ON TABLE news_v2 IS 'News table for vnstock API news and paper crawl news';
+COMMENT ON COLUMN news_v2.source_type IS 'Source type: vnstock (API) or paper (web crawl)';
+
+
+-- =============================================
+-- EVENTS TABLE (new table for events data)
+-- Sync strategy: REPLACE (DELETE partition + INSERT)
+-- =============================================
+DROP TABLE IF EXISTS events;
+
+CREATE TABLE events (
+    event_id         VARCHAR(50) NOT NULL,
+    ticker           VARCHAR(10),
+    event_title      TEXT NOT NULL,
+    public_date      TIMESTAMP,
+    source_url       TEXT,
+    event_list_name  VARCHAR(255),
+    fetched_at       TIMESTAMP,
+    partition_date   DATE NOT NULL,  -- partition key for REPLACE strategy
+    import_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_events PRIMARY KEY (event_id)
+);
+
+ALTER TABLE events OWNER TO admin;
+
+-- Index for faster queries
+CREATE INDEX idx_events_ticker ON events(ticker);
+CREATE INDEX idx_events_public_date ON events(public_date);
+CREATE INDEX idx_events_partition_date ON events(partition_date);
+
+COMMENT ON TABLE events IS 'Events table for company events from vnstock API';
+COMMENT ON COLUMN events.partition_date IS 'Date when data was fetched, used for REPLACE sync strategy';
+
