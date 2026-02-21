@@ -109,7 +109,6 @@ def minio_to_db_sync():
     
     @task(task_id="sync_news")
     def task_sync_news():
-        """Sync news data (CSV and JSON) - Upsert"""
         from lake_to_dwh.sync_news import sync_news_to_db
         return sync_news_to_db(
             minio_conn_id=MINIO_CONN_ID,
@@ -151,45 +150,17 @@ def minio_to_db_sync():
             schema=SCHEMA
         )
     
-    # ==================== NEW SYNC TASKS FOR NEWS V2 & EVENTS ====================
+    # ==================== VN MACRO YEARLY (World Bank) ====================
     
-    @task(task_id="sync_vnstock_news_v2")
-    def task_sync_vnstock_news_v2():
-        """Sync vnstock news to news_v2 table - Upsert"""
-        from lake_to_dwh.sync_news_v2 import sync_vnstock_news_to_db
-        return sync_vnstock_news_to_db(
+    @task(task_id="sync_vn_macro_yearly")
+    def task_sync_vn_macro_yearly():
+        """Sync Vietnam macro yearly data - Pivot (years→rows, indicators→cols) then TRUNCATE + INSERT"""
+        from lake_to_dwh.sync_vn_macro_yearly import sync_vn_macro_yearly_to_db
+        return sync_vn_macro_yearly_to_db(
             minio_conn_id=MINIO_CONN_ID,
             bucket=MINIO_BUCKET,
-            folder_prefix="news/vnstock_news/",
             db_url=DB_URL,
-            schema=SCHEMA,
-            table="news_v2"
-        )
-    
-    @task(task_id="sync_paper_news_v2")
-    def task_sync_paper_news_v2():
-        """Sync paper news to news_v2 table - Upsert"""
-        from lake_to_dwh.sync_news_v2 import sync_paper_news_to_db
-        return sync_paper_news_to_db(
-            minio_conn_id=MINIO_CONN_ID,
-            bucket=MINIO_BUCKET,
-            folder_prefix="news/paper/",
-            db_url=DB_URL,
-            schema=SCHEMA,
-            table="news_v2"
-        )
-    
-    @task(task_id="sync_events")
-    def task_sync_events():
-        """Sync events data - Replace (DELETE partition + INSERT)"""
-        from lake_to_dwh.sync_events import sync_events_to_db
-        return sync_events_to_db(
-            minio_conn_id=MINIO_CONN_ID,
-            bucket=MINIO_BUCKET,
-            folder_prefix="news/events/",
-            db_url=DB_URL,
-            schema=SCHEMA,
-            table="events"
+            schema=SCHEMA
         )
     
     @task(task_id="summary_report")
@@ -213,9 +184,7 @@ def minio_to_db_sync():
             "Company Overview",
             "Company People",
             "Electric Board",
-            "VNStock News V2",
-            "Paper News V2",
-            "Events"
+            "VN Macro Yearly"
         ]
         
         for idx, (task_name, result) in enumerate(zip(task_names, results)):
@@ -243,9 +212,7 @@ def minio_to_db_sync():
     overview_result = task_sync_overview()
     people_result = task_sync_people()
     electric_board_result = task_sync_electric_board()
-    vnstock_news_v2_result = task_sync_vnstock_news_v2()
-    paper_news_v2_result = task_sync_paper_news_v2()
-    events_result = task_sync_events()
+    vn_macro_yearly_result = task_sync_vn_macro_yearly()
     
     # All sync tasks run in parallel (no dependencies)
     # Then generate summary report
@@ -260,9 +227,7 @@ def minio_to_db_sync():
         overview_result,
         people_result,
         electric_board_result,
-        vnstock_news_v2_result,
-        paper_news_v2_result,
-        events_result,
+        vn_macro_yearly_result,
     ]
     
     summary = task_summary_report(all_results)

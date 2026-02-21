@@ -1,0 +1,138 @@
+[2026-02-12T14:45:43.737+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:45:43.757+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc_minio.ingest_bctc scheduled__2026-02-01T00:00:00+00:00 map_index=69 [queued]>
+[2026-02-12T14:45:43.771+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc_minio.ingest_bctc scheduled__2026-02-01T00:00:00+00:00 map_index=69 [queued]>
+[2026-02-12T14:45:43.771+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-12T14:45:43.787+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:45:43.797+0000] {warnings.py:112} WARNING - This process (pid=4912) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:45:43.798+0000] {standard_task_runner.py:64} INFO - Started process 4929 to run task
+[2026-02-12T14:45:43.799+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc_minio', 'ingest_bctc', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '20925', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmp8ubp8xpy', '--map-index', '69']
+[2026-02-12T14:45:43.803+0000] {standard_task_runner.py:91} INFO - Job 20925: Subtask ingest_bctc
+[2026-02-12T14:45:43.852+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc_minio.ingest_bctc scheduled__2026-02-01T00:00:00+00:00 map_index=69 [running]> on host fe54ecce8de4
+[2026-02-12T14:45:43.955+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc_minio' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:45:43.956+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:45:43.957+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:45:43.957+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-02-12T14:45:43.958+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:45:43.958+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:45:43.958+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-02-12T14:45:43.958+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-02-12T14:45:43.959+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:45:43.959+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2026-02-01/batch_69.csv
+[2026-02-12T14:45:43.959+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:45:43.959+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['HSA', 'HTV', 'CMD', 'CRE', 'BQB', 'DTH', 'HIO', 'VNF', 'NOS', 'HPP', 'C4G', 'MBB', 'VTQ', 'EIN', 'VNM', 'TEG', 'DLT', 'CTR', 'CMI', 'VC9'], 'current_year': '2026'}
+[2026-02-12T14:45:43.960+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:45:43.960+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:45:43.963+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:45:43.964+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-02-12T14:45:43.964+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:45:43.965+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-02-12T14:45:43.969+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:45:43.970+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-02-12T14:45:43.970+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:45:43.970+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['HSA', 'HTV', 'CMD', 'CRE', 'BQB', 'DTH', 'HIO', 'VNF', 'NOS', 'HPP', 'C4G', 'MBB', 'VTQ', 'EIN', 'VNM', 'TEG', 'DLT', 'CTR', 'CMI', 'VC9'], 'current_year': '2026'}
+[2026-02-12T14:45:43.971+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 20 mã: ['HSA', 'HTV', 'CMD', 'CRE', 'BQB', 'DTH', 'HIO', 'VNF', 'NOS', 'HPP', 'C4G', 'MBB', 'VTQ', 'EIN', 'VNM', 'TEG', 'DLT', 'CTR', 'CMI', 'VC9']
+[2026-02-12T14:45:43.972+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: HSA
+[2026-02-12T14:45:53.874+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: HTV
+[2026-02-12T14:46:18.927+0000] {log.py:232} WARNING - 2026-02-12 14:46:18 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1853047c50>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:46:18.927+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1853047c50>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:46:18.929+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã HTV: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1853047c50>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:46:18.930+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CMD
+[2026-02-12T14:46:41.025+0000] {log.py:232} WARNING - 2026-02-12 14:46:41 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18530440b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:46:41.024+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18530440b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:46:51.700+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CRE
+[2026-02-12T14:47:01.859+0000] {log.py:232} WARNING - 2026-02-12 14:47:01 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f185302dd60>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:47:01.838+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f185302dd60>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:47:04.858+0000] {logging_mixin.py:188} INFO -  Lỗi xử lý mã CRE: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f185302dd60>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:47:05.719+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: BQB
+[2026-02-12T14:47:19.302+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: DTH
+[2026-02-12T14:47:24.604+0000] {logging_mixin.py:188} INFO - ❌ Lỗi income_statement: RetryError[<Future at 0x7f18531ef920 state=finished raised KeyError>]
+[2026-02-12T14:47:33.776+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 27 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 27 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-02-12T14:47:33.778+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:47:33.778+0000] {taskinstance.py:2907} ERROR - Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 27 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 27 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.)
+[2026-02-12T14:47:33.821+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=bctc_minio, task_id=ingest_bctc, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=69, execution_date=20260201T000000, start_date=20260212T144543, end_date=20260212T144733
+[2026-02-12T14:47:33.988+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 20925 for task ingest_bctc (Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 27 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 27 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.); 4929)
+[2026-02-12T14:47:34.025+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-12T14:47:34.073+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:47:34.078+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

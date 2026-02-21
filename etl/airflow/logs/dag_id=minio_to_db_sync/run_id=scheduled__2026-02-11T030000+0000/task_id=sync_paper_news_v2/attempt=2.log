@@ -1,0 +1,88 @@
+[2026-02-12T14:49:00.819+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:49:00.837+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_paper_news_v2 scheduled__2026-02-11T03:00:00+00:00 [queued]>
+[2026-02-12T14:49:00.846+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_paper_news_v2 scheduled__2026-02-11T03:00:00+00:00 [queued]>
+[2026-02-12T14:49:00.846+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2026-02-12T14:49:00.862+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_paper_news_v2> on 2026-02-11 03:00:00+00:00
+[2026-02-12T14:49:00.872+0000] {warnings.py:112} WARNING - This process (pid=5245) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:49:00.873+0000] {standard_task_runner.py:64} INFO - Started process 5250 to run task
+[2026-02-12T14:49:00.875+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_paper_news_v2', 'scheduled__2026-02-11T03:00:00+00:00', '--job-id', '20947', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmpkq_y252p']
+[2026-02-12T14:49:00.878+0000] {standard_task_runner.py:91} INFO - Job 20947: Subtask sync_paper_news_v2
+[2026-02-12T14:49:00.929+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_paper_news_v2 scheduled__2026-02-11T03:00:00+00:00 [running]> on host fe54ecce8de4
+[2026-02-12T14:49:01.038+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_paper_news_v2' AIRFLOW_CTX_EXECUTION_DATE='2026-02-11T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-11T03:00:00+00:00'
+[2026-02-12T14:49:01.039+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:49:01.046+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-12T14:49:01.047+0000] {logging_mixin.py:188} INFO - 📄 SYNC PAPER NEWS TO DATABASE
+[2026-02-12T14:49:01.047+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-12T14:49:01.047+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-02-12T14:49:01.059+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:49:01.060+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:49:02.353+0000] {logging_mixin.py:188} INFO - 📂 Scanning 2 objects in thongtin-congty-va-bctc/news/paper/
+[2026-02-12T14:49:02.353+0000] {logging_mixin.py:188} INFO - 📅 Found 1 valid date partition(s): ['2026-02-07']
+[2026-02-12T14:49:02.354+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: news/paper/2026-02-07/
+[2026-02-12T14:49:02.354+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading files...
+[2026-02-12T14:49:02.360+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:49:02.361+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:49:02.462+0000] {logging_mixin.py:188} INFO - ✓ Found 2 CSV files in thongtin-congty-va-bctc/news/paper/2026-02-07/
+[2026-02-12T14:49:02.468+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:49:02.469+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:49:02.630+0000] {logging_mixin.py:188} INFO - ✓ Read 94 rows from news/paper/2026-02-07/paper_20260207T020008.csv
+[2026-02-12T14:49:02.638+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:49:02.639+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:49:02.800+0000] {logging_mixin.py:188} INFO - ✓ Read 86 rows from news/paper/2026-02-07/paper_20260207T090009.csv
+[2026-02-12T14:49:02.802+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 2 files into 180 total rows
+[2026-02-12T14:49:02.803+0000] {logging_mixin.py:188} INFO - Total loaded: 180 rows
+[2026-02-12T14:49:02.803+0000] {logging_mixin.py:188} INFO - 
+[3/4] Transforming data...
+[2026-02-12T14:49:02.835+0000] {logging_mixin.py:188} INFO - After cleaning: 180 rows
+[2026-02-12T14:49:02.835+0000] {logging_mixin.py:188} INFO - 
+[4/4] Upserting into database...
+[2026-02-12T14:49:02.861+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-02-12T14:49:02.919+0000] {logging_mixin.py:188} INFO - ❌ Error: invalid input syntax for type timestamp: "NaT"
+LINE 5: ... con số được đề cập trước đây.Phạm Giang(TheoAP)','NaT'::tim...
+                                                             ^
+[2026-02-12T14:49:02.920+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:49:02.921+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync.py", line 173, in task_sync_paper_news_v2
+    return sync_paper_news_to_db(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/sync_news_v2.py", line 338, in sync_paper_news_to_db
+    execute_values(cur, upsert_sql, rows)
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.InvalidDatetimeFormat: invalid input syntax for type timestamp: "NaT"
+LINE 5: ... con số được đề cập trước đây.Phạm Giang(TheoAP)','NaT'::tim...
+                                                             ^
+
+[2026-02-12T14:49:02.933+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=minio_to_db_sync, task_id=sync_paper_news_v2, run_id=scheduled__2026-02-11T03:00:00+00:00, execution_date=20260211T030000, start_date=20260212T144900, end_date=20260212T144902
+[2026-02-12T14:49:02.954+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 20947 for task sync_paper_news_v2 (invalid input syntax for type timestamp: "NaT"
+LINE 5: ... con số được đề cập trước đây.Phạm Giang(TheoAP)','NaT'::tim...
+                                                             ^
+; 5250)
+[2026-02-12T14:49:03.013+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-12T14:49:03.040+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:49:03.044+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

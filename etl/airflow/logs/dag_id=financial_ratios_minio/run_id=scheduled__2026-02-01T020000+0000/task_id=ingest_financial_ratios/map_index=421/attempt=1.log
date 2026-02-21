@@ -1,0 +1,267 @@
+[2026-02-12T15:23:16.778+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T15:23:16.837+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios scheduled__2026-02-01T02:00:00+00:00 map_index=421 [queued]>
+[2026-02-12T15:23:16.883+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios_minio.ingest_financial_ratios scheduled__2026-02-01T02:00:00+00:00 map_index=421 [queued]>
+[2026-02-12T15:23:16.884+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-12T15:23:16.906+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-01 02:00:00+00:00
+[2026-02-12T15:23:16.924+0000] {warnings.py:112} WARNING - This process (pid=13002) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T15:23:16.926+0000] {standard_task_runner.py:64} INFO - Started process 13042 to run task
+[2026-02-12T15:23:16.928+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios_minio', 'ingest_financial_ratios', 'scheduled__2026-02-01T02:00:00+00:00', '--job-id', '21779', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmp18100bx5', '--map-index', '421']
+[2026-02-12T15:23:16.933+0000] {standard_task_runner.py:91} INFO - Job 21779: Subtask ingest_financial_ratios
+[2026-02-12T15:23:17.003+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios_minio.ingest_financial_ratios scheduled__2026-02-01T02:00:00+00:00 map_index=421 [running]> on host fe54ecce8de4
+[2026-02-12T15:23:17.386+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios_minio' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T02:00:00+00:00'
+[2026-02-12T15:23:17.387+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T15:23:17.387+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T15:23:17.388+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_financial_ratios
+[2026-02-12T15:23:17.388+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T15:23:17.389+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T15:23:17.389+0000] {datalake_df2csv.py:44} INFO -   - Logic file: financial_ratios
+[2026-02-12T15:23:17.390+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_ratios_batch
+[2026-02-12T15:23:17.390+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T15:23:17.390+0000] {datalake_df2csv.py:47} INFO -   - Object path: financial_ratios/2026-02-01/batch_421.csv
+[2026-02-12T15:23:17.391+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T15:23:17.391+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['ABB', 'LMI'], 'period': 'quarter'}
+[2026-02-12T15:23:17.392+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T15:23:17.392+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T15:23:17.396+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T15:23:17.397+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/financial_ratios.py
+[2026-02-12T15:23:17.397+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T15:23:17.399+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'financial_ratios'...
+[2026-02-12T15:23:17.405+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T15:23:17.406+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_ratios_batch'...
+[2026-02-12T15:23:17.406+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T15:23:17.407+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['ABB', 'LMI'], 'period': 'quarter'}
+[2026-02-12T15:23:17.407+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['ABB', 'LMI']
+[2026-02-12T15:23:17.408+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-12T15:23:17.408+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: ABB
+[2026-02-12T15:23:39.967+0000] {log.py:232} WARNING - 2026-02-12 15:23:39 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1853176cf0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T15:23:39.967+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1853176cf0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T15:23:42.554+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] ABB: 50 rows
+[2026-02-12T15:23:44.559+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: LMI
+[2026-02-12T15:23:54.580+0000] {log.py:232} WARNING - 2026-02-12 15:23:54 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d5310>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:23:54.579+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d5310>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:23:54.581+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã LMI: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d5310>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:23:54.592+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 50
+[2026-02-12T15:23:54.596+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T15:23:54.597+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T15:23:54.597+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 50
+[2026-02-12T15:23:54.598+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 21
+[2026-02-12T15:23:54.604+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: [('ticker', ''), ('Meta', 'CP'), ('Meta', 'Năm'), ('Meta', 'Kỳ'), ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'), ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'), ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'), ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'), ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'), ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'), ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'), ('Chỉ tiêu định giá', 'P/E'), ('Chỉ tiêu định giá', 'P/B'), ('Chỉ tiêu định giá', 'P/S'), ('Chỉ tiêu định giá', 'P/Cash Flow'), ('Chỉ tiêu định giá', 'EPS (VND)'), ('Chỉ tiêu định giá', 'BVPS (VND)'), ('period_type', ''), ('extracted_at', '')]
+[2026-02-12T15:23:54.624+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {('ticker', ''): 'object', ('Meta', 'CP'): 'object', ('Meta', 'Năm'): 'int64', ('Meta', 'Kỳ'): 'int64', ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 'float64', ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 'float64', ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 'float64', ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 'float64', ('Chỉ tiêu định giá', 'P/E'): 'float64', ('Chỉ tiêu định giá', 'P/B'): 'float64', ('Chỉ tiêu định giá', 'P/S'): 'float64', ('Chỉ tiêu định giá', 'P/Cash Flow'): 'float64', ('Chỉ tiêu định giá', 'EPS (VND)'): 'float64', ('Chỉ tiêu định giá', 'BVPS (VND)'): 'float64', ('period_type', ''): 'object', ('extracted_at', ''): 'datetime64[us, UTC]'}
+[2026-02-12T15:23:54.638+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.01 MB
+[2026-02-12T15:23:54.642+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-02-12T15:23:54.643+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T15:23:54.651+0000] {datalake_df2csv.py:88} INFO -     Row 0: {('ticker', ''): 'ABB', ('Meta', 'CP'): 'ABB', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 4, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 12.1077220894, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.0656058501336678, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 1.6249961950626832, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.5743183184026674, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.1833281783, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0142367389, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 13.107722089398685, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 18669475586250.0, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1345547790.0, ('Chỉ tiêu định giá', 'P/E'): 5.1980740088, ('Chỉ tiêu định giá', 'P/B'): 0.937014839, ('Chỉ tiêu định giá', 'P/S'): 2.1793807497, ('Chỉ tiêu định giá', 'P/Cash Flow'): 16.0293059831, ('Chỉ tiêu định giá', 'EPS (VND)'): 729.4070171970629, ('Chỉ tiêu định giá', 'BVPS (VND)'): 14807.6630410875, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-12 15:23:42.547908+0000', tz='UTC')}
+[2026-02-12T15:23:54.653+0000] {datalake_df2csv.py:88} INFO -     Row 1: {('ticker', ''): 'ABB', ('Meta', 'CP'): 'ABB', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 3, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 11.9169036569, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.06317009933856582, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 1.5301733794842738, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.3163151565292456, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.1387283932, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0107370518, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 12.91690365685206, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 20905776013230.0, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1345547790.0, ('Chỉ tiêu định giá', 'P/E'): 7.7809061574, ('Chỉ tiêu định giá', 'P/B'): 1.1036167515, ('Chỉ tiêu định giá', 'P/S'): 3.1852343492, ('Chỉ tiêu định giá', 'P/Cash Flow'): 2.0220257293, ('Chỉ tiêu định giá', 'EPS (VND)'): 379.62159634627324, ('Chỉ tiêu định giá', 'BVPS (VND)'): 14078.2567670822, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-12 15:23:42.547908+0000', tz='UTC')}
+[2026-02-12T15:23:54.655+0000] {datalake_df2csv.py:88} INFO -     Row 2: {('ticker', ''): 'ABB', ('Meta', 'CP'): 'ABB', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 2, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 12.3295805617, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.06658892471919424, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 1.4852691773280222, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.544136019377389, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.0892717067, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0069696913, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 13.32958056165966, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 13130476362732.0, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1035036762.0, ('Chỉ tiêu định giá', 'P/E'): 10.3289463872, ('Chỉ tiêu định giá', 'P/B'): 0.8541212727, ('Chỉ tiêu định giá', 'P/S'): 2.2974854667, ('Chỉ tiêu định giá', 'P/Cash Flow'): 1.1036129568, ('Chỉ tiêu định giá', 'EPS (VND)'): 790.6888238622774, ('Chỉ tiêu định giá', 'BVPS (VND)'): 14852.6917732802, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-12 15:23:42.547908+0000', tz='UTC')}
+[2026-02-12T15:23:54.656+0000] {datalake_df2csv.py:88} INFO -     Row 3: {('ticker', ''): 'ABB', ('Meta', 'CP'): 'ABB', ('Meta', 'Năm'): 2025, ('Meta', 'Kỳ'): 1, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 11.7990835533, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.07288931745992165, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 1.387076722981169, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.3996432979555733, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.0522321616, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0042442972, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 12.79908355328788, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 9163180453986.0, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1035036762.0, ('Chỉ tiêu định giá', 'P/E'): 12.7590159897, ('Chỉ tiêu định giá', 'P/B'): 0.6382487611, ('Chỉ tiêu định giá', 'P/S'): 1.8497693948, ('Chỉ tiêu định giá', 'P/Cash Flow'): 1.0175201216, ('Chỉ tiêu định giá', 'EPS (VND)'): 321.2736128883507, ('Chỉ tiêu định giá', 'BVPS (VND)'): 13870.7672298117, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-12 15:23:42.547908+0000', tz='UTC')}
+[2026-02-12T15:23:54.657+0000] {datalake_df2csv.py:88} INFO -     Row 4: {('ticker', ''): 'ABB', ('Meta', 'CP'): 'ABB', ('Meta', 'Năm'): 2024, ('Meta', 'Kỳ'): 4, ('Chỉ tiêu cơ cấu nguồn vốn', 'Nợ/VCSH'): 11.6005554529, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.07609208119203961, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 1.3549501346117405, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.48051780119556464, ('Chỉ tiêu khả năng sinh lợi', 'ROE (%)'): 0.0425805505, ('Chỉ tiêu khả năng sinh lợi', 'ROA (%)'): 0.0034565216, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 12.600555452876137, ('Chỉ tiêu định giá', 'Vốn hóa (Tỷ đồng)'): 7524717259740.0, ('Chỉ tiêu định giá', 'Số CP lưu hành (Triệu CP)'): 1035036762.0, ('Chỉ tiêu định giá', 'P/E'): 12.8505515032, ('Chỉ tiêu định giá', 'P/B'): 0.5365511109, ('Chỉ tiêu định giá', 'P/S'): 1.6645568053, ('Chỉ tiêu định giá', 'P/Cash Flow'): 1.0696941549, ('Chỉ tiêu định giá', 'EPS (VND)'): 391.34068940442137, ('Chỉ tiêu định giá', 'BVPS (VND)'): 13549.5013461174, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-02-12 15:23:42.547908+0000', tz='UTC')}
+[2026-02-12T15:23:54.657+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T15:23:54.657+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T15:23:54.729+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T15:23:54.736+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.01 MB
+[2026-02-12T15:23:54.737+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.07 giây
+[2026-02-12T15:23:54.738+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T15:23:54.739+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T15:24:04.802+0000] {connection.py:513} ERROR - Unable to retrieve connection from secrets backend (MetastoreBackend). Checking subsequent secrets backend.
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/connection.py", line 508, in get_connection_from_secrets
+    conn = secrets_backend.get_connection(conn_id=conn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 79, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/secrets/metastore.py", line 43, in get_connection
+    return MetastoreBackend._fetch_connection(conn_id, session=session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/secrets/metastore.py", line 74, in _fetch_connection
+    conn = session.scalar(select(Connection).where(Connection.conn_id == conn_id).limit(1))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1747, in scalar
+    return self.execute(
+           ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-02-12T15:24:05.778+0000] {base_aws.py:587} WARNING - Unable to find AWS Connection ID 'minio_finance', switching to empty.
+[2026-02-12T15:24:05.780+0000] {base_aws.py:164} INFO - No connection ID provided. Fallback on boto3 credential strategy (region_name=None). See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html
+[2026-02-12T15:24:07.311+0000] {datalake_df2csv.py:134} ERROR - ================================================================================
+[2026-02-12T15:24:07.312+0000] {datalake_df2csv.py:135} ERROR - ❌ LỖI TRONG TASK: ingest_financial_ratios
+[2026-02-12T15:24:07.312+0000] {datalake_df2csv.py:136} ERROR - ================================================================================
+[2026-02-12T15:24:07.313+0000] {datalake_df2csv.py:137} ERROR - ⚠️  Loại lỗi: NoCredentialsError
+[2026-02-12T15:24:07.313+0000] {datalake_df2csv.py:138} ERROR - ⚠️  Chi tiết lỗi: Unable to locate credentials
+[2026-02-12T15:24:07.314+0000] {datalake_df2csv.py:139} ERROR - ⚠️  Thời gian đã chạy trước khi lỗi: 49.92 giây
+[2026-02-12T15:24:07.314+0000] {datalake_df2csv.py:140} ERROR - ================================================================================
+[2026-02-12T15:24:07.315+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T15:24:07.316+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/function/datalake_df2csv.py", line 107, in execute
+    if not hook.check_for_bucket(self.bucket_name):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 89, in wrapper
+    return func(*bound_args.args, **bound_args.kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/amazon/aws/hooks/s3.py", line 288, in check_for_bucket
+    self.get_conn().head_bucket(Bucket=bucket_name)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 565, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1001, in _make_api_call
+    http, parsed_response = self._make_request(
+                            ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1027, in _make_request
+    return self._endpoint.make_request(operation_model, request_dict)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 119, in make_request
+    return self._send_request(request_dict, operation_model)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 198, in _send_request
+    request = self.create_request(request_dict, operation_model)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/endpoint.py", line 134, in create_request
+    self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+               ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/signers.py", line 105, in handler
+    return self.sign(operation_name, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/signers.py", line 199, in sign
+    auth.add_auth(request)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/auth.py", line 418, in add_auth
+    raise NoCredentialsError()
+botocore.exceptions.NoCredentialsError: Unable to locate credentials
+[2026-02-12T15:24:07.337+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=financial_ratios_minio, task_id=ingest_financial_ratios, run_id=scheduled__2026-02-01T02:00:00+00:00, map_index=421, execution_date=20260201T020000, start_date=20260212T152316, end_date=20260212T152407
+[2026-02-12T15:24:07.426+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 21779 for task ingest_financial_ratios (Unable to locate credentials; 13042)
+[2026-02-12T15:24:07.479+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-12T15:24:07.494+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

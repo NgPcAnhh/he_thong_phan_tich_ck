@@ -1,0 +1,82 @@
+[2026-02-12T14:50:45.247+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:50:45.269+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-11T03:00:00+00:00 [queued]>
+[2026-02-12T14:50:45.281+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-11T03:00:00+00:00 [queued]>
+[2026-02-12T14:50:45.282+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2026-02-12T14:50:45.304+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_electric_board> on 2026-02-11 03:00:00+00:00
+[2026-02-12T14:50:45.320+0000] {warnings.py:112} WARNING - This process (pid=5457) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:50:45.322+0000] {standard_task_runner.py:64} INFO - Started process 5508 to run task
+[2026-02-12T14:50:45.326+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_electric_board', 'scheduled__2026-02-11T03:00:00+00:00', '--job-id', '20966', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmp4n47rqc9']
+[2026-02-12T14:50:45.332+0000] {standard_task_runner.py:91} INFO - Job 20966: Subtask sync_electric_board
+[2026-02-12T14:50:45.403+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_electric_board scheduled__2026-02-11T03:00:00+00:00 [running]> on host fe54ecce8de4
+[2026-02-12T14:50:45.523+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_electric_board' AIRFLOW_CTX_EXECUTION_DATE='2026-02-11T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-11T03:00:00+00:00'
+[2026-02-12T14:50:45.525+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:50:45.532+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-12T14:50:45.533+0000] {logging_mixin.py:188} INFO - 📊 SYNC ELECTRIC BOARD TO DATABASE
+[2026-02-12T14:50:45.534+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-12T14:50:45.534+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-02-12T14:50:45.547+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:50:45.548+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:51:02.491+0000] {logging_mixin.py:188} INFO - 📂 Scanning 378 objects in thongtin-congty-va-bctc/electric_board_per_day/
+[2026-02-12T14:51:02.493+0000] {logging_mixin.py:188} INFO - 📅 Found 12 valid date partition(s): ['2026-01-23', '2026-01-25', '2026-01-26', '2026-01-27', '2026-01-29', '2026-01-30', '2026-02-02', '2026-02-03', '2026-02-04', '2026-02-05', '2026-02-07', '2026-02-10']
+[2026-02-12T14:51:02.494+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: electric_board_per_day/2026-02-10/
+[2026-02-12T14:51:02.495+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading CSV files...
+[2026-02-12T14:51:02.504+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:51:02.505+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:51:02.896+0000] {logging_mixin.py:188} INFO - ✓ Found 2 CSV files in thongtin-congty-va-bctc/electric_board_per_day/2026-02-10/
+[2026-02-12T14:51:02.905+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:51:02.906+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:51:03.048+0000] {logging_mixin.py:188} INFO - ✓ Read 50 rows from electric_board_per_day/2026-02-10/batch_0.csv
+[2026-02-12T14:51:03.056+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:51:03.057+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:51:03.158+0000] {logging_mixin.py:188} INFO - ✓ Read 50 rows from electric_board_per_day/2026-02-10/batch_1.csv
+[2026-02-12T14:51:03.160+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 2 files into 100 total rows
+[2026-02-12T14:51:03.160+0000] {logging_mixin.py:188} INFO - Loaded 100 rows
+[2026-02-12T14:51:03.161+0000] {logging_mixin.py:188} INFO - 
+[3/4] Transforming data...
+[2026-02-12T14:51:03.172+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:51:03.173+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/minio_to_db_sync.py", line 147, in task_sync_electric_board
+    return sync_electric_board_to_db(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/sync_electric_board.py", line 191, in sync_electric_board_to_db
+    df = transform_dataframe(df)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/sync_electric_board.py", line 139, in transform_dataframe
+    df = df.drop_duplicates(subset=['ticker', 'trading_date'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/frame.py", line 6566, in drop_duplicates
+    result = self[-self.duplicated(subset, keep=keep)]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/pandas/core/frame.py", line 6698, in duplicated
+    raise KeyError(Index(diff))
+KeyError: Index(['ticker'], dtype='object')
+[2026-02-12T14:51:03.188+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=minio_to_db_sync, task_id=sync_electric_board, run_id=scheduled__2026-02-11T03:00:00+00:00, execution_date=20260211T030000, start_date=20260212T145045, end_date=20260212T145103
+[2026-02-12T14:51:03.238+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 20966 for task sync_electric_board (Index(['ticker'], dtype='object'); 5508)
+[2026-02-12T14:51:03.267+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-12T14:51:03.293+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:51:03.297+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

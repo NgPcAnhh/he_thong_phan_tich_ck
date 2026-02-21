@@ -288,6 +288,14 @@ def sync_financial_ratio_to_db(
     
     df = df.dropna(how='all')
     
+    # Filter out rows with null required columns (cp/ticker is NOT NULL in DB)
+    if 'cp' in df.columns:
+        before_filter = len(df)
+        df = df.dropna(subset=['cp'])
+        df = df[df['cp'].astype(str).str.strip() != '']
+        if len(df) < before_filter:
+            print(f"⚠️ Removed {before_filter - len(df)} rows with null/empty cp")
+    
     # Ensure ky is integer type to match database schema (INTEGER)
     if 'ky' in df.columns:
         df['ky'] = pd.to_numeric(df['ky'], errors='coerce').astype('Int64')
@@ -298,7 +306,12 @@ def sync_financial_ratio_to_db(
     
     # Deduplicate using correct column names
     if 'cp' in df.columns and 'nam' in df.columns and 'ky' in df.columns:
+        # Filter out rows with null PK values before dedup
+        df = df.dropna(subset=['cp', 'nam', 'ky'])
+        before_dedup = len(df)
         df = df.drop_duplicates(subset=['cp', 'nam', 'ky'], keep='last')
+        if len(df) < before_dedup:
+            print(f"⚠️ Removed {before_dedup - len(df)} duplicate PK rows")
     
     rows_after_cleaning = len(df)
     print(f"After cleaning: {rows_after_cleaning} rows")
@@ -309,6 +322,12 @@ def sync_financial_ratio_to_db(
     
     # Step 4: Upsert to database
     print("\n[4/4] Upserting data to database...")
+    
+    # Rename DataFrame columns to match DB schema
+    # COLUMN_MAPPING uses cp/nam/ky but DB table has ticker/year/quarter
+    db_rename = {'cp': 'ticker', 'nam': 'year', 'ky': 'quarter'}
+    df = df.rename(columns={k: v for k, v in db_rename.items() if k in df.columns})
+    print(f"Renamed columns: {db_rename}")
     
     with closing(get_postgres_connection(db_url)) as conn:
         conn.autocommit = False
@@ -343,24 +362,56 @@ def sync_financial_ratio_to_db(
                     for _, row in df.iterrows()
                 ]
                 
-                # UPSERT pattern using ON CONFLICT
-                if 'cp' in df_columns and 'nam' in df_columns and 'ky' in df_columns:
-                    # Build dynamic UPDATE SET clause (exclude key columns)
-                    update_cols = [col for col in df_columns 
-                                  if col not in ['cp', 'nam', 'ky']]
-                    update_set = ', '.join([f"{col} = EXCLUDED.{col}" for col in update_cols])
+                # DELETE+INSERT pattern using temp table (avoids massive IN clause)
+                if 'ticker' in df_columns and 'year' in df_columns and 'quarter' in df_columns:
+                    # Create temp table with keys to delete
+                    cur.execute("""
+                        CREATE TEMP TABLE IF NOT EXISTS _fr_keys_to_delete (
+                            ticker VARCHAR(50),
+                            year INTEGER,
+                            quarter INTEGER
+                        ) ON COMMIT DROP;
+                    """)
+                    cur.execute("TRUNCATE _fr_keys_to_delete;")
                     
-                    # UPSERT
+                    # Get unique keys from incoming data
+                    ti = df_columns.index('ticker')
+                    yi = df_columns.index('year')
+                    qi = df_columns.index('quarter')
+                    keys = list(set(
+                        (r[ti], r[yi], r[qi])
+                        for r in rows
+                        if r[ti] is not None
+                    ))
+                    
+                    if keys:
+                        # Bulk insert keys into temp table
+                        execute_values(
+                            cur,
+                            "INSERT INTO _fr_keys_to_delete (ticker, year, quarter) VALUES %s",
+                            keys, page_size=1000
+                        )
+                        print(f"✓ Loaded {len(keys)} key combos into temp table")
+                        
+                        # Delete using join (efficient for large datasets)
+                        cur.execute(f"""
+                            DELETE FROM {schema}.{table} t
+                            USING _fr_keys_to_delete k
+                            WHERE t.ticker = k.ticker 
+                              AND t.year = k.year 
+                              AND t.quarter = k.quarter;
+                        """)
+                        deleted = cur.rowcount
+                        print(f"✓ Deleted {deleted} existing rows")
+                    
+                    # Insert all rows
                     columns_str = ', '.join(df_columns)
-                    upsert_sql = f"""
+                    insert_sql = f"""
                         INSERT INTO {schema}.{table} ({columns_str})
-                        VALUES %s
-                        ON CONFLICT (cp, nam, ky)
-                        DO UPDATE SET
-                            {update_set};
+                        VALUES %s;
                     """
-                    execute_values(cur, upsert_sql, rows, page_size=1000)
-                    print(f"✓ Upserted {len(rows)} rows")
+                    execute_values(cur, insert_sql, rows, page_size=1000)
+                    print(f"✓ Inserted {len(rows)} rows")
                 else:
                     # Fallback to simple insert if keys are missing
                     columns_str = ', '.join(df_columns)

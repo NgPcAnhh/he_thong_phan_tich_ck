@@ -1,7 +1,4 @@
-"""
-Sync macro_economy data (Gold, Oil, Dow Jones) from MinIO to PostgreSQL database.
-Strategy: APPEND (with duplicate check on date, asset_type)
-"""
+
 from contextlib import closing
 import pandas as pd
 from psycopg2.extras import execute_values
@@ -23,21 +20,7 @@ def sync_macro_economy_to_db(
     folder_prefix: str = "macro_economy/",
     table: str = "macro_economy"
 ) -> str:
-    """
-    Sync macro economy data from MinIO to PostgreSQL.
-    Reads from subfolders: xau/, oil/, dowjone/
-    
-    Args:
-        minio_conn_id: MinIO connection ID
-        bucket: MinIO bucket name
-        folder_prefix: Folder prefix in MinIO
-        db_url: PostgreSQL connection URL
-        schema: Database schema name
-        table: Database table name
-    
-    Returns:
-        Status message
-    """
+
     print("=" * 70)
     print("📊 SYNC MACRO ECONOMY TO DATABASE")
     print("=" * 70)

@@ -1,0 +1,118 @@
+[2026-02-12T14:20:18.361+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:20:18.380+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=32 [queued]>
+[2026-02-12T14:20:18.391+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=32 [queued]>
+[2026-02-12T14:20:18.392+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-12T14:20:18.403+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:20:18.412+0000] {warnings.py:112} WARNING - This process (pid=2092) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:20:18.414+0000] {standard_task_runner.py:64} INFO - Started process 2103 to run task
+[2026-02-12T14:20:18.415+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '20720', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmpytjf7bul', '--map-index', '32']
+[2026-02-12T14:20:18.418+0000] {standard_task_runner.py:91} INFO - Job 20720: Subtask ingest_overview
+[2026-02-12T14:20:18.458+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=32 [running]> on host fe54ecce8de4
+[2026-02-12T14:20:18.547+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:20:18.548+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:20:18.548+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:20:18.549+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-12T14:20:18.549+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:20:18.549+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:20:18.550+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-12T14:20:18.550+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-12T14:20:18.550+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:20:18.550+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-01/batch_32.csv
+[2026-02-12T14:20:18.550+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:20:18.551+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['SBT', 'SGB', 'SRC', 'SD6', 'CTI', 'PXS', 'API', 'DIH', 'CCM', 'VND', 'MCP', 'THN', 'TCB', 'D11', 'DBC', 'KHG', 'CPA', 'PTM', 'GMX', 'DRH']}
+[2026-02-12T14:20:18.551+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:20:18.551+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:20:18.553+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:20:18.554+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-12T14:20:18.554+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:20:18.555+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-12T14:20:18.559+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:20:18.559+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-12T14:20:18.560+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:20:18.560+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['SBT', 'SGB', 'SRC', 'SD6', 'CTI', 'PXS', 'API', 'DIH', 'CCM', 'VND', 'MCP', 'THN', 'TCB', 'D11', 'DBC', 'KHG', 'CPA', 'PTM', 'GMX', 'DRH']}
+[2026-02-12T14:20:50.289+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:20:52.537+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:20:53.759+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:08.004+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:09.306+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:10.803+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:16.094+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:17.324+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:18.573+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:20.040+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:21.575+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:22.820+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:24.092+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:46.172+0000] {log.py:232} WARNING - 2026-02-12 14:21:46 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f0ab10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:21:46.172+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f0ab10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:21:46.175+0000] {logging_mixin.py:188} INFO - Err overview D11: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f0ab10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:21:47.583+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:48.920+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:50.191+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:51.500+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:53.025+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:58.329+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:21:59.352+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T14:21:59.353+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T14:21:59.354+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 19
+[2026-02-12T14:21:59.356+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-12T14:21:59.357+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-12T14:21:59.358+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-12T14:21:59.363+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-12T14:21:59.366+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-12T14:21:59.367+0000] {datalake_df2csv.py:81} INFO -     + exchange: 7
+[2026-02-12T14:21:59.368+0000] {datalake_df2csv.py:81} INFO -     + type_info: 7
+[2026-02-12T14:21:59.368+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 7
+[2026-02-12T14:21:59.368+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 7
+[2026-02-12T14:21:59.369+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T14:21:59.370+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'SBT', 'company_profile': 'Công ty Cổ phần Mía đường Thành Thành Công Tây Ninh (SBT) có tiền thân là Công ty liên doanh giữa Tập đoàn Group Sucrecries Bourbon và Liên hiệp Mía đường II và Liên hiệp mía đường Tây Ninh được thành lập vào năm 1995. Công ty chính thức hoạt động theo mô hình công ty cổ phần từ năm 2007. Công ty hoạt động trong lĩnh vực sản xuất kinh doanh đường và các sản phẩm phụ của quá trình sản xuất đường. SBT hiện sở hữu 09 nhà máy luyện Đường từ Đường thô và Mía, trong đó có 4 Trung tâm luyện Đường thô lớn là TTCS, Biên Hòa  - Ninh Hòa, Biên Hòa  - Trị An, Biên Hòa  - Đồng Nai với tổng công suất luyện Đường từ Đường thô khoảng 300.000 tấn Đường/năm. Sản phẩm của công ty được phân phối qua các kênh siêu thị, đại lý, nhà phân phối trên khắp các tỉnh thành cả nước. Các sản phẩm đường của Công ty được cung cấp cho các khách hàng công nghiệp như Coca-Cola, Suntory Pepsi, Dược Hậu Giang, Dược Cửu Long, Pepsi, Red bull, Vinamilk, Acecook…SBT được niêm yết trên Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh từ năm 2008.', 'icb_name2': 'Thực phẩm và đồ uống', 'icb_name3': 'Sản xuất thực phẩm', 'icb_name4': 'Thực phẩm', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Thành Thành Công - Biên Hòa'}
+[2026-02-12T14:21:59.371+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'SGB', 'company_profile': 'Ngân hàng Thương mại Cổ phần Sài Gòn Công thương (SGB) là ngân hàng thương mại cổ phần đầu tiên của Việt Nam, được thành lập vào năm 1987. Ngân hàng hoạt động trong lĩnh vực huy động và kinh doanh vốn, và cung cấp các dịch vụ tài chính liên quan. SGB trở thành công ty đại chúng từ năm 2014. SGB được giao dịch trên thị trường UPCOM từ tháng 10/2020. So với cùng kỳ, năm 2023, Biên lãi thuần (NIM) ở mức 3.2%, giảm 0.32%. Tỷ lệ nợ xấu ở mức 2.03%, giảm 0.1%. Tỷ lệ bao phủ nợ xấu ở mức 44.14 %. Lợi nhuận sau thuế công ty mẹ có giá trị bằng 266,79 tỷ đồng, tăng 40.42%. Tỷ suất lợi nhuận trên vốn chủ sở hữu (ROE) ở mức 6.7%, tăng 1.7%.', 'icb_name2': 'Ngân hàng', 'icb_name3': 'Ngân hàng', 'icb_name4': 'Ngân hàng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:21:59.372+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'SRC', 'company_profile': 'Công ty Cổ phần Cao su Sao Vàng (SRC) có tiền thân là Nhà máy Cao su Sao Vàng, được thành lập vào năm 1960. Công ty hoạt động chính trong lĩnh vực sản xuất kinh doanh các sản phẩm săm lốp ô tô, xe máy, xe đạp. SRC chính thức hoạt động theo hình thức công ty cổ phần từ tháng 04/2006. Công ty đã xây dựng được hệ thống phân phối rộng với khoảng 157 nhà phân phối nội địa, và hệ thống phân phối khác tại các nước Angola, Campuchia, Philippines, Ai Cập, Mỹ, Bangladesh. SRC được niêm yết và giao dịch trên Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh (HOSE) từ năm 2009.', 'icb_name2': 'Ô tô và phụ tùng', 'icb_name3': 'Ô tô và phụ tùng', 'icb_name4': 'Lốp xe', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Cao su Sao Vàng'}
+[2026-02-12T14:21:59.373+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'SD6', 'company_profile': 'Công ty Cổ phần Sông Đà 6 (SD6), tiền thân là Công ty Xây dựng Thuỷ công được thành lập năm 1983, theo quyết định số 483/BXD-TCCB của Bộ trưởng Bộ Xây dựng. Năm 2006, Công ty chuyển đổi mô hình kinh doanh hoạt động là Công ty Cổ phần. Hoạt động kinh doanh chính của công ty là xây lắp các công trình thủy điện, thủy lợi, giao thông, dân dụng và công nghiệp. Công ty là một trong các doanh nghiệp có tình hình kinh doanh khả quan nhất Tổng Công ty Sông Đà. Công ty chuyên xây dựng nhà máy thủy điện. SD6 đã triển khai nhiều dự án trọng điểm quốc gia như Nhà máy thủy điện Hòa Bình (1.920 MW), Nhà máy thủy điện Yaly (720MW), Se San 3, Nhà máy thủy điện (270MW), nhà máy thủy điện Son La3 (2.400MW) và Xekaman số 1 tại Lào. Sở hữu hệ thống trạm trộn bê tông các loại (trạm trộn bê tông lạnh công suất từ 60-:-125 m3/h), cần trục tháp 12 tấn; cần trục tháp MD 900B 50 tấn; cần trục xích 20-:-70 tấn, thiết bị thi công cơ giới máy khoan đá Furakawa, máy đào xúc, ô tô tự đổ, xe vận chuyển bê tông...Ngày 06/09/2024, SD6 chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:21:59.374+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'CTI', 'company_profile': 'Công ty Cổ phần Đầu tư Phát triển Cường Thuận IDICO (CTI) có tiền thân là Công ty TNHH Cường Thuận được thành lập vào năm 2000. Công ty hoạt động trong lĩnh vực đầu tư, thi công xây lắp các công trình cơ sở hạ tầng, quản lý các trạm thu phí, sản xuât kinh doanh cấu kiện bê tông, vật liệu xây dựng. Bên cạnh đó, CTI còn tham gia kinh doanh xăng dầu và cung cấp dịch vụ đăng kiểm xe cơ giới thông qua các đơn vị thành viên trực thuộc. Hiện tại, công ty đang tiếp quản trạm thu phí Quốc lộ 1 và trạm thu phí Quốc lộ 91. Công ty chính thức hoạt động theo mô hình công ty cổ phần từ năm 2007. CTI được niêm yết và giao dịch trên Sở Giao dịch Chứng khoán thành phố Hồ Chí Minh (HOSE) từ năm 2007.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Đầu tư Phát triển Cường Thuận IDICO'}
+[2026-02-12T14:21:59.374+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:21:59.375+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T14:21:59.385+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T14:21:59.385+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-12T14:21:59.387+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-12T14:21:59.387+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:21:59.388+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T14:21:59.401+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:21:59.402+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:21:59.926+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-12T14:21:59.972+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-12T14:21:59.973+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-01/batch_32.csv
+[2026-02-12T14:21:59.973+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 19
+[2026-02-12T14:21:59.974+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.58 giây
+[2026-02-12T14:21:59.974+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:21:59.974+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-12T14:21:59.974+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 101.43 giây
+[2026-02-12T14:21:59.975+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-12T14:21:59.975+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-12T14:21:59.975+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-12T14:21:59.975+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-12T14:21:59.976+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:21:59.985+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=32, execution_date=20260201T000000, start_date=20260212T142018, end_date=20260212T142159
+[2026-02-12T14:22:00.047+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-12T14:22:00.088+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:22:00.090+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -122,6 +122,16 @@ def sync_bctc_to_db(
     final_cols = ['ticker', 'quarter', 'year', 'ind_name', 'ind_code', 'value', 'report_name', 'report_code']
     df = df[[col for col in final_cols if col in df.columns]].copy()
     
+    # Deduplicate on PK columns to prevent "ON CONFLICT DO UPDATE cannot affect row a second time"
+    pk_cols = ['ticker', 'year', 'quarter', 'ind_code']
+    before_dedup = len(df)
+    df = df.drop_duplicates(subset=pk_cols, keep='last')
+    if len(df) < before_dedup:
+        print(f"⚠️ Removed {before_dedup - len(df)} duplicate PK rows")
+    
+    rows_after_cleaning = len(df)
+    print(f"After final cleaning: {rows_after_cleaning} rows")
+    
     if df.empty:
         return "⚠️ No data after transformation"
     

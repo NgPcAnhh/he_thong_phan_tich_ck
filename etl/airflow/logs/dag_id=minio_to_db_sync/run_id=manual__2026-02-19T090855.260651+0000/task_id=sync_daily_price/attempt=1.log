@@ -1,0 +1,49 @@
+[2026-02-19T09:09:02.507+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-19T09:09:02.600+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-19T09:08:55.260651+00:00 [queued]>
+[2026-02-19T09:09:02.637+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-19T09:08:55.260651+00:00 [queued]>
+[2026-02-19T09:09:02.643+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-02-19T09:09:02.727+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_daily_price> on 2026-02-19 09:08:55.260651+00:00
+[2026-02-19T09:09:02.750+0000] {warnings.py:112} WARNING - This process (pid=1152) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-19T09:09:02.754+0000] {standard_task_runner.py:64} INFO - Started process 1170 to run task
+[2026-02-19T09:09:02.764+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_daily_price', 'manual__2026-02-19T09:08:55.260651+00:00', '--job-id', '22494', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmp5azt6rqm']
+[2026-02-19T09:09:02.781+0000] {standard_task_runner.py:91} INFO - Job 22494: Subtask sync_daily_price
+[2026-02-19T09:09:02.974+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-19T09:08:55.260651+00:00 [running]> on host ce3ec83b0f12
+[2026-02-19T09:09:03.231+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-02-19T09:08:55.260651+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-19T09:08:55.260651+00:00'
+[2026-02-19T09:09:03.234+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-19T09:09:03.272+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-19T09:09:03.274+0000] {logging_mixin.py:188} INFO - 📊 SYNC DAILY PRICE TO DATABASE
+[2026-02-19T09:09:03.275+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-19T09:09:03.276+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-02-19T09:09:03.298+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-19T09:09:03.300+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-19T09:11:07.457+0000] {logging_mixin.py:188} INFO - 📂 Scanning 5610 objects in thongtin-congty-va-bctc/daily_price/
+[2026-02-19T09:11:07.466+0000] {logging_mixin.py:188} INFO - 📅 Found 19 valid date partition(s): ['2026-01-09', '2026-01-12', '2026-01-13', '2026-01-15', '2026-01-16', '2026-01-20', '2026-01-22', '2026-01-24', '2026-01-26', '2026-01-27', '2026-01-29', '2026-01-30', '2026-02-01', '2026-02-02', '2026-02-03', '2026-02-04', '2026-02-05', '2026-02-10', '2026-02-16']
+[2026-02-19T09:11:07.467+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: daily_price/2026-02-16/
+[2026-02-19T09:11:07.467+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading CSV files...
+[2026-02-19T09:11:07.477+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-19T09:11:07.478+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-19T09:11:07.634+0000] {logging_mixin.py:188} INFO - ✓ Found 2 CSV files in thongtin-congty-va-bctc/daily_price/2026-02-16/
+[2026-02-19T09:11:07.646+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-19T09:11:07.648+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-19T09:11:07.861+0000] {logging_mixin.py:188} INFO - ✓ Read 20 rows from daily_price/2026-02-16/batch_0.csv
+[2026-02-19T09:11:07.870+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-19T09:11:07.871+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-19T09:11:07.985+0000] {logging_mixin.py:188} INFO - ✓ Read 20 rows from daily_price/2026-02-16/batch_1.csv
+[2026-02-19T09:11:07.986+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 2 files into 40 total rows
+[2026-02-19T09:11:07.987+0000] {logging_mixin.py:188} INFO - Loaded 40 rows
+[2026-02-19T09:11:07.987+0000] {logging_mixin.py:188} INFO - 
+[3/4] Cleaning and transforming data...
+[2026-02-19T09:11:08.000+0000] {logging_mixin.py:188} INFO - After cleaning: 40 rows
+[2026-02-19T09:11:08.000+0000] {logging_mixin.py:188} INFO - 
+[4/4] Inserting into database...
+[2026-02-19T09:11:08.006+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-02-19T09:11:08.044+0000] {logging_mixin.py:188} INFO - ✅ Inserted/Updated 40 rows
+[2026-02-19T09:11:08.045+0000] {python.py:237} INFO - Done. Returned value was: ✅ Success: 40 rows
+[2026-02-19T09:11:08.045+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-19T09:11:08.072+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=minio_to_db_sync, task_id=sync_daily_price, run_id=manual__2026-02-19T09:08:55.260651+00:00, execution_date=20260219T090855, start_date=20260219T090902, end_date=20260219T091108
+[2026-02-19T09:11:08.109+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-19T09:11:08.134+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-19T09:11:08.139+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

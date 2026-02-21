@@ -53,7 +53,8 @@ with DAG(
                 "electric-board",
                 "global-index",
                 "index-price",
-                "macro-economy"
+                "macro-economy",
+                "vn-macro-yearly"
             ]
         ),
         "partition_path": Param(

@@ -1,0 +1,117 @@
+[2026-02-12T14:35:14.979+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:35:15.012+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=42 [queued]>
+[2026-02-12T14:35:15.028+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=42 [queued]>
+[2026-02-12T14:35:15.029+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-02-12T14:35:15.044+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:35:15.055+0000] {warnings.py:112} WARNING - This process (pid=3732) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:35:15.057+0000] {standard_task_runner.py:64} INFO - Started process 3755 to run task
+[2026-02-12T14:35:15.058+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '20841', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmpn710ybwl', '--map-index', '42']
+[2026-02-12T14:35:15.061+0000] {standard_task_runner.py:91} INFO - Job 20841: Subtask ingest_overview
+[2026-02-12T14:35:15.113+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=42 [running]> on host fe54ecce8de4
+[2026-02-12T14:35:15.476+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:35:15.477+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:35:15.478+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:35:15.478+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-12T14:35:15.479+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:35:15.479+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:35:15.479+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-12T14:35:15.480+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-12T14:35:15.480+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:35:15.480+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-01/batch_42.csv
+[2026-02-12T14:35:15.481+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:35:15.481+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['VGI', 'VGT', 'GDW', 'VE9', 'ABR', 'KHL', 'CQN', 'VIF', 'PND', 'L35', 'PVL', 'SMA', 'TTL', 'FRT', 'TCJ', 'DRI', 'TOW', 'MAS', 'CH5', 'WTC']}
+[2026-02-12T14:35:15.482+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:35:15.482+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:35:15.486+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:35:15.487+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-12T14:35:15.487+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:35:15.489+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-12T14:35:15.493+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:35:15.494+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-12T14:35:15.495+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:35:15.495+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['VGI', 'VGT', 'GDW', 'VE9', 'ABR', 'KHL', 'CQN', 'VIF', 'PND', 'L35', 'PVL', 'SMA', 'TTL', 'FRT', 'TCJ', 'DRI', 'TOW', 'MAS', 'CH5', 'WTC']}
+[2026-02-12T14:35:43.890+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:35:45.138+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:35:46.393+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:35:57.671+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:19.813+0000] {log.py:232} WARNING - 2026-02-12 14:36:19 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18530ea9c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:36:19.813+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18530ea9c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:36:19.815+0000] {logging_mixin.py:188} INFO - Err overview ABR: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18530ea9c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:36:25.073+0000] {logging_mixin.py:188} INFO - Err overview KHL: RetryError[<Future at 0x7f1852f280e0 state=finished raised AttributeError>]
+[2026-02-12T14:36:26.318+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:27.817+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:29.099+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:30.398+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:31.713+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:36.082+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:41.379+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:46.953+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:48.213+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:49.691+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:51.030+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:52.299+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:53.635+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:54.904+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:36:55.951+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T14:36:55.953+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T14:36:55.954+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 18
+[2026-02-12T14:36:55.956+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-12T14:36:55.957+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-12T14:36:55.959+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-12T14:36:55.968+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-12T14:36:55.972+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-12T14:36:55.973+0000] {datalake_df2csv.py:81} INFO -     + exchange: 12
+[2026-02-12T14:36:55.973+0000] {datalake_df2csv.py:81} INFO -     + type_info: 12
+[2026-02-12T14:36:55.974+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 12
+[2026-02-12T14:36:55.974+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 12
+[2026-02-12T14:36:55.975+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T14:36:55.975+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'VGI', 'company_profile': 'Tổng Công ty Cổ phần Đầu tư Quốc tế Viettel (VGI) có tiền thân là Công ty Cổ phần Đầu tư Quốc tế Viettel được thành lập vào năm 2007. VGI được chuyển sang hoạt động theo mô hình tổng công ty từ năm 2013. Tổng Công ty hoạt động chính trong lĩnh vực đầu tư phát triển mạng viễn thông tại các thị trường nước ngoài. VGI có 9 mạng viễn thông tại 9 quốc gia với hơn 65 triệu khách hàng, thuộc top 30 công ty viễn thông trên Thế giới. VGI được giao dịch trên thị trường UPCOM từ cuối tháng 09/2018.', 'icb_name2': 'Viễn thông', 'icb_name3': 'Viễn thông di động', 'icb_name4': 'Viễn thông di động', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:36:55.976+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'VGT', 'company_profile': 'Tập đoàn Dệt May Việt Nam (Vinatex) có tiền thân là Tổng Công ty Dệt May Việt Nam, được thành lập vào ngày 29/04/1995. Tập đoàn hoạt động chính trong lĩnh vực sản xuất, kinh doanh và xuất khẩu các sản phẩm ngành dệt may. Công ty mẹ – Tập đoàn Dệt May Việt Nam – chính thức hoạt động theo mô hình công ty cổ phần vào năm 2015. Vinatex giữ vị trí dẫn đầu trong ngành dệt may Việt Nam với công suất thiết kế lên đến 172.270 tấn sợi/năm, 170 triệu m² vải dệt thoi/năm, 24.325 tấn vải dệt kim và 353 triệu đơn vị may mặc mỗi năm. Cổ phiếu của Vinatex được giao dịch trên thị trường UPCOM từ đầu năm 2017.', 'icb_name2': 'Hàng cá nhân & Gia dụng', 'icb_name3': 'Hàng cá nhân', 'icb_name4': 'Hàng May mặc', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:36:55.977+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'GDW', 'company_profile': 'Công ty Cổ phần Cấp nước Gia Định (GDW) tiền thân là chi nhánh Cấp nước Gia Định, được thành lập năm 1991 để quản lý và phát triển mạng lưới cấp nước trên địa bàn các quận Tân Bình, Phú Nhuận, Bình Thạnh, Gò Vấp và huyện Hóc Môn. Năm 2005, công ty tiến hành cổ phần hóa. Hoạt động kinh doanh của công ty hiện nay là cung ứng, kinh doanh nước sạch cho nhu cầu tiêu dùng và sản xuất thuộc khu vực Quận Bình Thạnh, Quận Phú Nhuận, 03 phường Quận 3 và 01 phường Quận Gò Vấp.', 'icb_name2': 'Điện, nước & xăng dầu khí đốt', 'icb_name3': 'Nước & Khí đốt', 'icb_name4': 'Nước', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Cấp nước Gia Định'}
+[2026-02-12T14:36:55.977+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'VE9', 'company_profile': 'Công ty cổ phần xây dựng điện VNECO 9 (VE9), tiền thân là Tổng đội Xây lắp điện 3, được thành lập năm 1995. Năm 2006, Công ty chuyển đổi mô hình kinh doanh hoạt động là Công ty Cổ phần. Vốn điều lệ hiện tại là 125.23 tỷ đồng. Công ty hoạt động trong lĩnh vực xây lắp điện với những công trình trạm biến áp và đường dây cao thế từ 110kV đến 500kV, ngoài ra Công ty có Khách sạn Xanh Nha Trang 3 sao tiêu chuẩn quốc tế với các dịch vụ hoàn hảo. Thương hiệu VNECO 9 từ lâu đã rất quen thuộc với các doanh nghiệp ngành xây lắp điện, là nhà thầu đáng tin cậy của các Ban quản lý dự án điện miền Nam và miền Trung. Green Hotel Nha Trang thực sự gắn bó với các công ty lữ hành trong nước và quốc tế và là điểm đến lý tưởng của du khách trong và ngoài nước. Công ty đã và đang thực hiện nhiều công trình lớn như: Đường dây dẫn 110kv Mỹ Tho  - Tân An  - Long An; Đường dây dẫn 110 kV Vĩnh Long  - Vũng Liêm, Trạm biến áp 110kV Đông Nam, Huyện Củ Chi; Đường dây 220kV Tuy Hòa  - Nha Trang; Đường Dây 110kV Trảng Bàng. Ngày 17/11/2020, VE9 chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:36:55.978+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'CQN', 'company_profile': 'Công ty Cổ phần Cảng Quảng Ninh (CQN) có tiền thân là Cảng Quảng Ninh được thành lập năm 1977. Công ty hoạt động trong lĩnh vực kinh doanh cảng, kho bãi và các mặt hàng nông sản. CQN chính thức hoạt động theo mô hình công ty cổ phần từ năm 2014. Công ty hiện đang quản lý và khai thác bến số 1 và bến 5, 6, 7 cảng Cái Lân với tổng diện tích kho 10.000m2 và diện tích bãi chứa hàng 142.000m2. Cảng nằm ở trung tâm Vịnh Bắc Bộ là một trong những cảng dẫn đầu cả nước về sản lượng hàng hóa thông qua. CQN được giao dịch trên thị trường UPCOM từ tháng 08/2020.', 'icb_name2': 'Hàng & Dịch vụ Công nghiệp', 'icb_name3': 'Vận tải', 'icb_name4': 'Kho bãi, hậu cần và bảo dưỡng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:36:55.978+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:36:55.979+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T14:36:55.995+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T14:36:55.996+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-12T14:36:55.996+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.02 giây
+[2026-02-12T14:36:55.997+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:36:55.997+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T14:36:56.066+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:36:56.068+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:36:56.903+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-12T14:36:56.950+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-12T14:36:56.951+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-01/batch_42.csv
+[2026-02-12T14:36:56.951+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 18
+[2026-02-12T14:36:56.952+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.95 giây
+[2026-02-12T14:36:56.952+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:36:56.952+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-12T14:36:56.953+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 101.47 giây
+[2026-02-12T14:36:56.953+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-12T14:36:56.954+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-12T14:36:56.954+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-12T14:36:56.954+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-12T14:36:56.956+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:36:56.983+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=42, execution_date=20260201T000000, start_date=20260212T143515, end_date=20260212T143656
+[2026-02-12T14:36:57.075+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-12T14:36:57.144+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:36:57.146+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

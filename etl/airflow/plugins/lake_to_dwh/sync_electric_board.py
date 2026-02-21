@@ -110,14 +110,19 @@ def transform_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     available_cols = [col for col in DB_COLUMNS if col in df.columns]
     df = df[available_cols].copy()
     
+    # Check required columns — if ticker is missing, data is incomplete
+    if 'ticker' not in df.columns or 'trading_date' not in df.columns:
+        missing = [c for c in ['ticker', 'trading_date'] if c not in df.columns]
+        print(f"⚠️ Missing required columns after mapping: {missing}")
+        print(f"  Available columns: {list(df.columns)}")
+        return pd.DataFrame()
+    
     # Clean ticker
-    if 'ticker' in df.columns:
-        df['ticker'] = df['ticker'].astype(str).str.upper().str.strip()
+    df['ticker'] = df['ticker'].astype(str).str.upper().str.strip()
     
     # Parse trading_date
-    if 'trading_date' in df.columns:
-        df['trading_date'] = pd.to_datetime(df['trading_date'], errors='coerce').dt.date
-        df = df.dropna(subset=['trading_date'])
+    df['trading_date'] = pd.to_datetime(df['trading_date'], errors='coerce').dt.date
+    df = df.dropna(subset=['trading_date'])
     
     # Clean exchange
     if 'exchange' in df.columns:

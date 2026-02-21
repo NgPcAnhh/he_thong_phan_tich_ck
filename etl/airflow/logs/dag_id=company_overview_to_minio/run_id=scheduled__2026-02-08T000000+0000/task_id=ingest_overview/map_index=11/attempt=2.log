@@ -1,0 +1,157 @@
+[2026-02-18T15:45:45.023+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-18T15:45:45.322+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-08T00:00:00+00:00 map_index=11 [queued]>
+[2026-02-18T15:45:45.391+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-08T00:00:00+00:00 map_index=11 [queued]>
+[2026-02-18T15:45:45.409+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-02-18T15:45:45.540+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-08 00:00:00+00:00
+[2026-02-18T15:45:45.673+0000] {warnings.py:112} WARNING - This process (pid=1942) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-18T15:45:46.126+0000] {standard_task_runner.py:64} INFO - Started process 1973 to run task
+[2026-02-18T15:45:46.195+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-08T00:00:00+00:00', '--job-id', '21994', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmp6tp2df91', '--map-index', '11']
+[2026-02-18T15:45:46.471+0000] {standard_task_runner.py:91} INFO - Job 21994: Subtask ingest_overview
+[2026-02-18T15:45:47.530+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-08T00:00:00+00:00 map_index=11 [running]> on host 83ee49e7e828
+[2026-02-18T15:45:48.337+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-08T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-08T00:00:00+00:00'
+[2026-02-18T15:45:48.353+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-18T15:45:48.356+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-18T15:45:48.356+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-18T15:45:48.357+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-18T15:45:48.358+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-18T15:45:48.360+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-18T15:45:48.362+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-18T15:45:48.365+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-18T15:45:48.391+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-08/batch_11.csv
+[2026-02-18T15:45:48.394+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-18T15:45:48.399+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['LCD', 'TBD', 'MSB', 'PEN', 'NBT', 'ILA', 'C12', 'UDL', 'NUE', 'SCL', 'TJC', 'VPG', 'DHB', 'BKG', 'PTE', 'NST', 'MAS', 'CIG', 'L43', 'SPI']}
+[2026-02-18T15:45:48.403+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-18T15:45:48.405+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-18T15:45:48.451+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-18T15:45:48.454+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-18T15:45:48.456+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-18T15:45:48.489+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-18T15:45:48.524+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-18T15:45:48.537+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-18T15:45:48.550+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-18T15:45:48.561+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['LCD', 'TBD', 'MSB', 'PEN', 'NBT', 'ILA', 'C12', 'UDL', 'NUE', 'SCL', 'TJC', 'VPG', 'DHB', 'BKG', 'PTE', 'NST', 'MAS', 'CIG', 'L43', 'SPI']}
+[2026-02-18T15:45:57.260+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:45:58.648+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:00.025+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:01.601+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:02.866+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:04.179+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:09.470+0000] {logging_mixin.py:188} INFO - Err overview C12: RetryError[<Future at 0x7fbccd7618e0 state=finished raised AttributeError>]
+[2026-02-18T15:46:10.804+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:12.123+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:13.370+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:14.699+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:16.041+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:17.335+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:18.608+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:19.901+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:21.321+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:22.672+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:23.967+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-18T15:46:25.327+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 35 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 35 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-02-18T15:46:25.329+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-18T15:46:25.334+0000] {taskinstance.py:2907} ERROR - Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 35 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 35 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.)
+[2026-02-18T15:46:25.370+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-08T00:00:00+00:00, map_index=11, execution_date=20260208T000000, start_date=20260218T154545, end_date=20260218T154625
+[2026-02-18T15:46:25.905+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 21994 for task ingest_overview (Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 35 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 35 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.); 1973)
+[2026-02-18T15:46:25.990+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-18T15:46:26.112+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-18T15:46:26.117+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,50 @@
+[2026-02-12T15:23:00.482+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T15:23:00.547+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-02-10T16:00:00+00:00 map_index=247 [queued]>
+[2026-02-12T15:23:00.596+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-02-10T16:00:00+00:00 map_index=247 [queued]>
+[2026-02-12T15:23:00.597+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-02-12T15:23:00.620+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-02-10 16:00:00+00:00
+[2026-02-12T15:23:00.637+0000] {warnings.py:112} WARNING - This process (pid=12891) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T15:23:00.640+0000] {standard_task_runner.py:64} INFO - Started process 12938 to run task
+[2026-02-12T15:23:00.644+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price_minio', 'ingest_daily_price', 'scheduled__2026-02-10T16:00:00+00:00', '--job-id', '21769', '--raw', '--subdir', 'DAGS_FOLDER/dl_dailly_price.py', '--cfg-path', '/tmp/tmp2pgcpjde', '--map-index', '247']
+[2026-02-12T15:23:00.652+0000] {standard_task_runner.py:91} INFO - Job 21769: Subtask ingest_daily_price
+[2026-02-12T15:23:00.742+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price_minio.ingest_daily_price scheduled__2026-02-10T16:00:00+00:00 map_index=247 [running]> on host fe54ecce8de4
+[2026-02-12T15:23:01.276+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price_minio' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-02-10T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-10T16:00:00+00:00'
+[2026-02-12T15:23:01.278+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T15:23:01.278+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T15:23:01.279+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_daily_price
+[2026-02-12T15:23:01.279+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T15:23:01.280+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T15:23:01.280+0000] {datalake_df2csv.py:44} INFO -   - Logic file: history_price
+[2026-02-12T15:23:01.281+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_history_price_batch
+[2026-02-12T15:23:01.281+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T15:23:01.281+0000] {datalake_df2csv.py:47} INFO -   - Object path: daily_price/2026-02-10/batch_247.csv
+[2026-02-12T15:23:01.282+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T15:23:01.282+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['KBC', 'VC7', 'EGL', 'DGT', 'TN1'], 'start_date': '2026-02-10', 'end_date': '2026-02-11'}
+[2026-02-12T15:23:01.283+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T15:23:01.283+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T15:23:01.289+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T15:23:01.290+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/history_price.py
+[2026-02-12T15:23:01.290+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T15:23:01.292+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'history_price'...
+[2026-02-12T15:23:01.298+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T15:23:01.298+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_history_price_batch'...
+[2026-02-12T15:23:01.299+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T15:23:01.299+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['KBC', 'VC7', 'EGL', 'DGT', 'TN1'], 'start_date': '2026-02-10', 'end_date': '2026-02-11'}
+[2026-02-12T15:23:29.355+0000] {log.py:232} WARNING - 2026-02-12 15:23:29 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /api/chart/OHLCChart/gap-chart (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531ac770>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T15:23:29.355+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /api/chart/OHLCChart/gap-chart (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531ac770>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T15:23:29.357+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=VCI), retry 1/3 in 2.0s
+[2026-02-12T15:23:35.993+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=VCI), retry 2/3 in 4.0s
+[2026-02-12T15:23:54.527+0000] {log.py:232} WARNING - 2026-02-12 15:23:54 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /api/chart/OHLCChart/gap-chart (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531ae600>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:23:54.526+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /api/chart/OHLCChart/gap-chart (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531ae600>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:23:54.536+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=VCI), retry 3/3 in 8.0s
+[2026-02-12T15:24:02.549+0000] {logging_mixin.py:188} INFO - EGL: Exhausted retries for source=VCI, trying next source...
+[2026-02-12T15:24:02.640+0000] {warnings.py:112} WARNING - Provider 'TCBS' is deprecated since version 3.4.0 and will be removed in version 3.5.0. Use 'VCI' provider instead. Reason: TCBS API is no longer publicly accessible as of March 1, 2026.
+
+[2026-02-12T15:24:10.878+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=TCBS), retry 1/3 in 2.0s
+[2026-02-12T15:24:17.499+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=TCBS), retry 2/3 in 4.0s
+[2026-02-12T15:24:31.558+0000] {log.py:232} WARNING - 2026-02-12 15:24:31 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='apiextaws.tcbs.com.vn', port=443): Max retries exceeded with url: /stock-insight/v2/stock/bars-long-term?resolution=D&ticker=EGL&type=stock&to=1770768000&countBack=365 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f1853633080>: Failed to resolve 'apiextaws.tcbs.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:24:31.554+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='apiextaws.tcbs.com.vn', port=443): Max retries exceeded with url: /stock-insight/v2/stock/bars-long-term?resolution=D&ticker=EGL&type=stock&to=1770768000&countBack=365 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f1853633080>: Failed to resolve 'apiextaws.tcbs.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T15:24:36.938+0000] {logging_mixin.py:188} INFO - EGL: RetryError (source=TCBS), retry 3/3 in 8.0s
+[2026-02-12T15:24:44.939+0000] {logging_mixin.py:188} INFO - EGL: Exhausted retries for source=TCBS, trying next source...
+[2026-02-12T15:24:44.940+0000] {logging_mixin.py:188} INFO - EGL: All sources failed after retries

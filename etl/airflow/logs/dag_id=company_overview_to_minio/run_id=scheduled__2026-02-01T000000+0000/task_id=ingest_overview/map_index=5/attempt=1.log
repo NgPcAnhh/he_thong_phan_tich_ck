@@ -1,0 +1,119 @@
+[2026-02-12T14:08:23.178+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:08:23.203+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=5 [queued]>
+[2026-02-12T14:08:23.215+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=5 [queued]>
+[2026-02-12T14:08:23.216+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-12T14:08:23.233+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:08:23.243+0000] {warnings.py:112} WARNING - This process (pid=689) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:08:23.245+0000] {standard_task_runner.py:64} INFO - Started process 695 to run task
+[2026-02-12T14:08:23.246+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '20619', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmp4ebl2mw5', '--map-index', '5']
+[2026-02-12T14:08:23.250+0000] {standard_task_runner.py:91} INFO - Job 20619: Subtask ingest_overview
+[2026-02-12T14:08:23.302+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=5 [running]> on host fe54ecce8de4
+[2026-02-12T14:08:23.717+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:08:23.718+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:08:23.719+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:08:23.719+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-12T14:08:23.720+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:08:23.720+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:08:23.720+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-12T14:08:23.721+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-12T14:08:23.721+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:08:23.721+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-01/batch_5.csv
+[2026-02-12T14:08:23.722+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:08:23.722+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['VSE', 'LM8', 'GTA', 'SHE', 'VIH', 'VHE', 'GEX', 'SGD', 'HPX', 'PTB', 'STH', 'PSE', 'QNS', 'DC2', 'SVT', 'SGS', 'NT2', 'UCT', 'HBS', 'CI5']}
+[2026-02-12T14:08:23.723+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:08:23.723+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:08:23.726+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:08:23.727+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-12T14:08:23.728+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:08:23.729+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-12T14:08:23.734+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:08:23.734+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-12T14:08:23.735+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:08:23.735+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['VSE', 'LM8', 'GTA', 'SHE', 'VIH', 'VHE', 'GEX', 'SGD', 'HPX', 'PTB', 'STH', 'PSE', 'QNS', 'DC2', 'SVT', 'SGS', 'NT2', 'UCT', 'HBS', 'CI5']}
+[2026-02-12T14:08:43.180+0000] {log.py:232} WARNING - 2026-02-12 14:08:43 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='kbbuddywts.kbsec.com.vn', port=443): Max retries exceeded with url: /iis-server/investment/sector/stock?code=12&l=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531be840>: Failed to resolve 'kbbuddywts.kbsec.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:08:43.177+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='kbbuddywts.kbsec.com.vn', port=443): Max retries exceeded with url: /iis-server/investment/sector/stock?code=12&l=1 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531be840>: Failed to resolve 'kbbuddywts.kbsec.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:09:05.084+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:10.667+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:11.921+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:13.178+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:14.546+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:16.044+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:17.377+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:18.900+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:20.342+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:21.822+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:22.750+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:24.001+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:25.365+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:26.654+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:27.969+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:29.342+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:30.638+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:31.980+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:33.387+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:38.714+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:09:39.732+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T14:09:39.733+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T14:09:39.733+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 20
+[2026-02-12T14:09:39.740+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-12T14:09:39.741+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-12T14:09:39.741+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-12T14:09:39.747+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-12T14:09:39.749+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-12T14:09:39.750+0000] {datalake_df2csv.py:81} INFO -     + exchange: 7
+[2026-02-12T14:09:39.750+0000] {datalake_df2csv.py:81} INFO -     + type_info: 7
+[2026-02-12T14:09:39.750+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 7
+[2026-02-12T14:09:39.751+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 7
+[2026-02-12T14:09:39.751+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T14:09:39.751+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'VSE', 'company_profile': 'Công ty Cổ phần Dịch vụ Đường cao tốc Việt Nam (VSE) được thành lập vào năm 2008 bởi các cổ đông sáng lập, bao gồm Tổng Công ty Đầu tư Phát triển Đường cao tốc Việt Nam (VEC), Tổng Công ty Xăng dầu Việt Nam (Petrolimex), Công ty TNHH Đầu tư tư nhân Vina (VP Capital) và Công ty Cổ phần Chứng khoán Bản Việt (VCI). Công ty hoạt động trong lĩnh vực quản lý vận hành, bảo trì, kiểm soát tải trọng xe và thu phí đường cao tốc, thi công xây lắp công trình, kinh doanh biển quảng cáo và các dịch vụ thương mại khác. VSE trở thành công ty đại chúng từ tháng 04/2018. Công ty hiện đang quản lý tuyến cao tốc Nội Bài  - Lào Cai (Km 149+705  - Km 244+570) và tuyến Đà Nẵng  - Quảng Ngãi (Km 00+000  - Km65+000). VSE có nhiều kinh nghiệm trong thi công các công trình đường cao tốc, các hạng mục phụ trợ, hệ thống trạm xăng, trạm dừng nghỉ, nhà hàng dịch vụ. Bên cạnh đó, VSE còn tham gia hợp tác kinh doanh dịch vụ và cho thuê vị trí đặt biển quảng cáo dọc theo các tuyến đường cao tốc. VSE được giao dịch trên thị trường UPCOM từ tháng 10/2018.', 'icb_name2': 'Hàng & Dịch vụ Công nghiệp', 'icb_name3': 'Vận tải', 'icb_name4': 'Kho bãi, hậu cần và bảo dưỡng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:09:39.752+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'LM8', 'company_profile': 'Công ty Cổ phần Lilama 18 (LM8) tiền thân là Xí nghiệp Lắp máy số 8 được thành lập năm 1977. Năm 2006 Công ty chuyển sang hoạt động theo mô hình công ty cổ phần. Hoạt động kinh doanh chính của Công ty bao gồm lắp đặt các thiết bị, gia công chế tạo chân đế giàn khoan và gia công, lắp đặt đường ống công nghệ, bồn bể. Công ty đã tham gia chế tạo, lắp ráp các chân đế giàn khoan cho các công ty JVPC (gian khoan Rạng Đông), công ty CLJOC (Mỹ) giàn Sư Tử Đen và Cá Ngừ Vàng, Trường Sơn, Phương Đông. Trong dự án Nhà máy lọc dầu Dung Quất, Công ty đã chế tạo lắp đặt 2 bể chứa lớn nhất Việt Nam với công nghệ hiện đại và phức tạp, mỗi bồn có dung tích 65.000 m3. Lilama 18 đã khẳng định được vị thế mới bằng chính sự bình đẳng trân trọng qua hàng loạt dự án hợp tác như với tập đoàn Mitsubishi  - Nhật trên công trình nhiệt điện Ô môn – Cần Thơ, Siemen – Đức tại Nhà máy nhiệt điện Cà Mau, Ascom – Pháp Nhà máy điện Nhơn Trạch. Ngày 15/11/2010, LM8 chính thức giao dịch trên Sở Giao dịch chứng khoán Thành phố Hồ Chí Minh (HOSE).', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Lilama 18'}
+[2026-02-12T14:09:39.752+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'GTA', 'company_profile': 'Công ty Cổ phần Chế biến Gỗ Thuận An (GTA) được được thành lập vào năm 2001 bởi 10 cổ đông là doanh nghiệp Nhà nước trực thuộc Tổng Công ty Cao su Việt Nam (Nay là Tập đoàn Công nghiệp Cao su Việt Nam). Công ty hoạt động trong lĩnh vực khai thác và sơ chế gỗ, sản xuất gỗ dán, sản xuất đồ gỗ xây dựng, sản xuất các sản phẩm khác từ gỗ, và kinh doanh gỗ và các sản phẩm từ gỗ. Với công suất phôi sấy 100.000 m3/năm, Công ty cung cấp phôi sấy gỗ cao su, tràm, thông cho các nhà máy chế biến gỗ trong khu vực tỉnh Bình Dương, Đồng Nai, thành phố Hồ Chí Minh. GTA có năng lực sản xuất các sản phẩm gỗ hoàn chỉnh với hơn 15.000 m3 gỗ tinh chế/năm. GTA được niêm yết tại Trung tâm Giao dịch Chứng khoán Thành phố Hồ Chí Minh từ năm 2007.', 'icb_name2': 'Tài nguyên Cơ bản', 'icb_name3': 'Lâm nghiệp và Giấy', 'icb_name4': 'Lâm sản và Chế biến gỗ', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Chế biến gỗ Thuận An'}
+[2026-02-12T14:09:39.753+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'SHE', 'company_profile': 'Công ty Cổ phần Phát triển Năng Lượng Sơn Hà (SHE) được thành lập vào năm 2005. Công ty hoạt động chính trong lĩnh vực sản xuất và kinh doanh bình nước nóng năng lượng mặt trời. Công ty là nhà sản xuất máy nước nóng năng lượng mặt trời với nhãn hiệu Thái Dương năng  - Sơn Hà và Thái dương năng chịu áp lực Flat Gold Pressure. SHE trở thành công ty đại chúng từ tháng 10/2018. Công ty đã xây dựng được hệ thống phân phối với 16.000 chi nhánh, đại lý tại Việt Nam. Sản phẩm của SHE đã được xuất khẩu tới 25 nước trên thế giới. SHE được niêm yết và giao dịch trên Sở Giao dịch Chứng khoán Hà Nội (HNX) từ tháng 01/2019.', 'icb_name2': 'Hàng cá nhân & Gia dụng', 'icb_name3': 'Hàng gia dụng', 'icb_name4': 'Đồ gia dụng lâu bền', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Phát triển Năng lượng Sơn Hà'}
+[2026-02-12T14:09:39.753+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'VIH', 'company_profile': 'Công ty Cổ phần Viglacera Hà Nội (VIH) có tiền thân là Nhà máy Gạch ốp lát Hà Nội, được thành lập vào tháng 02/1994. Công ty hoạt động trong lĩnh vực sản xuất và kinh doanh vật liệu xây dựng. Sản phẩm chính của Công ty là các loại gạch ceramic ốp tường, gạch lát nền Cotto và ngói màu. VIH chính thức hoạt động theo mô hình công ty cổ phần vào năm 2008. Công ty hiện đang quản lý vận hành Nhà máy Viglacera Yên Phong và Nhà máy Viglacera Hải Dương với tổng công suất 5,5 triệu m2/năm. VIH giao dịch trên thị trường UPCOM từ tháng 04/2017.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Vật liệu xây dựng & Nội thất', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:09:39.753+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:09:39.754+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T14:09:39.762+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T14:09:39.762+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-12T14:09:39.763+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-12T14:09:39.764+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:09:39.764+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T14:09:39.781+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:09:39.782+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:09:40.678+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-12T14:09:40.727+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-12T14:09:40.727+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-01/batch_5.csv
+[2026-02-12T14:09:40.728+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 20
+[2026-02-12T14:09:40.728+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.96 giây
+[2026-02-12T14:09:40.728+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:09:40.729+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-12T14:09:40.729+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 77.01 giây
+[2026-02-12T14:09:40.729+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-12T14:09:40.729+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-12T14:09:40.730+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-12T14:09:40.730+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-12T14:09:40.731+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:09:40.743+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=5, execution_date=20260201T000000, start_date=20260212T140823, end_date=20260212T140940
+[2026-02-12T14:09:40.820+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-12T14:09:40.851+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:09:40.855+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

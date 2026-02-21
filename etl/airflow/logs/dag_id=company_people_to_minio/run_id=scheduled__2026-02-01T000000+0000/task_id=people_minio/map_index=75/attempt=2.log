@@ -1,0 +1,247 @@
+[2026-02-12T14:55:13.710+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:55:13.746+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_people_to_minio.people_minio scheduled__2026-02-01T00:00:00+00:00 map_index=75 [queued]>
+[2026-02-12T14:55:13.769+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_people_to_minio.people_minio scheduled__2026-02-01T00:00:00+00:00 map_index=75 [queued]>
+[2026-02-12T14:55:13.770+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-02-12T14:55:13.876+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): people_minio> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:55:13.888+0000] {warnings.py:112} WARNING - This process (pid=6033) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:55:13.890+0000] {standard_task_runner.py:64} INFO - Started process 6077 to run task
+[2026-02-12T14:55:13.893+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_people_to_minio', 'people_minio', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '21010', '--raw', '--subdir', 'DAGS_FOLDER/dl_people.py', '--cfg-path', '/tmp/tmptgdv0jhs', '--map-index', '75']
+[2026-02-12T14:55:13.896+0000] {standard_task_runner.py:91} INFO - Job 21010: Subtask people_minio
+[2026-02-12T14:55:13.946+0000] {task_command.py:426} INFO - Running <TaskInstance: company_people_to_minio.people_minio scheduled__2026-02-01T00:00:00+00:00 map_index=75 [running]> on host fe54ecce8de4
+[2026-02-12T14:55:14.051+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_people_to_minio' AIRFLOW_CTX_TASK_ID='people_minio' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:55:14.053+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:55:14.053+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:55:14.054+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: people_minio
+[2026-02-12T14:55:14.054+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:55:14.054+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:55:14.055+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-12T14:55:14.055+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_people_batch
+[2026-02-12T14:55:14.055+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:55:14.056+0000] {datalake_df2csv.py:47} INFO -   - Object path: people/2026-02-01/batch_75.csv
+[2026-02-12T14:55:14.056+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:55:14.056+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['PVR', 'CLM', 'BAL', 'LAI', 'KMR', 'HBS', 'TCR', 'PTC', 'POM', 'GLT', 'VDN', 'FIC', 'AMV', 'NTP', 'TCO', 'DSG', 'SBH', 'DKG', 'SAC', 'PCH']}
+[2026-02-12T14:55:14.057+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:55:14.057+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:55:14.061+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:55:14.062+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-12T14:55:14.063+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:55:14.064+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-12T14:55:14.070+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:55:14.073+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_people_batch'...
+[2026-02-12T14:55:14.076+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:55:14.077+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['PVR', 'CLM', 'BAL', 'LAI', 'KMR', 'HBS', 'TCR', 'PTC', 'POM', 'GLT', 'VDN', 'FIC', 'AMV', 'NTP', 'TCO', 'DSG', 'SBH', 'DKG', 'SAC', 'PCH']}
+[2026-02-12T14:55:31.994+0000] {log.py:232} WARNING - 2026-02-12 14:55:31 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d91c0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:31.992+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d91c0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:42.021+0000] {log.py:232} WARNING - 2026-02-12 14:55:42 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d9ac0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:42.019+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531d9ac0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:52.153+0000] {log.py:232} WARNING - 2026-02-12 14:55:52 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531db0b0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:52.150+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f18531db0b0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-12T14:55:56.009+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 192, in heartbeat
+    self._merge_from(Job._fetch_from_db(self, session))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 89, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 443, in __iter__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 376, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 418, in exc_check
+    raise retry_exc.reraise()
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/tenacity/__init__.py", line 185, in reraise
+    raise self.last_attempt.result()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/retries.py", line 98, in wrapped_function
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 316, in _fetch_from_db
+    session.merge(job)
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-02-12T14:55:56.033+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-02-12T14:56:25.216+0000] {log.py:232} WARNING - 2026-02-12 14:56:25 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531db080>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:56:25.216+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531db080>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:56:50.357+0000] {log.py:232} WARNING - 2026-02-12 14:56:50 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531d8aa0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:56:50.357+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f18531d8aa0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:56:57.272+0000] {logging_mixin.py:188} INFO - officers DKG: RetryError[<Future at 0x7f1853147f50 state=finished raised KeyError>]
+[2026-02-12T14:57:03.870+0000] {logging_mixin.py:188} INFO - officers PCH: RetryError[<Future at 0x7f185318a780 state=finished raised KeyError>]
+[2026-02-12T14:57:04.874+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T14:57:04.875+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T14:57:04.875+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 385
+[2026-02-12T14:57:04.878+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 5
+[2026-02-12T14:57:04.878+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'name', 'position', 'percent', 'type']
+[2026-02-12T14:57:04.879+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'name': 'object', 'position': 'object', 'percent': 'float64', 'type': 'object'}
+[2026-02-12T14:57:04.882+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.11 MB
+[2026-02-12T14:57:04.884+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-02-12T14:57:04.885+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T14:57:04.887+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'PVR', 'name': 'Trần Thị Thắm', 'position': 'Cổ đông', 'percent': 0.2405, 'type': 'shareholder'}
+[2026-02-12T14:57:04.888+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'PVR', 'name': 'Công ty Cổ phần Quản lý Quỹ PVI', 'position': 'Cổ đông', 'percent': 0.0819, 'type': 'shareholder'}
+[2026-02-12T14:57:04.888+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'PVR', 'name': 'Công ty Cổ phần Tập đoàn Đại Dương', 'position': 'Cổ đông', 'percent': 0.06, 'type': 'shareholder'}
+[2026-02-12T14:57:04.889+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'PVR', 'name': 'Chi cục Thi hành án Dân sự Quận Hoàn Kiếm thành phố Hà Nội', 'position': 'Cổ đông', 'percent': 0.0568, 'type': 'shareholder'}
+[2026-02-12T14:57:04.889+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'PVR', 'name': 'Bùi Thị Thu Thủy', 'position': 'Cổ đông', 'percent': 0.0529, 'type': 'shareholder'}
+[2026-02-12T14:57:04.890+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:57:04.890+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T14:57:04.904+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T14:57:04.905+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-12T14:57:04.905+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-12T14:57:04.906+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:57:04.906+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T14:57:04.916+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:57:04.917+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:57:05.494+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-12T14:57:05.540+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-12T14:57:05.541+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/people/2026-02-01/batch_75.csv
+[2026-02-12T14:57:05.542+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 385
+[2026-02-12T14:57:05.542+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.63 giây
+[2026-02-12T14:57:05.543+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:57:05.544+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-12T14:57:05.544+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 111.49 giây
+[2026-02-12T14:57:05.545+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 3 dòng/giây
+[2026-02-12T14:57:05.546+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-12T14:57:05.546+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: people_minio
+[2026-02-12T14:57:05.547+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-12T14:57:05.548+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:57:05.572+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_people_to_minio, task_id=people_minio, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=75, execution_date=20260201T000000, start_date=20260212T145513, end_date=20260212T145705
+[2026-02-12T14:57:05.829+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-12T14:57:05.863+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:57:05.865+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

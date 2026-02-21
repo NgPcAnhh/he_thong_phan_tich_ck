@@ -1,0 +1,120 @@
+[2026-02-12T14:47:59.717+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-12T14:47:59.754+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=76 [queued]>
+[2026-02-12T14:47:59.777+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=76 [queued]>
+[2026-02-12T14:47:59.778+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-12T14:47:59.805+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-01 00:00:00+00:00
+[2026-02-12T14:47:59.822+0000] {warnings.py:112} WARNING - This process (pid=5121) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-12T14:47:59.825+0000] {standard_task_runner.py:64} INFO - Started process 5131 to run task
+[2026-02-12T14:47:59.827+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-01T00:00:00+00:00', '--job-id', '20940', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmpz0wfpp49', '--map-index', '76']
+[2026-02-12T14:47:59.832+0000] {standard_task_runner.py:91} INFO - Job 20940: Subtask ingest_overview
+[2026-02-12T14:47:59.911+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-01T00:00:00+00:00 map_index=76 [running]> on host fe54ecce8de4
+[2026-02-12T14:48:00.074+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-01T00:00:00+00:00'
+[2026-02-12T14:48:00.075+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-12T14:48:00.076+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-12T14:48:00.077+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-12T14:48:00.077+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-12T14:48:00.078+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-12T14:48:00.078+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-12T14:48:00.079+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-12T14:48:00.079+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-12T14:48:00.080+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-01/batch_76.csv
+[2026-02-12T14:48:00.080+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-12T14:48:00.080+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['NDT', 'HC3', 'NAG', 'HU1', 'RCC', 'CHS', 'GSM', 'TCO', 'CFV', 'VNA', 'SII', 'XMP', 'CPH', 'TOS', 'DVP', 'THB', 'NQB', 'GSP', 'HTP', 'PHH']}
+[2026-02-12T14:48:00.081+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:48:00.081+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-12T14:48:00.086+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-12T14:48:00.087+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-12T14:48:00.088+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-12T14:48:00.090+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-12T14:48:00.098+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-12T14:48:00.099+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-12T14:48:00.099+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-12T14:48:00.100+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['NDT', 'HC3', 'NAG', 'HU1', 'RCC', 'CHS', 'GSM', 'TCO', 'CFV', 'VNA', 'SII', 'XMP', 'CPH', 'TOS', 'DVP', 'THB', 'NQB', 'GSP', 'HTP', 'PHH']}
+[2026-02-12T14:48:59.149+0000] {log.py:232} WARNING - 2026-02-12 14:48:59 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f5e3c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:48:59.148+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f5e3c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:48:59.151+0000] {logging_mixin.py:188} INFO - Err overview NDT: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f5e3c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:49:21.255+0000] {log.py:232} WARNING - 2026-02-12 14:49:21 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f47c20>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:49:21.254+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f47c20>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:49:21.257+0000] {logging_mixin.py:188} INFO - Err overview HC3: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f47c20>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:49:22.512+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:23.785+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:25.080+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:30.448+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:31.720+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:33.073+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:35.326+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:36.652+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:38.913+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:40.619+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:45.913+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:47.896+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:49.474+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:50.985+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:52.274+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:49:53.929+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:50:16.124+0000] {log.py:232} WARNING - 2026-02-12 14:50:16 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f1b3b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:50:16.124+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f1b3b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:50:16.125+0000] {logging_mixin.py:188} INFO - Err overview HTP: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1852f1b3b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-02-12T14:50:21.608+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-12T14:50:22.668+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-12T14:50:22.669+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-12T14:50:22.669+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 17
+[2026-02-12T14:50:22.688+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-12T14:50:22.688+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-12T14:50:22.690+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-12T14:50:22.704+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.03 MB
+[2026-02-12T14:50:22.707+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-12T14:50:22.708+0000] {datalake_df2csv.py:81} INFO -     + exchange: 11
+[2026-02-12T14:50:22.708+0000] {datalake_df2csv.py:81} INFO -     + type_info: 11
+[2026-02-12T14:50:22.708+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 11
+[2026-02-12T14:50:22.709+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 11
+[2026-02-12T14:50:22.709+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-12T14:50:22.710+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'NAG', 'company_profile': 'Công ty cổ phần Nagakawa Việt Nam (NAG) – Tiền thân là Công ty liên doanh Nagakawa Việt Nam, thành lập năm 2002 tại Tỉnh Vĩnh Phúc. Năm 2007, Công ty chuyển đổi thành Công ty cổ phần Nagakawa Việt Nam. Lĩnh vực kinh doanh chính của công ty là sản xuất, kinh doanh các sản phẩm điện tử, điện lạnh và thiết bị nhà bếp. Qua gần 20 năm hình thành và phát triển, Nagakawa Việt Nam hiện đang sở hữu hàng chục chi nhánh ở các vùng trọng điểm trong cả nước, cùng hệ thống gần 10.000 đại lý phân phối trên toàn quốc. Nhà máy sản xuất điện gia dụng Nagakawa Việt Nam được đóng tại tỉnh Vĩnh Phúc, với quy mô lên tới 10 ha, tổng vốn đầu tư khoảng 200 tỷ đồng, công suất sản xuất 250.000 sản phẩm/năm, nhằm đáp ứng nhu cầu trong nước đang ngày càng gia tăng và việc xuất khẩu hàng sang một số nước như: Thổ Nhĩ Kỳ, Hà Lan, Argentina và các nước khu vực Bắc Mỹ. Ngày 22/09/2009, NAG chính thức giao dịch trên Sở Giao dịch Chứng khoán Hà Nội (HNX).', 'icb_name2': 'Hàng & Dịch vụ Công nghiệp', 'icb_name3': 'Điện tử & Thiết bị điện', 'icb_name4': 'Hàng điện & điện tử', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Tập đoàn Nagakawa'}
+[2026-02-12T14:50:22.711+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'HU1', 'company_profile': 'Công ty Cổ phần Đầu tư và Xây dựng HUD1 (HU1) Tiền thân của công ty là Xí nghiệp Xây dựng số 1 trực thuộc Công ty Phát triển Nhà và Đô thị, được thành lập năm 1989. HUD1 là một trong những đơn vị đầu ngành trong tất cả các lĩnh vực thi công và đầu tư, là đơn vị đào tạo cán bộ nguồn cho Tổng công ty. Lĩnh vực kinh doanh của Công ty là: Xây lắp các công trình kỹ thuật dân dụng; Kinh doanh bất động sản, quyền sử dụng đất thuộc chủ sở hữu, chủ sử dụng hoặc đi thuê; Tư vấn thiết kế, giám sát xây dựng. Công ty được thừa hưởng thương hiệu và kinh nghiệm của Tập đoàn phát triển Nhà và Đô thị  - HUD đã có 30 năm hoạt động và là một trong các thương hiệu lớn về lĩnh vực xây dựng và kinh doanh bất động sản tại Việt Nam. Ngày 03/11/2011, HU1 chính thức giao dịch trên Sàn Giao dịch chứng khoán Thành phố Hồ Chí Minh (HOSE)', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Đầu tư và Xây dựng HUD1'}
+[2026-02-12T14:50:22.712+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'RCC', 'company_profile': 'Công ty Cổ phần Tổng Công ty Công trình Đường sắt Việt Nam (RCC) có tiền thân là Xí nghiệp Liên hợp Công trình đường sắt được thành lập vào ngày 05/11/1973. Công ty hoạt động trong 3 lĩnh vực chính (i) Xây dựng công trình giao thông, đường sắt, (ii) Xây lắp các công trình dân dụng, công nghiệp và hạ tầng (iii) Kinh doanh vật liệu xây dựng, trong đó xây dựng công trình đường bộ và đường sắt đóng vai trò chủ đạo trong hoạt động kinh doanh của Công ty. Các công trình do RCC thi công có mặt trên các địa bàn từ Bắc vào Nam, trong đó các công trình tiêu biểu là: Cầu Bắc Phước, Cầu Cửa Việt tại tỉnh Quảng Trị, Cầu Cái Cui, Cầu Tư Kiền tại Thừa Thiên Huế… Bên cạnh đó, Công ty còn tham gia khai thác đá xây dựng tại mỏ đá Hoàng Mai với tổng diện tích 192.100 m2, và mỏ đá Minh Cầm tại Quảng Bình với diện tích 16.100 m2. RCC được giao dịch trên thị trường UPCOM từ cuối năm 2016.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:50:22.712+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'CHS', 'company_profile': 'Công ty Cổ phần Chiếu sáng Công cộng Thành phố Hồ Chí Minh (CHS) có tiền thân là Công ty Chiếu sáng Công cộng Thành phố Hồ Chí Minh, được thành lập vào năm 1993. CHS chính thức hoạt động theo mô hình công ty cổ phần từ năm 2016. Công ty hoạt động chính trong lĩnh vực xây dựng, vận hành, duy tu, sửa chữa hệ thống chiếu sáng công cộng. Ngoài ra, công ty còn tham gia sản xuất thiết bị chiếu sáng, và tư vấn kiến trúc kỹ thuật có liên quan. Hiện tại, CHS là doanh nghiệp hàng đầu tại Việt Nam trong hoạt động chuyên ngành chiếu sáng đô thị. Công ty là đơn vị duy nhất được giao quản lý vận hành, duy tu bảo dưỡng các hệ thống đèn chiếu sáng công cộng với 110.900 điểm sáng của 3.800 km tuyến đường và hệ thống đèn tín hiệu giao thông với 661 chốt đèn, hệ thống camera quan sát giao thông và bảng thông tin giao thông điện tử trên địa bàn thành phố Hồ Chí Minh. Các công trình tiêu biểu CHS đã thực hiện có thể kể đến: Xây dựng hệ thống chiếu sáng giao thông và chiếu sáng mỹ thuật dự án Xây dựng cầu Thủ Thiêm, Xây lắp dự án Trung tâm điều khiển hệ thống chiếu sáng công cộng thành phố Hồ Chí Minh, Xây dựng hệ thống tín hiệu giao thông và hệ thống camera quan sát thuộc dự án đại lộ Đông Tây Sài Gòn,... Ngày 12/01/2017, CHS chính thức được giao dịch trên thị trường UPCOM.', 'icb_name2': 'Điện, nước & xăng dầu khí đốt', 'icb_name3': 'Nước & Khí đốt', 'icb_name4': 'Tiện ích khác', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:50:22.713+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'GSM', 'company_profile': 'Công ty Cổ phần Thủy điện Hương Sơn (GSM) hoạt động chính trong lĩnh vực sản xuất và kinh doanh điện thương phẩm. GSM trở thành công ty đại chúng từ năm 2014. Hiện tại, Công ty đã hòa điện vào mạng lưới điện quốc gia. GSM hiện đang quản lý vận hành Nhà máy Hương Sơn 1 bao gồm 2 tổ máy phát điện với tổng công suất lắp máy 33 MW và Nhà máy Hương Sơn 2 với công suất lắp máy là 6,5 MW. GSM được giao dịch trên thị trường UPCOM từ tháng 04/2015.', 'icb_name2': 'Điện, nước & xăng dầu khí đốt', 'icb_name3': 'Sản xuất & Phân phối Điện', 'icb_name4': 'Sản xuất & Phân phối Điện', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-12T14:50:22.714+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:50:22.714+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-12T14:50:22.734+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-12T14:50:22.735+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-12T14:50:22.736+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.02 giây
+[2026-02-12T14:50:22.737+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:50:22.737+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-12T14:50:22.830+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-12T14:50:22.832+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-12T14:50:23.684+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-12T14:50:23.742+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-12T14:50:23.743+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-01/batch_76.csv
+[2026-02-12T14:50:23.743+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 17
+[2026-02-12T14:50:23.744+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 1.00 giây
+[2026-02-12T14:50:23.744+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-12T14:50:23.745+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-12T14:50:23.745+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 143.67 giây
+[2026-02-12T14:50:23.745+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-12T14:50:23.746+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-12T14:50:23.746+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-12T14:50:23.746+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-12T14:50:23.747+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-12T14:50:23.779+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-01T00:00:00+00:00, map_index=76, execution_date=20260201T000000, start_date=20260212T144759, end_date=20260212T145023
+[2026-02-12T14:50:23.952+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-12T14:50:24.058+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-12T14:50:24.061+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

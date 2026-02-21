@@ -1,0 +1,49 @@
+[2026-02-21T05:44:42.403+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-21T05:44:42.443+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-21T05:44:35.760240+00:00 [queued]>
+[2026-02-21T05:44:42.462+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-21T05:44:35.760240+00:00 [queued]>
+[2026-02-21T05:44:42.463+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-02-21T05:44:42.501+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_daily_price> on 2026-02-21 05:44:35.760240+00:00
+[2026-02-21T05:44:42.521+0000] {warnings.py:112} WARNING - This process (pid=77) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-21T05:44:42.526+0000] {standard_task_runner.py:64} INFO - Started process 95 to run task
+[2026-02-21T05:44:42.529+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_daily_price', 'manual__2026-02-21T05:44:35.760240+00:00', '--job-id', '22652', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmpi5gv_q7k']
+[2026-02-21T05:44:42.547+0000] {standard_task_runner.py:91} INFO - Job 22652: Subtask sync_daily_price
+[2026-02-21T05:44:42.712+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_daily_price manual__2026-02-21T05:44:35.760240+00:00 [running]> on host 9cd898c40fe6
+[2026-02-21T05:44:42.961+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-02-21T05:44:35.760240+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-21T05:44:35.760240+00:00'
+[2026-02-21T05:44:42.963+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-21T05:44:42.979+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-21T05:44:42.980+0000] {logging_mixin.py:188} INFO - 📊 SYNC DAILY PRICE TO DATABASE
+[2026-02-21T05:44:42.983+0000] {logging_mixin.py:188} INFO - ======================================================================
+[2026-02-21T05:44:42.984+0000] {logging_mixin.py:188} INFO - 
+[1/4] Finding latest partition...
+[2026-02-21T05:44:43.017+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-21T05:44:43.018+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-21T05:46:39.548+0000] {logging_mixin.py:188} INFO - 📂 Scanning 5610 objects in thongtin-congty-va-bctc/daily_price/
+[2026-02-21T05:46:39.555+0000] {logging_mixin.py:188} INFO - 📅 Found 19 valid date partition(s): ['2026-01-09', '2026-01-12', '2026-01-13', '2026-01-15', '2026-01-16', '2026-01-20', '2026-01-22', '2026-01-24', '2026-01-26', '2026-01-27', '2026-01-29', '2026-01-30', '2026-02-01', '2026-02-02', '2026-02-03', '2026-02-04', '2026-02-05', '2026-02-10', '2026-02-16']
+[2026-02-21T05:46:39.556+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: daily_price/2026-02-16/
+[2026-02-21T05:46:39.557+0000] {logging_mixin.py:188} INFO - 
+[2/4] Reading CSV files...
+[2026-02-21T05:46:39.564+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-21T05:46:39.565+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-21T05:46:39.666+0000] {logging_mixin.py:188} INFO - ✓ Found 2 CSV files in thongtin-congty-va-bctc/daily_price/2026-02-16/
+[2026-02-21T05:46:39.673+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-21T05:46:39.674+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-21T05:46:39.785+0000] {logging_mixin.py:188} INFO - ✓ Read 20 rows from daily_price/2026-02-16/batch_0.csv
+[2026-02-21T05:46:39.792+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-21T05:46:39.792+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-21T05:46:39.912+0000] {logging_mixin.py:188} INFO - ✓ Read 20 rows from daily_price/2026-02-16/batch_1.csv
+[2026-02-21T05:46:39.915+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 2 files into 40 total rows
+[2026-02-21T05:46:39.916+0000] {logging_mixin.py:188} INFO - Loaded 40 rows
+[2026-02-21T05:46:39.917+0000] {logging_mixin.py:188} INFO - 
+[3/4] Cleaning and transforming data...
+[2026-02-21T05:46:39.941+0000] {logging_mixin.py:188} INFO - After cleaning: 40 rows
+[2026-02-21T05:46:39.942+0000] {logging_mixin.py:188} INFO - 
+[4/4] Inserting into database...
+[2026-02-21T05:46:39.949+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-02-21T05:46:39.966+0000] {logging_mixin.py:188} INFO - ✅ Inserted/Updated 40 rows
+[2026-02-21T05:46:39.967+0000] {python.py:237} INFO - Done. Returned value was: ✅ Success: 40 rows
+[2026-02-21T05:46:39.968+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-21T05:46:39.999+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=minio_to_db_sync, task_id=sync_daily_price, run_id=manual__2026-02-21T05:44:35.760240+00:00, execution_date=20260221T054435, start_date=20260221T054442, end_date=20260221T054639
+[2026-02-21T05:46:40.056+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-21T05:46:40.082+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-21T05:46:40.084+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
