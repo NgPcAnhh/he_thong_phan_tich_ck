@@ -1,0 +1,118 @@
+[2026-02-22T02:11:19.190+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-22T02:11:19.225+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=47 [queued]>
+[2026-02-22T02:11:19.246+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=47 [queued]>
+[2026-02-22T02:11:19.247+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-22T02:11:19.275+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-15 00:00:00+00:00
+[2026-02-22T02:11:19.298+0000] {warnings.py:112} WARNING - This process (pid=2097) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-22T02:11:19.301+0000] {standard_task_runner.py:64} INFO - Started process 2120 to run task
+[2026-02-22T02:11:19.305+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-15T00:00:00+00:00', '--job-id', '22848', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmpod_25qod', '--map-index', '47']
+[2026-02-22T02:11:19.309+0000] {standard_task_runner.py:91} INFO - Job 22848: Subtask ingest_overview
+[2026-02-22T02:11:19.405+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=47 [running]> on host 1b22f72dc705
+[2026-02-22T02:11:20.761+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-15T00:00:00+00:00'
+[2026-02-22T02:11:20.764+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-22T02:11:20.765+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-22T02:11:20.766+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-22T02:11:20.768+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-22T02:11:20.772+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-22T02:11:20.773+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-22T02:11:20.773+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-22T02:11:20.775+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-22T02:11:20.786+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-15/batch_47.csv
+[2026-02-22T02:11:20.792+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-22T02:11:20.793+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['DAC', 'GGG', 'MIC', 'SMN', 'APT', 'HHC', 'VMA', 'PMB', 'SGN', 'V21', 'DNW', 'TTL', 'DVG', 'KTT', 'LCD', 'SEA', 'VHG', 'DHP', 'HTL', 'YEG']}
+[2026-02-22T02:11:20.796+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:11:20.797+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-22T02:11:20.831+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-22T02:11:20.834+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-22T02:11:20.840+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-22T02:11:20.847+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-22T02:11:20.859+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-22T02:11:20.861+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-22T02:11:20.862+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-22T02:11:20.863+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['DAC', 'GGG', 'MIC', 'SMN', 'APT', 'HHC', 'VMA', 'PMB', 'SGN', 'V21', 'DNW', 'TTL', 'DVG', 'KTT', 'LCD', 'SEA', 'VHG', 'DHP', 'HTL', 'YEG']}
+[2026-02-22T02:11:25.630+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:26.861+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:28.108+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:29.339+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:30.574+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:31.826+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:33.081+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:34.331+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:35.730+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:36.970+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:48.017+0000] {log.py:232} WARNING - 2026-02-22 02:11:48 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fa12e586d20>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T02:11:48.013+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fa12e586d20>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T02:11:48.117+0000] {logging_mixin.py:188} INFO - Err overview DNW: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fa12e586d20>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T02:11:52.071+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:53.402+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:54.675+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:56.004+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:58.222+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:11:59.469+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:12:00.716+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:12:01.956+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:12:03.268+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:12:04.289+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-22T02:12:04.290+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-22T02:12:04.291+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 19
+[2026-02-22T02:12:04.292+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-22T02:12:04.292+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-22T02:12:04.293+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-22T02:12:04.297+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-22T02:12:04.298+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-22T02:12:04.299+0000] {datalake_df2csv.py:81} INFO -     + exchange: 9
+[2026-02-22T02:12:04.299+0000] {datalake_df2csv.py:81} INFO -     + type_info: 9
+[2026-02-22T02:12:04.300+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 9
+[2026-02-22T02:12:04.300+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 9
+[2026-02-22T02:12:04.300+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-22T02:12:04.301+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'DAC', 'company_profile': 'Công ty Cổ phần Viglacera Đông Anh (DAC) có tiền thân là Xí nghiệp Gạch Ngói 382 Đông Anh Tổng cục hậu cần  - Bộ quốc phòng được thành lập vào năm 1958. Công ty chuyên sản xuất kinh doanh vật liệu xây dựng đất sét nung và các loại vật liệu xây dựng khác. DAC chính thức hoạt động theo mô hình công ty cổ phần từ năm 2003. Công ty hiện đang sở hữu thương hiệu Viglacera,là một thương hiệu mạnh trong sản xuất vật liệu xây dựng ở Việt Nam. Các sản phẩm gạch chẻ, gạch xây dựng và các loại gạch ngói khác của công ty đã có uy tín lâu năm trên thị trường Chiếm lĩnh được thị trường các tỉnh phía Bắc với hệ thống hơn 600 đại lý tiêu thụ. Hiện tại, công ty có sản lượng chiếm 10% sản lượng gạch đất nung của toàn Tổng công ty. DAC được giao dịch trên thị trường UPCOM từ tháng 04/2016.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Vật liệu xây dựng & Nội thất', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:12:04.301+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'GGG', 'company_profile': 'Công ty Cổ phần ô tô Giải Phóng (GGG), tiền thân là Công ty Cơ điện Hà Giang thuộc nhóm Công ty Long Giang được thành lập vào năm 2001, là chủ đầu tư của nhà máy ô tô Giải Phóng. Ngày 03/10/2008 Công ty Cổ phần Cơ điện Hà Giang được đổi tên thành Công ty Cổ phần ô tô Giải Phóng và chính thức hoạt động và giao dịch với tên mới kể từ ngày 01/11/2008. Năm 2008 nhãn hiệu ô tô Giải Phóng đã đạt giải thưởng nhãn hiệu cạnh tranh quốc gia. Nhà máy Ô tô Giải Phóng của Công ty được đầu tư xây dựng đạt tiêu chuẩn theo quyết định của Thủ tướng Chính Phủ, bao gồm đầy đủ các hạng mục: Hàn, sơn điện ly, sơn màu (2 buồng sơn sấy), lắp ráp (2 dây chuyền lăp ráp), dây chuyền kiểm định, đường thử xe dài 800 mét. Nhà máy có công suất thiết kế 5000 sản phẩm/năm, có thể lắp ráp các loại xe ô tô tải có tải trọng đến 25 tấn. Ngày 15/08/2014, GGG chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Ô tô và phụ tùng', 'icb_name3': 'Ô tô và phụ tùng', 'icb_name4': 'Sản xuất ô tô', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:12:04.302+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'MIC', 'company_profile': 'Công ty Cổ phần Kỹ nghệ Khoáng sản Quảng Nam (MIC) được thành lập trên Cơ sở chuyển đổi từ Doanh nghiệp Nhà nước là Công ty Công nghiệp Miền Trung. Năm 2005, Công ty chính thức đi vào hoạt động dưới hình thức công ty cổ phần theo Giấy chứng nhận Đăng ký kinh doanh số 3303070128 do Sở Kế hoạch và Đầu tư Tỉnh Quảng Nam cấp ngày 25/05/2005 với vốn điều lệ ban đầu là 4,5 tỷ đồng. Hoạt động chính là thăm dò, khai thác, chế biến và kinh doanh khoảng sản, sản xuất vật liệu xây dựng. Các sản phẩm chủ đạo của công ty bao gồm: Bột Silica, cát trắng Thăng Bình, Bột Fenspat, Tràng thạch Đại Lộc. Thương hiệu và sản phẩm MINCO đã được biết đến khá nhiều tại một số thị trường lớn trong khu vực như Nhật Bản, Hàn Quốc, Trung Quốc, Thái Lan, Singapore và trong nước, đây có thể xem như lợi thế so sánh của công ty so với các công ty khác cùng ngành. Công suất chế biến cát trắng hiện tại là 180.000 tấn/năm... Ngày 19/03/2025, MIC chính thức giao dịch trên Sở giao dịch Chứng khoán Hà Nội (HNX).', 'icb_name2': 'Tài nguyên Cơ bản', 'icb_name3': 'Khai khoáng', 'icb_name4': 'Khai khoáng', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Kỹ nghệ Khoáng sản Quảng Nam'}
+[2026-02-22T02:12:04.303+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'SMN', 'company_profile': 'Công ty Cổ phần Sách và Thiết bị Giáo dục Miền Nam (SMN), thành viên thuộc Công ty Trách nhiệm hữu hạn một thành viên Nhà xuất bản Giáo dục Việt Nam, được thành lập năm 2010. Công ty là tổng đại lí phát hành sách giáo khoa của Nhà xuất bản giáo dục Việt Nam đến các Công ty cổ phần Sách và Thiết bị trường học địa phương. Đồng thời, Công ty cũng sản xuất, kinh doanh sách tham khảo, văn phòng phẩm và các thiết bị giáo dục khác. Công ty hiện đang tham gia góp vốn vào hai công ty liên kết là Công ty cổ phần Sách và Thiết bị trường học Bà Rịa - Vũng Tàu và Công ty cổ phần Sách và Thiết bị trường học Bình Dương. Mạng lưới phân phối rộng khắp các tỉnh thành cả nước bao gồm Bình Dương, Bà Rịa - Vũng Tàu, Lâm Đồng, Long An, Ninh Thuận, Phú Yên...Hoạt động phân phối sách giáo khoa từ nguồn cung Nhà xuất bản Giáo dục Việt Nam mang lại 80% doanh thu thuần cho công ty hàng năm. Ngày 14/07/2015, SMN chính thức giao dịch trên Sở Giao dịch Chứng khoán Hà Nội (HNX).', 'icb_name2': 'Truyền thông', 'icb_name3': 'Truyền thông', 'icb_name4': 'Sách, ấn bản & sản phẩm văn hóa', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Sách và Thiết bị Giáo dục Miền Nam'}
+[2026-02-22T02:12:04.304+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'APT', 'company_profile': 'Công ty Cổ phần Kinh doanh Thủy Hải sản Sài Gòn (APT), tiền thân là Công ty Kinh doanh Thủy hải sản, được thành lập từ năm 1976. APT được chuyển đổi mô hình hoạt động từ Công ty Nhà nước sang công ty Cổ phần từ tháng 01 năm 2007. Hoạt động kinh doanh chính của công ty là: Nuôi trồng thủy sản; Mua bán vật tư phục vụ ngành nuôi trồng thủy sản; mua bán, chế biến thủy hải sản; gia công các mặt hàng thủy hải sản; sản xuất, mua bán thức ăn gia súc. Thị trường xuất khẩu chính là EU, USA, Australia, Japan, Korea, ASEAN. Đối với thị trường nội địa, sản phẩm công ty được cung ứng cho các tập đoàn bán sĩ, lẻ, các hệ thống siêu thị lớn trong cả nước như METRO, Big C, Coop-Mart, Maximart, Lotte Mart. Hiện nay công ty chế biến hàng năm 20.000-30.000 tấn thủy hải sản các loại, trong đó 60% dành cho xuất khẩu. Sản phẩm của công ty đã có mặt trên 25 quốc gia. Ngày 07/06/2019, APT chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Thực phẩm và đồ uống', 'icb_name3': 'Sản xuất thực phẩm', 'icb_name4': 'Nuôi trồng nông & hải sản', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:12:04.304+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:12:04.305+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-22T02:12:04.310+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-22T02:12:04.311+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-22T02:12:04.312+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-22T02:12:04.312+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:12:04.313+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-22T02:12:04.336+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-22T02:12:04.337+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-22T02:12:04.871+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-22T02:12:04.912+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-22T02:12:04.913+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-15/batch_47.csv
+[2026-02-22T02:12:04.913+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 19
+[2026-02-22T02:12:04.914+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.60 giây
+[2026-02-22T02:12:04.915+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:12:04.915+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-22T02:12:04.915+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 44.15 giây
+[2026-02-22T02:12:04.916+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-22T02:12:04.916+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-22T02:12:04.917+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-22T02:12:04.917+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-22T02:12:04.919+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-22T02:12:04.931+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-15T00:00:00+00:00, map_index=47, execution_date=20260215T000000, start_date=20260222T021119, end_date=20260222T021204
+[2026-02-22T02:12:04.986+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-22T02:12:05.076+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-22T02:12:05.081+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

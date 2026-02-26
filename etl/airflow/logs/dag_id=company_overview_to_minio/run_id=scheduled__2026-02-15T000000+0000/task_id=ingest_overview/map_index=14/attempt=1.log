@@ -1,0 +1,117 @@
+[2026-02-22T02:07:53.363+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-22T02:07:53.399+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=14 [queued]>
+[2026-02-22T02:07:53.419+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=14 [queued]>
+[2026-02-22T02:07:53.420+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-22T02:07:53.445+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-15 00:00:00+00:00
+[2026-02-22T02:07:53.460+0000] {warnings.py:112} WARNING - This process (pid=1005) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-22T02:07:53.463+0000] {standard_task_runner.py:64} INFO - Started process 1057 to run task
+[2026-02-22T02:07:53.465+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-15T00:00:00+00:00', '--job-id', '22751', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmp2esbg7jl', '--map-index', '14']
+[2026-02-22T02:07:53.470+0000] {standard_task_runner.py:91} INFO - Job 22751: Subtask ingest_overview
+[2026-02-22T02:07:53.546+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=14 [running]> on host 1b22f72dc705
+[2026-02-22T02:07:53.733+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-15T00:00:00+00:00'
+[2026-02-22T02:07:53.740+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-22T02:07:53.741+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-22T02:07:53.742+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-22T02:07:53.743+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-22T02:07:53.743+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-22T02:07:53.744+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-22T02:07:53.745+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-22T02:07:53.745+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-22T02:07:53.746+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-15/batch_14.csv
+[2026-02-22T02:07:53.747+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-22T02:07:53.748+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['MST', 'TVD', 'GMC', 'PVE', 'VIX', 'UMC', 'HVT', 'CKD', 'THB', 'VMG', 'BQP', 'ABS', 'MML', 'THM', 'SJS', 'BSH', 'HAR', 'ITQ', 'TV4', 'VTE']}
+[2026-02-22T02:07:53.748+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:07:53.749+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-22T02:07:53.755+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-22T02:07:53.757+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-22T02:07:53.758+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-22T02:07:53.759+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-22T02:07:53.766+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-22T02:07:53.768+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-22T02:07:53.768+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-22T02:07:53.769+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['MST', 'TVD', 'GMC', 'PVE', 'VIX', 'UMC', 'HVT', 'CKD', 'THB', 'VMG', 'BQP', 'ABS', 'MML', 'THM', 'SJS', 'BSH', 'HAR', 'ITQ', 'TV4', 'VTE']}
+[2026-02-22T02:08:06.803+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:08.073+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:09.389+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:10.665+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:11.934+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:13.204+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:14.462+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:15.662+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:16.912+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:18.162+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:19.393+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:20.657+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:21.933+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:23.223+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:24.445+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:25.727+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:26.994+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:28.234+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:29.478+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:30.749+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:08:31.766+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-22T02:08:31.766+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-22T02:08:31.767+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 20
+[2026-02-22T02:08:31.767+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-22T02:08:31.768+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-22T02:08:31.769+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-22T02:08:31.771+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-22T02:08:31.773+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-22T02:08:31.774+0000] {datalake_df2csv.py:81} INFO -     + exchange: 10
+[2026-02-22T02:08:31.774+0000] {datalake_df2csv.py:81} INFO -     + type_info: 10
+[2026-02-22T02:08:31.775+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 10
+[2026-02-22T02:08:31.775+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 10
+[2026-02-22T02:08:31.775+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-22T02:08:31.776+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'MST', 'company_profile': 'Công ty cổ phần Đầu tư MST (MST) được thành lập vào năm 2009. Công ty hoạt động chính trong lĩnh vực xây dựng, đầu tư và kinh doanh bất động sản. MST trở thành công ty đại chúng từ năm 2015. Một số công trình tiêu biểu Công ty đã tham gia thi công xây lắp: khu phức hợp công viên hải dương học và vui chơi giải trí Sầm Sơn, Tower Quy Nhơn, trung tâm thương mại - dịch vụ - logistics Nội Bài. MST được niêm yết và giao dịch trên Sở Giao dịch Chứng khoán Hà Nội (HNX) từ năm 2016.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Đầu tư MST'}
+[2026-02-22T02:08:31.777+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'TVD', 'company_profile': 'Công ty Cổ phần Than Vàng Danh  - Vinacomin (TVD), tiền thân là Mỏ than Vàng Danh được thành lập năm 1964. Năm 2008, Công ty chuyển đổi mô hình kinh doanh hoạt động là Công ty Cổ phần. Hoạt động kinh doanh chính của Công ty là: Khai thác chế biến kinh doanh than và các khoáng sản khác; Bốc xúc, than và đất đá; Chế tạo, sửa chữa, phục hồi thiết bị mỏ, phương tiện vận tải... Ngoài ra các sản phẩm dịch vụ bao gồm hoạt động xây lắp, khoáng sản, vật liệu xây dựng và các loại hình kinh doanh dịch vụ khác. Công ty là đơn vị đứng đầu Tập đoàn Công nghiệp Than Khoáng sản Việt Nam về sản lượng khai thác than hầm lò. Các đơn vị sản xuất: 28 đơn vị thuộc khối khai thác và đào lò (các phân xưởng khai thác than, đào lò), 10 đơn vị dây chuyền, mặt bằng và 1 đơn vị làm công tác phục vụ. Các phân xưởng khai thác than: Công ty có 16 phân xưởng khai thác than. Ngày 11/01/2011, TVD chính thức giao dịch trên Sở Giao dịch Chứng khoán Hà Nội (HNX).', 'icb_name2': 'Tài nguyên Cơ bản', 'icb_name3': 'Khai khoáng', 'icb_name4': 'Khai thác Than', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Than Vàng Danh - Vinacomin'}
+[2026-02-22T02:08:31.777+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'GMC', 'company_profile': 'Công ty Cổ phần GARMEX Sài Gòn (GMC) tiền thân là Liên hiệp Xí nghiệp May Thành phố Hồ Chí Minh được thành lập vào năm 1976. GMC chính thức chuyển sang hoạt động theo mô hình công ty cổ phần từ năm 2004. Hoạt động kinh doanh chính của Công ty là sản xuất và xuất khẩu quần áo cao cấp theo market có sẵn. Hiện công ty đang vận hàng 5 nhà máy sản xuất với 70 dây chuyền sản xuất, tổng diện tích hơn 10ha. Sản phẩm chính của Công ty là Jacket, Quần áo trượt tuyết, Quần áo thể thao, Quần tây, áo phông, áo Polo, Pullover, Quần áo thể thao may bằng vải dệt kim-dệt thoi được ủy quyền sản xuất theo mẫu của các thương hiệu nổi tiếng trên thế giới như: Nike, Nautica, Haggar, JC Penny, Quechua, Champion, Elleses, Northface, Estivo, Otto, Bon – prix, Tribord và được xuất khẩu sang Châu Âu (45%), Hoa Kỳ (35%), Nhật và các nước khác (20%). Công ty kinh doanh theo Phương thức FOB “Mua nguyên liệu – bán thành phẩm” giúp Công ty tự chủ hơn trong hoạt động kinh doanh. Ngày 12/02/2025, GMC chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Hàng cá nhân & Gia dụng', 'icb_name3': 'Hàng cá nhân', 'icb_name4': 'Hàng May mặc', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:08:31.778+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'PVE', 'company_profile': 'Tổng Công ty Tư vấn Thiết kế Dầu khí  - Công ty Cổ phần (PVE), tiền thân là Công ty tư vấn đầu tư Xây dựng Dầu khí (PVICCC), là thành viên của Tổng Công ty Dầu khí Việt Nam (Petrovietnam) được thành lập năm 1998. Năm 2005, Công ty chuyển đổi mô hình kinh doanh hoạt động là Công ty Cổ phần. Công ty hiện có các nhóm dịch vụ chính như sau: Tư vấn dự án, thiết kế, khảo sát, kiểm định và xây lắp. Trong đó doanh thu từ việc xây lắp chiếm tỷ trọng chủ yếu trong các năm qua. Về hoạt động tư vấn và thiết kế: Trong các năm qua, PVE đã thực hiện một số công trình trọng điểm của ngành dầu khí như: Đường ống Phú Mỹ  - TP.HCM, đường ống dẫn khí PM 3  - Cà Mau. Về hoạt động xây lắp công trình PVE đã tham gia thi công các công trình dầu khí như: Nhà máy Khí hóa lỏng Đồng Nai, Nhà máy xử lý khí hóa lỏng Dinh Cố GPP. PVE đã tham gia vào các dự án như nhà máy lọc dầu Dung Quát, nhà máy sản xuất Polypropat Dung Quất, đường ống khí PM3  - Cà Mau, dự án ngưng tụ Nam Côn Sơn và nhà máy phân bón Phú Mỹ.', 'icb_name2': 'Dầu khí', 'icb_name3': 'Thiết bị, Dịch vụ và Phân phối Dầu khí', 'icb_name4': 'Thiết bị và Dịch vụ Dầu khí', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:08:31.778+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'VIX', 'company_profile': 'Công ty Cổ phần Chứng khoán VIX (VIX) có tiền thân là Công ty Cổ phần Chứng khoán Vincom được thành lập vào năm 2007. Công ty chuyên cung cấp dịch vụ môi giới chứng khoán, tư vấn đầu tư tài chính, đầu tư chứng khoán và tự doanh chứng khoán. Năm 2024, Doanh thu nghiệp vụ môi giới chứng khoán có giá trị bằng 135.02 tỷ đồng, tăng 56.37% so với cùng kỳ. Nợ vay ký quỹ/Vốn chủ sở hữu ở mức 35.97%, tăng 1.96%. Lợi nhuận từ FVTPL có giá trị bằng 406.37 tỷ đồng, giảm 47.2% và đóng góp 43.31 % tổng lợi nhuận hoạt động. Lợi nhuận trước thuế có giá trị bằng 815.13 tỷ đồng, giảm 32.01%. Tỷ lệ sinh lời trên vốn chủ sở hữu (ROE) ở mức 5.33%, giảm 6.25%. VIX được niêm yết trên Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh (HOSE) từ tháng 12/2020.', 'icb_name2': 'Dịch vụ tài chính', 'icb_name3': 'Dịch vụ tài chính', 'icb_name4': 'Môi giới chứng khoán', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Chứng khoán VIX'}
+[2026-02-22T02:08:31.778+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:08:31.779+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-22T02:08:31.784+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-22T02:08:31.785+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-22T02:08:31.786+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-22T02:08:31.786+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:08:31.786+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-22T02:08:31.796+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-22T02:08:31.797+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-22T02:08:32.714+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-22T02:08:32.778+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-22T02:08:32.779+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-15/batch_14.csv
+[2026-02-22T02:08:32.779+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 20
+[2026-02-22T02:08:32.780+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.99 giây
+[2026-02-22T02:08:32.780+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:08:32.780+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-22T02:08:32.781+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 39.04 giây
+[2026-02-22T02:08:32.782+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 1 dòng/giây
+[2026-02-22T02:08:32.782+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-22T02:08:32.783+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-22T02:08:32.783+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-22T02:08:32.784+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-22T02:08:32.796+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-15T00:00:00+00:00, map_index=14, execution_date=20260215T000000, start_date=20260222T020753, end_date=20260222T020832
+[2026-02-22T02:08:33.057+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-22T02:08:33.097+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-22T02:08:33.101+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,106 +1,115 @@
-# Kafka Real-time Stock Data Streaming System
+# Real-time Stock Data Streaming với Apache Kafka
 
-Hệ thống streaming dữ liệu chứng khoán real-time sử dụng Apache Kafka để thu thập và xử lý dữ liệu từ WebSocket Simplize.
+Hệ thống streaming dữ liệu chứng khoán real-time sử dụng Apache Kafka để thu thập và xử lý dữ liệu từ WebSocket Simplize, sau đó lưu trữ kết quả thẳng vào PostgreSQL.
 
 ## 📋 Mục lục
 
-- [Kiến trúc hệ thống](#kiến-trúc-hệ-thống)
-- [Cài đặt](#cài-đặt)
-- [Cấu hình](#cấu-hình)
-- [Sử dụng](#sử-dụng)
-- [Monitoring](#monitoring)
-- [Troubleshooting](#troubleshooting)
+- [Kiến trúc và Luồng dữ liệu](#kiến-trúc-và-luồng-dữ-liệu)
+- [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+- [Cài đặt và Cấu hình](#cài-đặt-và-cấu-hình)
+- [Hướng dẫn sử dụng (Quick Start)](#hướng-dẫn-sử-dụng-quick-start)
+- [Cấu trúc Message](#cấu-trúc-message)
+- [Monitoring & Troubleshooting](#monitoring--troubleshooting)
 
-## 🏗️ Kiến trúc hệ thống
+---
 
+## 🏗️ Kiến trúc và Luồng dữ liệu (Data Flow)
+
+Hệ thống được thiết kế theo mô hình **Producer - Message Broker - Consumer**, chi tiết hoạt động với 2 chế độ (Modes):
+
+### Sơ đồ luồng dữ liệu
+
+```text
+┌─────────────────────┐
+│  DEMO MODE          │
+│  kafka_producer_    │
+│  fake.py            │──┐
+└─────────────────────┘  │
+                         │
+┌─────────────────────┐  │      ┌──────────────┐
+│  PRODUCTION MODE    │  │      │  Kafka       │
+│  kafka_producer.py  │──┼─────▶│  Topic:      │
+│  (Simplize WS)      │  │      │  stock-      │
+└─────────────────────┘  │      │  quotes      │
+                         │      └──────┬───────┘
+                         │             │
+                                       ▼
+                              ┌────────────────┐
+                              │ Kafka Consumer │
+                              │ kafka_         │
+                              │ consumer_db.py │
+                              └────────┬───────┘
+                                       │
+                                       ▼
+                              ┌────────────────┐
+                              │  PostgreSQL    │
+                              │  realtime_     │
+                              │  quotes        │
+                              └────────────────┘
 ```
-┌─────────────────┐
-│ Simplize        │
-│ WebSocket       │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Kafka Producer  │
-│ (Python)        │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Kafka Broker    │
-│ (Docker)        │
-└────────┬────────┘
-         │
-    ┌────┴────┐
-    ▼         ▼
-┌────────┐ ┌────────┐
-│ Topic: │ │ Topic: │
-│ quotes │ │candles │
-└───┬────┘ └───┬────┘
-    │          │
-    └────┬─────┘
-         ▼
-┌─────────────────┐
-│ Kafka Consumer  │
-│ (Python)        │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ PostgreSQL      │
-│ Database        │
-└─────────────────┘
-```
+
+### Giải thích chi tiết luồng xử lý:
+
+1. **Nguồn cấp dữ liệu (Producers)**
+   - **Production Mode (`kafka_producer.py`)**: Giao tiếp trực tiếp với Simplize WebSocket để lắng nghe sự thay đổi giá cổ phiếu (quotes), khối lượng, bid/ask theo thời gian thực. Sau đó, ứng dụng sẽ format dữ liệu thành chuẩn JSON và publish (đẩy) liên tục vào topic Kafka. (Lưu ý mode này chỉ có dữ liệu trong giờ giao dịch 9:00 - 15:00, T2-T6).
+   - **Demo Mode (`kafka_producer_fake.py`)**: Sinh ra dữ liệu ngẫu nhiên (fake quotes) để phục vụ cho việc test logic hệ thống và development mà không cần đợi giờ giao dịch thực tế. Dữ liệu giả lập cũng được đẩy vào topic Kafka tương tự như hàng thật.
+
+2. **Message Broker (Apache Kafka cluster)**
+   - Đóng vai trò là ống dẫn và bộ đệm (buffer) ở giữa. Nhận message từ cả 2 loại Producer phía trên.
+   - Dữ liệu được tổ chức theo các **Topics**:
+     - `stock-quotes`: Chứa dữ liệu giá chứng khoán realtime (Tick data).
+     - `stock-candles`: Chứa dữ liệu nến 1 phút (ví dụ OHLCV).
+   - Kafka đảm bảo tính bền vững (persistence), khả năng chống lỗi, chia partition để tăng tốc độ xử lý song song, cũng như cho phép nhiều Consumers khác nhau lấy cùng một luồng dữ liệu mà không ảnh hưởng tới luồng gửi của Producer (Decoupling). Dữ liệu sau khi xử lý hay lưu trữ vẫn có thể xem lại trong hạn mức lưu trữ (retention policy).
+
+3. **Tiêu thụ dữ liệu (Consumer)**
+   - **Kafka Consumer (`kafka_consumer_db.py`)**: Liên tục subscribe (hiện diện/lắng nghe) vào topic `stock-quotes` và `stock-candles` thông qua một consumer group (`stock-data-consumer-group`).
+   - Ngay khi có message mới đến, consumer sẽ liên tục thực hiện:
+     - Đọc data thô, Deserialize file JSON ra Dictionary/Object.
+     - Tập hợp các objects lại tạo thành một batch dữ liệu (tối ưu hóa lượt I/O gọi xuống Database).
+     - Kết nối tới PostgreSQL bằng Database Connection Pool.
+     - Đẩy nguyên lô (batch insert/upsert) để lưu trữ hiệu quả dữ liệu lịch sử vào bảng `realtime_quotes`.
+
+---
 
 ## 📁 Cấu trúc thư mục
 
-```
+```text
 kafka/
 ├── src/                          # Source code
-│   ├── producers/                # Kafka producers
+│   ├── producers/                # Đầu vào - Kafka producers (Data Ingestion)
 │   │   ├── kafka_producer.py     # Real WebSocket producer
-│   │   └── kafka_producer_fake.py # Fake data producer  
-│   ├── consumers/                # Kafka consumers
-│   │   └── kafka_consumer_db.py  # Consumer → PostgreSQL
+│   │   └── kafka_producer_fake.py# Fake data producer  
+│   ├── consumers/                # Đầu ra - Kafka consumers 
+│   │   └── kafka_consumer_db.py  # Consumer ghi vào database PostgreSQL
 │   └── common/                   # Shared utilities
-│       └── config.py             # Configuration
-├── db/                           # Database
-│   ├── migrations/               # SQL migrations
+│       └── config.py             # File Configuration system
+├── db/                           # Database scripts
+│   ├── migrations/               # SQL schema/migrations
 │   │   └── init_realtime_quotes.sql
-│   └── scripts/                  # DB utility scripts
-│       ├── setup_db.py
-│       └── check_db.py
-├── tests/                        # Tests (future)
-├── .env                          # Environment variables
-├── docker-compose.yml            # Docker config
-├── requirements.txt              # Dependencies
-└── README.md                     # This file
+│   └── scripts/                  
+├── tests/                        # Source tests 
+├── .env                          # Biến môi trường
+├── docker-compose.yml            # Docker Config cho Kafka broker & UI tool
+└── requirements.txt              # Thư viện Python yêu cầu
 ```
 
-## 📦 Cài đặt
+---
 
-### 1. Cài đặt Docker Desktop
+## ⚙️ Cài đặt và Cấu hình
 
-Tải và cài đặt Docker Desktop từ: https://www.docker.com/products/docker-desktop
-
-### 2. Clone hoặc tạo thư mục dự án
-
-```bash
-cd d:\project\phantich_chungkhoan\kafka
-```
-
-### 3. Cài đặt Python dependencies
+### 1. Cài đặt cơ bản
+Yêu cầu đã cài đặt **Docker Desktop** và **Python 3.8+**.
 
 ```bash
+# Di chuyển vào thư mục dự án
+cd d:\project\lakehouse_ptich_ck\kafka
+
+# Cài đặt Python dependencies
 pip install -r requirements.txt
 ```
 
-## ⚙️ Cấu hình
-
-### 1. Cấu hình môi trường
-
-Chỉnh sửa file `.env` để cấu hình các thông số:
-
+### 2. Cấu hình môi trường (.env)
+Chỉnh sửa file `.env` nếu cần thiết (host, tài khoản DB, tên topics):
 ```env
 # Kafka Configuration
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
@@ -109,251 +118,77 @@ KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 TOPIC_STOCK_QUOTES=stock-quotes
 TOPIC_STOCK_CANDLES=stock-candles
 
-# Database
+# Database Connection String
 DB_DSN=postgresql://user:password@localhost:5432/database_name
 ```
 
-### 2. Kafka Topics
+---
 
-Hệ thống sử dụng 2 topics chính:
+## 🚀 Hướng dẫn sử dụng (Quick Start)
 
-#### **stock-quotes**
-- Dữ liệu real-time về giá, khối lượng, bid/ask
-- Partition: 3
-- Retention: 7 ngày
-- Key: Symbol (mã chứng khoán)
-
-#### **stock-candles**
-- Dữ liệu nến 1 phút (OHLCV)
-- Partition: 3
-- Retention: 7 ngày
-- Key: Symbol (mã chứng khoán)
-
-## 🚀 Sử dụng
-
-### Bước 1: Khởi động Kafka Cluster
-
+### Bước 1: Setup Cơ sở dữ liệu
+Khởi tạo bảng `realtime_quotes` trên DB PostgreSQL:
 ```bash
-# Di chuyển vào thư mục kafka
-cd d:\project\phantich_chungkhoan\kafka
+psql -U postgres -d stock_database_vn -f db/migrations/init_realtime_quotes.sql
+```
 
-# Khởi động Docker containers
+### Bước 2: Khởi động hệ thống Kafka (Cluster)
+Kafka và Zookeeper sẽ được chạy bằng Docker Compose:
+```bash
+cd d:\project\lakehouse_ptich_ck\kafka
 docker-compose up -d
 
-# Kiểm tra trạng thái
+# Xác minh các container đã chạy (Status "Up")
 docker-compose ps
 ```
+Quản lý trực quan Kafka qua UI tại: **http://localhost:8081** (đôi khi port là 8080 tùy config compose).
 
-Kết quả mong đợi:
-```
-NAME         IMAGE                              STATUS
-kafka        confluentinc/cp-kafka:7.5.0       Up
-kafka-ui     provectuslabs/kafka-ui:latest     Up
-zookeeper    confluentinc/cp-zookeeper:7.5.0   Up
-```
-
-### Bước 2: Kiểm tra Kafka hoạt động
-
-Truy cập Kafka UI tại: **http://localhost:8081**
-
-Bạn sẽ thấy:
-- Kafka cluster "local"
-- Brokers đang chạy
-- Topics (nếu đã được tạo)
-
-### Bước 3: Tạo Topics (Tùy chọn)
-
-Topics sẽ được tự động tạo khi producer gửi message lần đầu. Nếu muốn tạo thủ công:
-
+### Bước 3: Chạy Kafka Consumer
+Mở một terminal chuyên dụng, chạy script consumer liên tục để ghi vào Data Warehouse:
 ```bash
-# Tạo topic stock-quotes
-docker-compose exec kafka kafka-topics --create \
-  --topic stock-quotes \
-  --bootstrap-server localhost:9092 \
-  --partitions 3 \
-  --replication-factor 1
-
-# Tạo topic stock-candles
-docker-compose exec kafka kafka-topics --create \
-  --topic stock-candles \
-  --bootstrap-server localhost:9092 \
-  --partitions 3 \
-  --replication-factor 1
-
-# Liệt kê tất cả topics
-docker-compose exec kafka kafka-topics --list \
-  --bootstrap-server localhost:9092
+cd d:\project\lakehouse_ptich_ck\kafka
+python -m src.consumers.kafka_consumer_db
 ```
+*(Nếu thành công, log sẽ báo: Lắng nghe topic thành công, khởi tạo pool thành công...)*
 
 ### Bước 4: Chạy Kafka Producer
 
-Producer sẽ kết nối WebSocket và gửi dữ liệu vào Kafka:
-
+**Tùy chọn A: DEMO MODE (Kết nối Test) - Phù hợp debug, code**
+Mở terminal tiếp theo và sinh dữ liệu giả:
 ```bash
-# Chạy real producer (từ thư mục kafka)
-python -m src.producers.kafka_producer
-
-# HOẶC chạy fake producer để test
+cd d:\project\lakehouse_ptich_ck\kafka
 python -m src.producers.kafka_producer_fake
 ```
 
-Bạn sẽ thấy log:
-```
-🔎 Loaded 2000 symbols (examples: ['AAA', 'AAM', 'AAS', ...])
-🔧 Initializing Kafka producers...
-✅ Kafka producers initialized
-✅ Connected to Simplize WebSocket
-📦 Subscribing to 2000 symbols (batch size = 500)
-📤 Sending subscription batch 1 (500 symbols)
-...
-📊 QUOTES (received 150 symbols)
-```
-
-### Bước 5: Kiểm tra dữ liệu trong Kafka
-
-#### Cách 1: Sử dụng Kafka UI
-1. Mở http://localhost:8080
-2. Click vào topic `stock-quotes` hoặc `stock-candles`
-3. Xem Messages tab
-
-#### Cách 2: Sử dụng Console Consumer
-
+**Tùy chọn B: PRODUCTION MODE (Kết nối Thật)**
+Nếu trong phiên giao dịch (sau 9h sáng), dừng producer cũ, gõ lệnh:
 ```bash
-# Xem messages từ topic stock-quotes
-docker-compose exec kafka kafka-console-consumer \
-  --bootstrap-server localhost:9092 \
-  --topic stock-quotes \
-  --from-beginning \
-  --max-messages 10
-
-# Xem messages từ topic stock-candles
-docker-compose exec kafka kafka-console-consumer \
-  --bootstrap-server localhost:9092 \
-  --topic stock-candles \
-  --from-beginning \
-  --max-messages 10
+cd d:\project\lakehouse_ptich_ck\kafka
+python -m src.producers.kafka_producer
 ```
 
-### Bước 6: Chạy Kafka Consumer (Tùy chọn)
+### Bước 5: Kiểm chứng luồng
 
-Consumer sẽ đọc dữ liệu từ Kafka và ghi vào PostgreSQL:
+Vào PgAdmin / tool DBeaver / terminal DB và chạy:
+```sql
+-- Xem record mới
+SELECT symbol, ts, last_price, total_volume 
+FROM realtime_quotes 
+ORDER BY ts DESC 
+LIMIT 10;
 
-```bash
-# Chạy consumer (từ thư mục kafka)
-python -m src.consumers.kafka_consumer_db
+-- Theo dõi độ trễ của Pipeline (Freshness)
+SELECT symbol, ts, last_price, NOW() - ts AS age
+FROM realtime_quotes 
+ORDER BY ts DESC 
+LIMIT 5;
 ```
 
-Bạn sẽ thấy log:
-```
-🔧 Initializing database connection pool...
-✅ Database pool initialized
-🔧 Initializing Kafka consumers...
-✅ Kafka consumers initialized
-📥 Consuming from topics: stock-quotes, stock-candles
-💾 realtime_quotes: inserted/updated 500 records
-💾 candles_1m: inserted/updated 200 candles
-```
+---
 
-## 📊 Monitoring
+## 📝 Cấu trúc Message tiêu chuẩn
 
-### 1. Kafka UI Dashboard
-
-Truy cập: **http://localhost:8080**
-
-Theo dõi:
-- **Brokers**: Trạng thái broker
-- **Topics**: Số lượng messages, partitions
-- **Consumers**: Consumer groups, lag
-- **Messages**: Xem nội dung messages
-
-### 2. Docker Logs
-
-```bash
-# Xem logs của Kafka broker
-docker-compose logs -f kafka
-
-# Xem logs của Zookeeper
-docker-compose logs -f zookeeper
-
-# Xem logs của Kafka UI
-docker-compose logs -f kafka-ui
-```
-
-### 3. Kafka Metrics
-
-```bash
-# Kiểm tra consumer group lag
-docker-compose exec kafka kafka-consumer-groups \
-  --bootstrap-server localhost:9092 \
-  --describe \
-  --group stock-data-consumer-group
-```
-
-## 🔧 Troubleshooting
-
-### Lỗi: "Connection refused" khi chạy producer
-
-**Nguyên nhân**: Kafka chưa khởi động hoặc chưa sẵn sàng
-
-**Giải pháp**:
-```bash
-# Kiểm tra trạng thái containers
-docker-compose ps
-
-# Khởi động lại nếu cần
-docker-compose restart kafka
-
-# Đợi Kafka sẵn sàng (khoảng 30 giây)
-docker-compose logs -f kafka | grep "started"
-```
-
-### Lỗi: "Topic not found"
-
-**Nguyên nhân**: Topic chưa được tạo
-
-**Giải pháp**:
-```bash
-# Tạo topic thủ công
-docker-compose exec kafka kafka-topics --create \
-  --topic stock-quotes \
-  --bootstrap-server localhost:9092 \
-  --partitions 3 \
-  --replication-factor 1
-```
-
-### Lỗi: Producer gửi message chậm
-
-**Nguyên nhân**: Cấu hình batch size hoặc linger.ms không tối ưu
-
-**Giải pháp**: Chỉnh sửa trong `.env`:
-```env
-PRODUCER_BATCH_SIZE=32768  # Tăng batch size
-PRODUCER_LINGER_MS=50      # Tăng linger time
-```
-
-### Lỗi: Consumer lag cao
-
-**Nguyên nhân**: Consumer xử lý chậm hơn producer
-
-**Giải pháp**:
-1. Tăng số lượng partitions
-2. Chạy nhiều consumer instances
-3. Tối ưu hóa database writes (batch size lớn hơn)
-
-### Dừng và xóa toàn bộ hệ thống
-
-```bash
-# Dừng containers
-docker-compose down
-
-# Dừng và xóa volumes (XÓA DỮ LIỆU)
-docker-compose down -v
-```
-
-## 📝 Cấu trúc dữ liệu
-
-### Quote Message Format
-
+**Ví dụ Message tại `stock-quotes` topic:**
 ```json
 {
   "symbol": "VNM",
@@ -373,33 +208,33 @@ docker-compose down -v
 }
 ```
 
-### Candle Message Format
+---
 
-```json
-{
-  "symbol": "VNM",
-  "bucket_time": "2024-01-15T14:00:00",
-  "open_price": 85000,
-  "high_price": 86000,
-  "low_price": 84500,
-  "close_price": 85500,
-  "volume": 125000
-}
+## 🔍 Monitoring & Troubleshooting
+
+### 1. Monitoring
+Truy cập giao diện Kafka trên **http://localhost:8081**. Bạn có thể nhìn thấy message đi vào Kafka Cluster.
+
+### 2. Kiểm tra độ lag dữ liệu
+Đảm bảo Consumer đọc nhanh hơn Produce bằng cách phân tích độ trễ.
+```bash
+docker exec kafka kafka-consumer-groups \
+  --bootstrap-server localhost:9092 \
+  --describe \
+  --group stock-data-consumer-group
 ```
+**Bình thường:** Cột `LAG` phải ở con số rất nhỏ (< 1000). Nếu tăng vọt, hãy nghĩ tới việc tăng memory cho Python consumer hoặc tăng chunk DB_BATCH_SIZE cấu hình.
 
-## 🎯 Lợi ích của kiến trúc Kafka
+### 3. Giải quyết sự cố thường gặp
+- **❌ Error "Connection refused" ở màn Consumer**: Kafka Broker chưa boot lên hẳn (startup mất khoảng 15~30s). Hãy `docker-compose restart kafka` và đợi.
+- **❌ Error "relation realtime_quotes does not exist"**: Consumer gọi xuống DB lỗi schema. Bạn đã quên thực thi script init ở Bước 1. 
 
-1. **Decoupling**: Producer và Consumer độc lập
-2. **Scalability**: Dễ dàng scale horizontal
-3. **Reliability**: Message persistence, không mất dữ liệu
-4. **Flexibility**: Thêm consumer mới không ảnh hưởng producer
-5. **Replay**: Có thể replay dữ liệu lịch sử
-6. **Performance**: Throughput cao, latency thấp
+### Shutdown sạch sẽ hệ thống
+Khi code xong, giải phóng Port và RAM:
+```bash
+cd d:\project\lakehouse_ptich_ck\kafka
+docker-compose down
 
-## 📞 Hỗ trợ
-
-Nếu gặp vấn đề, kiểm tra:
-1. Docker Desktop đang chạy
-2. Ports 2181, 9092, 8080 không bị chiếm
-3. File `.env` cấu hình đúng
-4. Database connection string chính xác
+# 🔥 THẬN TRỌNG: Câu lệnh này XÓA HOÀN TOÀN TOPICS VÀ DỮ LIỆU BÊN TRONG KAFKA.
+docker-compose down -v
+```

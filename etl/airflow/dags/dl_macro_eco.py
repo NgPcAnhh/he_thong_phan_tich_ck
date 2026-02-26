@@ -16,7 +16,7 @@ MINIO_CONN_ID = "minio_finance"
 
 
 @dag(
-    dag_id="macro_eco_minio",
+    dag_id="macro_eco",
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
     schedule_interval="@daily",

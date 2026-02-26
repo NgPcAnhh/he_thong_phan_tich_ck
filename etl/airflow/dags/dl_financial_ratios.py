@@ -16,7 +16,7 @@ MINIO_CONN_ID = "minio_finance"
 
 
 @dag(
-    dag_id="financial_ratios_minio",
+    dag_id="financial_ratios",
     default_args=default_args,
     start_date=datetime(2026, 1, 1),
     schedule_interval="0 2 * * 0",  # 02:00 every Sunday (weekly update)

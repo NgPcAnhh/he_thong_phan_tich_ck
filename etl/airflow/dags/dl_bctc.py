@@ -1,96 +1,95 @@
 from datetime import datetime, timedelta
-import logging
+import math
 
 from airflow.decorators import dag, task
 from airflow.models.baseoperator import chain
-from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+from airflow.models.param import Param
 
 from function.datalake_df2csv import DfToCsvOperator
+
+
+def _current_quarter() -> int:
+    """Trả về quý hiện tại (1-4) dựa trên tháng UTC."""
+    return math.ceil(datetime.utcnow().month / 3)
 
 # Config chung
 default_args = {
     'owner': 'airflow',
-    'retries': 1,
-    'retry_delay': timedelta(minutes=5),
+    'retries': 3,
+    'retry_delay': timedelta(minutes=2),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
 MINIO_CONN_ID = "minio_finance"
 
 @dag(
-    dag_id='bctc_minio',
+    dag_id='bctc',
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
-    schedule_interval='@weekly',
+    schedule='@weekly',
     catchup=False,
-    params={"year": datetime.utcnow().year},
+    max_active_runs=1,           # Chỉ 1 DAG run cùng lúc
+    params={
+        "year": Param(
+            default=datetime.utcnow().year,
+            type="integer",
+            minimum=2020,
+            maximum=2030,
+            description="Năm báo cáo tài chính cần lấy",
+        ),
+        "quarter": Param(
+            default=_current_quarter(),
+            type="integer",
+            enum=[1, 2, 3, 4],
+            description="Quý cần lấy (1-4). Mặc định = quý hiện tại",
+        ),
+    },
     tags=['vnstock', 'finance']
 )
 def stock_dag():
 
     @task
-    def log_batches_info(batches: list[dict]):
-        logger = logging.getLogger("airflow.task")
-        logger.info("BCTC run bắt đầu với %d batch", len(batches))
-        for idx, batch in enumerate(batches):
-            logger.info("Batch %d chứa %d mã: %s", idx, len(batch.get("symbols", [])), batch.get("symbols", []))
-        return batches
-
-    @task
-    def attach_current_year(batches: list[dict], current_year: str):
-        logger = logging.getLogger("airflow.task")
-        logger.info("Áp dụng current_year=%s cho mọi batch", current_year)
-        enriched = []
-        for batch in batches:
-            merged = {**batch, "current_year": current_year}
-            enriched.append(merged)
-        return enriched
-
-    # 1. Task lấy danh sách mã (chia thành các batch, mỗi batch 20 mã)
-    @task
-    def get_batches():
+    def get_batches(**context):
+        """
+        Chia danh sách mã (HOSE + HNX, bỏ UPCOM) thành batch 20 mã.
+        Mỗi batch là 1 Airflow task, chạy TUẦN TỰ (max_active_tis=1).
+        """
         from logic.list_macp import get_ticker_batches
-        batches = [{"symbols": batch} for batch in get_ticker_batches(batch_size=20)]
+
+        params = context["params"]
+        year = params.get("year", datetime.utcnow().year)
+        quarter = params.get("quarter", _current_quarter())
+
+        print(f"[BCTC] Lấy BCTC năm {year}, quý {quarter}")
+
+        batches = [
+            {
+                "symbols": batch,
+                "current_year": str(year),
+                "current_quarter": str(quarter),
+            }
+            for batch in get_ticker_batches(batch_size=20, exclude_upcom=True)
+        ]
+
         print(f"[BCTC] Tổng số batches: {len(batches)}")
         return batches
-    batches = get_batches()
-    batches_logged = log_batches_info(batches)
-    batches_with_year = attach_current_year(batches_logged, current_year="{{ dag_run.conf.get('year', params.year) }}")
 
-    # 2. Dynamic Task: Map qua danh sách batches để lấy BCTC
+    batches = get_batches()
+
+    # SEQUENTIAL: chỉ 1 batch chạy tại 1 thời điểm
+    # Trong mỗi batch: 20 mã × 3 calls × 3.2s ≈ 3 phút
+    # Rate: ~19 req/phút (dưới giới hạn 20)
     ingest_bctc = DfToCsvOperator.partial(
         task_id="ingest_bctc",
         logic_file="bctc",
-        df_name="get_financial_reports", 
+        df_name="get_financial_reports",
         bucket_name=MINIO_BUCKET,
-        object_path="bctc/{{ ds }}/batch_{{ ti.map_index }}.csv",
+        object_path="bctc/{{ params.year }}/Q{{ params.quarter }}/batch_{{ ti.map_index }}.csv",
         conn_id=MINIO_CONN_ID,
-    ).expand(op_kwargs=batches_with_year)
+        max_active_tis_per_dagrun=1,            # CHỈ 1 BATCH TẠI 1 THỜI ĐIỂM
+        execution_timeout=timedelta(minutes=15), # 20 mã × 3 × 3.2s ≈ 3 phút (dư nhiều)
+    ).expand(op_kwargs=batches)
 
-    @task
-    def verify_upload(batches: list[dict], ds: str):
-        logger = logging.getLogger("airflow.task")
-        hook = S3Hook(aws_conn_id=MINIO_CONN_ID)
-
-        missing = []
-        for idx, _ in enumerate(batches):
-            key = f"bctc/{ds}/batch_{idx}.csv"
-            exists = hook.check_for_key(key=key, bucket_name=MINIO_BUCKET)
-            logger.info("Kiểm tra upload batch %d -> %s: %s", idx, key, "OK" if exists else "MISSING")
-            if not exists:
-                missing.append(key)
-
-        if missing:
-            logger.warning("Các file chưa thấy trên MinIO: %s", missing)
-        else:
-            logger.info("Tất cả %d file batch đã có trên MinIO bucket %s", len(batches), MINIO_BUCKET)
-
-    verify_task = verify_upload(
-        batches_with_year,
-        ds="{{ ds }}",
-    )
-
-    # Luồng chạy
-    chain(batches, batches_logged, batches_with_year, ingest_bctc, verify_task)
+    chain(batches, ingest_bctc)
 
 stock_dag()

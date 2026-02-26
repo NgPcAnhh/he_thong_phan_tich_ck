@@ -1,44 +1,60 @@
 import re
 import time
-from typing import Callable
 
 import pandas as pd
 from vnstock import Finance
 
-"""Chuyển đổi tên chỉ tiêu thành slug (viết hoa, gạch dưới)."""
+# ---------------------------------------------------------------------------
+# Nguồn duy nhất — không fallback, không retry để tránh tăng số request
+# ---------------------------------------------------------------------------
+SOURCE = "VCI"
+
+# Interval giữa mỗi API call (giây). Target: ~19 req/phút (< 20 limit)
+# Tính: 60 / 3.2 ≈ 18.75 req/phút
+CALL_INTERVAL = 3.2
+
+
 def slugify(text: str) -> str:
+    """Chuyển đổi tên chỉ tiêu thành slug (viết hoa, gạch dưới)."""
     text = re.sub(r"[^A-Za-z0-9]+", "_", str(text)).strip("_")
     return text.upper() or "UNKNOWN"
 
-"""Gọi hàm từ thư viện vnstock an toàn."""
-def _retry_call(callable_fn: Callable[[], pd.DataFrame], method: str, retries: int = 3, base_delay: float = 2.5) -> pd.DataFrame:
-    for attempt in range(retries):
-        try:
-            return callable_fn()
-        except Exception as exc:
-            msg = str(exc)
-            if "429" in msg or "Too Many Requests" in msg:
-                wait = base_delay * (attempt + 1)
-                print(f"❗ {method}: 429 Too Many Requests, retry {attempt + 1}/{retries} sau {wait:.1f}s")
-                time.sleep(wait)
-                continue
-            print(f"❌ Lỗi {method}: {exc}")
-            return pd.DataFrame()
-    return pd.DataFrame()
 
+# ---------------------------------------------------------------------------
+# Fetch 1 báo cáo cho 1 mã — GỌI ĐÚNG 1 LẦN, lỗi → bỏ qua (trả rỗng)
+# ---------------------------------------------------------------------------
+def _fetch_one_report(symbol: str, method: str) -> pd.DataFrame:
+    """Gọi Finance(symbol).{method}() đúng 1 lần duy nhất, source=VCI.
 
-def fetch_report(finance: Finance, method: str) -> pd.DataFrame:
-    fetcher = getattr(finance, method, None)
-    if fetcher is None:
-        print(f"⚠️ Không tìm thấy hàm {method} trong Finance")
-        return pd.DataFrame()
-
+    - Không retry, không fallback source → chỉ 1 request/report.
+    - Bắt mọi exception kể cả SystemExit (vnstock gọi sys.exit khi 429).
+    - Lỗi → print cảnh báo và trả DataFrame rỗng, bỏ qua mã đó.
+    """
     try:
-        # Thêm lang='vi' và dropna=True để lấy dữ liệu tiếng Việt, bỏ dòng null
-        return _retry_call(lambda: fetcher(period="quarter", lang='vi', dropna=True), method)
+        finance = Finance(symbol=symbol, source=SOURCE, period="quarter")
+        fetcher = getattr(finance, method, None)
+        if fetcher is None:
+            print(f"⚠️ {symbol}: Không tìm thấy hàm {method}")
+            return pd.DataFrame()
+        df = fetcher(period="quarter", lang="vi", dropna=True)
+        if df is not None and isinstance(df, pd.DataFrame) and not df.empty:
+            return df
+        return pd.DataFrame()
     except TypeError:
-        # Fallback nếu hàm không hỗ trợ các tham số này
-        return _retry_call(lambda: fetcher(), method)
+        # Fallback nếu hàm không hỗ trợ params lang/dropna
+        try:
+            df = fetcher()
+            if df is not None and isinstance(df, pd.DataFrame) and not df.empty:
+                return df
+        except Exception:
+            pass
+        return pd.DataFrame()
+    except SystemExit as exc:
+        print(f"⚠ {symbol}.{method}: SystemExit (rate-limit?): {str(exc)[:100]} → bỏ qua")
+        return pd.DataFrame()
+    except Exception as exc:
+        print(f"❌ {symbol}.{method}: {type(exc).__name__}: {exc} → bỏ qua")
+        return pd.DataFrame()
 
 
 
@@ -103,62 +119,87 @@ def transform_to_db_format(df: pd.DataFrame, report_name: str, statement_type: s
     return long_df[[c for c in final_cols if c in long_df.columns]]
 
 
-# --- Main Logic Function for Airflow ---
-def get_financial_reports(symbols: list, current_year: int | str | None = None) -> pd.DataFrame:
-    print(f"Bắt đầu xử lý batch {len(symbols)} mã: {symbols}")
-    # Format: (tên_hàm_vnstock, tên_báo_cáo_db, loại_báo_cáo_viết_tắt)
-    plan = [
-        ("income_statement", "income_statement", "IS"),
-        ("balance_sheet", "balance_sheet", "BL"),
-        ("cash_flow", "cash_flow", "CF"),
-    ]
+# ---------------------------------------------------------------------------
+# Main Logic — Sequential, 1 batch tại 1 thời điểm
+# ---------------------------------------------------------------------------
+REPORT_PLAN = [
+    ("income_statement", "income_statement", "IS"),
+    ("balance_sheet", "balance_sheet", "BL"),
+    ("cash_flow", "cash_flow", "CF"),
+]
 
+
+def get_financial_reports(
+    symbols: list,
+    current_year: int | str | None = None,
+    current_quarter: int | str | None = None,
+) -> pd.DataFrame:
+    """Fetch BCTC cho 1 batch symbols, lọc đúng 1 quý + 1 năm.
+
+    Rate-limit: sleep CALL_INTERVAL (3.2s) sau mỗi API call.
+    Chỉ 1 batch chạy tại 1 thời điểm (max_active_tis=1 ở DAG).
+    → ~19 req/phút, an toàn dưới giới hạn 20.
+    Không retry, lỗi → bỏ qua mã.
+    """
+    # Parse filters
     try:
         year_filter = int(current_year) if current_year is not None else None
     except Exception:
         year_filter = None
 
-    all_normalized_frames = []
+    try:
+        quarter_filter = int(current_quarter) if current_quarter is not None else None
+        if quarter_filter is not None and quarter_filter not in (1, 2, 3, 4):
+            print(f"⚠ quarter={quarter_filter} không hợp lệ, bỏ lọc quý.")
+            quarter_filter = None
+    except Exception:
+        quarter_filter = None
 
-    for symbol in symbols:
-        # Clean symbol input
+    print(f"[BCTC] Batch {len(symbols)} mã: {symbols}")
+    print(f"  Filter: year={year_filter}, quarter={quarter_filter}")
+    print(f"  Call interval: {CALL_INTERVAL}s (~{60/CALL_INTERVAL:.0f} req/phút)")
+
+    frames: list[pd.DataFrame] = []
+    skipped: list[str] = []
+
+    for idx, symbol in enumerate(symbols):
         symbol = str(symbol).upper().strip()
-        print(f" >> Đang lấy dữ liệu: {symbol}")
-        
-        try:
-            # Khởi tạo client cho từng mã
-            finance = Finance(symbol=symbol, source="vci", period="quarter")
-            
-            for method, report_name, stype in plan:
-                # 1. Fetch
-                raw_df = fetch_report(finance, method)
-                
-                # 2. Transform
-                if raw_df is not None and not raw_df.empty:
-                    normalized = transform_to_db_format(raw_df, report_name, stype, current_symbol=symbol)
+        print(f" >> [{idx + 1}/{len(symbols)}] {symbol}")
 
-                    if year_filter is not None:
-                        normalized = normalized[normalized["year"] == year_filter]
-                    
-                    if not normalized.empty:
-                        all_normalized_frames.append(normalized)
+        symbol_ok = True
+        for method, report_name, stype in REPORT_PLAN:
+            # Sleep TRƯỚC mỗi call (trừ call đầu tiên của batch)
+            if idx > 0 or method != REPORT_PLAN[0][0]:
+                time.sleep(CALL_INTERVAL)
 
-                # Throttle giữa các lời gọi phương pháp để tránh rate-limit
-                time.sleep(1.5)
-        
-        except Exception as e:
-            print(f" Lỗi xử lý mã {symbol}: {e}")
-            continue # Bỏ qua mã lỗi, tiếp tục mã tiếp theo
+            raw_df = _fetch_one_report(symbol, method)
 
-        # Giảm tốc giữa các mã để tránh rate limit dồn dập
-        time.sleep(2)
+            # Nếu trả về rỗng → bỏ qua mã này
+            if raw_df is None or raw_df.empty:
+                print(f"  ⚠ {symbol}.{method}: không có dữ liệu → bỏ qua mã này")
+                symbol_ok = False
+                skipped.append(symbol)
+                break
 
-    # 3. Kết hợp dữ liệu
-    if not all_normalized_frames:
-        print(" ⚠ Batch này không thu được dữ liệu nào.")
+            normalized = transform_to_db_format(
+                raw_df, report_name, stype, current_symbol=symbol,
+            )
+            # Lọc đúng 1 quý + 1 năm (check cột tồn tại tránh KeyError)
+            if year_filter is not None and "year" in normalized.columns:
+                normalized = normalized[normalized["year"] == year_filter]
+            if quarter_filter is not None and "quarter" in normalized.columns:
+                normalized = normalized[normalized["quarter"] == quarter_filter]
+
+            if not normalized.empty:
+                frames.append(normalized)
+
+    if skipped:
+        print(f"⚠ Bỏ qua {len(skipped)} mã: {skipped}")
+
+    if not frames:
+        print("⚠ Batch này không thu được dữ liệu nào.")
         return pd.DataFrame()
 
-    df_final = pd.concat(all_normalized_frames, ignore_index=True)
-    
-    print(f" ✓ Hoàn thành batch. Tổng số dòng: {len(df_final)}")
+    df_final = pd.concat(frames, ignore_index=True)
+    print(f"✓ Hoàn thành batch. Tổng số dòng: {len(df_final)}")
     return df_final

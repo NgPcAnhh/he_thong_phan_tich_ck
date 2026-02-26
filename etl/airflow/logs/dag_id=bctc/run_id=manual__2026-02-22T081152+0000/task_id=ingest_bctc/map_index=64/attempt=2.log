@@ -1,0 +1,131 @@
+[2026-02-22T08:27:31.682+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-22T08:27:31.716+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-22T08:11:52+00:00 map_index=64 [queued]>
+[2026-02-22T08:27:31.740+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-22T08:11:52+00:00 map_index=64 [queued]>
+[2026-02-22T08:27:31.740+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2026-02-22T08:27:31.764+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-02-22 08:11:52+00:00
+[2026-02-22T08:27:31.779+0000] {warnings.py:112} WARNING - This process (pid=5094) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-22T08:27:31.781+0000] {standard_task_runner.py:64} INFO - Started process 5135 to run task
+[2026-02-22T08:27:31.784+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-02-22T08:11:52+00:00', '--job-id', '25844', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmpkvkz1npf', '--map-index', '64']
+[2026-02-22T08:27:31.788+0000] {standard_task_runner.py:91} INFO - Job 25844: Subtask ingest_bctc
+[2026-02-22T08:27:31.854+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-02-22T08:11:52+00:00 map_index=64 [running]> on host 5e21db6dfc0b
+[2026-02-22T08:27:32.353+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-02-22T08:11:52+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-22T08:11:52+00:00'
+[2026-02-22T08:27:32.355+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-22T08:27:32.356+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-22T08:27:32.356+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-02-22T08:27:32.357+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-22T08:27:32.358+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-22T08:27:32.359+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-02-22T08:27:32.360+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-02-22T08:27:32.361+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-22T08:27:32.361+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2026-02-22/batch_64.csv
+[2026-02-22T08:27:32.362+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-22T08:27:32.363+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['TV4', 'VHH', 'CCP', 'JOS', 'VSH', 'HMC', 'BBH', 'DLR', 'E12', 'BLN', 'BVL', 'MBG', 'TDS', 'SAF', 'TDF', 'VVS', 'TMT', 'USC', 'SIP', 'DMS'], 'current_year': '2025'}
+[2026-02-22T08:27:32.363+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-22T08:27:32.364+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-22T08:27:32.371+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-22T08:27:32.373+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-02-22T08:27:32.374+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-22T08:27:32.376+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-02-22T08:27:32.383+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-22T08:27:32.384+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-02-22T08:27:32.385+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-22T08:27:32.385+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['TV4', 'VHH', 'CCP', 'JOS', 'VSH', 'HMC', 'BBH', 'DLR', 'E12', 'BLN', 'BVL', 'MBG', 'TDS', 'SAF', 'TDF', 'VVS', 'TMT', 'USC', 'SIP', 'DMS'], 'current_year': '2025'}
+[2026-02-22T08:27:32.386+0000] {logging_mixin.py:188} INFO - Bắt đầu xử lý batch 20 mã: ['TV4', 'VHH', 'CCP', 'JOS', 'VSH', 'HMC', 'BBH', 'DLR', 'E12', 'BLN', 'BVL', 'MBG', 'TDS', 'SAF', 'TDF', 'VVS', 'TMT', 'USC', 'SIP', 'DMS']
+[2026-02-22T08:27:32.387+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: TV4
+[2026-02-22T08:27:45.451+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: VHH
+[2026-02-22T08:27:57.897+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: CCP
+[2026-02-22T08:28:17.166+0000] {log.py:232} WARNING - 2026-02-22 08:28:17 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd839950260>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:28:17.163+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd839950260>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:28:32.573+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: JOS
+[2026-02-22T08:28:49.903+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: VSH
+[2026-02-22T08:29:02.186+0000] {logging_mixin.py:188} INFO -  >> Đang lấy dữ liệu: HMC
+[2026-02-22T08:29:04.320+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 56 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 56 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-02-22T08:29:04.325+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-22T08:29:04.329+0000] {taskinstance.py:2907} ERROR - Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 56 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 56 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.)
+[2026-02-22T08:29:04.366+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-02-22T08:11:52+00:00, map_index=64, execution_date=20260222T081152, start_date=20260222T082731, end_date=20260222T082904
+[2026-02-22T08:29:04.653+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 25844 for task ingest_bctc (Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 56 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 56 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.); 5135)
+[2026-02-22T08:29:04.787+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-22T08:29:04.981+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-22T08:29:05.028+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

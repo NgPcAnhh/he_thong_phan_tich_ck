@@ -16,7 +16,7 @@ MINIO_CONN_ID = "minio_finance"
 
 
 @dag(
-    dag_id="daily_price_minio",
+    dag_id="daily_price",
     default_args=default_args,
     start_date=datetime(2026, 1, 1),
     schedule_interval="0 16 * * 1-5",  # 16:00 từ thứ 2-6 (sau giờ đóng cửa thị trường)

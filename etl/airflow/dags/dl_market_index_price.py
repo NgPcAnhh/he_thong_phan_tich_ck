@@ -18,7 +18,7 @@ MINIO_OBJECT_TEMPLATE = "index_price/{{ ds }}/index_price_{{ ts_nodash }}.csv"
 
 
 @dag(
-    dag_id="market_minio",
+    dag_id="market_index_price",
     default_args=DEFAULT_ARGS,
     start_date=datetime(2026, 1, 1),
     schedule_interval="0 15 * * 1-5",  # chạy 1 lần/ngày lúc 15:00 từ thứ 2-6

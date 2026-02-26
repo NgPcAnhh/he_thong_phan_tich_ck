@@ -23,7 +23,7 @@ def sync_news_to_db(
     ds: Optional[str] = None,
     minio_conn_id: str = "minio_finance",
     folder_prefix: str = "news/",
-    table: str = "new_v1"
+    table: str = "news"
 ) -> str:
 
     logger.info("START SYNC NEWS")

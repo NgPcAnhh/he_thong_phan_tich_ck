@@ -1,0 +1,56 @@
+[2026-02-22T08:09:44.407+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-22T08:09:44.440+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-02-15T02:00:00+00:00 map_index=43 [queued]>
+[2026-02-22T08:09:44.458+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-02-15T02:00:00+00:00 map_index=43 [queued]>
+[2026-02-22T08:09:44.459+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-22T08:09:44.484+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-02-15 02:00:00+00:00
+[2026-02-22T08:09:44.496+0000] {warnings.py:112} WARNING - This process (pid=705) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-22T08:09:44.500+0000] {standard_task_runner.py:64} INFO - Started process 722 to run task
+[2026-02-22T08:09:44.503+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios', 'ingest_financial_ratios', 'scheduled__2026-02-15T02:00:00+00:00', '--job-id', '25429', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmpbar5cqea', '--map-index', '43']
+[2026-02-22T08:09:44.509+0000] {standard_task_runner.py:91} INFO - Job 25429: Subtask ingest_financial_ratios
+[2026-02-22T08:09:44.602+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-02-15T02:00:00+00:00 map_index=43 [running]> on host 5e21db6dfc0b
+[2026-02-22T08:09:45.117+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-02-15T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-15T02:00:00+00:00'
+[2026-02-22T08:09:45.119+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-22T08:09:45.119+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-22T08:09:45.120+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_financial_ratios
+[2026-02-22T08:09:45.120+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-22T08:09:45.121+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-22T08:09:45.121+0000] {datalake_df2csv.py:44} INFO -   - Logic file: financial_ratios
+[2026-02-22T08:09:45.121+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_ratios_batch
+[2026-02-22T08:09:45.122+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-22T08:09:45.122+0000] {datalake_df2csv.py:47} INFO -   - Object path: financial_ratios/2026-02-15/batch_43.csv
+[2026-02-22T08:09:45.123+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-22T08:09:45.123+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['VCM', 'CCP'], 'period': 'quarter'}
+[2026-02-22T08:09:45.124+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-22T08:09:45.124+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-22T08:09:45.128+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-22T08:09:45.130+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/financial_ratios.py
+[2026-02-22T08:09:45.130+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-22T08:09:45.133+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'financial_ratios'...
+[2026-02-22T08:09:45.138+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-22T08:09:45.140+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_ratios_batch'...
+[2026-02-22T08:09:45.142+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-22T08:09:45.143+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['VCM', 'CCP'], 'period': 'quarter'}
+[2026-02-22T08:09:45.144+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['VCM', 'CCP']
+[2026-02-22T08:09:45.144+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-02-22T08:09:45.145+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: VCM
+[2026-02-22T08:09:55.773+0000] {log.py:232} WARNING - 2026-02-22 08:09:55 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd840ee0ef0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:09:55.769+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd840ee0ef0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:09:55.777+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã VCM: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd840ee0ef0>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:09:55.778+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: CCP
+[2026-02-22T08:10:06.282+0000] {log.py:232} WARNING - 2026-02-22 08:10:06 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd839a30d70>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:10:06.237+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd839a30d70>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:10:10.060+0000] {logging_mixin.py:188} INFO -  ❌ [RATIO] Lỗi xử lý mã CCP: API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7fd839a30d70>: Failed to resolve 'trading.vietcap.com.vn' ([Errno -3] Temporary failure in name resolution)"))
+[2026-02-22T08:10:17.699+0000] {logging_mixin.py:188} INFO -  ⚠ [RATIO] Batch này không thu được dữ liệu nào.
+[2026-02-22T08:10:23.217+0000] {datalake_df2csv.py:58} WARNING - ⚠️  DataFrame rỗng hoặc None
+[2026-02-22T08:10:23.218+0000] {datalake_df2csv.py:59} INFO - 📊 Thông tin DataFrame:
+[2026-02-22T08:10:23.219+0000] {datalake_df2csv.py:60} INFO -   - Số dòng: 0
+[2026-02-22T08:10:23.219+0000] {datalake_df2csv.py:61} INFO -   - Kết luận: Bỏ qua upload CSV
+[2026-02-22T08:10:23.219+0000] {datalake_df2csv.py:62} INFO - ================================================================================
+[2026-02-22T08:10:23.220+0000] {datalake_df2csv.py:63} INFO - ✅ KẾT THÚC TASK (không có dữ liệu): ingest_financial_ratios
+[2026-02-22T08:10:23.221+0000] {datalake_df2csv.py:64} INFO - ================================================================================
+[2026-02-22T08:10:23.221+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-22T08:10:28.281+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios, task_id=ingest_financial_ratios, run_id=scheduled__2026-02-15T02:00:00+00:00, map_index=43, execution_date=20260215T020000, start_date=20260222T080944, end_date=20260222T081028
+[2026-02-22T08:10:28.387+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-22T08:10:28.415+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-22T08:10:28.421+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

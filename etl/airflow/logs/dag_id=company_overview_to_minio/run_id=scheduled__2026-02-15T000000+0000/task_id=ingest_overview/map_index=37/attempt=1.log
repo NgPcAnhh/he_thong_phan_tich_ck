@@ -1,0 +1,117 @@
+[2026-02-22T02:10:11.407+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-22T02:10:11.451+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=37 [queued]>
+[2026-02-22T02:10:11.470+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=37 [queued]>
+[2026-02-22T02:10:11.471+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-22T02:10:11.496+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_overview> on 2026-02-15 00:00:00+00:00
+[2026-02-22T02:10:11.510+0000] {warnings.py:112} WARNING - This process (pid=1807) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-22T02:10:11.512+0000] {standard_task_runner.py:64} INFO - Started process 1835 to run task
+[2026-02-22T02:10:11.516+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_overview_to_minio', 'ingest_overview', 'scheduled__2026-02-15T00:00:00+00:00', '--job-id', '22820', '--raw', '--subdir', 'DAGS_FOLDER/dl_overview.py', '--cfg-path', '/tmp/tmp67cv5ykl', '--map-index', '37']
+[2026-02-22T02:10:11.520+0000] {standard_task_runner.py:91} INFO - Job 22820: Subtask ingest_overview
+[2026-02-22T02:10:11.595+0000] {task_command.py:426} INFO - Running <TaskInstance: company_overview_to_minio.ingest_overview scheduled__2026-02-15T00:00:00+00:00 map_index=37 [running]> on host 1b22f72dc705
+[2026-02-22T02:10:11.757+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_overview_to_minio' AIRFLOW_CTX_TASK_ID='ingest_overview' AIRFLOW_CTX_EXECUTION_DATE='2026-02-15T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-02-15T00:00:00+00:00'
+[2026-02-22T02:10:11.759+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-22T02:10:11.760+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-22T02:10:11.761+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_overview
+[2026-02-22T02:10:11.761+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-22T02:10:11.762+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-22T02:10:11.762+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-22T02:10:11.763+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_overview_batch
+[2026-02-22T02:10:11.763+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-22T02:10:11.763+0000] {datalake_df2csv.py:47} INFO -   - Object path: overview/2026-02-15/batch_37.csv
+[2026-02-22T02:10:11.764+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-22T02:10:11.765+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['IPA', 'DTC', 'TCT', 'PSB', 'GHC', 'PNJ', 'VXP', 'PVX', 'VAV', 'PBC', 'IBD', 'GMH', 'NHC', 'DC4', 'THP', 'IN4', 'NHH', 'GIL', 'DID', 'E29']}
+[2026-02-22T02:10:11.765+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:10:11.766+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-22T02:10:11.770+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-22T02:10:11.771+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-22T02:10:11.772+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-22T02:10:11.774+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-22T02:10:11.780+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-22T02:10:11.781+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_overview_batch'...
+[2026-02-22T02:10:11.783+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-22T02:10:11.784+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['IPA', 'DTC', 'TCT', 'PSB', 'GHC', 'PNJ', 'VXP', 'PVX', 'VAV', 'PBC', 'IBD', 'GMH', 'NHC', 'DC4', 'THP', 'IN4', 'NHH', 'GIL', 'DID', 'E29']}
+[2026-02-22T02:10:16.674+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:17.955+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:19.270+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:20.513+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:21.899+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:23.220+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:24.487+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:25.755+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:27.022+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:28.305+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:39.640+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:40.966+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:42.397+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:43.665+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:44.988+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:46.230+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:47.475+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:48.748+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:50.041+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:51.336+0000] {warnings.py:112} WARNING - DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+
+[2026-02-22T02:10:52.373+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-22T02:10:52.380+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-22T02:10:52.380+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 20
+[2026-02-22T02:10:52.382+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-22T02:10:52.383+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['symbol', 'company_profile', 'icb_name2', 'icb_name3', 'icb_name4', 'exchange', 'type_info', 'organ_short_name', 'organ_name']
+[2026-02-22T02:10:52.384+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'symbol': 'object', 'company_profile': 'object', 'icb_name2': 'object', 'icb_name3': 'object', 'icb_name4': 'object', 'exchange': 'object', 'type_info': 'object', 'organ_short_name': 'object', 'organ_name': 'object'}
+[2026-02-22T02:10:52.388+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.04 MB
+[2026-02-22T02:10:52.391+0000] {datalake_df2csv.py:79} INFO -   - Số giá trị NULL:
+[2026-02-22T02:10:52.392+0000] {datalake_df2csv.py:81} INFO -     + exchange: 11
+[2026-02-22T02:10:52.392+0000] {datalake_df2csv.py:81} INFO -     + type_info: 11
+[2026-02-22T02:10:52.393+0000] {datalake_df2csv.py:81} INFO -     + organ_short_name: 11
+[2026-02-22T02:10:52.393+0000] {datalake_df2csv.py:81} INFO -     + organ_name: 11
+[2026-02-22T02:10:52.394+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-22T02:10:52.395+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'symbol': 'IPA', 'company_profile': 'Công ty Cổ phần Tập đoàn Đầu tư I.P.A (IPA), tiền thân là Công ty TNHH Đầu tư và Tài chính IPA, được thành lập năm 1998. Năm 2007, Cổ phần hóa và đổi tên thành Công ty Cổ phần Tập đoàn Đầu tư IPA Công ty hoạt động chính trong 2 lĩnh vực: (i) Dịch vụ tài chính cá nhân và (ii) Bán điện thương phẩm. Một trong những công ty thành viên tiêu biểu có thể kể đến Công ty CP Chứng khoán VNDIRECT,công ty chứng khoán bán lẻ thuộc top 4 hàng đầu Việt Nam hoạt động trong lĩnh vực dịch vụ tài chính. Trong lĩnh vực điện thương phẩm, IPA sở hữu nhà máy thủy điện Nậm Phàng với công suất 36MW tại tỉnh Lào Cai. Hàng năm thủy điện Nậm Phàng hòa vào lưới điện quốc gia với công suất bình quân 146 triệu KWh/năm. Ngoài 2 ngành kinh doanh chính, Công ty hiện đang đầu tư vào các lĩnh vực: phát triển bất động sản, cung cấp giải pháp công nghệ và chế biến, khai thác khoáng sản. Năm 2021, IPA chính thức được niêm yết tại Sở Giao dịch Chứng khoán Hà Nội (HNX).', 'icb_name2': 'Hàng & Dịch vụ Công nghiệp', 'icb_name3': 'Tư vấn & Hỗ trợ Kinh doanh', 'icb_name4': 'Tư vấn & Hỗ trợ KD', 'exchange': 'HNX', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Tập đoàn Đầu tư I.P.A'}
+[2026-02-22T02:10:52.396+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'symbol': 'DTC', 'company_profile': 'Công ty cổ phần Đông Triều Viglacera (DTC) là đơn vị thuộc Tổng công ty Viglacera chuyên sản xuất và kinh doanh vật liệu xây dựng hàng đầu Việt Nam với nhãn hiệu thương mại VIGLACERA. Các sản phẩm của công ty được sản xuất trên dây chuyền thiết bị hiện đại gồm một hệ thống chế biến tạo hình Tiệp khắc, Ucraina  - Italia và hệ thống lò sấy nung Tuynel với tổng công suất là 100 triệu viên QTC/năm. Hiện nay Công ty đã có ba nhà máy sản xuất vật liệu xây dựng chuyên sản xuất các sản phẩm chính bao gồm các loại gạch xây 2 lỗ, 6 lỗ, gạch nem tách 200, 250, 300, các loại ngói lợp, ngói mũi hài, ngói sò… Thị trường tiêu thụ là chính của công ty bao gồm Quảng Ninh, Hải Phòng, Hải Dương, Hà Nội, Bắc Ninh, Bắc Giang, Thái Bình, Nam Định, Ninh Bình. Bên cạnh lĩnh vực sản xuất kinh doanh vật liệu xây dựng, công ty còn thành lập các xí nghiệp trực thuộc về xây dựng công trình công nghịêp dân dụng, kinh doanh dịch vụ. Ngày 04/04/2025, DTC chính thức giao dịch trên thị trường UPCOM.', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Vật liệu xây dựng & Nội thất', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:10:52.397+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'symbol': 'TCT', 'company_profile': 'Công ty Cổ phần Cáp treo Núi Bà Tây Ninh (TCT) có tiền thân là bộ phận Cáp treo được thành lập vào năm 1998. Năm 2001 chuyển sang hoạt động theo mô hình cổ phần.Công ty chiếm vị thế độc quyền trong kinh doanh vận chuyển cáp treo, máng trượt và các dịch vụ vui chơi giải trí khác tại khu du lịch Núi Bà được áp dụng lần đầu tiên tại Việt Nam. Thị trường của Công ty rất lớn do tính chất đặc thù của du lịch tín ngưỡng là lượng khách rất ổn định và ngày càng có xu hướng tăng lên. Công ty hiện có Hệ thống Cáp treo được đầu tư theo công nghệ Châu Âu với 46 cabin chở khách (8 người lớn/cabin), tổng công suất thiết kế 2.400 người/giờ. Năm 2016, TCT niêm yết trên Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh (HOSE).', 'icb_name2': 'Du lịch và Giải trí', 'icb_name3': 'Du lịch & Giải trí', 'icb_name4': 'Vận tải hành khách & Du lịch', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Cáp treo Núi Bà Tây Ninh'}
+[2026-02-22T02:10:52.398+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'symbol': 'PSB', 'company_profile': 'Công ty Cổ phần Đầu tư Dầu khí Sao Mai Bến Đình (PSB) là thành viên của Tập đoàn Dầu khí Việt Nam được thành lập năm 2007 để thực hiện dự án xây dựng và phát triển tổ hợp cảng  - dịch vụ dầu khí hoàn thiện, hiện đại trong khu vực. Từ năm 2009, công ty bắt đầu các hoạt động kinh doanh chính là xây dựng các công trình phục vụ ngành dầu khí, mua bán máy móc, thiết bị phục vụ ngành dầu khí và hàng hải. Công ty đã và đang thực hiện nhiều dự án lớn trong và ngoài nước như: Xây dựng nhà máy sản xuất cấu kiện bê tông công nghệ cao (7,06 tỷ đồng); Xây dựng mới giàn khoan tự nâng 90m nước (12,24 tỷ đồng); Tam Đảo 01 (19,16 tỷ đồng); Dự án HRD (11,67 tỷ đồng)...', 'icb_name2': 'Xây dựng và Vật liệu', 'icb_name3': 'Xây dựng và Vật liệu', 'icb_name4': 'Xây dựng', 'exchange': nan, 'type_info': nan, 'organ_short_name': nan, 'organ_name': nan}
+[2026-02-22T02:10:52.399+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'symbol': 'GHC', 'company_profile': 'Công ty Cổ phần Thủy điện Gia Lai (GHC) tiền thân là Công ty TNHH Đầu tư và Phát triển Điện Gia Lai được thành lập năm 2002. Hoạt động kinh doanh chính của Công ty là đầu tư xây dựng các dự án thủy điện vừa và nhỏ theo hình thức BOO (Đầu tư xây dựng  - Sở hữu  - Vận hành kinh doanh). GHC Sở hữu 2 nhà máy thủy điện với tổng công suất 28,2MW, 1 nhà máy năng lượng mặt trời với công suất 49MWp. Hiện nay số lượng các nhà máy thủy điện vừa và nhỏ trong khu vực Tây Nguyên ngày càng tăng (Tây Nguyên là trung tâm thủy điện lớn nhất nước với công suất thiết kế ước tính 5000 MW, chiếm 1/3 tổng công suất hiện có của hệ thống điện quốc gia). Ngày 30/01/2026, GHC chính thức giao dịch trên Sở giao dịch Chứng khoán Thành phố Hồ Chí Minh (HOSE).', 'icb_name2': 'Điện, nước & xăng dầu khí đốt', 'icb_name3': 'Sản xuất & Phân phối Điện', 'icb_name4': 'Sản xuất & Phân phối Điện', 'exchange': 'HOSE', 'type_info': '', 'organ_short_name': '', 'organ_name': 'CTCP Thủy điện Gia Lai'}
+[2026-02-22T02:10:52.399+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:10:52.400+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-22T02:10:52.412+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-22T02:10:52.414+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.02 MB
+[2026-02-22T02:10:52.415+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-02-22T02:10:52.416+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:10:52.416+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-22T02:10:56.840+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-22T02:10:56.844+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-22T02:10:58.393+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-22T02:10:58.469+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-22T02:10:58.470+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/overview/2026-02-15/batch_37.csv
+[2026-02-22T02:10:58.471+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 20
+[2026-02-22T02:10:58.471+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 6.05 giây
+[2026-02-22T02:10:58.472+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-22T02:10:58.472+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-22T02:10:58.473+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 46.71 giây
+[2026-02-22T02:10:58.473+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-02-22T02:10:58.473+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-22T02:10:58.474+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_overview
+[2026-02-22T02:10:58.474+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-22T02:10:58.476+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-22T02:10:58.490+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=company_overview_to_minio, task_id=ingest_overview, run_id=scheduled__2026-02-15T00:00:00+00:00, map_index=37, execution_date=20260215T000000, start_date=20260222T021011, end_date=20260222T021058
+[2026-02-22T02:10:58.801+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-22T02:10:58.871+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-22T02:10:58.875+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
