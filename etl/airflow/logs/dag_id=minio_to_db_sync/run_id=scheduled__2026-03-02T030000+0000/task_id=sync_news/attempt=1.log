@@ -1,0 +1,38 @@
+[2026-03-03T03:00:12.512+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-03T03:00:12.540+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_news scheduled__2026-03-02T03:00:00+00:00 [queued]>
+[2026-03-03T03:00:12.554+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: minio_to_db_sync.sync_news scheduled__2026-03-02T03:00:00+00:00 [queued]>
+[2026-03-03T03:00:12.555+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-03-03T03:00:12.578+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): sync_news> on 2026-03-02 03:00:00+00:00
+[2026-03-03T03:00:12.607+0000] {warnings.py:112} WARNING - This process (pid=4756) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-03-03T03:00:12.610+0000] {standard_task_runner.py:64} INFO - Started process 4779 to run task
+[2026-03-03T03:00:12.623+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'minio_to_db_sync', 'sync_news', 'scheduled__2026-03-02T03:00:00+00:00', '--job-id', '30260', '--raw', '--subdir', 'DAGS_FOLDER/minio_to_db_sync.py', '--cfg-path', '/tmp/tmpqlpuiocj']
+[2026-03-03T03:00:12.629+0000] {standard_task_runner.py:91} INFO - Job 30260: Subtask sync_news
+[2026-03-03T03:00:12.776+0000] {task_command.py:426} INFO - Running <TaskInstance: minio_to_db_sync.sync_news scheduled__2026-03-02T03:00:00+00:00 [running]> on host 9d2419bb4975
+[2026-03-03T03:00:12.975+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='minio_to_db_sync' AIRFLOW_CTX_TASK_ID='sync_news' AIRFLOW_CTX_EXECUTION_DATE='2026-03-02T03:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-02T03:00:00+00:00'
+[2026-03-03T03:00:12.977+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-03T03:00:12.990+0000] {sync_news.py:29} INFO - START SYNC NEWS
+[2026-03-03T03:00:13.006+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-03-03T03:00:13.008+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-03-03T03:00:21.548+0000] {logging_mixin.py:188} INFO - 📂 Scanning 9 objects in thongtin-congty-va-bctc/news/
+[2026-03-03T03:00:21.549+0000] {logging_mixin.py:188} INFO - 📅 Found 9 valid date partition(s): ['2026-02-20', '2026-02-21', '2026-02-22', '2026-02-24', '2026-02-25', '2026-02-26', '2026-02-27', '2026-02-28', '2026-03-01']
+[2026-03-03T03:00:21.550+0000] {logging_mixin.py:188} INFO - ✅ Latest partition selected: news/2026-03-01/
+[2026-03-03T03:00:21.551+0000] {sync_news.py:38} INFO - Using partition: news/2026-03-01/
+[2026-03-03T03:00:21.582+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-03-03T03:00:21.583+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-03-03T03:00:21.824+0000] {logging_mixin.py:188} INFO - ✓ Found 1 CSV files in thongtin-congty-va-bctc/news/2026-03-01/
+[2026-03-03T03:00:21.834+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-03-03T03:00:21.835+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-03-03T03:00:21.997+0000] {logging_mixin.py:188} INFO - ✓ Read 1 rows from news/2026-03-01/news.csv
+[2026-03-03T03:00:21.998+0000] {logging_mixin.py:188} INFO - ✓ Concatenated 1 files into 1 total rows
+[2026-03-03T03:00:21.999+0000] {sync_news.py:42} INFO - Loaded rows: 1
+[2026-03-03T03:00:22.048+0000] {sync_news.py:61} INFO - Rows after cleaning: 1
+[2026-03-03T03:00:22.105+0000] {logging_mixin.py:188} INFO - ✓ Schema hethong_phantich_chungkhoan ensured
+[2026-03-03T03:00:22.162+0000] {sync_news.py:100} INFO - Upserted rows: 1
+[2026-03-03T03:00:22.162+0000] {sync_news.py:115} INFO - END SYNC NEWS
+[2026-03-03T03:00:22.163+0000] {python.py:237} INFO - Done. Returned value was: Success: 1 rows
+[2026-03-03T03:00:22.163+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-03T03:00:22.228+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=minio_to_db_sync, task_id=sync_news, run_id=scheduled__2026-03-02T03:00:00+00:00, execution_date=20260302T030000, start_date=20260303T030012, end_date=20260303T030022
+[2026-03-03T03:00:22.290+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-03-03T03:00:22.330+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-03T03:00:22.332+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

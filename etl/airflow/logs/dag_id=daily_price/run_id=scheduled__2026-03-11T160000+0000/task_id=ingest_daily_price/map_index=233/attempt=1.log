@@ -1,0 +1,72 @@
+[2026-03-21T07:50:51.736+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-21T07:50:51.788+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-03-11T16:00:00+00:00 map_index=233 [queued]>
+[2026-03-21T07:50:51.818+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-03-11T16:00:00+00:00 map_index=233 [queued]>
+[2026-03-21T07:50:51.819+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-03-21T07:50:51.842+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-03-11 16:00:00+00:00
+[2026-03-21T07:50:51.861+0000] {warnings.py:112} WARNING - This process (pid=5911) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-03-21T07:50:51.864+0000] {standard_task_runner.py:64} INFO - Started process 5963 to run task
+[2026-03-21T07:50:51.866+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price', 'ingest_daily_price', 'scheduled__2026-03-11T16:00:00+00:00', '--job-id', '33789', '--raw', '--subdir', 'DAGS_FOLDER/dl_dailly_price.py', '--cfg-path', '/tmp/tmp6r4s6nep', '--map-index', '233']
+[2026-03-21T07:50:51.871+0000] {standard_task_runner.py:91} INFO - Job 33789: Subtask ingest_daily_price
+[2026-03-21T07:50:51.953+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price.ingest_daily_price scheduled__2026-03-11T16:00:00+00:00 map_index=233 [running]> on host f78ccc25496b
+[2026-03-21T07:50:52.503+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-03-11T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-11T16:00:00+00:00'
+[2026-03-21T07:50:52.504+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-21T07:50:52.505+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-03-21T07:50:52.505+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_daily_price
+[2026-03-21T07:50:52.506+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-03-21T07:50:52.506+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-03-21T07:50:52.507+0000] {datalake_df2csv.py:44} INFO -   - Logic file: history_price
+[2026-03-21T07:50:52.507+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_history_price_batch
+[2026-03-21T07:50:52.508+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-03-21T07:50:52.508+0000] {datalake_df2csv.py:47} INFO -   - Object path: daily_price/2026-03-11/batch_233.csv
+[2026-03-21T07:50:52.509+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-03-21T07:50:52.509+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['PHR', 'HVA', 'PPI', 'SD2', 'FPT'], 'start_date': '2026-03-11', 'end_date': '2026-03-12'}
+[2026-03-21T07:50:52.511+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-03-21T07:50:52.512+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-03-21T07:50:52.517+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-03-21T07:50:52.519+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/history_price.py
+[2026-03-21T07:50:52.520+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-03-21T07:50:52.522+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'history_price'...
+[2026-03-21T07:50:52.527+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-03-21T07:50:52.528+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_history_price_batch'...
+[2026-03-21T07:50:52.529+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-03-21T07:50:52.529+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['PHR', 'HVA', 'PPI', 'SD2', 'FPT'], 'start_date': '2026-03-11', 'end_date': '2026-03-12'}
+[2026-03-21T07:51:01.507+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-03-21T07:51:01.508+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-03-21T07:51:01.509+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 20
+[2026-03-21T07:51:01.512+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 7
+[2026-03-21T07:51:01.513+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['ticker', 'trading_date', 'open', 'high', 'low', 'close', 'volume']
+[2026-03-21T07:51:01.514+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'ticker': 'object', 'trading_date': 'object', 'open': 'float64', 'high': 'float64', 'low': 'float64', 'close': 'float64', 'volume': 'int64'}
+[2026-03-21T07:51:01.519+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.00 MB
+[2026-03-21T07:51:01.526+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-03-21T07:51:01.527+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-03-21T07:51:01.530+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'ticker': 'PHR', 'trading_date': '2026-03-10', 'open': 58.3, 'high': 59.0, 'low': 56.6, 'close': 58.2, 'volume': 506100}
+[2026-03-21T07:51:01.531+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'ticker': 'PHR', 'trading_date': '2026-03-11', 'open': 57.8, 'high': 61.0, 'low': 57.8, 'close': 60.3, 'volume': 254300}
+[2026-03-21T07:51:01.533+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'ticker': 'PHR', 'trading_date': '2026-03-12', 'open': 59.6, 'high': 62.4, 'low': 59.6, 'close': 61.5, 'volume': 460600}
+[2026-03-21T07:51:01.534+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'ticker': 'PHR', 'trading_date': '2026-03-13', 'open': 60.2, 'high': 61.9, 'low': 60.2, 'close': 61.4, 'volume': 388300}
+[2026-03-21T07:51:01.538+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'ticker': 'HVA', 'trading_date': '2026-03-10', 'open': 14.0, 'high': 14.5, 'low': 13.3, 'close': 14.4, 'volume': 30700}
+[2026-03-21T07:51:01.542+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-03-21T07:51:01.545+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-03-21T07:51:01.559+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-03-21T07:51:01.560+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.00 MB
+[2026-03-21T07:51:01.560+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-03-21T07:51:01.565+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-03-21T07:51:01.565+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-03-21T07:51:01.614+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-03-21T07:51:01.617+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-03-21T07:51:02.751+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-03-21T07:51:02.801+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-03-21T07:51:02.802+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/daily_price/2026-03-11/batch_233.csv
+[2026-03-21T07:51:02.803+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 20
+[2026-03-21T07:51:02.803+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 1.22 giây
+[2026-03-21T07:51:02.804+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-03-21T07:51:02.808+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-03-21T07:51:02.809+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 10.30 giây
+[2026-03-21T07:51:02.812+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 2 dòng/giây
+[2026-03-21T07:51:02.813+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-03-21T07:51:02.815+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_daily_price
+[2026-03-21T07:51:02.817+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-03-21T07:51:02.819+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-21T07:51:02.837+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_price, task_id=ingest_daily_price, run_id=scheduled__2026-03-11T16:00:00+00:00, map_index=233, execution_date=20260311T160000, start_date=20260321T075051, end_date=20260321T075102
+[2026-03-21T07:51:02.928+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-03-21T07:51:02.951+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

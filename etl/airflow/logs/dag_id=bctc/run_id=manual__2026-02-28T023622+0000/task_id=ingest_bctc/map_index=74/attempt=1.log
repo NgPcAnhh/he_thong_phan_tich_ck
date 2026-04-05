@@ -1,0 +1,90 @@
+[2026-02-28T06:19:25.204+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-28T06:19:25.227+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=74 [queued]>
+[2026-02-28T06:19:25.241+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=74 [queued]>
+[2026-02-28T06:19:25.242+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-02-28T06:19:25.255+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-02-28 02:36:22+00:00
+[2026-02-28T06:19:25.264+0000] {warnings.py:112} WARNING - This process (pid=2413) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-28T06:19:25.266+0000] {standard_task_runner.py:64} INFO - Started process 2415 to run task
+[2026-02-28T06:19:25.268+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-02-28T02:36:22+00:00', '--job-id', '28552', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmp67chw89v', '--map-index', '74']
+[2026-02-28T06:19:25.271+0000] {standard_task_runner.py:91} INFO - Job 28552: Subtask ingest_bctc
+[2026-02-28T06:19:25.316+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=74 [running]> on host c3317bef54fc
+[2026-02-28T06:19:25.408+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-02-28T02:36:22+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-28T02:36:22+00:00'
+[2026-02-28T06:19:25.410+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-28T06:19:25.411+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-28T06:19:25.411+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-02-28T06:19:25.412+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-28T06:19:25.412+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-28T06:19:25.412+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-02-28T06:19:25.413+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-02-28T06:19:25.413+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-28T06:19:25.414+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2022/Q1/batch_74.csv
+[2026-02-28T06:19:25.414+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-28T06:19:25.414+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['BAL', 'UNI', 'NAU', 'TET', 'DUS', 'L45', 'PLX', 'MCC', 'SAS', 'BVS', 'BVL', 'BHA', 'XMC', 'VC2', 'HPG', 'DTI', 'HJS', 'VKP', 'GMD', 'VDS'], 'current_year': '2022', 'current_quarter': '1'}
+[2026-02-28T06:19:25.415+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-28T06:19:25.415+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-28T06:19:25.419+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-28T06:19:25.420+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-02-28T06:19:25.420+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-28T06:19:25.421+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-02-28T06:19:25.425+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-28T06:19:25.426+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-02-28T06:19:25.426+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-28T06:19:25.427+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['BAL', 'UNI', 'NAU', 'TET', 'DUS', 'L45', 'PLX', 'MCC', 'SAS', 'BVS', 'BVL', 'BHA', 'XMC', 'VC2', 'HPG', 'DTI', 'HJS', 'VKP', 'GMD', 'VDS'], 'current_year': '2022', 'current_quarter': '1'}
+[2026-02-28T06:19:25.427+0000] {logging_mixin.py:188} INFO - [BCTC] Batch 20 mã: ['BAL', 'UNI', 'NAU', 'TET', 'DUS', 'L45', 'PLX', 'MCC', 'SAS', 'BVS', 'BVL', 'BHA', 'XMC', 'VC2', 'HPG', 'DTI', 'HJS', 'VKP', 'GMD', 'VDS']
+[2026-02-28T06:19:25.428+0000] {logging_mixin.py:188} INFO -   Filter: year=2022, quarter=1
+[2026-02-28T06:19:25.428+0000] {logging_mixin.py:188} INFO -   Call interval: 3.2s (~19 req/phút)
+[2026-02-28T06:19:25.429+0000] {logging_mixin.py:188} INFO -  >> [1/20] BAL
+[2026-02-28T06:19:26.480+0000] {logging_mixin.py:188} INFO -   ⚠ BAL.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:26.480+0000] {logging_mixin.py:188} INFO -  >> [2/20] UNI
+[2026-02-28T06:19:30.245+0000] {logging_mixin.py:188} INFO -   ⚠ UNI.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:30.246+0000] {logging_mixin.py:188} INFO -  >> [3/20] NAU
+[2026-02-28T06:19:33.960+0000] {logging_mixin.py:188} INFO -   ⚠ NAU.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:33.961+0000] {logging_mixin.py:188} INFO -  >> [4/20] TET
+[2026-02-28T06:19:37.738+0000] {logging_mixin.py:188} INFO -   ⚠ TET.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:37.739+0000] {logging_mixin.py:188} INFO -  >> [5/20] DUS
+[2026-02-28T06:19:41.552+0000] {logging_mixin.py:188} INFO -   ⚠ DUS.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:41.553+0000] {logging_mixin.py:188} INFO -  >> [6/20] L45
+[2026-02-28T06:19:45.295+0000] {logging_mixin.py:188} INFO -   ⚠ L45.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:45.295+0000] {logging_mixin.py:188} INFO -  >> [7/20] PLX
+[2026-02-28T06:19:49.105+0000] {logging_mixin.py:188} INFO -   ⚠ PLX.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:49.105+0000] {logging_mixin.py:188} INFO -  >> [8/20] MCC
+[2026-02-28T06:19:52.782+0000] {logging_mixin.py:188} INFO -   ⚠ MCC.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:52.783+0000] {logging_mixin.py:188} INFO -  >> [9/20] SAS
+[2026-02-28T06:19:56.463+0000] {logging_mixin.py:188} INFO -   ⚠ SAS.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:19:56.464+0000] {logging_mixin.py:188} INFO -  >> [10/20] BVS
+[2026-02-28T06:20:00.237+0000] {logging_mixin.py:188} INFO -   ⚠ BVS.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:00.238+0000] {logging_mixin.py:188} INFO -  >> [11/20] BVL
+[2026-02-28T06:20:04.004+0000] {logging_mixin.py:188} INFO -   ⚠ BVL.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:04.005+0000] {logging_mixin.py:188} INFO -  >> [12/20] BHA
+[2026-02-28T06:20:07.710+0000] {logging_mixin.py:188} INFO -   ⚠ BHA.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:07.710+0000] {logging_mixin.py:188} INFO -  >> [13/20] XMC
+[2026-02-28T06:20:11.672+0000] {logging_mixin.py:188} INFO -   ⚠ XMC.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:11.673+0000] {logging_mixin.py:188} INFO -  >> [14/20] VC2
+[2026-02-28T06:20:15.322+0000] {logging_mixin.py:188} INFO -   ⚠ VC2.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:15.323+0000] {logging_mixin.py:188} INFO -  >> [15/20] HPG
+[2026-02-28T06:20:19.053+0000] {logging_mixin.py:188} INFO -   ⚠ HPG.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:19.055+0000] {logging_mixin.py:188} INFO -  >> [16/20] DTI
+[2026-02-28T06:20:22.745+0000] {logging_mixin.py:188} INFO -   ⚠ DTI.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:22.746+0000] {logging_mixin.py:188} INFO -  >> [17/20] HJS
+[2026-02-28T06:20:26.430+0000] {logging_mixin.py:188} INFO -   ⚠ HJS.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:26.430+0000] {logging_mixin.py:188} INFO -  >> [18/20] VKP
+[2026-02-28T06:20:30.239+0000] {logging_mixin.py:188} INFO -   ⚠ VKP.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:30.240+0000] {logging_mixin.py:188} INFO -  >> [19/20] GMD
+[2026-02-28T06:20:34.027+0000] {logging_mixin.py:188} INFO -   ⚠ GMD.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:34.027+0000] {logging_mixin.py:188} INFO -  >> [20/20] VDS
+[2026-02-28T06:20:37.756+0000] {logging_mixin.py:188} INFO -   ⚠ VDS.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T06:20:37.756+0000] {logging_mixin.py:188} INFO - ⚠ Bỏ qua 20 mã: ['BAL', 'UNI', 'NAU', 'TET', 'DUS', 'L45', 'PLX', 'MCC', 'SAS', 'BVS', 'BVL', 'BHA', 'XMC', 'VC2', 'HPG', 'DTI', 'HJS', 'VKP', 'GMD', 'VDS']
+[2026-02-28T06:20:37.757+0000] {logging_mixin.py:188} INFO - ⚠ Batch này không thu được dữ liệu nào.
+[2026-02-28T06:20:37.758+0000] {datalake_df2csv.py:58} WARNING - ⚠️  DataFrame rỗng hoặc None
+[2026-02-28T06:20:37.758+0000] {datalake_df2csv.py:59} INFO - 📊 Thông tin DataFrame:
+[2026-02-28T06:20:37.758+0000] {datalake_df2csv.py:60} INFO -   - Số dòng: 0
+[2026-02-28T06:20:37.758+0000] {datalake_df2csv.py:61} INFO -   - Kết luận: Bỏ qua upload CSV
+[2026-02-28T06:20:37.759+0000] {datalake_df2csv.py:62} INFO - ================================================================================
+[2026-02-28T06:20:37.759+0000] {datalake_df2csv.py:63} INFO - ✅ KẾT THÚC TASK (không có dữ liệu): ingest_bctc
+[2026-02-28T06:20:37.760+0000] {datalake_df2csv.py:64} INFO - ================================================================================
+[2026-02-28T06:20:37.760+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-28T06:20:37.769+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-02-28T02:36:22+00:00, map_index=74, execution_date=20260228T023622, start_date=20260228T061925, end_date=20260228T062037
+[2026-02-28T06:20:37.831+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-28T06:20:37.844+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-28T06:20:37.846+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

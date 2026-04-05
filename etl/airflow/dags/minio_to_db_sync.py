@@ -210,7 +210,7 @@ def minio_to_db_sync():
     macro_economy_result = task_sync_macro_economy()
     news_result = task_sync_news()
     overview_result = task_sync_overview()
-    people_result = task_sync_people()
+    # people_result = task_sync_people()
     electric_board_result = task_sync_electric_board()
     vn_macro_yearly_result = task_sync_vn_macro_yearly()
     
@@ -225,7 +225,7 @@ def minio_to_db_sync():
         macro_economy_result,
         news_result,
         overview_result,
-        people_result,
+        # people_result,
         electric_board_result,
         vn_macro_yearly_result,
     ]

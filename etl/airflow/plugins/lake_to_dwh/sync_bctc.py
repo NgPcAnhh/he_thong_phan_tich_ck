@@ -1,8 +1,12 @@
+import json
 from contextlib import closing
+from datetime import datetime
+from pathlib import Path
+from typing import Optional
 import pandas as pd
 from psycopg2.extras import execute_values
 from lake_to_dwh.utils import (
-    get_latest_partition,
+    get_minio_hook,
     read_all_csvs_from_folder,
     get_postgres_connection,
     ensure_schema,
@@ -15,6 +19,95 @@ from lake_to_dwh.utils import (
 
 
 # apply_indicator_mapping() removed - no longer needed since ind_name is already in Vietnamese
+
+
+def _parse_partition_datetime(folder_name: str) -> Optional[datetime]:
+    """Parse many datetime partition formats and return datetime if valid."""
+    if not folder_name:
+        return None
+
+    value = str(folder_name).strip().strip("/")
+
+    # Common partition key prefixes
+    for prefix in ("date=", "dt=", "ds="):
+        if value.startswith(prefix):
+            value = value[len(prefix):]
+            break
+
+    # Supported examples:
+    # 2026-04-04
+    # 2026-04-04_14:35:22
+    # 2026-04-04_14:35:22:123
+    # 2026-04-04_14:35:22.123
+    # 2026-04-04 14:35:22.123
+    # 20260404143522123
+    formats = [
+        "%Y-%m-%d_%H:%M:%S:%f",
+        "%Y-%m-%d_%H:%M:%S.%f",
+        "%Y-%m-%d %H:%M:%S.%f",
+        "%Y-%m-%d_%H:%M:%S",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y%m%d%H%M%S%f",
+        "%Y%m%d%H%M%S",
+        "%Y-%m-%d",
+        "%Y%m%d",
+    ]
+
+    for fmt in formats:
+        try:
+            return datetime.strptime(value, fmt)
+        except ValueError:
+            continue
+
+    return None
+
+
+def _get_latest_bctc_partition(
+    bucket: str,
+    prefix: str,
+    conn_id: str = "minio_finance",
+) -> Optional[str]:
+    """Get latest BCTC partition folder by parsing datetime from first-level folder names."""
+    hook = get_minio_hook(conn_id)
+
+    keys = hook.list_keys(bucket_name=bucket, prefix=prefix)
+    if not keys:
+        print(f"⚠️ No objects found in {bucket}/{prefix}")
+        return None
+
+    print(f"📂 Scanning {len(keys)} objects in {bucket}/{prefix}")
+
+    candidates = []
+    seen_folders = set()
+
+    for key in keys:
+        relative_path = key.replace(prefix, "", 1).lstrip("/")
+        if not relative_path or "/" not in relative_path:
+            continue
+
+        first_folder = relative_path.split("/")[0]
+        if not first_folder or first_folder in seen_folders:
+            continue
+
+        seen_folders.add(first_folder)
+        parsed_dt = _parse_partition_datetime(first_folder)
+        if parsed_dt is not None:
+            candidates.append((parsed_dt, first_folder))
+
+    if not candidates:
+        print(
+            f"⚠️ No datetime partition folder found in {bucket}/{prefix}. "
+            "Supported formats include YYYY-MM-DD, YYYY-MM-DD_HH:MM:SS:ms, date=..."
+        )
+        return None
+
+    latest_dt, latest_folder = max(candidates, key=lambda item: (item[0], item[1]))
+    latest_path = f"{prefix.rstrip('/')}/{latest_folder}/"
+
+    print(f"📅 Datetime partitions found: {len(candidates)}")
+    print(f"✅ Latest partition selected: {latest_path} (parsed: {latest_dt.isoformat()})")
+
+    return latest_path
 
 
 def sync_bctc_to_db(
@@ -32,7 +125,7 @@ def sync_bctc_to_db(
     
     # Step 1: Find latest partition
     print("\n[1/5] Finding latest partition...")
-    latest_partition = get_latest_partition(bucket, folder_prefix, minio_conn_id)
+    latest_partition = _get_latest_bctc_partition(bucket, folder_prefix, minio_conn_id)
     
     if not latest_partition:
         return "❌ No partition found"
@@ -74,46 +167,35 @@ def sync_bctc_to_db(
     rows_after_cleaning = len(df)
     print(f"After cleaning: {rows_after_cleaning} rows")
     
-    # Step 4: Generate smart ind_code from report_code + indicator acronym
-    print("\n[4/5] Generating smart ind_code...")
-    
-    def generate_ind_code(report_code: str, ind_name: str) -> str:
-        import re
+    # Step 4: Generate ind_code from bctc.md mapping
+    print("\n[4/5] Mapping ind_code from bctc.md...")
 
-        if not ind_name:
-            return 'UNKNOWN'
+    # Load mapping from bctc.md
+    import re
+    _mapping_file = Path(__file__).resolve().parent.parent.parent.parent / "web_ptich_ck" / "md" / "bctc.md"
+    _ind_map = {}
+    try:
+        with open(_mapping_file, "r", encoding="utf-8") as f:
+            for entry in json.load(f):
+                name = str(entry.get("ind_name", "")).strip()
+                code = str(entry.get("ind_code", "")).strip()
+                if name and code:
+                    _ind_map[name] = code
+        print(f"  Loaded {len(_ind_map)} mappings from bctc.md")
+    except Exception as exc:
+        print(f"  ⚠ Could not load bctc.md: {exc}")
 
-        # Chuẩn hoá chuỗi
-        clean_name = re.sub(r'[(),.;\'"\-]+', ' ', str(ind_name))
-        clean_name = re.sub(r'\s+', ' ', clean_name).strip().lower()
+    def _get_ind_code(ind_name: str) -> str:
+        name = str(ind_name).strip()
+        if name in _ind_map:
+            return _ind_map[name]
+        # Fallback: slugify lowercase
+        slug = re.sub(r"[^A-Za-z0-9]+", "_", name).strip("_")
+        return slug.lower() or "unknown"
 
-        # Lấy ký tự đầu chuỗi + ký tự sau space
-        acronym_chars = re.findall(r'(^\S)|(?<=\s)\S', clean_name)
-        acronym = ''.join(acronym_chars)
-
-        # Ghép với report_code
-        code = f"{report_code}_{acronym}" if report_code else acronym
-
-        return code[:50]
-
-    
-    # Apply ind_code generation
-    if 'ind_code' not in df.columns or df['ind_code'].isnull().all():
-        if 'report_code' in df.columns:
-            df['ind_code'] = df.apply(
-                lambda row: generate_ind_code(
-                    str(row.get('report_code', '')),
-                    str(row.get('ind_name', ''))
-                ),
-                axis=1
-            )
-            print(f"✓ Generated ind_code from report_code + acronym")
-        else:
-            # Fallback if no report_code
-            df['ind_code'] = df['ind_name'].apply(lambda x: generate_ind_code('', str(x)))
-            print(f"⚠️ Generated ind_code from ind_name only (no report_code column)")
-    else:
-        print(f"✓ Using existing ind_code from data")
+    # Always regenerate ind_code from mapping
+    df['ind_code'] = df['ind_name'].apply(_get_ind_code)
+    print(f"✓ Mapped ind_code for {len(df)} rows")
     
     # Ensure ind_code is not null
     df['ind_code'] = df['ind_code'].fillna('UNKNOWN').astype(str).str[:50]
@@ -123,7 +205,7 @@ def sync_bctc_to_db(
     df = df[[col for col in final_cols if col in df.columns]].copy()
     
     # Deduplicate on PK columns to prevent "ON CONFLICT DO UPDATE cannot affect row a second time"
-    pk_cols = ['ticker', 'year', 'quarter', 'ind_code']
+    pk_cols = ['ticker', 'year', 'quarter', 'ind_code', 'ind_name']
     before_dedup = len(df)
     df = df.drop_duplicates(subset=pk_cols, keep='last')
     if len(df) < before_dedup:
@@ -169,9 +251,8 @@ def sync_bctc_to_db(
                     INSERT INTO {schema}.{table}
                     (ticker, quarter, year, ind_name, ind_code, value, report_name, report_code)
                     VALUES %s
-                    ON CONFLICT (ticker, year, quarter, ind_code)
+                    ON CONFLICT (ticker, year, quarter, ind_code, ind_name)
                     DO UPDATE SET
-                        ind_name = EXCLUDED.ind_name,
                         value = EXCLUDED.value,
                         report_name = EXCLUDED.report_name,
                         report_code = EXCLUDED.report_code;

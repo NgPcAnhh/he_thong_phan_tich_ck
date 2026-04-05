@@ -1,0 +1,310 @@
+[2026-03-01T01:55:10.016+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-01T01:55:10.032+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-03-01T01:44:01+00:00 map_index=4 [queued]>
+[2026-03-01T01:55:10.041+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-03-01T01:44:01+00:00 map_index=4 [queued]>
+[2026-03-01T01:55:10.042+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-03-01T01:55:10.054+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-03-01 01:44:01+00:00
+[2026-03-01T01:55:10.062+0000] {warnings.py:112} WARNING - This process (pid=519) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-03-01T01:55:10.064+0000] {standard_task_runner.py:64} INFO - Started process 521 to run task
+[2026-03-01T01:55:10.065+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-03-01T01:44:01+00:00', '--job-id', '28965', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmpkf24p5ub', '--map-index', '4']
+[2026-03-01T01:55:10.068+0000] {standard_task_runner.py:91} INFO - Job 28965: Subtask ingest_bctc
+[2026-03-01T01:55:10.110+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-03-01T01:44:01+00:00 map_index=4 [running]> on host 96b0f4865b54
+[2026-03-01T01:55:10.211+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-03-01T01:44:01+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-01T01:44:01+00:00'
+[2026-03-01T01:55:10.228+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-01T01:55:10.230+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-03-01T01:55:10.231+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-03-01T01:55:10.231+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-03-01T01:55:10.232+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-03-01T01:55:10.233+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-03-01T01:55:10.233+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-03-01T01:55:10.235+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-03-01T01:55:10.235+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2026/Q1/batch_4.csv
+[2026-03-01T01:55:10.236+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-03-01T01:55:10.236+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['CMN', 'PEG', 'TOP', 'EIN', 'SJE', 'EME', 'BHC', 'HTG', 'BVN', 'LAW', 'HLT', 'SBR', 'CRC', 'TDM', 'DZM', 'CEO', 'DKG', 'SCR', 'HMH', 'PVO'], 'current_year': '2026', 'current_quarter': '1'}
+[2026-03-01T01:55:10.237+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-03-01T01:55:10.238+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-03-01T01:55:10.319+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-03-01T01:55:10.324+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-03-01T01:55:10.326+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-03-01T01:55:10.329+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-03-01T01:55:10.334+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-03-01T01:55:10.335+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-03-01T01:55:10.335+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-03-01T01:55:10.336+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['CMN', 'PEG', 'TOP', 'EIN', 'SJE', 'EME', 'BHC', 'HTG', 'BVN', 'LAW', 'HLT', 'SBR', 'CRC', 'TDM', 'DZM', 'CEO', 'DKG', 'SCR', 'HMH', 'PVO'], 'current_year': '2026', 'current_quarter': '1'}
+[2026-03-01T01:55:10.336+0000] {logging_mixin.py:188} INFO - [BCTC] Batch 20 mã: ['CMN', 'PEG', 'TOP', 'EIN', 'SJE', 'EME', 'BHC', 'HTG', 'BVN', 'LAW', 'HLT', 'SBR', 'CRC', 'TDM', 'DZM', 'CEO', 'DKG', 'SCR', 'HMH', 'PVO']
+[2026-03-01T01:55:10.337+0000] {logging_mixin.py:188} INFO -   Filter: year=2026, quarter=1
+[2026-03-01T01:55:10.337+0000] {logging_mixin.py:188} INFO -   Call interval: 3.2s (~19 req/phút)
+[2026-03-01T01:55:10.338+0000] {logging_mixin.py:188} INFO -  >> [1/20] CMN
+[2026-03-01T01:55:20.579+0000] {logging_mixin.py:188} INFO -  >> [2/20] PEG
+[2026-03-01T01:55:33.359+0000] {logging_mixin.py:188} INFO -  >> [3/20] TOP
+[2026-03-01T01:55:46.103+0000] {logging_mixin.py:188} INFO -  >> [4/20] EIN
+[2026-03-01T01:55:54.255+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 6 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 6 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:55:54.257+0000] {logging_mixin.py:188} INFO - ⚠ EIN.balance_sheet: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:55:54.258+0000] {logging_mixin.py:188} INFO -   ⚠ EIN.balance_sheet: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:55:54.259+0000] {logging_mixin.py:188} INFO -  >> [5/20] SJE
+[2026-03-01T01:55:58.030+0000] {logging_mixin.py:188} INFO - ⚠ SJE.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:55:58.032+0000] {logging_mixin.py:188} INFO -   ⚠ SJE.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:55:58.033+0000] {logging_mixin.py:188} INFO -  >> [6/20] EME
+[2026-03-01T01:56:01.774+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 58 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 58 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:56:01.775+0000] {logging_mixin.py:188} INFO - ⚠ EME.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:56:01.776+0000] {logging_mixin.py:188} INFO -   ⚠ EME.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:56:01.777+0000] {logging_mixin.py:188} INFO -  >> [7/20] BHC
+[2026-03-01T01:56:05.528+0000] {logging_mixin.py:188} INFO - ⚠ BHC.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:56:05.529+0000] {logging_mixin.py:188} INFO -   ⚠ BHC.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:56:05.530+0000] {logging_mixin.py:188} INFO -  >> [8/20] HTG
+[2026-03-01T01:56:09.268+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 51 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 51 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:56:09.269+0000] {logging_mixin.py:188} INFO - ⚠ HTG.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:56:09.270+0000] {logging_mixin.py:188} INFO -   ⚠ HTG.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:56:09.270+0000] {logging_mixin.py:188} INFO -  >> [9/20] BVN
+[2026-03-01T01:56:15.133+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 45 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 45 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:56:15.135+0000] {logging_mixin.py:188} INFO - ⚠ BVN.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:56:15.136+0000] {logging_mixin.py:188} INFO -   ⚠ BVN.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:56:15.137+0000] {logging_mixin.py:188} INFO -  >> [10/20] LAW
+[2026-03-01T01:56:28.204+0000] {logging_mixin.py:188} INFO -  >> [11/20] HLT
+[2026-03-01T01:56:41.140+0000] {logging_mixin.py:188} INFO -  >> [12/20] SBR
+[2026-03-01T01:56:54.117+0000] {logging_mixin.py:188} INFO -  >> [13/20] CRC
+[2026-03-01T01:56:57.895+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 2 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 2 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:56:57.896+0000] {logging_mixin.py:188} INFO - ⚠ CRC.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:56:57.897+0000] {logging_mixin.py:188} INFO -   ⚠ CRC.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:56:57.897+0000] {logging_mixin.py:188} INFO -  >> [14/20] TDM
+[2026-03-01T01:57:02.832+0000] {logging_mixin.py:188} INFO - ⚠ TDM.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:57:02.834+0000] {logging_mixin.py:188} INFO -   ⚠ TDM.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:57:02.834+0000] {logging_mixin.py:188} INFO -  >> [15/20] DZM
+[2026-03-01T01:57:06.507+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 53 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 53 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:57:06.508+0000] {logging_mixin.py:188} INFO - ⚠ DZM.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:57:06.509+0000] {logging_mixin.py:188} INFO -   ⚠ DZM.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:57:06.510+0000] {logging_mixin.py:188} INFO -  >> [16/20] CEO
+[2026-03-01T01:57:10.576+0000] {logging_mixin.py:188} INFO - ⚠ CEO.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:57:10.577+0000] {logging_mixin.py:188} INFO -   ⚠ CEO.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:57:10.578+0000] {logging_mixin.py:188} INFO -  >> [17/20] DKG
+[2026-03-01T01:57:18.490+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 42 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 42 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-03-01T01:57:18.491+0000] {logging_mixin.py:188} INFO - ⚠ DKG.balance_sheet: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-03-01T01:57:18.492+0000] {logging_mixin.py:188} INFO -   ⚠ DKG.balance_sheet: không có dữ liệu → bỏ qua mã này
+[2026-03-01T01:57:18.492+0000] {logging_mixin.py:188} INFO -  >> [18/20] SCR
+[2026-03-01T01:57:31.714+0000] {logging_mixin.py:188} INFO -  >> [19/20] HMH
+[2026-03-01T01:57:44.694+0000] {logging_mixin.py:188} INFO -  >> [20/20] PVO
+[2026-03-01T01:57:57.268+0000] {logging_mixin.py:188} INFO - ⚠ Bỏ qua 11 mã: ['EIN', 'SJE', 'EME', 'BHC', 'HTG', 'BVN', 'CRC', 'TDM', 'DZM', 'CEO', 'DKG']
+[2026-03-01T01:57:57.268+0000] {logging_mixin.py:188} INFO - ⚠ Batch này không thu được dữ liệu nào.
+[2026-03-01T01:57:57.269+0000] {datalake_df2csv.py:58} WARNING - ⚠️  DataFrame rỗng hoặc None
+[2026-03-01T01:57:57.270+0000] {datalake_df2csv.py:59} INFO - 📊 Thông tin DataFrame:
+[2026-03-01T01:57:57.270+0000] {datalake_df2csv.py:60} INFO -   - Số dòng: 0
+[2026-03-01T01:57:57.270+0000] {datalake_df2csv.py:61} INFO -   - Kết luận: Bỏ qua upload CSV
+[2026-03-01T01:57:57.271+0000] {datalake_df2csv.py:62} INFO - ================================================================================
+[2026-03-01T01:57:57.271+0000] {datalake_df2csv.py:63} INFO - ✅ KẾT THÚC TASK (không có dữ liệu): ingest_bctc
+[2026-03-01T01:57:57.272+0000] {datalake_df2csv.py:64} INFO - ================================================================================
+[2026-03-01T01:57:57.272+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-01T01:57:57.280+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-03-01T01:44:01+00:00, map_index=4, execution_date=20260301T014401, start_date=20260301T015510, end_date=20260301T015757
+[2026-03-01T01:57:57.306+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-03-01T01:57:57.320+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-01T01:57:57.322+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

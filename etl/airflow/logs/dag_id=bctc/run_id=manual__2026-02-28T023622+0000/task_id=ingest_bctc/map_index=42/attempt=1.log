@@ -1,0 +1,136 @@
+[2026-02-28T04:43:27.064+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-28T04:43:27.085+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=42 [queued]>
+[2026-02-28T04:43:27.097+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=42 [queued]>
+[2026-02-28T04:43:27.097+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-02-28T04:43:27.110+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_bctc> on 2026-02-28 02:36:22+00:00
+[2026-02-28T04:43:27.119+0000] {warnings.py:112} WARNING - This process (pid=391) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-28T04:43:27.120+0000] {standard_task_runner.py:64} INFO - Started process 400 to run task
+[2026-02-28T04:43:27.123+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'bctc', 'ingest_bctc', 'manual__2026-02-28T02:36:22+00:00', '--job-id', '28520', '--raw', '--subdir', 'DAGS_FOLDER/dl_bctc.py', '--cfg-path', '/tmp/tmpg3k7g1ll', '--map-index', '42']
+[2026-02-28T04:43:27.126+0000] {standard_task_runner.py:91} INFO - Job 28520: Subtask ingest_bctc
+[2026-02-28T04:43:27.169+0000] {task_command.py:426} INFO - Running <TaskInstance: bctc.ingest_bctc manual__2026-02-28T02:36:22+00:00 map_index=42 [running]> on host c3317bef54fc
+[2026-02-28T04:43:27.264+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='bctc' AIRFLOW_CTX_TASK_ID='ingest_bctc' AIRFLOW_CTX_EXECUTION_DATE='2026-02-28T02:36:22+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-28T02:36:22+00:00'
+[2026-02-28T04:43:27.265+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-28T04:43:27.265+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-28T04:43:27.266+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_bctc
+[2026-02-28T04:43:27.266+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-28T04:43:27.266+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-28T04:43:27.267+0000] {datalake_df2csv.py:44} INFO -   - Logic file: bctc
+[2026-02-28T04:43:27.267+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_reports
+[2026-02-28T04:43:27.267+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-28T04:43:27.267+0000] {datalake_df2csv.py:47} INFO -   - Object path: bctc/2022/Q1/batch_42.csv
+[2026-02-28T04:43:27.268+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-28T04:43:27.268+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['ABB', 'LMI', 'DHT', 'SBT', 'AAV', 'ILC', 'HLD', 'HTV', 'HTM', 'C4G', 'SJ1', 'AMP', 'HMC', 'BXH', 'SZL', 'RTB', 'GAS', 'SRF', 'PXI', 'NCS'], 'current_year': '2022', 'current_quarter': '1'}
+[2026-02-28T04:43:27.268+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-28T04:43:27.269+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-28T04:43:27.271+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-28T04:43:27.272+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/bctc.py
+[2026-02-28T04:43:27.272+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-28T04:43:27.274+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'bctc'...
+[2026-02-28T04:43:27.283+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-28T04:43:27.284+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_reports'...
+[2026-02-28T04:43:27.284+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-28T04:43:27.284+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['ABB', 'LMI', 'DHT', 'SBT', 'AAV', 'ILC', 'HLD', 'HTV', 'HTM', 'C4G', 'SJ1', 'AMP', 'HMC', 'BXH', 'SZL', 'RTB', 'GAS', 'SRF', 'PXI', 'NCS'], 'current_year': '2022', 'current_quarter': '1'}
+[2026-02-28T04:43:27.285+0000] {logging_mixin.py:188} INFO - [BCTC] Batch 20 mã: ['ABB', 'LMI', 'DHT', 'SBT', 'AAV', 'ILC', 'HLD', 'HTV', 'HTM', 'C4G', 'SJ1', 'AMP', 'HMC', 'BXH', 'SZL', 'RTB', 'GAS', 'SRF', 'PXI', 'NCS']
+[2026-02-28T04:43:27.285+0000] {logging_mixin.py:188} INFO -   Filter: year=2022, quarter=1
+[2026-02-28T04:43:27.286+0000] {logging_mixin.py:188} INFO -   Call interval: 3.2s (~19 req/phút)
+[2026-02-28T04:43:27.286+0000] {logging_mixin.py:188} INFO -  >> [1/20] ABB
+[2026-02-28T04:43:41.554+0000] {logging_mixin.py:188} INFO -  >> [2/20] LMI
+[2026-02-28T04:43:51.533+0000] {logging_mixin.py:188} INFO - ❌ LMI.income_statement: RetryError: RetryError[<Future at 0x7fe8bafd49b0 state=finished raised KeyError>] → bỏ qua
+[2026-02-28T04:43:51.533+0000] {logging_mixin.py:188} INFO -   ⚠ LMI.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T04:43:51.534+0000] {logging_mixin.py:188} INFO -  >> [3/20] DHT
+[2026-02-28T04:44:11.453+0000] {logging_mixin.py:188} INFO -  >> [4/20] SBT
+[2026-02-28T04:44:23.427+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 37 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 37 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-02-28T04:44:23.429+0000] {logging_mixin.py:188} INFO - ⚠ SBT.balance_sheet: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-02-28T04:44:23.430+0000] {logging_mixin.py:188} INFO -   ⚠ SBT.balance_sheet: không có dữ liệu → bỏ qua mã này
+[2026-02-28T04:44:23.431+0000] {logging_mixin.py:188} INFO -  >> [5/20] AAV
+[2026-02-28T04:44:27.815+0000] {logging_mixin.py:188} INFO - ⚠ AAV.income_statement: SystemExit (rate-limit?): Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API  → bỏ qua
+[2026-02-28T04:44:27.816+0000] {logging_mixin.py:188} INFO -   ⚠ AAV.income_statement: không có dữ liệu → bỏ qua mã này
+[2026-02-28T04:44:27.817+0000] {logging_mixin.py:188} INFO -  >> [6/20] ILC
+[2026-02-28T04:44:47.535+0000] {logging_mixin.py:188} INFO -  >> [7/20] HLD
+[2026-02-28T04:45:06.508+0000] {logging_mixin.py:188} INFO -  >> [8/20] HTV
+[2026-02-28T04:45:26.570+0000] {logging_mixin.py:188} INFO -  >> [9/20] HTM
+[2026-02-28T04:45:46.122+0000] {logging_mixin.py:188} INFO -  >> [10/20] C4G
+[2026-02-28T04:46:06.630+0000] {logging_mixin.py:188} INFO -  >> [11/20] SJ1
+[2026-02-28T04:46:26.552+0000] {logging_mixin.py:188} INFO -  >> [12/20] AMP
+[2026-02-28T04:46:46.285+0000] {logging_mixin.py:188} INFO -  >> [13/20] HMC
+[2026-02-28T04:47:05.300+0000] {logging_mixin.py:188} INFO -  >> [14/20] BXH
+[2026-02-28T04:47:26.079+0000] {logging_mixin.py:188} INFO -  >> [15/20] SZL
+[2026-02-28T04:47:45.776+0000] {logging_mixin.py:188} INFO -  >> [16/20] RTB
+[2026-02-28T04:48:03.789+0000] {logging_mixin.py:188} INFO -  >> [17/20] GAS
+[2026-02-28T04:48:22.654+0000] {logging_mixin.py:188} INFO -  >> [18/20] SRF
+[2026-02-28T04:48:41.856+0000] {logging_mixin.py:188} INFO -  >> [19/20] PXI
+[2026-02-28T04:49:01.850+0000] {logging_mixin.py:188} INFO -  >> [20/20] NCS
+[2026-02-28T04:49:20.702+0000] {logging_mixin.py:188} INFO - ⚠ Bỏ qua 3 mã: ['LMI', 'SBT', 'AAV']
+[2026-02-28T04:49:20.707+0000] {logging_mixin.py:188} INFO - ✓ Hoàn thành batch. Tổng số dòng: 1376
+[2026-02-28T04:49:20.709+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-02-28T04:49:20.710+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-02-28T04:49:20.711+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 1376
+[2026-02-28T04:49:20.712+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 9
+[2026-02-28T04:49:20.712+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['ticker', 'quarter', 'year', 'ind_name', 'ind_code', 'value', 'import_time', 'report_name', 'report_code']
+[2026-02-28T04:49:20.713+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'ticker': 'object', 'quarter': 'Int64', 'year': 'Int64', 'ind_name': 'object', 'ind_code': 'object', 'value': 'float64', 'import_time': 'datetime64[us, UTC]', 'report_name': 'object', 'report_code': 'object'}
+[2026-02-28T04:49:20.717+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.51 MB
+[2026-02-28T04:49:20.719+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-02-28T04:49:20.719+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-02-28T04:49:20.720+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'ticker': 'ABB', 'quarter': 1, 'year': 2022, 'ind_name': 'Doanh thu (đồng)', 'ind_code': 'DOANH_THU_NG', 'value': 1692638000000.0, 'import_time': Timestamp('2026-02-28 04:43:30.432149+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-28T04:49:20.721+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'ticker': 'ABB', 'quarter': 1, 'year': 2022, 'ind_name': 'Tăng trưởng doanh thu (%)', 'ind_code': 'T_NG_TR_NG_DOANH_THU', 'value': 0.05607504041458407, 'import_time': Timestamp('2026-02-28 04:43:30.432149+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-28T04:49:20.722+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'ticker': 'ABB', 'quarter': 1, 'year': 2022, 'ind_name': 'Lợi nhuận sau thuế của Cổ đông công ty mẹ (đồng)', 'ind_code': 'L_I_NHU_N_SAU_THU_C_A_C_NG_C_NG_TY_M_NG', 'value': 460417000000.0, 'import_time': Timestamp('2026-02-28 04:43:30.432149+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-28T04:49:20.722+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'ticker': 'ABB', 'quarter': 1, 'year': 2022, 'ind_name': 'Tăng trưởng lợi nhuận (%)', 'ind_code': 'T_NG_TR_NG_L_I_NHU_N', 'value': -0.0312619010046815, 'import_time': Timestamp('2026-02-28 04:43:30.432149+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-28T04:49:20.723+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'ticker': 'ABB', 'quarter': 1, 'year': 2022, 'ind_name': 'Thu nhập lãi và các khoản tương tự', 'ind_code': 'THU_NH_P_L_I_V_C_C_KHO_N_T_NG_T', 'value': 1692638000000.0, 'import_time': Timestamp('2026-02-28 04:43:30.432149+0000', tz='UTC'), 'report_name': 'income_statement', 'report_code': 'IS'}
+[2026-02-28T04:49:20.723+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-02-28T04:49:20.723+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-02-28T04:49:20.739+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-02-28T04:49:20.739+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.18 MB
+[2026-02-28T04:49:20.740+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.02 giây
+[2026-02-28T04:49:20.740+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-02-28T04:49:20.741+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-02-28T04:49:20.751+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-02-28T04:49:20.752+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-02-28T04:49:21.123+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-02-28T04:49:21.164+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-02-28T04:49:21.165+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/bctc/2022/Q1/batch_42.csv
+[2026-02-28T04:49:21.165+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 1376
+[2026-02-28T04:49:21.165+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.42 giây
+[2026-02-28T04:49:21.165+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-02-28T04:49:21.166+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-02-28T04:49:21.166+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 353.90 giây
+[2026-02-28T04:49:21.166+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 4 dòng/giây
+[2026-02-28T04:49:21.166+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-02-28T04:49:21.167+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_bctc
+[2026-02-28T04:49:21.167+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-02-28T04:49:21.168+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-28T04:49:21.176+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=bctc, task_id=ingest_bctc, run_id=manual__2026-02-28T02:36:22+00:00, map_index=42, execution_date=20260228T023622, start_date=20260228T044327, end_date=20260228T044921
+[2026-02-28T04:49:21.236+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-02-28T04:49:21.252+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-28T04:49:21.254+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

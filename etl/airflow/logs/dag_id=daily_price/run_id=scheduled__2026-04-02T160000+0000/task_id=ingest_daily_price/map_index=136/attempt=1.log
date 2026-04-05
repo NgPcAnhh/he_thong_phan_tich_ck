@@ -1,0 +1,33 @@
+[2026-04-03T16:05:15.293+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-04-03T16:05:15.352+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-02T16:00:00+00:00 map_index=136 [queued]>
+[2026-04-03T16:05:15.393+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-02T16:00:00+00:00 map_index=136 [queued]>
+[2026-04-03T16:05:15.393+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-04-03T16:05:15.436+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-04-02 16:00:00+00:00
+[2026-04-03T16:05:15.457+0000] {warnings.py:112} WARNING - This process (pid=1856) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-04-03T16:05:15.460+0000] {standard_task_runner.py:64} INFO - Started process 1911 to run task
+[2026-04-03T16:05:15.506+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price', 'ingest_daily_price', 'scheduled__2026-04-02T16:00:00+00:00', '--job-id', '38878', '--raw', '--subdir', 'DAGS_FOLDER/dl_dailly_price.py', '--cfg-path', '/tmp/tmpy2fnlmi8', '--map-index', '136']
+[2026-04-03T16:05:15.526+0000] {standard_task_runner.py:91} INFO - Job 38878: Subtask ingest_daily_price
+[2026-04-03T16:05:15.700+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-02T16:00:00+00:00 map_index=136 [running]> on host f1f3ec63581f
+[2026-04-03T16:05:17.140+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-04-02T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-02T16:00:00+00:00'
+[2026-04-03T16:05:17.145+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-04-03T16:05:17.146+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-04-03T16:05:17.147+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_daily_price
+[2026-04-03T16:05:17.148+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-04-03T16:05:17.149+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-04-03T16:05:17.149+0000] {datalake_df2csv.py:44} INFO -   - Logic file: history_price
+[2026-04-03T16:05:17.150+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_history_price_batch
+[2026-04-03T16:05:17.154+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-04-03T16:05:17.155+0000] {datalake_df2csv.py:47} INFO -   - Object path: daily_price/2026-04-02/batch_136.csv
+[2026-04-03T16:05:17.156+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-04-03T16:05:17.156+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['PAS', 'SZE', 'TMS', 'C4G', 'XHC'], 'start_date': '2026-04-02', 'end_date': '2026-04-03'}
+[2026-04-03T16:05:17.157+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-04-03T16:05:17.157+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-04-03T16:05:17.174+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-04-03T16:05:17.176+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/history_price.py
+[2026-04-03T16:05:17.179+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-04-03T16:05:17.187+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'history_price'...
+[2026-04-03T16:05:17.200+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-04-03T16:05:17.201+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_history_price_batch'...
+[2026-04-03T16:05:17.203+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-04-03T16:05:17.204+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['PAS', 'SZE', 'TMS', 'C4G', 'XHC'], 'start_date': '2026-04-02', 'end_date': '2026-04-03'}

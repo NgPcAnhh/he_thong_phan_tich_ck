@@ -1,0 +1,122 @@
+[2026-02-28T07:45:25.001+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-02-28T07:45:25.053+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: company_hr.people_minio manual__2026-02-28T07:39:26.732399+00:00 map_index=33 [queued]>
+[2026-02-28T07:45:25.104+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: company_hr.people_minio manual__2026-02-28T07:39:26.732399+00:00 map_index=33 [queued]>
+[2026-02-28T07:45:25.105+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-02-28T07:45:25.137+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): people_minio> on 2026-02-28 07:39:26.732399+00:00
+[2026-02-28T07:45:25.161+0000] {warnings.py:112} WARNING - This process (pid=1639) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-02-28T07:45:25.166+0000] {standard_task_runner.py:64} INFO - Started process 1696 to run task
+[2026-02-28T07:45:25.165+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'company_hr', 'people_minio', 'manual__2026-02-28T07:39:26.732399+00:00', '--job-id', '28747', '--raw', '--subdir', 'DAGS_FOLDER/dl_people.py', '--cfg-path', '/tmp/tmpuqjvbubk', '--map-index', '33']
+[2026-02-28T07:45:25.172+0000] {standard_task_runner.py:91} INFO - Job 28747: Subtask people_minio
+[2026-02-28T07:45:25.299+0000] {task_command.py:426} INFO - Running <TaskInstance: company_hr.people_minio manual__2026-02-28T07:39:26.732399+00:00 map_index=33 [running]> on host c3317bef54fc
+[2026-02-28T07:45:25.496+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='company_hr' AIRFLOW_CTX_TASK_ID='people_minio' AIRFLOW_CTX_EXECUTION_DATE='2026-02-28T07:39:26.732399+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-02-28T07:39:26.732399+00:00'
+[2026-02-28T07:45:25.503+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-02-28T07:45:25.505+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-02-28T07:45:25.506+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: people_minio
+[2026-02-28T07:45:25.507+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-02-28T07:45:25.508+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-02-28T07:45:25.509+0000] {datalake_df2csv.py:44} INFO -   - Logic file: thongtincongty
+[2026-02-28T07:45:25.511+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_people_batch
+[2026-02-28T07:45:25.513+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-02-28T07:45:25.514+0000] {datalake_df2csv.py:47} INFO -   - Object path: people/2026-02-28/batch_33.csv
+[2026-02-28T07:45:25.516+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-02-28T07:45:25.520+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['VNL', 'SGT', 'PHN', 'BSI', 'BOT', 'LAS', 'BHI', 'SJF', 'SHN', 'PEQ', 'NBC', 'VGS', 'CNN', 'MCF', 'HJS', 'DWS', 'HSG', 'HLD', 'CNC', 'PAI']}
+[2026-02-28T07:45:25.522+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-02-28T07:45:25.525+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-02-28T07:45:25.532+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-02-28T07:45:25.533+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/thongtincongty.py
+[2026-02-28T07:45:25.534+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-02-28T07:45:25.536+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'thongtincongty'...
+[2026-02-28T07:45:25.545+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-02-28T07:45:25.546+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_people_batch'...
+[2026-02-28T07:45:25.547+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-02-28T07:45:25.548+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['VNL', 'SGT', 'PHN', 'BSI', 'BOT', 'LAS', 'BHI', 'SJF', 'SHN', 'PEQ', 'NBC', 'VGS', 'CNN', 'MCF', 'HJS', 'DWS', 'HSG', 'HLD', 'CNC', 'PAI']}
+[2026-02-28T07:45:41.856+0000] {logging_mixin.py:188} INFO - 
+⚠️ 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 18 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 18 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+[2026-02-28T07:45:41.860+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-02-28T07:45:41.861+0000] {taskinstance.py:2907} ERROR - Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 18 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 18 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.)
+[2026-02-28T07:45:41.876+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=company_hr, task_id=people_minio, run_id=manual__2026-02-28T07:39:26.732399+00:00, map_index=33, execution_date=20260228T073926, start_date=20260228T074525, end_date=20260228T074541
+[2026-02-28T07:45:42.330+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 28747 for task people_minio (Task failed due to SystemExit(Rate limit exceeded. 
+============================================================
+⚠️  GIỚI HẠN API ĐÃ ĐẠT TỐI ĐA (Rate Limit Exceeded)
+============================================================
+
+📌 Bạn đã đạt giới hạn tối đa số lượt yêu cầu API trong 1 phút (minute).
+   (You have reached the maximum API request limit for this period)
+
+📊 Chi tiết (Details):
+   • Gói hiện tại: Khách (Guest)
+   • Giới hạn: 20 requests/phút
+   • Đã sử dụng: 20/20
+   • Chờ 18 giây để tiếp tục (Wait to retry)
+
+💡 Giải pháp (Solutions):
+   1️⃣ Chờ 18 giây rồi thử lại
+      (Wait and retry)
+   2️⃣ Tham gia gói thành viên tài trợ để sử dụng không bị gián đoạn
+      (Join sponsor membership for uninterrupted access)
+
+🚀 Nâng cấp (Upgrade):
+   • Phiên bản cộng đồng (60 request/phút - Community):
+     Đăng ký API key miễn phí: https://vnstocks.com/login
+   • Gói thành viên tài trợ (180-600 request/phút - Sponsor):
+     Tham gia: https://vnstocks.com/insiders-program
+
+============================================================
+ Process terminated.); 1696)
+[2026-02-28T07:45:42.410+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-02-28T07:45:42.607+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-02-28T07:45:42.613+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

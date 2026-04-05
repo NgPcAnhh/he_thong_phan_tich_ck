@@ -1,0 +1,80 @@
+[2026-03-22T13:44:50.025+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-22T13:44:50.052+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-03-15T02:00:00+00:00 map_index=36 [queued]>
+[2026-03-22T13:44:50.067+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-03-15T02:00:00+00:00 map_index=36 [queued]>
+[2026-03-22T13:44:50.068+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-03-22T13:44:50.088+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_financial_ratios> on 2026-03-15 02:00:00+00:00
+[2026-03-22T13:44:50.097+0000] {warnings.py:112} WARNING - This process (pid=466) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-03-22T13:44:50.099+0000] {standard_task_runner.py:64} INFO - Started process 484 to run task
+[2026-03-22T13:44:50.102+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'financial_ratios', 'ingest_financial_ratios', 'scheduled__2026-03-15T02:00:00+00:00', '--job-id', '34875', '--raw', '--subdir', 'DAGS_FOLDER/dl_financial_ratios.py', '--cfg-path', '/tmp/tmpaf270m6y', '--map-index', '36']
+[2026-03-22T13:44:50.109+0000] {standard_task_runner.py:91} INFO - Job 34875: Subtask ingest_financial_ratios
+[2026-03-22T13:44:50.201+0000] {task_command.py:426} INFO - Running <TaskInstance: financial_ratios.ingest_financial_ratios scheduled__2026-03-15T02:00:00+00:00 map_index=36 [running]> on host b3b67f16e0e2
+[2026-03-22T13:44:50.356+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='financial_ratios' AIRFLOW_CTX_TASK_ID='ingest_financial_ratios' AIRFLOW_CTX_EXECUTION_DATE='2026-03-15T02:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-15T02:00:00+00:00'
+[2026-03-22T13:44:50.358+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-22T13:44:50.359+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-03-22T13:44:50.359+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_financial_ratios
+[2026-03-22T13:44:50.360+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-03-22T13:44:50.360+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-03-22T13:44:50.361+0000] {datalake_df2csv.py:44} INFO -   - Logic file: financial_ratios
+[2026-03-22T13:44:50.361+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_ratios_batch
+[2026-03-22T13:44:50.362+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-03-22T13:44:50.362+0000] {datalake_df2csv.py:47} INFO -   - Object path: financial_ratios/2026-03-15/batch_36.csv
+[2026-03-22T13:44:50.363+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-03-22T13:44:50.363+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['TNP', 'DC1'], 'period': 'quarter'}
+[2026-03-22T13:44:50.364+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-03-22T13:44:50.364+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-03-22T13:44:50.368+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-03-22T13:44:50.369+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/financial_ratios.py
+[2026-03-22T13:44:50.370+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-03-22T13:44:50.371+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'financial_ratios'...
+[2026-03-22T13:44:50.376+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-03-22T13:44:50.377+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_ratios_batch'...
+[2026-03-22T13:44:50.378+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-03-22T13:44:50.378+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['TNP', 'DC1'], 'period': 'quarter'}
+[2026-03-22T13:44:50.379+0000] {logging_mixin.py:188} INFO - [RATIO] Bắt đầu xử lý batch 2 mã: ['TNP', 'DC1']
+[2026-03-22T13:44:50.380+0000] {logging_mixin.py:188} INFO - [RATIO] Kỳ dữ liệu: quarter
+[2026-03-22T13:44:50.380+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: TNP
+[2026-03-22T13:45:00.767+0000] {logging_mixin.py:188} INFO - ❌ Lỗi TNP: RetryError[<Future at 0x7fb133f9b9e0 state=finished raised KeyError>]
+[2026-03-22T13:45:00.768+0000] {logging_mixin.py:188} INFO -  ⚠️ [RATIO] TNP: No data from API
+[2026-03-22T13:45:02.769+0000] {logging_mixin.py:188} INFO -  >> [RATIO] Đang lấy dữ liệu: DC1
+[2026-03-22T13:45:24.499+0000] {log.py:232} WARNING - 2026-03-22 13:45:24 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fb133bf3fb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-03-22T13:45:24.499+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='trading.vietcap.com.vn', port=443): Max retries exceeded with url: /data-mt/graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fb133bf3fb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2026-03-22T13:45:27.733+0000] {logging_mixin.py:188} INFO -  ✓ [RATIO] DC1: 2 rows
+[2026-03-22T13:45:29.741+0000] {logging_mixin.py:188} INFO -  ✅ [RATIO] Hoàn thành batch. Tổng số dòng: 2
+[2026-03-22T13:45:29.743+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-03-22T13:45:29.743+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-03-22T13:45:29.744+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 2
+[2026-03-22T13:45:29.746+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 14
+[2026-03-22T13:45:29.747+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: [('ticker', ''), ('Meta', 'CP'), ('Meta', 'Năm'), ('Meta', 'Kỳ'), ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'), ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'), ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'), ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'), ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'), ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'), ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'), ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'), ('period_type', ''), ('extracted_at', '')]
+[2026-03-22T13:45:29.753+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {('ticker', ''): 'object', ('Meta', 'CP'): 'object', ('Meta', 'Năm'): 'int64', ('Meta', 'Kỳ'): 'int64', ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 'float64', ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 'float64', ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 'int64', ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): 'float64', ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 'float64', ('period_type', ''): 'object', ('extracted_at', ''): 'datetime64[us, UTC]'}
+[2026-03-22T13:45:29.767+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.00 MB
+[2026-03-22T13:45:29.770+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-03-22T13:45:29.771+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-03-22T13:45:29.785+0000] {datalake_df2csv.py:88} INFO -     Row 0: {('ticker', ''): 'DC1', ('Meta', 'CP'): 'DC1', ('Meta', 'Năm'): 2016, ('Meta', 'Kỳ'): 3, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.43955500927345253, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 0.2418804707551855, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.0789533386913114, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.1398328474997819, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.04804229971228473, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 1900791973, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -2.990791162812352, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 8.886572660916512, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-03-22 13:45:27.704188+0000', tz='UTC')}
+[2026-03-22T13:45:29.788+0000] {datalake_df2csv.py:88} INFO -     Row 1: {('ticker', ''): 'DC1', ('Meta', 'CP'): 'DC1', ('Meta', 'Năm'): 2016, ('Meta', 'Kỳ'): 2, ('Chỉ tiêu cơ cấu nguồn vốn', 'TSCĐ / Vốn CSH'): 0.453056991159228, ('Chỉ tiêu cơ cấu nguồn vốn', 'Vốn CSH/Vốn điều lệ'): 0.21620271862429477, ('Chỉ tiêu khả năng sinh lợi', 'Biên EBIT (%)'): 0.036225711925072686, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận gộp (%)'): 0.058860597897053266, ('Chỉ tiêu khả năng sinh lợi', 'Biên lợi nhuận ròng (%)'): 0.020703239868630038, ('Chỉ tiêu khả năng sinh lợi', 'EBIT (Tỷ đồng)'): 2431624626, ('Chỉ tiêu thanh khoản', 'Khả năng chi trả lãi vay'): -2.854254574678975, ('Chỉ tiêu thanh khoản', 'Đòn bẩy tài chính'): 10.204322875915873, ('period_type', ''): 'quarter', ('extracted_at', ''): Timestamp('2026-03-22 13:45:27.704188+0000', tz='UTC')}
+[2026-03-22T13:45:29.789+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-03-22T13:45:29.792+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-03-22T13:45:29.828+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-03-22T13:45:29.829+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.00 MB
+[2026-03-22T13:45:29.829+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.03 giây
+[2026-03-22T13:45:29.830+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-03-22T13:45:29.831+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-03-22T13:45:29.859+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-03-22T13:45:29.862+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-03-22T13:45:31.519+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-03-22T13:45:31.561+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-03-22T13:45:31.561+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/financial_ratios/2026-03-15/batch_36.csv
+[2026-03-22T13:45:31.562+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 2
+[2026-03-22T13:45:31.563+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 1.73 giây
+[2026-03-22T13:45:31.563+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-03-22T13:45:31.564+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-03-22T13:45:31.565+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 41.21 giây
+[2026-03-22T13:45:31.566+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-03-22T13:45:31.567+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-03-22T13:45:31.567+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_financial_ratios
+[2026-03-22T13:45:31.567+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-03-22T13:45:31.568+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-22T13:45:31.583+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=financial_ratios, task_id=ingest_financial_ratios, run_id=scheduled__2026-03-15T02:00:00+00:00, map_index=36, execution_date=20260315T020000, start_date=20260322T134450, end_date=20260322T134531
+[2026-03-22T13:45:31.668+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-03-22T13:45:31.702+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-22T13:45:31.710+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

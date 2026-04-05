@@ -1,5 +1,7 @@
+import json
 import re
 import time
+from pathlib import Path
 
 import pandas as pd
 from vnstock import Finance
@@ -14,10 +16,39 @@ SOURCE = "VCI"
 CALL_INTERVAL = 3.2
 
 
-def slugify(text: str) -> str:
-    """Chuyển đổi tên chỉ tiêu thành slug (viết hoa, gạch dưới)."""
+# ---------------------------------------------------------------------------
+# ind_name → ind_code mapping (loaded from bctc.md)
+# ---------------------------------------------------------------------------
+_MAPPING_FILE = Path(__file__).resolve().parent.parent.parent.parent / "web_ptich_ck" / "md" / "bctc.md"
+
+def _load_ind_code_mapping() -> dict:
+    """Load ind_name → ind_code mapping from bctc.md JSON file."""
+    mapping = {}
+    try:
+        with open(_MAPPING_FILE, "r", encoding="utf-8") as f:
+            entries = json.load(f)
+        for entry in entries:
+            name = str(entry.get("ind_name", "")).strip()
+            code = str(entry.get("ind_code", "")).strip()
+            if name and code:
+                mapping[name] = code
+    except Exception as exc:
+        print(f"⚠ Could not load bctc.md mapping: {exc}")
+    return mapping
+
+IND_NAME_TO_CODE = _load_ind_code_mapping()
+
+
+def _slugify_fallback(text: str) -> str:
+    """Fallback: generate ind_code from ind_name if not in mapping."""
     text = re.sub(r"[^A-Za-z0-9]+", "_", str(text)).strip("_")
-    return text.upper() or "UNKNOWN"
+    return text.lower() or "unknown"
+
+
+def get_ind_code(ind_name: str) -> str:
+    """Lookup ind_code from mapping, fallback to slugify."""
+    name = str(ind_name).strip()
+    return IND_NAME_TO_CODE.get(name, _slugify_fallback(name))
 
 
 # ---------------------------------------------------------------------------
@@ -94,7 +125,7 @@ def transform_to_db_format(df: pd.DataFrame, report_name: str, statement_type: s
     # Bổ sung các cột meta đúng với schema lưu trữ
     long_df["report_name"] = report_name
     long_df["report_code"] = statement_type
-    long_df["ind_code"] = long_df["ind_name"].apply(slugify)
+    long_df["ind_code"] = long_df["ind_name"].apply(get_ind_code)
     long_df["import_time"] = pd.Timestamp.utcnow()
     
     # Đảm bảo cột ticker luôn đúng với mã đang request (quan trọng cho Batch)
