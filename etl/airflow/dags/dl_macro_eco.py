@@ -19,7 +19,7 @@ MINIO_CONN_ID = "minio_finance"
     dag_id="macro_eco",
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
-    schedule_interval="@daily",
+    schedule_interval="0 8 * * *",  # Chạy vào 0 phút, 8 giờ sáng hàng ngày
     catchup=False,
     tags=["macro_economy", "gold", "oil", "dowjones", "commodities", "yfinance"],
 )

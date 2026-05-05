@@ -6,7 +6,6 @@ import random
 import re
 import threading
 import time
-from contextlib import closing
 from datetime import datetime, timedelta
 from html import unescape
 from pathlib import Path
@@ -19,9 +18,6 @@ from airflow.models import Variable
 from airflow.models.param import Param
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from bs4 import BeautifulSoup
-from psycopg2.extras import execute_values
-
-from lake_to_dwh.utils import get_postgres_connection
 
 
 def _current_quarter() -> int:
@@ -29,14 +25,8 @@ def _current_quarter() -> int:
 
 
 # Shared config
-DB_URL = Variable.get(
-    "dwh_db_url",
-    default_var="postgresql+psycopg2://admin:123456@dwh-postgres:5432/postgres",
-)
-SCHEMA = Variable.get("dwh_schema", default_var="hethong_phantich_chungkhoan")
 MINIO_BUCKET = Variable.get("minio_bucket", default_var="thongtin-congty-va-bctc")
 MINIO_CONN_ID = "minio_finance"
-TABLE = "bctc"
 MULTIPLIER = 1_000_000
 
 # Key requested by user for upsert behavior
@@ -370,7 +360,6 @@ def normalize_one_df(raw_df: pd.DataFrame, ticker: str, source_file: str) -> pd.
 
     for col in value_cols:
         df[col] = df[col].map(parse_de_vn_number)
-        df[col] = df[col] * MULTIPLIER
 
     if value_cols:
         df = df.dropna(subset=value_cols, how="all")
@@ -554,6 +543,13 @@ def transform_scraped_tables_to_records(tables: list[dict], year: int, quarter: 
         ]
     ].copy()
 
+    # Balance sheet values require one extra x1,000,000 multiplier.
+    bl_mask = df_bctc_records["report_code"] == "BL"
+    if bl_mask.any():
+        df_bctc_records.loc[bl_mask, "value"] = (
+            pd.to_numeric(df_bctc_records.loc[bl_mask, "value"], errors="coerce") * MULTIPLIER
+        )
+
     df_bctc_records = df_bctc_records.dropna(
         subset=["value", "ind_code", "report_name", "report_code"]
     ).copy()
@@ -576,106 +572,6 @@ def _save_to_minio(df: pd.DataFrame, partition_folder: str, year: int, quarter: 
         replace=True,
     )
     return object_key
-
-
-def _upsert_bctc(df: pd.DataFrame, schema: str, table: str, db_url: str) -> tuple[int, int, int]:
-    if df.empty:
-        return 0, 0, 0
-
-    rows = [
-        (
-            r["ticker"],
-            int(r["year"]),
-            r["quarter"],
-            r["ind_code"],
-            r["ind_name"],
-            None if pd.isna(r["value"]) else float(r["value"]),
-            r["report_name"],
-            r["report_code"],
-        )
-        for r in df.to_dict("records")
-    ]
-
-    with closing(get_postgres_connection(db_url)) as conn:
-        conn.autocommit = False
-        try:
-            with conn.cursor() as cur:
-                cur.execute(
-                    """
-                    CREATE TEMP TABLE temp_bctc_upsert (
-                        ticker TEXT,
-                        year INTEGER,
-                        quarter TEXT,
-                        ind_code TEXT,
-                        ind_name TEXT,
-                        value NUMERIC,
-                        report_name TEXT,
-                        report_code TEXT
-                    ) ON COMMIT DROP;
-                    """
-                )
-
-                execute_values(
-                    cur,
-                    """
-                    INSERT INTO temp_bctc_upsert
-                    (ticker, year, quarter, ind_code, ind_name, value, report_name, report_code)
-                    VALUES %s
-                    """,
-                    rows,
-                    page_size=1000,
-                )
-
-                # delete existing rows by requested business key
-                cur.execute(
-                    f"""
-                    DELETE FROM {schema}.{table} AS t
-                    USING temp_bctc_upsert AS s
-                    WHERE t.ticker = s.ticker
-                      AND t.year = s.year
-                      AND t.quarter::text = s.quarter
-                      AND t.ind_code = s.ind_code;
-                    """
-                )
-                replaced_count = cur.rowcount
-
-                # insert current snapshot rows
-                cur.execute(
-                    f"""
-                    INSERT INTO {schema}.{table}
-                    (ticker, year, quarter, ind_code, ind_name, value, report_name, report_code)
-                    SELECT
-                        s.ticker,
-                        s.year,
-                        s.quarter,
-                        s.ind_code,
-                        s.ind_name,
-                        s.value,
-                        s.report_name,
-                        s.report_code
-                    FROM temp_bctc_upsert AS s;
-                    """
-                )
-                inserted_count = cur.rowcount
-
-                cur.execute(
-                    f"""
-                    SELECT COUNT(*)
-                    FROM temp_bctc_upsert AS s
-                    JOIN {schema}.{table} AS t
-                      ON t.ticker = s.ticker
-                     AND t.year = s.year
-                     AND t.quarter::text = s.quarter
-                     AND t.ind_code = s.ind_code;
-                    """
-                )
-                matched_after_upsert = cur.fetchone()[0]
-
-            conn.commit()
-            return replaced_count, inserted_count, matched_after_upsert
-        except Exception:
-            conn.rollback()
-            raise
 
 
 @dag(
@@ -760,8 +656,8 @@ def _upsert_bctc(df: pd.DataFrame, schema: str, table: str, db_url: str) -> tupl
             description="Limit number of tickers for test run (0 = all)",
         ),
     },
-    tags=["vnstock", "bctc", "all-in-one", "minio", "postgres"],
-    description="All-in-one DAG: fetch -> transform -> save MinIO -> upsert DB for bctc_luong2",
+    tags=["vnstock", "bctc", "all-in-one", "minio"],
+    description="BCTC luong 2 DAG: fetch -> transform -> save MinIO for bctc_luong2",
 )
 def bctc_luong_2_dag():
     @task
@@ -845,27 +741,12 @@ def bctc_luong_2_dag():
         object_key = _save_to_minio(records, partition_folder=partition_folder, year=year, quarter=quarter)
         print(f"Saved to MinIO: s3://{MINIO_BUCKET}/{object_key}")
 
-        # upsert to database
-        replaced_count, inserted_count, matched_after_upsert = _upsert_bctc(
-            records,
-            schema=SCHEMA,
-            table=TABLE,
-            db_url=DB_URL,
-        )
-
         print("-" * 80)
-        print(f"Target table: {SCHEMA}.{TABLE}")
-        print(f"Rows eligible/upsert input  : {len(records):,}")
-        print(f"Rows replaced(delete by key): {replaced_count:,}")
-        print(f"Rows inserted              : {inserted_count:,}")
-        print(f"Matched keys after upsert  : {matched_after_upsert:,}")
-        print("Business key used          : (ticker, year, quarter, ind_code)")
+        print(f"Rows written to MinIO      : {len(records):,}")
+        print("Database sync              : delegated to minio_to_db_sync DAG")
         print("=" * 80)
 
-        return (
-            f"OK | minio_key={object_key} | rows={len(records)} | "
-            f"replaced={replaced_count} | inserted={inserted_count} | matched={matched_after_upsert}"
-        )
+        return f"OK | minio_key={object_key} | rows={len(records)}"
 
     partition_folder = get_partition_folder()
     run_all_in_one(partition_folder)

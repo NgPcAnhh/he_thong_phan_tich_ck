@@ -54,9 +54,9 @@ def sync_news_to_db(
 
         df = df[required_cols].copy()
         df["published"] = pd.to_datetime(df["published"], errors="coerce")
-        df = df.dropna(subset=["link", "published"])
-        df = df.drop_duplicates(subset=["link"])
-        df = clean_dataframe(df, required_columns=["link", "published"])
+        df = df.dropna(subset=["source", "title", "link", "published"])
+        df = df.drop_duplicates(subset=["source", "title", "link"])
+        df = clean_dataframe(df, required_columns=["source", "title", "link", "published"])
 
         logger.info(f"Rows after cleaning: {len(df)}")
 
@@ -81,14 +81,25 @@ def sync_news_to_db(
                     for _, r in df.iterrows()
                 ]
 
+                # Create unique constraint if not exists to support ON CONFLICT
+                try:
+                    create_idx_sql = f"""
+                        CREATE UNIQUE INDEX IF NOT EXISTS {table}_source_title_link_idx 
+                        ON {schema}.{table} (source, title, link);
+                    """
+                    with conn.cursor() as cur:
+                        cur.execute(create_idx_sql)
+                    conn.commit()
+                except Exception as e:
+                    logger.warning(f"Could not create unique index, proceeding anyway. Error: {e}")
+                    conn.rollback()
+
                 upsert_sql = f"""
                     INSERT INTO {schema}.{table}
                     (source, title, link, published, summary)
                     VALUES %s
-                    ON CONFLICT (link)
+                    ON CONFLICT (source, title, link)
                     DO UPDATE SET
-                        source = EXCLUDED.source,
-                        title = EXCLUDED.title,
                         published = EXCLUDED.published,
                         summary = EXCLUDED.summary;
                 """

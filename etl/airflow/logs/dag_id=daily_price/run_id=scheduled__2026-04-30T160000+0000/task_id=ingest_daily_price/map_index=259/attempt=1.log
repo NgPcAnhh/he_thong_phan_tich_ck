@@ -1,0 +1,233 @@
+[2026-05-02T01:43:35.385+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-05-02T01:43:35.426+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-30T16:00:00+00:00 map_index=259 [queued]>
+[2026-05-02T01:43:35.457+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-30T16:00:00+00:00 map_index=259 [queued]>
+[2026-05-02T01:43:35.457+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 2
+[2026-05-02T01:43:35.474+0000] {taskinstance.py:2330} INFO - Executing <Mapped(DfToCsvOperator): ingest_daily_price> on 2026-04-30 16:00:00+00:00
+[2026-05-02T01:43:35.487+0000] {warnings.py:112} WARNING - This process (pid=2770) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-05-02T01:43:35.489+0000] {standard_task_runner.py:64} INFO - Started process 2939 to run task
+[2026-05-02T01:43:35.491+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_price', 'ingest_daily_price', 'scheduled__2026-04-30T16:00:00+00:00', '--job-id', '47273', '--raw', '--subdir', 'DAGS_FOLDER/dl_dailly_price.py', '--cfg-path', '/tmp/tmp9d_6014s', '--map-index', '259']
+[2026-05-02T01:43:35.494+0000] {standard_task_runner.py:91} INFO - Job 47273: Subtask ingest_daily_price
+[2026-05-02T01:43:35.547+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_price.ingest_daily_price scheduled__2026-04-30T16:00:00+00:00 map_index=259 [running]> on host 0245c982d4f9
+[2026-05-02T01:43:35.966+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_price' AIRFLOW_CTX_TASK_ID='ingest_daily_price' AIRFLOW_CTX_EXECUTION_DATE='2026-04-30T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-30T16:00:00+00:00'
+[2026-05-02T01:43:35.967+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-05-02T01:43:35.968+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-05-02T01:43:35.968+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_daily_price
+[2026-05-02T01:43:35.968+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-05-02T01:43:35.969+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-05-02T01:43:35.969+0000] {datalake_df2csv.py:44} INFO -   - Logic file: history_price
+[2026-05-02T01:43:35.970+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_history_price_batch
+[2026-05-02T01:43:35.970+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-05-02T01:43:35.971+0000] {datalake_df2csv.py:47} INFO -   - Object path: daily_price/2026-04-30/batch_259.csv
+[2026-05-02T01:43:35.971+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-05-02T01:43:35.972+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {'symbols': ['UTT', 'POW', 'CX8', 'VCK', 'LDG'], 'start_date': '2026-04-30', 'end_date': '2026-05-01'}
+[2026-05-02T01:43:35.972+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-05-02T01:43:35.972+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-05-02T01:43:35.976+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-05-02T01:43:35.977+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/history_price.py
+[2026-05-02T01:43:35.978+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-05-02T01:43:35.979+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'history_price'...
+[2026-05-02T01:43:35.984+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-05-02T01:43:35.984+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_history_price_batch'...
+[2026-05-02T01:43:35.985+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-05-02T01:43:35.986+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {'symbols': ['UTT', 'POW', 'CX8', 'VCK', 'LDG'], 'start_date': '2026-04-30', 'end_date': '2026-05-01'}
+[2026-05-02T01:43:41.839+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=VCI), retry 1/3 in 2.0s
+[2026-05-02T01:43:54.589+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=VCI), retry 2/3 in 4.0s
+[2026-05-02T01:44:07.075+0000] {job.py:218} ERROR - Job heartbeat got an exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not translate host name "postgres" to address: Temporary failure in name resolution
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/job.py", line 213, in heartbeat
+    heartbeat_callback(session)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/jobs/local_task_job_runner.py", line 261, in heartbeat_callback
+    self.task_instance.refresh_from_db()
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 79, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1821, in refresh_from_db
+    _refresh_from_db(task_instance=self, session=session, lock_for_update=lock_for_update)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 510, in _refresh_from_db
+    ti = TaskInstance.get_task_instance(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/api_internal/internal_api_call.py", line 115, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 76, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 1807, in get_task_instance
+    return query.one_or_none()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2850, in one_or_none
+    return self._iter().one_or_none()
+           ^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2916, in _iter
+    result = self.session.execute(
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1716, in execute
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1555, in _connection_for_bind
+    return self._transaction._connection_for_bind(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 750, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/future/engine.py", line 412, in connect
+    return super(Engine, self).connect()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+           ^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 256, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 690, in __connect
+    with util.safe_reraise():
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "postgres" to address: Temporary failure in name resolution
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2026-05-02T01:44:09.143+0000] {job.py:226} ERROR - Job heartbeat failed with error. Scheduler is in unhealthy state
+[2026-05-02T01:44:14.130+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=VCI), retry 3/3 in 8.0s
+[2026-05-02T01:44:22.127+0000] {logging_mixin.py:188} INFO - UTT: Exhausted retries for source=VCI, trying next source...
+[2026-05-02T01:44:22.129+0000] {warnings.py:112} WARNING - Provider 'TCBS' is deprecated since version 3.4.0 and will be removed in version 3.5.0. Use 'VCI' provider instead. Reason: TCBS API is no longer publicly accessible as of March 1, 2026.
+
+[2026-05-02T01:44:31.565+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=TCBS), retry 1/3 in 2.0s
+[2026-05-02T01:44:33.567+0000] {warnings.py:112} WARNING - Provider 'TCBS' is deprecated since version 3.4.0 and will be removed in version 3.5.0. Use 'VCI' provider instead. Reason: TCBS API is no longer publicly accessible as of March 1, 2026.
+
+[2026-05-02T01:44:47.301+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=TCBS), retry 2/3 in 4.0s
+[2026-05-02T01:44:51.300+0000] {warnings.py:112} WARNING - Provider 'TCBS' is deprecated since version 3.4.0 and will be removed in version 3.5.0. Use 'VCI' provider instead. Reason: TCBS API is no longer publicly accessible as of March 1, 2026.
+
+[2026-05-02T01:44:56.434+0000] {logging_mixin.py:188} INFO - UTT: RetryError (source=TCBS), retry 3/3 in 8.0s
+[2026-05-02T01:45:04.435+0000] {logging_mixin.py:188} INFO - UTT: Exhausted retries for source=TCBS, trying next source...
+[2026-05-02T01:45:04.436+0000] {logging_mixin.py:188} INFO - UTT: All sources failed after retries
+[2026-05-02T01:45:13.957+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-05-02T01:45:13.957+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-05-02T01:45:13.958+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 12
+[2026-05-02T01:45:13.958+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 7
+[2026-05-02T01:45:13.959+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['ticker', 'trading_date', 'open', 'high', 'low', 'close', 'volume']
+[2026-05-02T01:45:13.960+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'ticker': 'object', 'trading_date': 'object', 'open': 'float64', 'high': 'float64', 'low': 'float64', 'close': 'float64', 'volume': 'int64'}
+[2026-05-02T01:45:13.962+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.00 MB
+[2026-05-02T01:45:13.963+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-05-02T01:45:13.964+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-05-02T01:45:13.965+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'ticker': 'POW', 'trading_date': '2026-04-24', 'open': 12.8, 'high': 12.85, 'low': 12.65, 'close': 12.8, 'volume': 4944700}
+[2026-05-02T01:45:13.965+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'ticker': 'POW', 'trading_date': '2026-04-28', 'open': 12.8, 'high': 12.85, 'low': 12.55, 'close': 12.65, 'volume': 7007100}
+[2026-05-02T01:45:13.966+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'ticker': 'POW', 'trading_date': '2026-04-29', 'open': 12.6, 'high': 12.75, 'low': 12.55, 'close': 12.65, 'volume': 4984200}
+[2026-05-02T01:45:13.966+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'ticker': 'CX8', 'trading_date': '2026-04-09', 'open': 9.5, 'high': 9.5, 'low': 9.5, 'close': 9.5, 'volume': 100}
+[2026-05-02T01:45:13.967+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'ticker': 'CX8', 'trading_date': '2026-04-10', 'open': 9.7, 'high': 9.7, 'low': 9.7, 'close': 9.7, 'volume': 100}
+[2026-05-02T01:45:13.967+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-05-02T01:45:13.967+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-05-02T01:45:13.971+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-05-02T01:45:13.971+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.00 MB
+[2026-05-02T01:45:13.972+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.00 giây
+[2026-05-02T01:45:13.972+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-05-02T01:45:13.972+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-05-02T01:45:13.982+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-05-02T01:45:13.982+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-05-02T01:45:14.341+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-05-02T01:45:14.366+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-05-02T01:45:14.367+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/daily_price/2026-04-30/batch_259.csv
+[2026-05-02T01:45:14.367+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 12
+[2026-05-02T01:45:14.367+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.39 giây
+[2026-05-02T01:45:14.368+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-05-02T01:45:14.368+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-05-02T01:45:14.368+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 98.40 giây
+[2026-05-02T01:45:14.368+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 0 dòng/giây
+[2026-05-02T01:45:14.369+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-05-02T01:45:14.369+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_daily_price
+[2026-05-02T01:45:14.369+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-05-02T01:45:14.370+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-05-02T01:45:14.380+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_price, task_id=ingest_daily_price, run_id=scheduled__2026-04-30T16:00:00+00:00, map_index=259, execution_date=20260430T160000, start_date=20260502T014335, end_date=20260502T014514
+[2026-05-02T01:45:14.453+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-05-02T01:45:14.469+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-05-02T01:45:14.473+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

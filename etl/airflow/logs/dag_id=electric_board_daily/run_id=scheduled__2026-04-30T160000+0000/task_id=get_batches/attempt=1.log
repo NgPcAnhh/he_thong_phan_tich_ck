@@ -1,0 +1,55 @@
+[2026-05-02T01:36:43.858+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-05-02T01:36:43.905+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: electric_board_daily.get_batches scheduled__2026-04-30T16:00:00+00:00 [queued]>
+[2026-05-02T01:36:43.912+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: electric_board_daily.get_batches scheduled__2026-04-30T16:00:00+00:00 [queued]>
+[2026-05-02T01:36:43.913+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-05-02T01:36:43.932+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): get_batches> on 2026-04-30 16:00:00+00:00
+[2026-05-02T01:36:43.943+0000] {warnings.py:112} WARNING - This process (pid=90) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-05-02T01:36:43.947+0000] {standard_task_runner.py:64} INFO - Started process 133 to run task
+[2026-05-02T01:36:43.963+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'electric_board_daily', 'get_batches', 'scheduled__2026-04-30T16:00:00+00:00', '--job-id', '46969', '--raw', '--subdir', 'DAGS_FOLDER/dl_electric_board.py', '--cfg-path', '/tmp/tmpo9ff5t_n']
+[2026-05-02T01:36:43.966+0000] {standard_task_runner.py:91} INFO - Job 46969: Subtask get_batches
+[2026-05-02T01:36:44.038+0000] {task_command.py:426} INFO - Running <TaskInstance: electric_board_daily.get_batches scheduled__2026-04-30T16:00:00+00:00 [running]> on host 0245c982d4f9
+[2026-05-02T01:36:44.222+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='electric_board_daily' AIRFLOW_CTX_TASK_ID='get_batches' AIRFLOW_CTX_EXECUTION_DATE='2026-04-30T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-04-30T16:00:00+00:00'
+[2026-05-02T01:36:44.223+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-05-02T01:36:44.230+0000] {logging_mixin.py:188} INFO - [ELECTRIC_BOARD] Lấy dữ liệu bảng giá cho ngày 2026-04-30
+[2026-05-02T01:37:15.187+0000] {log.py:232} WARNING - 2026-05-02 01:37:15 - vnstock.core.utils.client - ERROR - API request failed: HTTPSConnectionPool(host='kbbuddywts.kbsec.com.vn', port=443): Read timed out. (read timeout=30)
+[2026-05-02T01:37:15.186+0000] {client.py:297} ERROR - API request failed: HTTPSConnectionPool(host='kbbuddywts.kbsec.com.vn', port=443): Read timed out. (read timeout=30)
+[2026-05-02T01:37:15.193+0000] {logging_mixin.py:188} INFO - [list_macp] Tổng mã từ API: 0
+[2026-05-02T01:37:15.196+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-05-02T01:37:15.205+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/dl_electric_board.py", line 43, in get_batches
+    for batch in get_ticker_batches(batch_size=50)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/list_macp.py", line 65, in get_ticker_batches
+    tickers = _fetch_tickers(exclude_upcom=exclude_upcom)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/logic/list_macp.py", line 53, in _fetch_tickers
+    raise AirflowException("Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt")
+airflow.exceptions.AirflowException: Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt
+[2026-05-02T01:37:15.228+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=electric_board_daily, task_id=get_batches, run_id=scheduled__2026-04-30T16:00:00+00:00, execution_date=20260430T160000, start_date=20260502T013643, end_date=20260502T013715
+[2026-05-02T01:37:15.251+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 46969 for task get_batches (Danh sách mã rỗng: API thất bại và không có cache tickers_cache.txt; 133)
+[2026-05-02T01:37:15.305+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-05-02T01:37:15.330+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-05-02T01:37:15.335+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,123 @@
+[2026-05-05T02:00:08.756+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-05-05T02:00:08.776+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: daily_news.ingest_news scheduled__2026-05-04T12:00:00+00:00 [queued]>
+[2026-05-05T02:00:08.784+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: daily_news.ingest_news scheduled__2026-05-04T12:00:00+00:00 [queued]>
+[2026-05-05T02:00:08.784+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2026-05-05T02:00:08.797+0000] {taskinstance.py:2330} INFO - Executing <Task(DfToCsvOperator): ingest_news> on 2026-05-04 12:00:00+00:00
+[2026-05-05T02:00:08.807+0000] {warnings.py:112} WARNING - This process (pid=6858) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-05-05T02:00:08.808+0000] {standard_task_runner.py:64} INFO - Started process 6865 to run task
+[2026-05-05T02:00:08.810+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'daily_news', 'ingest_news', 'scheduled__2026-05-04T12:00:00+00:00', '--job-id', '47816', '--raw', '--subdir', 'DAGS_FOLDER/dl_news.py', '--cfg-path', '/tmp/tmpsgtlj79q']
+[2026-05-05T02:00:08.812+0000] {standard_task_runner.py:91} INFO - Job 47816: Subtask ingest_news
+[2026-05-05T02:00:08.854+0000] {task_command.py:426} INFO - Running <TaskInstance: daily_news.ingest_news scheduled__2026-05-04T12:00:00+00:00 [running]> on host 0486a22c7dcb
+[2026-05-05T02:00:08.941+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='daily_news' AIRFLOW_CTX_TASK_ID='ingest_news' AIRFLOW_CTX_EXECUTION_DATE='2026-05-04T12:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-05-04T12:00:00+00:00'
+[2026-05-05T02:00:08.942+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-05-05T02:00:08.943+0000] {datalake_df2csv.py:40} INFO - ================================================================================
+[2026-05-05T02:00:08.943+0000] {datalake_df2csv.py:41} INFO - 🚀 BẮT ĐẦU TASK: ingest_news
+[2026-05-05T02:00:08.944+0000] {datalake_df2csv.py:42} INFO - ================================================================================
+[2026-05-05T02:00:08.944+0000] {datalake_df2csv.py:43} INFO - 📋 Thông tin cấu hình:
+[2026-05-05T02:00:08.944+0000] {datalake_df2csv.py:44} INFO -   - Logic file: news
+[2026-05-05T02:00:08.945+0000] {datalake_df2csv.py:45} INFO -   - DataFrame name: get_financial_news_today
+[2026-05-05T02:00:08.945+0000] {datalake_df2csv.py:46} INFO -   - Bucket: thongtin-congty-va-bctc
+[2026-05-05T02:00:08.946+0000] {datalake_df2csv.py:47} INFO -   - Object path: news/2026-05-04/news_20260504T120000.csv
+[2026-05-05T02:00:08.946+0000] {datalake_df2csv.py:48} INFO -   - Connection ID: minio_finance
+[2026-05-05T02:00:08.946+0000] {datalake_df2csv.py:49} INFO -   - Tham số truyền vào: {}
+[2026-05-05T02:00:08.947+0000] {datalake_df2csv.py:50} INFO - --------------------------------------------------------------------------------
+[2026-05-05T02:00:08.947+0000] {datalake_df2csv.py:54} INFO - 📥 Bước 1: Đang load dữ liệu từ logic file...
+[2026-05-05T02:00:08.951+0000] {datalake_df2csv.py:148} INFO -   - Logic directory: /opt/airflow/plugins/logic
+[2026-05-05T02:00:08.952+0000] {datalake_df2csv.py:149} INFO -   - Module path: /opt/airflow/plugins/logic/news.py
+[2026-05-05T02:00:08.952+0000] {datalake_df2csv.py:153} INFO -   - Đã thêm logic directory vào sys.path
+[2026-05-05T02:00:08.954+0000] {datalake_df2csv.py:159} INFO -   - Đang load module 'news'...
+[2026-05-05T02:00:08.957+0000] {datalake_df2csv.py:163} INFO -   - ✅ Module loaded thành công
+[2026-05-05T02:00:08.958+0000] {datalake_df2csv.py:165} INFO -   - Đang tìm DataFrame/function: 'get_financial_news_today'...
+[2026-05-05T02:00:08.958+0000] {datalake_df2csv.py:170} INFO -   - ✅ Tìm thấy object: function
+[2026-05-05T02:00:08.958+0000] {datalake_df2csv.py:173} INFO -   - Đang gọi function với tham số: {}
+[2026-05-05T02:00:08.959+0000] {logging_mixin.py:188} INFO - 📥 Đang lấy tin tức tài chính trong ngày từ các nguồn RSS...
+[2026-05-05T02:00:08.959+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeF_ThiTruong
+[2026-05-05T02:00:09.201+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_xa-hoi
+[2026-05-05T02:00:09.800+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_ViMo
+[2026-05-05T02:00:10.289+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_CauChuyenKinhDoanh
+[2026-05-05T02:00:10.572+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_CongNghe
+[2026-05-05T02:00:11.243+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_SucBatTuNhan
+[2026-05-05T02:00:11.643+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: CafeBiz_BizMoney
+[2026-05-05T02:00:12.668+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_ChungKhoan
+[2026-05-05T02:00:13.123+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_DauTuHaTang
+[2026-05-05T02:00:13.279+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_ThiTruong
+[2026-05-05T02:00:13.817+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_NhipCauDoanhNghiep
+[2026-05-05T02:00:14.301+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_TieuDung
+[2026-05-05T02:00:14.932+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_KinhTeXanh
+[2026-05-05T02:00:15.478+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_TaiChinh
+[2026-05-05T02:00:15.977+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_KinhTeSo
+[2026-05-05T02:00:16.472+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_DiaOc
+[2026-05-05T02:00:16.922+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_KinhTeTheGioi
+[2026-05-05T02:00:17.365+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_DauTu
+[2026-05-05T02:00:17.782+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnEconomy_CongNgheStartup
+[2026-05-05T02:00:18.006+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_KinhDoanh
+[2026-05-05T02:00:18.137+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_TaiChinh
+[2026-05-05T02:00:18.686+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_KHCN
+[2026-05-05T02:00:18.845+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_BatDongSan
+[2026-05-05T02:00:18.988+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_ThoiSu
+[2026-05-05T02:00:19.133+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_GiaiTri
+[2026-05-05T02:00:19.281+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: VnExpress_TheGioi
+[2026-05-05T02:00:19.422+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ViMo
+[2026-05-05T02:00:19.591+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_KinhTeDauTu
+[2026-05-05T02:00:19.741+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_CKTheGioi
+[2026-05-05T02:00:19.905+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_GiaoDichNoiBo
+[2026-05-05T02:00:20.071+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ChinhSach
+[2026-05-05T02:00:20.268+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_HDKD
+[2026-05-05T02:00:20.431+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_Vang
+[2026-05-05T02:00:20.615+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_NganHang
+[2026-05-05T02:00:20.777+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ThueNganSach
+[2026-05-05T02:00:20.944+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ETFVaCacQuy
+[2026-05-05T02:00:21.106+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ChungKhoanPhaiSinh
+[2026-05-05T02:00:21.342+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_YKienChuyenGia
+[2026-05-05T02:00:21.520+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_CoTuc
+[2026-05-05T02:00:21.673+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_ThiTruongNhaDat
+[2026-05-05T02:00:21.827+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_NhienLieu
+[2026-05-05T02:00:21.990+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_TaiSanSo
+[2026-05-05T02:00:22.144+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_DongDuong_ThiTruongChungKhoan
+[2026-05-05T02:00:22.310+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_TaiChinhQuocTe
+[2026-05-05T02:00:22.471+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_NhanDinhThiTruong
+[2026-05-05T02:00:22.644+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_PhanTichCoBan
+[2026-05-05T02:00:22.807+0000] {logging_mixin.py:188} INFO - 🔎 Đang lấy: Vietstock_PhanTichKyThuat
+[2026-05-05T02:00:23.122+0000] {logging_mixin.py:188} INFO - ✅ Lấy thành công 28 bài báo tài chính hôm nay.
+[2026-05-05T02:00:23.123+0000] {logging_mixin.py:188} INFO -    Các cột: ['source', 'title', 'link', 'published', 'summary']
+[2026-05-05T02:00:23.123+0000] {datalake_df2csv.py:68} INFO - ✅ Load dữ liệu thành công!
+[2026-05-05T02:00:23.124+0000] {datalake_df2csv.py:69} INFO - 📊 Thông tin DataFrame:
+[2026-05-05T02:00:23.124+0000] {datalake_df2csv.py:70} INFO -   - Số dòng: 28
+[2026-05-05T02:00:23.124+0000] {datalake_df2csv.py:71} INFO -   - Số cột: 5
+[2026-05-05T02:00:23.125+0000] {datalake_df2csv.py:72} INFO -   - Tên các cột: ['source', 'title', 'link', 'published', 'summary']
+[2026-05-05T02:00:23.126+0000] {datalake_df2csv.py:73} INFO -   - Kiểu dữ liệu: {'source': 'object', 'title': 'object', 'link': 'object', 'published': 'datetime64[ns]', 'summary': 'object'}
+[2026-05-05T02:00:23.128+0000] {datalake_df2csv.py:74} INFO -   - Bộ nhớ sử dụng: 0.02 MB
+[2026-05-05T02:00:23.143+0000] {datalake_df2csv.py:83} INFO -   - Không có giá trị NULL
+[2026-05-05T02:00:23.143+0000] {datalake_df2csv.py:86} INFO -   - Mẫu dữ liệu (5 dòng đầu):
+[2026-05-05T02:00:23.145+0000] {datalake_df2csv.py:88} INFO -     Row 0: {'source': 'VnExpress_TheGioi', 'title': 'Mật vụ Mỹ đấu súng với người mang vũ khí gần Nhà Trắng', 'link': 'https://vnexpress.net/mat-vu-my-dau-sung-voi-nguoi-mang-vu-khi-gan-nha-trang-5069879.html', 'published': Timestamp('2026-05-05 01:34:26'), 'summary': '<a href="https://vnexpress.net/mat-vu-my-dau-sung-voi-nguoi-mang-vu-khi-gan-nha-trang-5069879.html"><img src="https://i1-vnexpress.vnecdn.net/2026/05/05/afp-v1-highres-whitehouselocke-4940-1542-1777942093.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=xr36wR6az_ikEkqjxuUndQ" />'}
+[2026-05-05T02:00:23.146+0000] {datalake_df2csv.py:88} INFO -     Row 1: {'source': 'Vietstock_Vang', 'title': 'Vàng thế giới giảm hơn 2%', 'link': 'http://vietstock.vn/2026/05/vang-the-gioi-giam-hon-2-759-1437528.htm', 'published': Timestamp('2026-05-05 01:30:46'), 'summary': '<img alt="" height="90" src="https://image.vietstock.vn/2026/05/05/gia-vang-4-5_727167.png" width="120" />'}
+[2026-05-05T02:00:23.147+0000] {datalake_df2csv.py:88} INFO -     Row 2: {'source': 'Vietstock_NhienLieu', 'title': 'Dầu Brent tăng gần 6% sau khi Iran tấn công UAE', 'link': 'http://vietstock.vn/2026/05/dau-brent-tang-gan-6-sau-khi-iran-tan-cong-uae-34-1437527.htm', 'published': Timestamp('2026-05-05 01:27:41'), 'summary': '<img alt="" height="90" src="https://image.vietstock.vn/2026/05/05/gia-dau-brent-5-4_725884.png" width="120" />'}
+[2026-05-05T02:00:23.148+0000] {datalake_df2csv.py:88} INFO -     Row 3: {'source': 'Vietstock_CKTheGioi', 'title': 'Dow Jones lao dốc hơn 550 điểm', 'link': 'http://vietstock.vn/2026/05/dow-jones-lao-doc-hon-550-diem-773-1437526.htm', 'published': Timestamp('2026-05-05 01:23:44'), 'summary': '<img alt="" height="90" src="https://image.vietstock.vn/2026/05/05/chung-khoan-my-23123_721662.png" width="120" />'}
+[2026-05-05T02:00:23.148+0000] {datalake_df2csv.py:88} INFO -     Row 4: {'source': 'VnExpress_GiaiTri', 'title': 'Lisa thu hút với váy cánh tay ở Met Gala', 'link': 'https://vnexpress.net/lisa-thu-hut-voi-vay-canh-tay-o-met-gala-5069881.html', 'published': Timestamp('2026-05-05 01:23:39'), 'summary': '<a href="https://vnexpress.net/lisa-thu-hut-voi-vay-canh-tay-o-met-gala-5069881.html"><img src="https://i1-giaitri.vnecdn.net/2026/05/05/lisametgala2026-1777940982-7995-1777941074.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=z7zZVOl_4s9b_A6xmKXhmw" />'}
+[2026-05-05T02:00:23.149+0000] {datalake_df2csv.py:90} INFO - --------------------------------------------------------------------------------
+[2026-05-05T02:00:23.149+0000] {datalake_df2csv.py:93} INFO - 📝 Bước 2: Đang chuyển đổi DataFrame sang CSV...
+[2026-05-05T02:00:23.155+0000] {datalake_df2csv.py:97} INFO - ✅ Chuyển đổi CSV thành công!
+[2026-05-05T02:00:23.155+0000] {datalake_df2csv.py:98} INFO -   - Kích thước file: 0.01 MB
+[2026-05-05T02:00:23.156+0000] {datalake_df2csv.py:99} INFO -   - Thời gian chuyển đổi: 0.01 giây
+[2026-05-05T02:00:23.156+0000] {datalake_df2csv.py:100} INFO - --------------------------------------------------------------------------------
+[2026-05-05T02:00:23.157+0000] {datalake_df2csv.py:103} INFO - ☁️  Bước 3: Đang upload lên MinIO/S3...
+[2026-05-05T02:00:23.166+0000] {base.py:84} INFO - Using connection ID 'minio_finance' for task execution.
+[2026-05-05T02:00:23.167+0000] {connection_wrapper.py:384} INFO - AWS Connection (conn_id='minio_finance', conn_type='aws') credentials retrieved from login and password.
+[2026-05-05T02:00:23.379+0000] {datalake_df2csv.py:112} INFO -   - Bucket 'thongtin-congty-va-bctc' đã tồn tại
+[2026-05-05T02:00:23.413+0000] {datalake_df2csv.py:117} INFO - ✅ Upload thành công!
+[2026-05-05T02:00:23.414+0000] {datalake_df2csv.py:118} INFO -   - Đường dẫn: s3://thongtin-congty-va-bctc/news/2026-05-04/news_20260504T120000.csv
+[2026-05-05T02:00:23.414+0000] {datalake_df2csv.py:119} INFO -   - Số dòng: 28
+[2026-05-05T02:00:23.415+0000] {datalake_df2csv.py:120} INFO -   - Thời gian upload: 0.26 giây
+[2026-05-05T02:00:23.415+0000] {datalake_df2csv.py:121} INFO - --------------------------------------------------------------------------------
+[2026-05-05T02:00:23.415+0000] {datalake_df2csv.py:125} INFO - 📈 TỔNG KẾT:
+[2026-05-05T02:00:23.416+0000] {datalake_df2csv.py:126} INFO -   - Tổng thời gian thực thi: 14.47 giây
+[2026-05-05T02:00:23.416+0000] {datalake_df2csv.py:127} INFO -   - Tốc độ xử lý: 2 dòng/giây
+[2026-05-05T02:00:23.416+0000] {datalake_df2csv.py:128} INFO - ================================================================================
+[2026-05-05T02:00:23.417+0000] {datalake_df2csv.py:129} INFO - ✅ HOÀN THÀNH TASK: ingest_news
+[2026-05-05T02:00:23.417+0000] {datalake_df2csv.py:130} INFO - ================================================================================
+[2026-05-05T02:00:23.418+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-05-05T02:00:23.427+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=daily_news, task_id=ingest_news, run_id=scheduled__2026-05-04T12:00:00+00:00, execution_date=20260504T120000, start_date=20260505T020008, end_date=20260505T020023
+[2026-05-05T02:00:23.490+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-05-05T02:00:23.504+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-05-05T02:00:23.505+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,59 @@
+[2026-05-03T16:04:07.027+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-05-03T16:04:07.043+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: news_sentiment_sync.fill_icb_names manual__2026-05-03T15:58:10.337123+00:00 [queued]>
+[2026-05-03T16:04:07.052+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: news_sentiment_sync.fill_icb_names manual__2026-05-03T15:58:10.337123+00:00 [queued]>
+[2026-05-03T16:04:07.053+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2026-05-03T16:04:07.065+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): fill_icb_names> on 2026-05-03 15:58:10.337123+00:00
+[2026-05-03T16:04:07.073+0000] {warnings.py:112} WARNING - This process (pid=230) is multi-threaded, use of fork() may lead to deadlocks in the child.
+
+[2026-05-03T16:04:07.074+0000] {standard_task_runner.py:64} INFO - Started process 237 to run task
+[2026-05-03T16:04:07.075+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'news_sentiment_sync', 'fill_icb_names', 'manual__2026-05-03T15:58:10.337123+00:00', '--job-id', '47392', '--raw', '--subdir', 'DAGS_FOLDER/news_sentiment_sync.py', '--cfg-path', '/tmp/tmp2fd936qo']
+[2026-05-03T16:04:07.078+0000] {standard_task_runner.py:91} INFO - Job 47392: Subtask fill_icb_names
+[2026-05-03T16:04:07.119+0000] {task_command.py:426} INFO - Running <TaskInstance: news_sentiment_sync.fill_icb_names manual__2026-05-03T15:58:10.337123+00:00 [running]> on host dac6ed0920f9
+[2026-05-03T16:04:07.195+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='news_sentiment_sync' AIRFLOW_CTX_TASK_ID='fill_icb_names' AIRFLOW_CTX_EXECUTION_DATE='2026-05-03T15:58:10.337123+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-05-03T15:58:10.337123+00:00'
+[2026-05-03T16:04:07.196+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-05-03T16:04:07.204+0000] {news_sentiment_sync.py:80} INFO - Starting fill_icb_name
+[2026-05-03T16:04:07.205+0000] {sentiment_processor.py:244} INFO - START FILL ICB NAME
+[2026-05-03T16:04:07.215+0000] {sentiment_processor.py:262} INFO - Found 801 rows to fill ICB name.
+[2026-05-03T16:04:07.604+0000] {sentiment_processor.py:289} ERROR - Error filling ICB name: set_session cannot be used inside a transaction
+[2026-05-03T16:04:07.609+0000] {sentiment_processor.py:290} ERROR - Traceback (most recent call last):
+  File "/opt/***/plugins/lake_to_dwh/sentiment_processor.py", line 280, in fill_icb_name
+    conn.autocommit = False
+    ^^^^^^^^^^^^^^^
+psycopg2.ProgrammingError: set_session cannot be used inside a transaction
+
+[2026-05-03T16:04:07.610+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-05-03T16:04:07.611+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/news_sentiment_sync.py", line 81, in task_fill_icb_name
+    result = fill_icb_name(
+             ^^^^^^^^^^^^^^
+  File "/opt/airflow/plugins/lake_to_dwh/sentiment_processor.py", line 280, in fill_icb_name
+    conn.autocommit = False
+    ^^^^^^^^^^^^^^^
+psycopg2.ProgrammingError: set_session cannot be used inside a transaction
+[2026-05-03T16:04:07.623+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=news_sentiment_sync, task_id=fill_icb_names, run_id=manual__2026-05-03T15:58:10.337123+00:00, execution_date=20260503T155810, start_date=20260503T160407, end_date=20260503T160407
+[2026-05-03T16:04:07.634+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 47392 for task fill_icb_names (set_session cannot be used inside a transaction; 237)
+[2026-05-03T16:04:07.650+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-05-03T16:04:07.672+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-05-03T16:04:07.674+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

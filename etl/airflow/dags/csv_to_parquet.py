@@ -25,7 +25,7 @@ default_args = {
     dag_id="csv_to_parquet",
     default_args=default_args,
     start_date=datetime(2026, 1, 1),
-    schedule_interval="0 4 * * *",  # Daily at 04:00 AM
+    schedule_interval=None,  # Manual trigger only
     catchup=False,
     max_active_runs=1,
     tags=["compression", "parquet", "minio", "optimization"],
@@ -35,7 +35,7 @@ def csv_to_parquet_compression():
     """
     Master DAG to compress CSV files to Parquet format.
     
-    Runs daily at 04:00 AM after all MinIO ETL and DB sync jobs have completed.
+    Runs manually after all MinIO ETL and DB sync jobs have completed.
     All compression tasks run in parallel since they work on different folders.
     """
     

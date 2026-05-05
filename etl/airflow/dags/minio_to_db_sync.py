@@ -34,7 +34,7 @@ default_args = {
     dag_id="minio_to_db_sync",
     default_args=default_args,
     start_date=datetime(2026, 1, 1),
-    schedule_interval="0 3 * * *",  # Daily at 03:00 AM
+    schedule_interval="0 8-18/2 * * *",  # Chạy lúc 0 phút, mỗi 2 tiếng từ 8h sáng đến 18h
     catchup=False,
     max_active_runs=1,
     tags=["sync", "minio", "database", "etl", "dwh"],
@@ -43,13 +43,14 @@ default_args = {
 def minio_to_db_sync():
     @task(task_id="sync_bctc")
     def task_sync_bctc():
-        """Sync BCTC (Financial Reports) - Upsert with indicator mapping"""
+        """Sync BCTC from new bctc_luong2 MinIO flow"""
         from lake_to_dwh.sync_bctc import sync_bctc_to_db
         return sync_bctc_to_db(
             minio_conn_id=MINIO_CONN_ID,
             bucket=MINIO_BUCKET,
             db_url=DB_URL,
-            schema=SCHEMA
+            schema=SCHEMA,
+            folder_prefix="bctc_luong2/"
         )
     
     @task(task_id="sync_daily_price")
@@ -65,13 +66,14 @@ def minio_to_db_sync():
     
     @task(task_id="sync_financial_ratio")
     def task_sync_financial_ratio():
-        """Sync financial ratios - Replace (TRUNCATE then INSERT)"""
-        from lake_to_dwh.sync_financial_ratio import sync_financial_ratio_to_db
-        return sync_financial_ratio_to_db(
+        """Sync fin_ratio_v2 data - Upsert by (ticker, year, quarter)"""
+        from lake_to_dwh.sync_fin_ratio_v2 import sync_fin_ratio_v2_to_db
+        return sync_fin_ratio_v2_to_db(
             minio_conn_id=MINIO_CONN_ID,
             bucket=MINIO_BUCKET,
             db_url=DB_URL,
-            schema=SCHEMA
+            schema=SCHEMA,
+            folder_prefix="fin_ratio_v2/"
         )
     
     @task(task_id="sync_global_index")
@@ -101,16 +103,6 @@ def minio_to_db_sync():
         """Sync macro economy data (Gold, Oil, Dow Jones) - Append"""
         from lake_to_dwh.sync_macro_economy import sync_macro_economy_to_db
         return sync_macro_economy_to_db(
-            minio_conn_id=MINIO_CONN_ID,
-            bucket=MINIO_BUCKET,
-            db_url=DB_URL,
-            schema=SCHEMA
-        )
-    
-    @task(task_id="sync_news")
-    def task_sync_news():
-        from lake_to_dwh.sync_news import sync_news_to_db
-        return sync_news_to_db(
             minio_conn_id=MINIO_CONN_ID,
             bucket=MINIO_BUCKET,
             db_url=DB_URL,
@@ -180,7 +172,6 @@ def minio_to_db_sync():
             "Global Index",
             "Index Price",
             "Macro Economy",
-            "News",
             "Company Overview",
             "Company People",
             "Electric Board",
@@ -208,7 +199,6 @@ def minio_to_db_sync():
     global_index_result = task_sync_global_index()
     index_price_result = task_sync_index_price()
     macro_economy_result = task_sync_macro_economy()
-    news_result = task_sync_news()
     overview_result = task_sync_overview()
     # people_result = task_sync_people()
     electric_board_result = task_sync_electric_board()
@@ -223,7 +213,6 @@ def minio_to_db_sync():
         global_index_result,
         index_price_result,
         macro_economy_result,
-        news_result,
         overview_result,
         # people_result,
         electric_board_result,

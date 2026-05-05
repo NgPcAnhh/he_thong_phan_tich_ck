@@ -23,7 +23,7 @@ MINIO_CONN_ID = "minio_finance"
     dag_id="company_overview",
     default_args=default_args,
     start_date=datetime(2023, 1, 1),
-    schedule_interval="@weekly",
+    schedule_interval="0 0 1 1,4,7,10 *",
     catchup=False,
     tags=["vnstock", "company", "overview"],
 )

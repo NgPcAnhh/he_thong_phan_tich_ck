@@ -76,7 +76,7 @@ x-airflow-common:
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     # Cài libs qua build-time để tránh cài lại mỗi lần container khởi động
-    _PIP_ADDITIONAL_REQUIREMENTS: ''
+    _PIP_ADDITIONAL_REQUIREMENTS: 'click==8.1.7'
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
@@ -95,7 +95,7 @@ x-airflow-common:
 
 services:
   postgres:
-    image: postgres:13
+    image: pgvector/pgvector:pg13
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -111,7 +111,7 @@ services:
 
   # Postgres 16 dành cho DWH
   dwh-postgres:
-    image: postgres:16
+    image: pgvector/pgvector:pg16
     container_name: dwh-postgres
     environment:
       POSTGRES_USER: admin
