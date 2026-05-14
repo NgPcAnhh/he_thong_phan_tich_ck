@@ -59,6 +59,41 @@ services:
     networks:
       - kafka-network
 
+  realtime-producer:
+    build: .
+    container_name: realtime-producer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+    volumes:
+      - ./src:/app/src  # <-- Đồng bộ thư mục code vào container
+    command: python src/producers/kafka_producer.py
+    networks:
+      - kafka-network
+
+  minio-sink-consumer:
+    build: .
+    container_name: minio-sink-consumer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9093
+      MINIO_ENDPOINT: http://host.docker.internal:9000
+      BATCH_SIZE: 2
+      FLUSH_INTERVAL: 120
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./src:/app/src  # <-- Đồng bộ thư mục code vào container
+    command: python src/consumers/minio_sink_consumer.py
+    networks:
+      - kafka-network
+
 volumes:
   zookeeper-data:
     driver: local
