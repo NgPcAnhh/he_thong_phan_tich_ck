@@ -252,6 +252,7 @@ docker exec -i dwh-postgres psql -U admin -d postgres < d:/project/web_ptich_ck/
 
 Sau khi cài đặt xong, bạn có thể kiểm tra xem hệ thống đã chạy ổn định chưa bằng các đường dẫn sau:
 
+0. **dumbdb tạm thời :** Truy cập [https://drive.google.com/drive/folders/1y2zmunS2DlMVXL3D5H_eCmiJ89DnjttY?usp=drive_link](https://drive.google.com/drive/folders/1y2zmunS2DlMVXL3D5H_eCmiJ89DnjttY?usp=drive_link)
 1.  **Airflow Webserver:** Truy cập [http://localhost:8080](http://localhost:8080) để bật (Unpause) các DAG và bấm **Trigger** chạy thử luồng.
 2.  **Kafka UI:** Truy cập [http://localhost:8081](http://localhost:8081), chọn mục **Topics** -> `market.quotes.raw` -> **Messages** để kiểm tra dữ liệu chứng khoán thời gian thực có đang đổ về liên tục hay không.
 3.  **Flower (Celery Monitor):** Truy cập [http://localhost:5555](http://localhost:5555) để kiểm tra trạng thái hoạt động và hiệu năng xử lý của các Worker chạy ngầm.
