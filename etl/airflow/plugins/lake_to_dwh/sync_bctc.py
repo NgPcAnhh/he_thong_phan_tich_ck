@@ -172,7 +172,7 @@ def sync_bctc_to_db(
 
     # Load mapping from bctc.md
     import re
-    _mapping_file = Path(__file__).resolve().parent.parent.parent.parent / "web_ptich_ck" / "md" / "bctc.md"
+    _mapping_file = Path(__file__).resolve().parent.parent / "bctc.md"
     _ind_map = {}
     try:
         with open(_mapping_file, "r", encoding="utf-8") as f:

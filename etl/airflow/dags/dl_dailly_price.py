@@ -9,6 +9,7 @@ default_args = {
     "owner": "airflow",
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
+    "execution_timeout": timedelta(minutes=10),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
@@ -49,7 +50,7 @@ def daily_price_minio_dag():
                 "start_date": current_date,  # Ngày hiện tại
                 "end_date": next_date,        # Ngày mai (để lấy được dữ liệu ngày hiện tại)
             }
-            for batch in get_ticker_batches(batch_size=5)
+            for batch in get_ticker_batches(batch_size=2)
         ]
         
         print(f"[DAILY_PRICE] Tổng số batches: {len(batches)}")

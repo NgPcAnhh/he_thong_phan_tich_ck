@@ -98,7 +98,7 @@ def _normalize_price_df(df: pd.DataFrame, symbol: str) -> pd.DataFrame:
 
 def get_history_price_batch(symbols: list, start_date: str | None = None, end_date: str | None = None) -> pd.DataFrame:
     """Fetch daily historical prices for a batch of symbols."""
-    start = start_date or "2008-01-01"  # theo yêu cầu: lấy từ 2008 trở đi
+    start = start_date or "2026-01-01"  # theo yêu cầu: lấy từ 2008 trở đi
     end = end_date or datetime.utcnow().strftime("%Y-%m-%d")
 
     frames: list[pd.DataFrame] = []
@@ -109,6 +109,6 @@ def get_history_price_batch(symbols: list, start_date: str | None = None, end_da
         norm_df = _normalize_price_df(raw_df, sym)
         if not norm_df.empty:
             frames.append(norm_df)
-        time.sleep(0.5)
+        time.sleep(1)
 
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()

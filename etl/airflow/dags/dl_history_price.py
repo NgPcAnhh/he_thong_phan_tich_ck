@@ -9,6 +9,7 @@ default_args = {
     "owner": "airflow",
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
+    "execution_timeout": timedelta(minutes=10),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
@@ -43,7 +44,7 @@ def history_price_dag():
                 "start_date": start_date,
                 "end_date": end_date,
             }
-            for batch in get_ticker_batches(batch_size=5)
+            for batch in get_ticker_batches(batch_size=2)
         ]
 
     batches = get_batches()
