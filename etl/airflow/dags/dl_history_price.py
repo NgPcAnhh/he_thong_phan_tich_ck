@@ -7,9 +7,9 @@ from function.datalake_df2csv import DfToCsvOperator
 
 default_args = {
     "owner": "airflow",
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
-    "execution_timeout": timedelta(minutes=10),
+    "retries": 2,
+    "retry_delay": timedelta(minutes=10),
+    "execution_timeout": timedelta(minutes=60),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
@@ -44,7 +44,7 @@ def history_price_dag():
                 "start_date": start_date,
                 "end_date": end_date,
             }
-            for batch in get_ticker_batches(batch_size=2)
+            for batch in get_ticker_batches(batch_size=20)
         ]
 
     batches = get_batches()
@@ -56,6 +56,7 @@ def history_price_dag():
         bucket_name=MINIO_BUCKET,
         object_path="history_price/{{ ds }}/batch_{{ ti.map_index }}.csv",
         conn_id=MINIO_CONN_ID,
+        max_active_tis_per_dagrun=3,  # Chạy 4 batch đồng thời
     ).expand(op_kwargs=batches)
 
     chain(batches, ingest_history)

@@ -7,9 +7,9 @@ from function.datalake_df2csv import DfToCsvOperator
 
 default_args = {
     "owner": "airflow",
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
-    "execution_timeout": timedelta(minutes=10),
+    "retries": 2,
+    "retry_delay": timedelta(minutes=3),
+    "execution_timeout": timedelta(minutes=60),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
@@ -29,7 +29,7 @@ def daily_price_minio_dag():
     @task
     def get_batches(**context):
         """
-        Tạo danh sách batch tickers với start_date = ngày hiện tại, end_date = ngày hiện tại + 1.
+        Tạo danh sáchz batch tickers với start_date = ngày hiện tại, end_date = ngày hiện tại + 1.
         end_date phải là ngày mai để API trả về đầy đủ dữ liệu của ngày hiện tại.
         """
         from datetime import datetime, timedelta
@@ -50,7 +50,7 @@ def daily_price_minio_dag():
                 "start_date": current_date,  # Ngày hiện tại
                 "end_date": next_date,        # Ngày mai (để lấy được dữ liệu ngày hiện tại)
             }
-            for batch in get_ticker_batches(batch_size=2)
+            for batch in get_ticker_batches(batch_size=20)
         ]
         
         print(f"[DAILY_PRICE] Tổng số batches: {len(batches)}")
@@ -66,6 +66,7 @@ def daily_price_minio_dag():
         bucket_name=MINIO_BUCKET,
         object_path="daily_price/{{ ds }}/batch_{{ ti.map_index }}.csv",  # Lưu vào folder daily_price
         conn_id=MINIO_CONN_ID,
+        max_active_tis_per_dagrun=3,  # Chạy 4 batch đồng thời
     ).expand(op_kwargs=batches)
 
     chain(batches, ingest_daily_price)

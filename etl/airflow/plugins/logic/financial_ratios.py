@@ -1,3 +1,4 @@
+import re
 import time
 from datetime import datetime
 from typing import Callable
@@ -6,16 +7,30 @@ import pandas as pd
 from vnstock import Finance
 
 
-def _retry_call(callable_fn: Callable[[], pd.DataFrame], symbol: str, retries: int = 3, base_delay: float = 2.5) -> pd.DataFrame:
+# Rate limit: vnstock Guest = 20 req/min
+RATE_LIMIT_DELAY = 2.0
+
+
+def _retry_call(callable_fn: Callable[[], pd.DataFrame], symbol: str, retries: int = 3, base_delay: float = 5.0) -> pd.DataFrame:
     """Gọi hàm từ thư viện vnstock an toàn với retry logic."""
     for attempt in range(retries):
         try:
             return callable_fn()
         except Exception as exc:
             msg = str(exc)
-            if "429" in msg or "Too Many Requests" in msg:
-                wait = base_delay * (attempt + 1)
-                print(f"❗ {symbol}: 429 Too Many Requests, retry {attempt + 1}/{retries} sau {wait:.1f}s")
+            msg_lower = msg.lower()
+            # Rate limit detection
+            if any(kw in msg_lower for kw in ["429", "rate limit", "giới hạn api", "too many requests"]):
+                # Parse wait seconds from vnstock error message
+                wait_match = re.search(r"[Cc]hờ\s+(\d+)\s+giây", msg)
+                wait = int(wait_match.group(1)) if wait_match else base_delay * (attempt + 2)
+                print(f"⚠️ {symbol}: Rate limit, waiting {wait:.0f}s then retry {attempt + 1}/{retries}")
+                time.sleep(wait)
+                continue
+            # Other retryable errors
+            if any(kw in msg_lower for kw in ["connection", "timeout", "ssl", "retry", "import"]):
+                wait = base_delay * (2 ** attempt)
+                print(f"⚠️ {symbol}: {type(exc).__name__}, retry {attempt + 1}/{retries} in {wait:.1f}s")
                 time.sleep(wait)
                 continue
             print(f"❌ Lỗi {symbol}: {exc}")
@@ -87,8 +102,8 @@ def get_financial_ratios_batch(symbols: list, period: str = 'quarter') -> pd.Dat
             else:
                 print(f" ⚠️ [RATIO] {symbol}: No data from API")
             
-            # Throttle giữa các mã để tránh rate-limit
-            time.sleep(2)
+            # Throttle giữa các mã để tránh rate-limit (20 req/phút)
+            time.sleep(RATE_LIMIT_DELAY)
             
         except Exception as e:
             print(f" ❌ [RATIO] Lỗi xử lý mã {symbol}: {e}")

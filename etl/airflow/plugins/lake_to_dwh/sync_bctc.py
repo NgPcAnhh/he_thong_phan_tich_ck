@@ -15,6 +15,87 @@ from lake_to_dwh.utils import (
 )
 
 
+# ==================== Table Definition ====================
+
+CREATE_BCTC_TABLE_SQL = """
+CREATE TABLE IF NOT EXISTS {schema}.{table} (
+    id SERIAL,
+    ticker VARCHAR(20) NOT NULL,
+    quarter VARCHAR(10) NOT NULL,
+    year INTEGER NOT NULL,
+    ind_name TEXT NOT NULL,
+    ind_code VARCHAR(50) NOT NULL,
+    value NUMERIC,
+    report_name TEXT,
+    report_code TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_bctc_pk UNIQUE (ticker, year, quarter, ind_code, ind_name)
+);
+
+CREATE INDEX IF NOT EXISTS idx_bctc_ticker ON {schema}.{table} (ticker);
+CREATE INDEX IF NOT EXISTS idx_bctc_year_quarter ON {schema}.{table} (year, quarter);
+"""
+
+
+def _ensure_bctc_table(conn, schema: str, table: str = "bctc"):
+    """Create bctc table if not exists, and ensure unique constraint exists."""
+    try:
+        with conn.cursor() as cur:
+            cur.execute(CREATE_BCTC_TABLE_SQL.format(schema=schema, table=table))
+        conn.commit()
+        print(f"✓ Table {schema}.{table} ensured (with UNIQUE constraint)")
+    except Exception as e:
+        conn.rollback()
+        err_msg = str(e).lower()
+        if "already exists" in err_msg:
+            # Table exists but maybe constraint name conflicts or is missing
+            print(f"  Table/constraint partial conflict, checking state...")
+            _ensure_unique_constraint(conn, schema, table)
+        else:
+            print(f"❌ Error creating table: {str(e)}")
+            raise
+    
+    # Double-check: if table existed before CREATE TABLE IF NOT EXISTS,
+    # the CONSTRAINT clause is silently skipped. Always verify.
+    _ensure_unique_constraint(conn, schema, table)
+
+
+def _ensure_unique_constraint(conn, schema: str, table: str = "bctc"):
+    """Add unique constraint if table exists but constraint is missing."""
+    constraint_name = f"uq_{table}_pk"
+    try:
+        with conn.cursor() as cur:
+            # Check if constraint already exists
+            cur.execute("""
+                SELECT 1 FROM pg_constraint c
+                JOIN pg_namespace n ON n.oid = c.connamespace
+                WHERE c.conname = %s
+                AND n.nspname = %s
+            """, (constraint_name, schema))
+            
+            if cur.fetchone() is None:
+                # Constraint doesn't exist, create it
+                print(f"  Adding UNIQUE constraint {constraint_name}...")
+                cur.execute(f"""
+                    ALTER TABLE {schema}.{table}
+                    ADD CONSTRAINT {constraint_name}
+                    UNIQUE (ticker, year, quarter, ind_code, ind_name);
+                """)
+                conn.commit()
+                print(f"  ✓ UNIQUE constraint added successfully")
+            else:
+                conn.commit()
+                print(f"  ✓ UNIQUE constraint already exists")
+    except Exception as e:
+        conn.rollback()
+        if "already exists" in str(e).lower():
+            print(f"  ✓ Constraint already exists (race condition)")
+        else:
+            print(f"❌ Error adding constraint: {str(e)}")
+            raise
+
+
+
 # INDICATOR_MAPPING removed - data is now fetched in Vietnamese from vnstock with lang='vi' parameter
 
 
@@ -224,8 +305,9 @@ def sync_bctc_to_db(
         conn.autocommit = False
         
         try:
-            # Ensure schema exists
+            # Ensure schema and table exist
             ensure_schema(conn, schema)
+            _ensure_bctc_table(conn, schema, table)
             
             # Prepare data for insertion
             rows = []

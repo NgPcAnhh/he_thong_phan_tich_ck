@@ -20,6 +20,34 @@ MINIO_BUCKET = Variable.get(
 
 MINIO_CONN_ID = "minio_finance"
 
+def get_minio_topics():
+    """Fetch root folders from MinIO to populate the topic dropdown."""
+    try:
+        from airflow.providers.amazon.aws.hooks.s3 import S3Hook
+        hook = S3Hook(aws_conn_id=MINIO_CONN_ID)
+        client = hook.get_conn()
+        
+        # Note: at parse time, Variable.get might cause issues, so we use a safe default
+        try:
+            bucket_name = Variable.get("minio_bucket", default_var="thongtin-congty-va-bctc")
+        except:
+            bucket_name = "thongtin-congty-va-bctc"
+            
+        response = client.list_objects_v2(Bucket=bucket_name, Delimiter='/')
+        prefixes = [p.get('Prefix').strip('/') for p in response.get('CommonPrefixes', [])]
+        if prefixes:
+            return sorted(prefixes)
+    except Exception as e:
+        import logging
+        logging.getLogger("airflow.processor").warning(f"Could not fetch topics from MinIO: {e}")
+    
+    # Fallback
+    return [
+        "bctc", "daily-price", "financial-ratios", "news", 
+        "overview", "people", "electric-board", "global-index", 
+        "index-price", "macro-economy", "vn-macro-yearly"
+    ]
+
 # ============================================================================
 
 default_args = {
@@ -43,24 +71,12 @@ with DAG(
             default="bctc",
             type="string",
             description="Topic/folder name in MinIO (e.g., bctc, daily-price, news)",
-            enum=[
-                "bctc",
-                "daily-price",
-                "financial-ratios",
-                "news",
-                "overview",
-                "people",
-                "electric-board",
-                "global-index",
-                "index-price",
-                "macro-economy",
-                "vn-macro-yearly"
-            ]
+            enum=get_minio_topics()
         ),
         "partition_path": Param(
-            default="date=2026-02-04",
+            default="latest",
             type="string",
-            description="Partition path (e.g., 'date=2026-02-04' or '2026-02-04' or multi-layer 'category=tech/date=2026-02-04')"
+            description="Partition path. Leave as 'latest' to automatically find the newest partition (e.g., date=YYYY-MM-DD)."
         ),
         "sync_mode": Param(
             default="auto",
@@ -105,11 +121,21 @@ with DAG(
         logger.info(f"Dry Run: {dry_run}")
         
         # Construct full folder path
-        # Ensure partition_path doesn't have leading/trailing slashes
-        partition_clean = partition_path.strip("/")
-        folder_path = f"{topic}/{partition_clean}/"
-        
-        logger.info(f"\n✓ Constructed MinIO path: {MINIO_BUCKET}/{folder_path}")
+        if partition_path.lower() == "latest":
+            from lake_to_dwh.utils import get_latest_partition
+            prefix = f"{topic}/" if not topic.endswith("/") else topic
+            latest_path = get_latest_partition(MINIO_BUCKET, prefix, MINIO_CONN_ID)
+            
+            if not latest_path:
+                raise ValueError(f"❌ Could not find any valid date partitions in {MINIO_BUCKET}/{prefix}")
+                
+            folder_path = latest_path
+            logger.info(f"\n✓ Auto-detected latest partition: {MINIO_BUCKET}/{folder_path}")
+        else:
+            # Ensure partition_path doesn't have leading/trailing slashes
+            partition_clean = partition_path.strip("/")
+            folder_path = f"{topic}/{partition_clean}/"
+            logger.info(f"\n✓ Constructed MinIO path: {MINIO_BUCKET}/{folder_path}")
         
         # Prepare configuration
         config = {

@@ -7,8 +7,9 @@ from function.datalake_df2csv import DfToCsvOperator
 
 default_args = {
     "owner": "airflow",
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
+    "retries": 2,
+    "retry_delay": timedelta(minutes=3),
+    "execution_timeout": timedelta(minutes=30),
 }
 
 MINIO_BUCKET = "thongtin-congty-va-bctc"
@@ -55,7 +56,7 @@ def financial_ratios_etl_dag():
                 "symbols": batch,
                 "period": period,
             }
-            for batch in get_ticker_batches(batch_size=2)  # Batch size nhỏ hơn vì API chậm (sleep 2s/mã)
+            for batch in get_ticker_batches(batch_size=10)  # Batch 10 mã (API chậm, sleep 2s/mã)
         ]
         
         print(f"[FINANCIAL_RATIOS] Tổng số batches: {len(batches)}")
@@ -71,6 +72,7 @@ def financial_ratios_etl_dag():
         bucket_name=MINIO_BUCKET,
         object_path="financial_ratios/{{ ds }}/batch_{{ ti.map_index }}.csv",
         conn_id=MINIO_CONN_ID,
+        max_active_tis_per_dagrun=2,  # Giới hạn 2 batch đồng thời (API chậm)
     ).expand(op_kwargs=batches)
 
     chain(batches, ingest_ratios)
