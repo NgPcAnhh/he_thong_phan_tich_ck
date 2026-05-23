@@ -11,6 +11,6 @@ các lệnh thông dụng:
     - \du: Liệt kê các User (Roles) và quyền hạn của họ.
     - \q: Thoát khỏi psql.
 
-dump db: docker exec stockpro-db pg_dump -U admin -d postgres > D:/backup_db.sql
-dump + nén: docker exec stockpro-db pg_dump -U admin -d postgres | gzip > D:/backup_db.sql.gz
-restore: docker exec -i stockpro-db psql -U admin -d postgres < D:/backup_db.sql
+dump db: docker exec dwh-postgres pg_dump -U admin -d postgres > D:/backup_db.sql
+dump + nén: docker exec dwh-postgres pg_dump -U admin -d postgres | gzip > D:/backup_db.sql.gz
+restore: docker exec -i dwh-postgres psql -U admin -d postgres < D:/backup_db.sql

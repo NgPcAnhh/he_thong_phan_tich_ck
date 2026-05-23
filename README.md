@@ -124,22 +124,11 @@ cd data_pipeline/etl
 
 ---
 
-### Bước 2: Khởi tạo các Docker Volume ngoài (Bắt buộc)
-Các Volume lưu trữ dữ liệu cho PostgreSQL, Kafka, Zookeeper trong tệp cấu hình [docker-compose.yaml](file:///d:/project/data_pipeline/etl/docker-compose.yaml) được thiết lập ở dạng `external: true`. 
+### Bước 2: Khởi tạo các Docker Volume (Tự động)
+Các Volume lưu trữ dữ liệu cho PostgreSQL, Kafka, Zookeeper trong tệp cấu hình [docker-compose.yaml](file:///d:/project/data_pipeline/etl/docker-compose.yaml) đã được cấu hình với thuộc tính `name` mà không có `external: true`.
 
-> [!WARNING]
-> Nếu không tạo thủ công các Volume này trước khi khởi động, lệnh `docker-compose up` sẽ báo lỗi và dừng tiến trình.
-
-Hãy mở Terminal (Command Prompt hoặc PowerShell trên Windows) và chạy 5 dòng lệnh sau:
-```bash
-docker volume create airflow_postgres-db-volume
-docker volume create airflow_dwh-postgres-data
-docker volume create kafka_zookeeper-data
-docker volume create kafka_zookeeper-logs
-docker volume create kafka_kafka-data
-```
-
-*(Lưu ý: Nếu bạn muốn Docker tự động tạo các volume này mà không cần gõ lệnh thủ công, hãy mở tệp [docker-compose.yaml](file:///d:/project/data_pipeline/etl/docker-compose.yaml), cuộn xuống cuối cùng ở phần `volumes` và xóa thuộc tính `external: true`).*
+> [!NOTE]
+> Hệ thống sẽ tự động tạo các volume này nếu chúng chưa tồn tại khi bạn chạy lệnh `docker-compose up`. Nếu các volume đã tồn tại sẵn (như trên máy cũ của bạn), Docker Compose sẽ tự động nhận diện và tái sử dụng dữ liệu cũ của bạn mà không làm mất mát dữ liệu. Bạn **không cần** chạy các lệnh `docker volume create` thủ công nữa.
 
 ---
 
